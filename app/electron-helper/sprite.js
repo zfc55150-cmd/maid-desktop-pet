@@ -1176,7 +1176,7 @@ class PetSprite {
     e.preventDefault();
     this.stopThrow(); // 菜单弹出前停住飞行中的宠物
     this.stopMove(); // 菜单悬停期间宠物不漫游
-    // 桌面专属工具根项（打开网站 / 查看余额 / 碎碎念 / 对话 / 回到初始位置 / 重载配置）+ 共享菜单树（动作→分类→具体动画）
+    // 桌面专属工具根项（打开网站 / 查看余额 / 碎碎念 / 对话 / 重载配置）+ 共享菜单树（动作→分类→具体动画）
     // 碎碎念/对话项无条件显示：手动触发不受 whisperEnabled 限制（该字段只影响自动周期轮询）
     // 首项文案随宿主形态变（OPEN_TARGET）：宿主是 DSH 桌面应用时点是"唤起桌面应用窗口"，仍叫「打开网站」会误导
     const tools = [
@@ -1187,7 +1187,6 @@ class PetSprite {
       { label: '调整大小', action: 'pet-size' },
       { label: '停止回复 / 朗读', action: 'chat-stop' },
       { label: '试听语音与气泡', action: 'chat-preview' },
-      { label: '回到初始位置', action: 'home' },
       { label: '重载配置', action: 'reload' },
     ];
     const tree = tools.concat(S.buildMenuTree(this.animations));
@@ -1237,10 +1236,6 @@ class PetSprite {
     }
     if (leaf.action === 'chat') {
       this.showChatFromMenu(); // 打开对话弹窗（记忆经 host /chat 读写，浏览器/桌面同一实例共享）
-      return;
-    }
-    if (leaf.action === 'home') {
-      this.goHome(); // 停漫游/移动，清会话位置，回配置角落
       return;
     }
     if (leaf.action === 'chat-continue') { if(!this.inlineChat.pending) void this.inlineChat.send('请接着上一条未完成的回复继续，不要重复已经说过的内容。'); return; }
@@ -1340,14 +1335,6 @@ class PetSprite {
     window.__dshPetDebug.chatOpen = true;
     this.syncInputBusy();
     this.setInteractive(true);
-  }
-
-  // 「回到初始位置」菜单：停掉漫游/移动，清掉拖拽/漫游留下的会话位置，回到配置角落
-  goHome() {
-    this.stopThrow();
-    this.stopMove();
-    this.customPos = null;
-    this.position();
   }
 
   // 「重载配置」菜单：请宿主重启桌面 Helper —— 与设置页「保存」**同一条**重启路径

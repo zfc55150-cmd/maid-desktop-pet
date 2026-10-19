@@ -23,7 +23,7 @@
     {
       "source": "app/electron-helper/constants.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/constants.js",
-      "sha256": "31ee2ad0741c1e125682820343591ee1d13ad3d747dfde6f9d3f08eaf413574c",
+      "sha256": "8d78472e12208075eff3f244bad1327a263d5ce4fbea02ac4da1c9352e60b0a2",
       "previousSha256": "31ee2ad0741c1e125682820343591ee1d13ad3d747dfde6f9d3f08eaf413574c"
     },
     {
@@ -173,7 +173,7 @@
     {
       "source": "app/electron-helper/renderer.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/renderer.js",
-      "sha256": "819aab206d2c7e5d7d88e5b40085e8f092e60f1b168f72ee1f29f27e4291e4c9",
+      "sha256": "87bdd04527b05b86681baffdc81a06c30a8693fe9c393bd9185e46cacfd5abe2",
       "previousSha256": "819aab206d2c7e5d7d88e5b40085e8f092e60f1b168f72ee1f29f27e4291e4c9"
     },
     {
@@ -227,7 +227,7 @@
     {
       "source": "app/electron-helper/sprite.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/sprite.js",
-      "sha256": "f9b07630cc0871d0f50658213d7cf51ea4c905b9312899886f2fc172b5f88e7d",
+      "sha256": "78c3def4fe0d417b73c57b2238497eef7adf81e0b14c519c78ce87c4ca83ed61",
       "previousSha256": "9cd289056648b186e8df2f1034d0e0d42f6e6dd2847cc3a2ff3e019c3ffb0448"
     },
     {

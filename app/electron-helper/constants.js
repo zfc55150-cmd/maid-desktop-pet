@@ -62,7 +62,7 @@ let WORK_AREAS = [];
 /** 逐显示器**完整面板**（含任务栏区，视口相对坐标，与 AREAS 同序）：抛掷「越界侧有没有邻屏」
  *  的探测用它——任务栏在接缝处挖出的工作区条带不当墙（见 shared/physics.ts） */
 let PANELS = [];
-/** 主屏工作区（视口相对坐标）：角落定位与「回到初始位置」用它——外接矩形的角落可能落在空洞里 */
+/** 主屏工作区（视口相对坐标）：角落定位用它——外接矩形的角落可能落在空洞里 */
 let PRIMARY_AREA = null;
 
 /** 把主进程给的桌面几何（{hull, areas, panels, primaryIndex}，屏幕坐标）挂到 VIEW / AREAS / PANELS */
