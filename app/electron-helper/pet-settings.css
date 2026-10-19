@@ -1,0 +1,4 @@
+*{box-sizing:border-box}body{margin:24px;background:#f8fbff;color:#30475d;font:14px/1.5 'Microsoft YaHei UI',sans-serif}h2{font-size:19px}label{display:block;margin:14px 0}input,textarea,select{display:block;width:100%;margin-top:6px;padding:8px;border:1px solid #cbd9e8;border-radius:7px;font:inherit;resize:none}button{padding:7px 10px;border:1px solid #cbd9e8;border-radius:7px;background:white;color:#30475d;cursor:pointer}p{font-size:12px}#status{color:#82582f}
+[hidden]{display:none!important}
+
+details{border-top:1px solid #dce5ee;padding:16px 0}summary{cursor:pointer;font-weight:600}textarea{resize:vertical;min-height:80px}#history{font-size:13px;line-height:1.65}.buttons{display:flex;gap:8px;flex-wrap:wrap}.check{display:flex;align-items:flex-start;gap:8px}.check input{width:auto;margin-top:4px}button:disabled{opacity:.55;cursor:default}button:focus-visible,summary:focus-visible{outline:2px solid #326db1;outline-offset:3px}

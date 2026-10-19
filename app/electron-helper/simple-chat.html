@@ -1,0 +1,6 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'"><title>蓝鲸女仆 · 对话</title><link rel="stylesheet" href="simple-chat.css"></head>
+<body><header><div><strong>蓝鲸女仆</strong><small>陪你聊一会儿</small></div><button id="settingsButton">设置</button></header>
+<section id="settings" hidden><label>DeepSeek API Key<input id="apiKey" type="password" autocomplete="off" placeholder="填写你的密钥"></label><p id="keyHint">密钥仅保存在本机，使用系统加密。</p><label>聊天人设<textarea id="prompt" rows="3" maxlength="4000"></textarea></label><div class="row"><button id="save">保存设置</button><button id="clear" class="quiet">清空聊天记录</button></div></section>
+<main id="messages" aria-label="聊天记录" aria-live="polite"></main><p id="status" role="status"></p>
+<form id="composer"><textarea id="message" aria-label="输入消息" placeholder="说点什么吧…" maxlength="6000" rows="2"></textarea><div class="row"><small>Enter 发送 · Shift+Enter 换行</small><button id="send" type="submit">发送</button><button id="stop" type="button" hidden>停止</button></div></form>
+<script src="simple-chat-ui.js"></script></body></html>

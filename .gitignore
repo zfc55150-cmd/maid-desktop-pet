@@ -1,0 +1,9 @@
+.test-data-*/
+work/
+dist/
+*.log
+__pycache__/
+*.pyc
+control-session.json
+chat.json*
+main-config.jsonc*

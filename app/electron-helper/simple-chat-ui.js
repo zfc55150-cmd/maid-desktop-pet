@@ -1,0 +1,13 @@
+const $=id=>document.getElementById(id); let busy=false, current=null, clearArmed=false;
+function status(text){$('status').textContent=text;}
+async function call(name,arg){const r=await window.simpleChat[name](arg);if(!r.ok)throw new Error(r.error);return r.data;}
+function render(state){current=state; const list=$('messages');list.replaceChildren(); if(!state.messages.length){const e=document.createElement('div');e.className='empty';e.textContent='我在这里。\n今天想聊些什么？';list.append(e);}for(const message of state.messages){const b=document.createElement('div');b.className='bubble '+message.role;const who=document.createElement('div');who.className='speaker';who.textContent=message.role==='user'?'你':'蓝鲸女仆';const text=document.createElement('div');text.textContent=message.content;b.append(who,text);list.append(b);}list.scrollTop=list.scrollHeight;}
+function setBusy(value){busy=value;$('send').hidden=value;$('stop').hidden=!value;for(const id of ['save','clear','message'])$(id).disabled=value;}
+function keyHint(){ $('keyHint').textContent=current.hasKey?'密钥已加密保存；留空可继续使用。':'密钥仅保存在本机，使用系统加密。';$('apiKey').placeholder=current.hasKey?'已保存；更换时填写新密钥':'填写你的 DeepSeek API Key'; }
+$('settingsButton').onclick=()=>{$('settings').hidden=!$('settings').hidden;};
+$('save').onclick=async()=>{try{const state=await call('save',{apiKey:$('apiKey').value,prompt:$('prompt').value});$('apiKey').value='';render(state);keyHint();status(state.hasKey?'设置已保存，可以开始聊天了。':'人设已保存，还需要填写 API Key。');if(state.hasKey)$('settings').hidden=true;}catch(e){status(e.message);}};
+$('clear').onclick=async()=>{if(!clearArmed){clearArmed=true;$('clear').textContent='确定清空？再点一次';return;}try{render(await call('clear'));status('聊天记录已清空。');}catch(e){status(e.message);}clearArmed=false;$('clear').textContent='清空聊天记录';};
+$('composer').onsubmit=async e=>{e.preventDefault();if(busy)return;const text=$('message').value.trim();if(!text)return;if(!current?.hasKey){$('settings').hidden=false;status('请先填写 DeepSeek API Key。');$('apiKey').focus();return;}setBusy(true);status('正在回复…');try{render(await call('send',text));$('message').value='';status('');}catch(e){status(e.message);}finally{setBusy(false);$('message').focus();}};
+$('message').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();$('composer').requestSubmit();}};
+$('stop').onclick=async()=>{try{await call('cancel');}catch(e){status(e.message);}};
+(async()=>{try{render(await call('state'));$('prompt').value=current.prompt;keyHint();if(!current.hasKey){$('settings').hidden=false;status('填写一次密钥，以后直接聊天。');}}catch(e){status(e.message);$('send').disabled=true;}})();

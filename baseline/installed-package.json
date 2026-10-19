@@ -1,0 +1,8 @@
+{
+  "name": "deepseek-action-pet-local",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "dsh-pet": "0.3.7"
+  }
+}

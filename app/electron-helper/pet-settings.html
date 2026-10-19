@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'"><title>蓝鲸女仆 · 设置与记录</title><link rel="stylesheet" href="pet-settings.css"></head><body>
+<h2>设置与聊天记录</h2>
+<label>DeepSeek API Key<input id="key" type="password" autocomplete="off" placeholder="留空保留已有密钥"></label>
+<label>聊天人设<textarea id="prompt" rows="4" maxlength="4000"></textarea></label>
+<label>长期记忆<textarea id="memory" rows="4" maxlength="6000" placeholder="填写希望她长期记住的称呼、偏好或约定；留空即不使用。"></textarea></label>
+<p>长期记忆由你填写，可随时修改、清空后保存。它与聊天人设一起发送给 DeepSeek；不会自动从聊天中提取私人信息。</p>
+<div class="buttons"><button id="save" disabled>保存设置与记忆</button><button id="reload">重新读取</button></div>
+<p id="status" role="status" aria-live="polite"></p>
+<details><summary>最近聊天记录 <span id="historyCount"></span></summary>
+<textarea id="history" rows="12" readonly aria-label="最近聊天记录"></textarea>
+<button id="copyHistory" disabled>复制聊天记录</button><p>最多保留最近 80 条消息。重新读取可刷新记录；记录不会包含 API 密钥。</p>
+</details>
+<details><summary>清空记录</summary>
+<p>清空近期记录会重置后续对话上下文。默认保留上一版本备份，便于恢复。</p>
+<label class="check"><input type="checkbox" id="includeBackup">同时清空上一版本备份中的聊天记录</label>
+<label class="check"><input type="checkbox" id="clearMemory">同时清空长期记忆</label>
+<p>此操作只处理当前配置及勾选的上一版本备份，不会删除你另外导出的文件。</p>
+<button id="clear" disabled>清空聊天记录</button>
+</details>
+<details><summary>本地声音</summary><p>当前音色：原版 B · 温柔甜糯（本地 Base）。声音开关在人物右键菜单。</p>
+<button id="voicePreview">试听当前音色</button><p id="voiceStatus" role="status"></p></details>
+<script src="pet-settings.js"></script></body></html>

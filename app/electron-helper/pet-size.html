@@ -1,0 +1,9 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'"><title>调整大小</title><link rel="stylesheet" href="pet-size.css"></head><body>
+<h2>调整人物大小</h2>
+<label for="size">人物大小 <strong id="value">100%</strong></label>
+<input id="size" type="range" min="50" max="150" step="5" value="100" disabled>
+<div class="ends"><span>小 · 50%</span><span>大 · 150%</span></div>
+<p>100% 是现在这套默认大小。保存后人物会短暂重新加载，下次打开仍沿用你的选择。</p>
+<div class="buttons"><button id="reset" disabled>默认 100%</button><button id="reload">重新读取</button><button id="save" disabled>保存并应用</button></div>
+<p id="status" role="status">正在读取…</p>
+<script src="pet-size.js"></script></body></html>

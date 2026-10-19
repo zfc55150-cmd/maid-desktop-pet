@@ -1,0 +1,37 @@
+const $=id=>document.getElementById(id);
+let armed=false,revision,loaded=false,busy=false,readSequence=0;
+async function call(name,arg){const r=await window.petSettings[name](arg);if(!r.ok)throw Error(r.error);return r.data;}
+function controls(){for(const id of ['save','clear','copyHistory','includeBackup','clearMemory','prompt','memory','key'])$(id).disabled=!loaded||busy;$('reload').disabled=busy;}
+function ready(value){loaded=value;controls();}
+function resetClear(){armed=false;$('clear').textContent='清空聊天记录';}
+function display(s){
+ revision=s.revision;$('prompt').value=s.prompt;$('memory').value=s.memory||'';
+ $('key').placeholder=s.hasKey?'已保存；留空保留原密钥':'填写 DeepSeek API Key';
+ $('historyCount').textContent='（'+s.messages.length+' 条）';
+ $('history').value=s.messages.map(m=>(m.role==='user'?'我':'蓝鲸女仆')+'：\n'+m.content+(m.incomplete?'\n（回复未完整结束）':'')).join('\n\n');
+ resetClear();ready(true);
+}
+async function reload(){
+ if(busy)return;const sequence=++readSequence;resetClear();ready(false);
+ try{const s=await call('state');if(sequence!==readSequence)return;display(s);$('status').textContent='已读取保存的设置与记录。';}
+ catch(e){if(sequence===readSequence)$('status').textContent=e.message;}
+}
+$('reload').onclick=reload;
+$('save').onclick=async()=>{
+ if(!loaded||busy)return;busy=true;++readSequence;resetClear();controls();
+ try{const s=await call('save',{apiKey:$('key').value,prompt:$('prompt').value,memory:$('memory').value,revision});$('key').value='';display(s);$('status').textContent='设置与长期记忆已保存。';}
+ catch(e){ready(false);$('status').textContent=e.message;}
+ finally{busy=false;controls();}
+};
+$('includeBackup').onchange=resetClear;$('clearMemory').onchange=resetClear;
+$('clear').onclick=async()=>{
+ if(!loaded||busy)return;
+ if(!armed){armed=true;$('clear').textContent='再次点击确认清空';$('status').textContent='将清空近期聊天'+($('includeBackup').checked?'及上一版本备份中的聊天':'（保留上一版本备份）')+($('clearMemory').checked?'，并清空长期记忆':'，保留长期记忆')+'。';return;}
+ busy=true;++readSequence;controls();
+ try{display(await call('clear',{revision,includeBackup:$('includeBackup').checked,clearMemory:$('clearMemory').checked}));$('status').textContent='已按所选范围清空。';}
+ catch(e){ready(false);$('status').textContent=e.message;}
+ finally{resetClear();busy=false;controls();}
+};
+$('copyHistory').onclick=async()=>{if(!loaded||busy)return;try{await call('copyHistory');$('status').textContent='当前聊天记录已复制到剪贴板。';}catch(e){$('status').textContent=e.message;}};
+$('voicePreview').onclick=async()=>{const b=$('voicePreview');b.disabled=true;try{$('voiceStatus').textContent='正在准备试听…';const r=await call('previewVoice');$('voiceStatus').textContent=r.stopped?'试听已停止或当前已静音。':'试听完成。';}catch(e){$('voiceStatus').textContent=e.message;}finally{b.disabled=false;}};
+reload();
