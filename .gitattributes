@@ -1,0 +1,3 @@
+# Deployment hashes are byte-exact; preserve installed line endings on checkout.
+* -text
+*.exe binary

@@ -70,7 +70,7 @@ def main():
             original.write_text(content.replace('<main>','<main>'+banner,1),encoding='utf-8')
     sourcezip=out/'源码与测试-1.1.0.zip'
     with zipfile.ZipFile(sourcezip,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as target:
-        for name in ['.gitignore','README.md','package.json','deployment.json','app','baseline','docs','scripts','tests']:
+        for name in ['.gitattributes','.gitignore','README.md','package.json','deployment.json','app','baseline','docs','scripts','tests']:
             item=repo/name
             for file in ([item] if item.is_file() else sorted(item.rglob('*'))):
                 if file.is_file() and '__pycache__' not in file.parts:target.write(file,file.relative_to(repo).as_posix())
