@@ -1,3 +1,3 @@
 # Deployment hashes are byte-exact; preserve installed line endings on checkout.
-* -text
+* -text whitespace=cr-at-eol
 *.exe binary

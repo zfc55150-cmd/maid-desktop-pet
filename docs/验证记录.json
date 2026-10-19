@@ -1,0 +1,65 @@
+{
+  "version": "1.1.0",
+  "regressionTests": {
+    "passed": 32,
+    "failed": 0
+  },
+  "electron": {
+    "ok": true,
+    "checks": [
+      "sandboxed pet preload and IPC",
+      "renderer has no Node require",
+      "settings, memory and history render without horizontal overflow",
+      "real settings IPC saves synthetic memory",
+      "history copy strips configuration fields",
+      "stale clear is rejected through actual IPC"
+    ]
+  },
+  "isolatedHost": {
+    "healthy": true,
+    "unauthenticatedShutdownBlocked": true,
+    "crossOriginBlocked": true,
+    "concurrentStartLeavesOneHost": true,
+    "rendererCaptured": true,
+    "shutdownCompleted": true
+  },
+  "installed": {
+    "installedFilesVerified": 45,
+    "authenticatedStop": true,
+    "concurrentLaunchersSucceeded": true,
+    "singleHost": true,
+    "hostPid": 12928,
+    "unauthenticatedGet": 405,
+    "unauthenticatedPost": 403,
+    "personalFilesUnchanged": true
+  },
+  "voice": {
+    "paidApi": false,
+    "realLocalVoice": true,
+    "events": [
+      "playing",
+      "caption"
+    ],
+    "warmupSeconds": 75.589,
+    "completed": true,
+    "workerDisposed": true
+  },
+  "offlineArchive": {
+    "version": "1.1.0",
+    "archive": "蓝鲸女仆-1.1.0-完整离线恢复.zip",
+    "files": 31300,
+    "sourceBytes": 10292664890,
+    "archiveBytes": 10307660532,
+    "sha256": "f6be041a47c136c7ac71cd77ab78ee9eaac64e0f838b01c2ce6ca01e895a9509",
+    "allEntriesHashVerified": true,
+    "containsChatData": false
+  },
+  "offlineRestore": {
+    "ok": true,
+    "separateDirectory": true,
+    "allFilesHashVerified": true,
+    "relocatedPythonImports": true,
+    "personalDataTouched": false,
+    "shortcutsChanged": false
+  }
+}
