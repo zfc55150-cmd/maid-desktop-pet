@@ -1,0 +1,87 @@
+{
+  "application": "GPT-Niang",
+  "version": "forms-1.14-idle-click",
+  "upstreamVersion": "1.3.5",
+  "targetRoot": "%LOCALAPPDATA%\\Programs\\GPTNiangUsage\\gpt-niang-usage",
+  "dataDir": "%LOCALAPPDATA%\\GPTNiangUsage\\state",
+  "hooksPath": "%USERPROFILE%\\.codex\\hooks.json",
+  "previousHooksSha256": null,
+  "hooksTemplateSha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+  "files": [
+    {
+      "target": "widget.ps1",
+      "sha256": "6f97f35441b47ec12faf8e6bd2c10d10438cc494181755d8454c8c1f92f00c9b",
+      "previousSha256": "b69ecfca8e7374df1ac4b5f43a2bdac57586b0da7cfea16e7554e75cca36ad68"
+    },
+    {
+      "target": "runtime/dragon-animation/motion-decoder.cs",
+      "sha256": "13e1e1d7727606f26edd75668a22fdedadd8b37ddb968409a91f19be00f84f4a",
+      "previousSha256": "13e1e1d7727606f26edd75668a22fdedadd8b37ddb968409a91f19be00f84f4a"
+    },
+    {
+      "target": "runtime/desktop-interaction.ps1",
+      "sha256": "d1a4197f9420de68194e348087b5b9b33927d98d5a305ff3da90f477f9fd34b0",
+      "previousSha256": "d1a4197f9420de68194e348087b5b9b33927d98d5a305ff3da90f477f9fd34b0"
+    },
+    {
+      "target": "runtime/dragon-animation/motion-runtime.ps1",
+      "sha256": "d3bdc0e53099bd192db4bc7082f8d37cca189ee9274379076f2b4c22cd2ba56d",
+      "previousSha256": "3e99435fe9e95a8f11b26e6ded355a067252cdbefd7d647525c6d59f3d05f95a"
+    },
+    {
+      "target": "runtime/pet-forms.ps1",
+      "sha256": "28fdade4f6b413ff784f3ac1dc3d836857b1ba823514a370aa381903bcc73a64",
+      "previousSha256": "10cbd1e879843fdbae871fc5170adec068a5d677a3fccdd7f8b94f28566ca868"
+    },
+    {
+      "target": "runtime/pet-presentation.ps1",
+      "sha256": "71db459ad674e8eb14c8727fd44785907b1ce5a28c2443cb9a7c260fa2913146",
+      "previousSha256": "71db459ad674e8eb14c8727fd44785907b1ce5a28c2443cb9a7c260fa2913146"
+    },
+    {
+      "target": "runtime/pet-throw.ps1",
+      "sha256": "c6d7c1227ab4cfc2721eead950cea3caad5414df7d3ec44b50958610ce0a8484",
+      "previousSha256": "c6d7c1227ab4cfc2721eead950cea3caad5414df7d3ec44b50958610ce0a8484"
+    },
+    {
+      "target": "runtime/native-motion.cs",
+      "sha256": "498e9e4ac6fad3d36b87fd5f04d53c54b756226f07d8d96b6739f4c3b537ce9b",
+      "previousSha256": "498e9e4ac6fad3d36b87fd5f04d53c54b756226f07d8d96b6739f4c3b537ce9b"
+    },
+    {
+      "target": "runtime/catch-feedback.cs",
+      "sha256": "782f5e11d936504a67f0beeb139ea7e80e55778474a66d2926a3f988a5b7bbac",
+      "previousSha256": "782f5e11d936504a67f0beeb139ea7e80e55778474a66d2926a3f988a5b7bbac"
+    },
+    {
+      "target": "runtime/native-motion-adapter.ps1",
+      "sha256": "b311903c6e7011e3ac6dc29b4b754255a9d153dbac31e31ae93e58485dab57aa",
+      "previousSha256": "b311903c6e7011e3ac6dc29b4b754255a9d153dbac31e31ae93e58485dab57aa"
+    },
+    {
+      "target": "assets/pet-forms/font-reference.json",
+      "sha256": "d1a6efca39c62c51ed6709cd9d7b0b18bfcefc2338d47584bd4014658eb03710",
+      "previousSha256": "d1a6efca39c62c51ed6709cd9d7b0b18bfcefc2338d47584bd4014658eb03710"
+    },
+    {
+      "target": "assets/pet-forms/soft-candy.ttf",
+      "sha256": "5f5099a065b5eb3ba55e9bd293af7707fdbd7858bf99d9381b7c6319445c2e62",
+      "previousSha256": "5f5099a065b5eb3ba55e9bd293af7707fdbd7858bf99d9381b7c6319445c2e62"
+    },
+    {
+      "target": "assets/pet-forms/FONT-NOTICE.txt",
+      "sha256": "665bd4c0b6c6ccf4bab28abfeb6e48c213847526fe26381f0f684a528564bcba",
+      "previousSha256": "665bd4c0b6c6ccf4bab28abfeb6e48c213847526fe26381f0f684a528564bcba"
+    },
+    {
+      "target": "assets/pet-forms/frost-glass-cheek.png",
+      "sha256": "63fa79d524ce3dbecafc623804c9bb4c835b67e019783200051adea12c187f36",
+      "previousSha256": "63fa79d524ce3dbecafc623804c9bb4c835b67e019783200051adea12c187f36"
+    },
+    {
+      "target": "assets/pet-forms/NOTICE.txt",
+      "sha256": "52e729a6861f56db770c03fe4b3f32e717ad33a707eb2c178bd41ed9d51ba701",
+      "previousSha256": "52e729a6861f56db770c03fe4b3f32e717ad33a707eb2c178bd41ed9d51ba701"
+    }
+  ]
+}

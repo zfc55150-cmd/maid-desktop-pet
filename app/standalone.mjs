@@ -1574,6 +1574,7 @@ function animationNames(animations) {
 	push(strings(a.turn));
 	push(strings(a.drag));
 	push(strings(a.clicks));
+	push(strings(a.landing));
 	const moves = a.moves && typeof a.moves === "object" ? a.moves : {};
 	push(Array.isArray(moves.actions) ? moves.actions.map((m) => m && typeof m === "object" ? m.name : void 0).filter((x) => typeof x === "string" && x !== "") : []);
 	if (Array.isArray(a.categories)) {

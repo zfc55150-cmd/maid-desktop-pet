@@ -1,0 +1,300 @@
+{
+  "schema": 1,
+  "upstreamVersion": "1.3.5",
+  "hostFiles": [
+    {
+      "target": "Detect-Plan.ps1",
+      "sha256": "f72db56955352be63e09a9a33a19e70361ffb23288be204bc34a63015fcaf80d"
+    },
+    {
+      "target": "Install.ps1",
+      "sha256": "88732e22123198d32ecd988fe8874e2ba5e15baa290cb5eb826e5a0425e07817"
+    },
+    {
+      "target": "launch.vbs",
+      "sha256": "cb5a2b2bb0e9153abae553565e4e67e77fbaaac3deeb11204a36277622a0f1d9"
+    },
+    {
+      "target": "runtime/agent-launch.vbs",
+      "sha256": "e749252e211af46f5955aed0a8a21323711ec5c764c2477d32bd5f39bec34aa9"
+    },
+    {
+      "target": "runtime/agent-supervisor.vbs",
+      "sha256": "aa561fe76fc71f87e1a1895d022c09a5392f1790f5926bf578cc766b35e17da6"
+    },
+    {
+      "target": "runtime/audio-import.mjs",
+      "sha256": "258bb14c0ff37472f2d9acfdfea71b9cab22f52f583cf3797bcad0c356984202"
+    },
+    {
+      "target": "runtime/audio.ps1",
+      "sha256": "7fb61f9b31dbda910ebf7b651013e32b3f0c880b59678c46b8a36e30560dd359"
+    },
+    {
+      "target": "runtime/catch-feedback.cs",
+      "sha256": "782f5e11d936504a67f0beeb139ea7e80e55778474a66d2926a3f988a5b7bbac"
+    },
+    {
+      "target": "runtime/character-gallery.ps1",
+      "sha256": "ed465f4296f3251f1e2a28fe7b21ea9b869280066ba10e07cc7489d4e9a0c070"
+    },
+    {
+      "target": "runtime/characters.ps1",
+      "sha256": "1e3767c2ac80b9145fdebf0f4df157bd6c68c2e6ba4e70f76550bc0782a09338"
+    },
+    {
+      "target": "runtime/color-theme.ps1",
+      "sha256": "62980c6bb77ac2c107e506ba89e85649b244838fb92abaa5edf935c372ee5990"
+    },
+    {
+      "target": "runtime/completion-monitor.mjs",
+      "sha256": "51d7a0da232b8ac2b4b8f5b163610e64dccbda300052cb72cd91fb44e7f2d974"
+    },
+    {
+      "target": "runtime/completion-notifications.ps1",
+      "sha256": "7000a3664ffea25e18466f6bf8543940e192150a3d8768d8cc73b211fff66c3b"
+    },
+    {
+      "target": "runtime/control.mjs",
+      "sha256": "c40dd274c29e78a09ce4af76a7aa284e3a640946ecea7a716eb131ec9a9bf9d7"
+    },
+    {
+      "target": "runtime/desktop-interaction.ps1",
+      "sha256": "d1a4197f9420de68194e348087b5b9b33927d98d5a305ff3da90f477f9fd34b0"
+    },
+    {
+      "target": "runtime/detect-plan.mjs",
+      "sha256": "5d84fa9c1998422c61e12559e6c9aa6afc7345c8d4db81896bd2401f8fb947f9"
+    },
+    {
+      "target": "runtime/dragon-animation/activity-state.mjs",
+      "sha256": "6f6b2c754a0d562be378f054c3b9cb9dec6eed1beb01eb605b5b6ed407e17a5d"
+    },
+    {
+      "target": "runtime/dragon-animation/activity-watch.mjs",
+      "sha256": "b5955c786164ff2861321e86a76679bf41e009c4f90346deff281e65970f8172"
+    },
+    {
+      "target": "runtime/dragon-animation/codex-hook.mjs",
+      "sha256": "c7c122a1e4408d8244f218cfd2ad524b26928b14b0a22c300e9b2319eb7f70c1"
+    },
+    {
+      "target": "runtime/dragon-animation/dragon-animation.ps1",
+      "sha256": "bd41cf0500dd9e63cae71588347b9d86b8e370c674f0daf73f0193d138d782e5"
+    },
+    {
+      "target": "runtime/dragon-animation/motion-decoder.cs",
+      "sha256": "7c705323f1878b269fa2252b20a8af51bd7bc225d837746866b362c552fe1de4"
+    },
+    {
+      "target": "runtime/dragon-animation/motion-runtime.ps1",
+      "sha256": "fc73d71bb7469d88e274786e15ea5d6220c49fee0a250314f373eab70021bf41"
+    },
+    {
+      "target": "runtime/dragon-animation/motion-selection.ps1",
+      "sha256": "4874673da6e72f104b3ef8a48300bc71ed1369369aee18d8a622e132e7984f58"
+    },
+    {
+      "target": "runtime/host-follow.ps1",
+      "sha256": "801fd760cee7af0d77ec3347c2d3c3d5ef5f13fdda528bc1c2087bc999f2b978"
+    },
+    {
+      "target": "runtime/host-layer.ps1",
+      "sha256": "71842dba1d442b541cadd8b02dd1e9c4b701b6e061d1fc1a0f02013d526da015"
+    },
+    {
+      "target": "runtime/host-occlusion.ps1",
+      "sha256": "8c2bdc0a87f892cd0409dc3aedc000c133e33aa370c2d4e530e2399a222d6a6b"
+    },
+    {
+      "target": "runtime/host-ready.ps1",
+      "sha256": "15aa81953e08e457d595b7ee81a574dcc6df324c1046f0c15b00fdaeeb5789c9"
+    },
+    {
+      "target": "runtime/install-preflight.ps1",
+      "sha256": "195aa7db061966a5bc651ee3d8c64b53ae10091fbf283d0dc8afe5ce4e4d1994"
+    },
+    {
+      "target": "runtime/mcp.mjs",
+      "sha256": "29eace8ab0633751fab0e778dd928f4b249ca1ae8f215c13d5e4caf50a4b6dda"
+    },
+    {
+      "target": "runtime/metadata.mjs",
+      "sha256": "f2afa04268f57f5713ad68281bee7c0dcee7d822dd7fb807e0cc45e8095f8871"
+    },
+    {
+      "target": "runtime/music-audio.cs",
+      "sha256": "95f9801333d912f176414c5170524ae6b74010c7fd7c592ef2435d9b94cea16a"
+    },
+    {
+      "target": "runtime/music-visual.cs",
+      "sha256": "82a5a3d3337acc6e25936ac55f4da5de3f746adcbfb4e90ddd242b0d28bc6e86"
+    },
+    {
+      "target": "runtime/music.ps1",
+      "sha256": "8f71cb85f5274bdb6216422af01f7205acb00e4e0e4cc0d8345705d943b3d8f4"
+    },
+    {
+      "target": "runtime/native-motion-adapter.ps1",
+      "sha256": "cdb2dd2dbc6183bd810962db0401a2cb03c6c2870093e36068015a65a4043802"
+    },
+    {
+      "target": "runtime/native-motion.cs",
+      "sha256": "d961484959657dd2ce632297686098360b0b491859f9213414f8f1d03a77eecd"
+    },
+    {
+      "target": "runtime/pet-forms.ps1",
+      "sha256": "be549807f709db96fe25d7d5dabb6c44a4179171711ed7046b4ba745f484b2e9"
+    },
+    {
+      "target": "runtime/pet-presentation.ps1",
+      "sha256": "71db459ad674e8eb14c8727fd44785907b1ce5a28c2443cb9a7c260fa2913146"
+    },
+    {
+      "target": "runtime/pet-throw.ps1",
+      "sha256": "c6d7c1227ab4cfc2721eead950cea3caad5414df7d3ec44b50958610ce0a8484"
+    },
+    {
+      "target": "runtime/plan.mjs",
+      "sha256": "23293e1d54dcaf395baa6ee81a19a53322b46952c3f0920ecb418e619306474d"
+    },
+    {
+      "target": "runtime/quote-layout.ps1",
+      "sha256": "9d31a7a3d3b3cb49a7cc3958d849344735a67e17b6e785558c5352993563995c"
+    },
+    {
+      "target": "runtime/quotes.ps1",
+      "sha256": "7de4be5c26592316693bb622df1ba5daddc13b829d5c86ee6d8f294f42512428"
+    },
+    {
+      "target": "runtime/refresh-client.mjs",
+      "sha256": "edd68766ebeac9095e9ecacc078bb5d4f56b3e838ac37acdd0a1f6b39d6f9cc2"
+    },
+    {
+      "target": "runtime/refresh-queue.mjs",
+      "sha256": "165f8aee05586e5e4443bc40d7cc4220c867408a972ab5b86a1e35dfee9baf76"
+    },
+    {
+      "target": "runtime/start-supervisor.ps1",
+      "sha256": "0b56fb639f6a077346e5d5807d43cfa5e72c7a868256c6175e831d762c705150"
+    },
+    {
+      "target": "runtime/start-widget.ps1",
+      "sha256": "e7152847df930a8d85e576d961b6563a3e63555dc8c6288594762eb62b8dfdcb"
+    },
+    {
+      "target": "runtime/supervisor-task.ps1",
+      "sha256": "b026079e4c68a430236f59841b838264e4939c87af5f05e805289fc64af28641"
+    },
+    {
+      "target": "runtime/supervisor.ps1",
+      "sha256": "753682b00e1ece0a24324a38e19dd22f29223a274a8b0c687cb3fe3b6cd55567"
+    },
+    {
+      "target": "runtime/thread-speed.mjs",
+      "sha256": "3e4e0a010a1fad8cdd36fdd2fa4abe38eb1b7e0f3ffa12dc7dae2e662324d0a6"
+    },
+    {
+      "target": "runtime/ui-settings.ps1",
+      "sha256": "4ae2ee2023e6652162336d3a965e8e02f8e57939240dbd817747258af3e25dee"
+    },
+    {
+      "target": "runtime/update-agent.ps1",
+      "sha256": "af3211bbfe2869ac06e0a6fa010857418b0f65f36d7a5c6c6305e61d65fc54dc"
+    },
+    {
+      "target": "runtime/update-common.ps1",
+      "sha256": "cd29aa77084943e992bf4f30d3c8512b54713f0eb16aabc677c3ee8c932c2929"
+    },
+    {
+      "target": "runtime/update-helper.ps1",
+      "sha256": "e993ab6cc527902838c582c8034625d353c2fb5221f1c1b7657fd899fbd7d251"
+    },
+    {
+      "target": "runtime/update-lock.ps1",
+      "sha256": "b0b7533d80cadcd84a0e031e940ae3643f2a2e81c3d280c219824a57dd6d8c38"
+    },
+    {
+      "target": "runtime/update-ui.ps1",
+      "sha256": "2ec713151be6db1f4e5bfd6bfc0eded2983668194f196e64664b4c3fe6d58bbb"
+    },
+    {
+      "target": "runtime/update.mjs",
+      "sha256": "b2b31b30d84fa9ed729cab9220e7ac81db8d9b85be84a4284ecb94fb3386b15c"
+    },
+    {
+      "target": "runtime/usage.mjs",
+      "sha256": "c6fa10f842ee457777698804612ddfa744a3e7a4b3b2d79b98e664be9dbc266f"
+    },
+    {
+      "target": "runtime/watch.mjs",
+      "sha256": "b309a563c0e68a8eda86f7edb97a0aff523b2001b76c49aedc275d3872721a88"
+    },
+    {
+      "target": "runtime/worker-ipc.mjs",
+      "sha256": "23d49b3ecd17f67339b7f8a2fb73e7245d688f63858313fe5ee8be069c1945d5"
+    },
+    {
+      "target": "runtime/worker-state.mjs",
+      "sha256": "cd1f567c9319882db259623f300633dd3cef11b1182e7dd2ee96130661ebfb4c"
+    },
+    {
+      "target": "supervisor.vbs",
+      "sha256": "695708612c7efa44e455e6c2cb2bc739d9ddf2a0a78300821e8bf38d045018d6"
+    },
+    {
+      "target": "Uninstall.ps1",
+      "sha256": "6b27aaa16e6dc2e64c66ca414d8f3f49922e116b355a28fde390ecb5009beeac"
+    },
+    {
+      "target": "widget.ps1",
+      "sha256": "6f97f35441b47ec12faf8e6bd2c10d10438cc494181755d8454c8c1f92f00c9b"
+    },
+    {
+      "target": "widget.xaml",
+      "sha256": "887ced11f2727aad8b4983202cc8bd1313692f51a523104e4a44a5274a1e16a5"
+    },
+    {
+      "target": "runtime/install-files.json",
+      "sha256": "55dff5ed7042dcb77c8365d159390d75d5c58572aca3cddd6c3c088ebe191367"
+    },
+    {
+      "target": ".codex-plugin/plugin.json",
+      "sha256": "8a64b3654da2fa4ffc738ffae4206f04f0ba5d748b3b516749484083c76160f7"
+    }
+  ],
+  "stableHostFiles": [
+    {
+      "target": "agent-launch.vbs",
+      "sha256": "e749252e211af46f5955aed0a8a21323711ec5c764c2477d32bd5f39bec34aa9"
+    },
+    {
+      "target": "agent-supervisor.vbs",
+      "sha256": "aa561fe76fc71f87e1a1895d022c09a5392f1790f5926bf578cc766b35e17da6"
+    },
+    {
+      "target": "install-preflight.ps1",
+      "sha256": "195aa7db061966a5bc651ee3d8c64b53ae10091fbf283d0dc8afe5ce4e4d1994"
+    },
+    {
+      "target": "supervisor-task.ps1",
+      "sha256": "b026079e4c68a430236f59841b838264e4939c87af5f05e805289fc64af28641"
+    },
+    {
+      "target": "update-agent.ps1",
+      "sha256": "af3211bbfe2869ac06e0a6fa010857418b0f65f36d7a5c6c6305e61d65fc54dc"
+    },
+    {
+      "target": "update-common.ps1",
+      "sha256": "cd29aa77084943e992bf4f30d3c8512b54713f0eb16aabc677c3ee8c932c2929"
+    },
+    {
+      "target": "update-helper.ps1",
+      "sha256": "e993ab6cc527902838c582c8034625d353c2fb5221f1c1b7657fd899fbd7d251"
+    },
+    {
+      "target": "update-lock.ps1",
+      "sha256": "b0b7533d80cadcd84a0e031e940ae3643f2a2e81c3d280c219824a57dd6d8c38"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-03",
+  "scope": "8 micro actions + 2 bridges, latest 01/02 v2",
+  "batchArtworkAcceptance": false,
+  "retainedCandidates": [
+    "01_c_soft_breath_blink_v2",
+    "03_c_tail_tip_settle"
+  ],
+  "needsWork": [
+    "02_c_listen_ear_v2",
+    "04_c_brush_fringe",
+    "05_c_hands_rest",
+    "06_c_small_weight_settle",
+    "07_c_notice_user",
+    "08_c_suppressed_yawn",
+    "bridge_b_to_a",
+    "bridge_a_to_c"
+  ],
+  "fullDecodedSourceFrames": 1500,
+  "fullDecodedAlphaFrames": 1500,
+  "all10MasksBitExact": true,
+  "mirrorFilesHashMatch": true,
+  "bridgeAspectDistortionFactor": 1.5038363171355498,
+  "nativeSpeedGuiReviewCompleted": false,
+  "formalAppWrittenByThisReview": false,
+  "parallelInstalledStateObserved": {
+    "earlierStates": 54,
+    "earlierRegisteredDeliveryClips": 10,
+    "latestStates": 44,
+    "latestRegisteredDeliveryClips": 0,
+    "latestPackageFileHashesMatch": 267,
+    "actorNotDetermined": true
+  },
+  "files": [
+    {
+      "path": "evidence/02_v2回正连续帧.jpg",
+      "sha256": "cfb23287667c5071973fcbaa8dc377f04b26c1046e30350602cd0cfcf2762b4c",
+      "bytes": 689425
+    },
+    {
+      "path": "evidence/audit.json",
+      "sha256": "6cded412f932f4a5531fc6b4f2135983359b74869963b48d5190ba1ae5903c9c",
+      "bytes": 311995
+    },
+    {
+      "path": "evidence/installed-state.json",
+      "sha256": "a3e4607dd68eddb95404384120ad9fe59360464628182d65aff22fc9c60181c3",
+      "bytes": 3786
+    },
+    {
+      "path": "evidence/五条开口证据.jpg",
+      "sha256": "2cefc391fa6293244035ca2104733ed20eaad460b3a3756c6b9fc6aae7bb5550",
+      "bytes": 159495
+    },
+    {
+      "path": "evidence/桥段非等比压缩对照.jpg",
+      "sha256": "f415bcb55cd35e5c03a58083379782837585998a879f5c3b6d93b9f30c74467b",
+      "bytes": 290673
+    },
+    {
+      "path": "给Gemini的返工单.md",
+      "sha256": "9cfd31d37bffb4e902e08857f80457de887c98000fb2cd03f4b16521c3f7396f",
+      "bytes": 2904
+    },
+    {
+      "path": "验收结论.md",
+      "sha256": "bcb2a14c8ba944aee3652f8a5324e66a5a990d96198a23baf1de93ee6dc56e3e",
+      "bytes": 7219
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "csoftbreathblink",
+  "label": "轻柔呼吸 · 眨眨眼",
+  "frames": 180,
+  "fps": 30,
+  "loop": false,
+  "automatic": true,
+  "idleCooldownMs": 90000,
+  "sourceKind": "gemini-reviewed-frontal-idle",
+  "menuGroup": "日常陪伴",
+  "entryPose": "C",
+  "exitPose": "C",
+  "sourceVideoSha256": "4fc463e593f105db096350e46a68e5a0c2293205da9da0842b51fe22b90c8298",
+  "videoFile": "csoftbreathblink.webm",
+  "maskFile": "csoftbreathblink.bin",
+  "videoSha256": "9806d31cdd0f065ccd70c65de637a4c1393726461116aae95e9d76fc8f453174",
+  "maskSha256": "800c016434b15bdab31b7cf93f5760936148813e2657656c88f39d2f512e69d1",
+  "maskBytes": 3317760
+}

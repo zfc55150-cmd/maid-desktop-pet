@@ -1,0 +1,5 @@
+字体：上首软糖体 / SSRuanTangTi Regular。
+本机来源：DeepSeekActionPet/node_modules/dsh-pet/assets/fonts/上首软糖体.ttf。
+与本机 DeepSeek 字体使用相同原始字节，无修改，无全局字体安装。
+版权与使用权归字体原作者所有；项目代码许可不扩大字体授权。
+仅作为用户明确要求的本机私人样式适配，不作为字体分享发布。

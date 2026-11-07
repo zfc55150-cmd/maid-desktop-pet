@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "kind": "gpt-niang-local-customization",
+  "upstreamReplacement": "blocked",
+  "updatePolicy": "maintenance-package-only",
+  "meaning": "Generic upstream updater may check and notify; reviewed local maintenance packages use the separate deployment installer."
+}

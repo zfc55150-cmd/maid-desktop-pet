@@ -1,0 +1,15 @@
+{
+  "acceptedForIntegrationTrial": true,
+  "userVisualAcceptance": false,
+  "sourceVideoSha256": "eca6af8c69e89418acfdb696d89c73ad654c5e03360347a2cacf9cfe9a24f01d",
+  "videoSha256": "07ff84b55947a59cea27cdb92d06fb6d14b975bf2cd507a0d92f78dc6fd66089",
+  "reviewer": "primary assistant",
+  "evidence": "All 90 face frames and 18 full-body timeline samples reviewed; light/dark alpha and endpoint joins inspected. Frontal orientation retained, mouth closed, single tail, soft descent and knee flex; no side landing. Final native-speed product playback remains subject to user acceptance.",
+  "endpointRestoration": {
+    "firstFrames": 4,
+    "lastFrames": 6,
+    "startSpanMs": 100,
+    "endSpanMs": 167,
+    "method": "premultiplied blend between already matching frontal poses and exact production endpoints; no body rotation, resizing, reversed frames, or added frames"
+  }
+}

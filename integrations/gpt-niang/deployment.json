@@ -1,0 +1,10 @@
+{
+  "application": "GPT-Niang",
+  "upstreamVersion": "1.3.5",
+  "localPatch": "desktop-startup-interaction-order-fullbody-continuous-0.4.1-20261021",
+  "target": "%LOCALAPPDATA%\\Programs\\GPTNiangUsage\\gpt-niang-usage\\widget.ps1",
+  "upstreamSha256": "4b9a86ef9383c6391be981f911f5e40540aa48c5aaf15dd8700e2f078ea6641f",
+  "previousSha256": "cc6345c34e89fe37f34db81dbfb06ea46b5f7a037793f62ec4a599c071483d03",
+  "sha256": "cc6345c34e89fe37f34db81dbfb06ea46b5f7a037793f62ec4a599c071483d03",
+  "animationManifest": "animated/deployment.json"
+}

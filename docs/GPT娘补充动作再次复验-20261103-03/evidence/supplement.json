@@ -1,0 +1,43 @@
+{
+  "preservedCandidatesAndBridges": [
+    {
+      "id": "01_c_soft_breath_blink_v2",
+      "allThreeFilesUnchanged": true
+    },
+    {
+      "id": "03_c_tail_tip_settle",
+      "allThreeFilesUnchanged": true
+    },
+    {
+      "id": "bridge_b_to_a",
+      "allThreeFilesUnchanged": true
+    },
+    {
+      "id": "bridge_a_to_c",
+      "allThreeFilesUnchanged": true
+    },
+    {
+      "id": "08_c_suppressed_yawn_v2",
+      "allThreeFilesUnchanged": true
+    }
+  ],
+  "demo": {
+    "sourceFrames": 240,
+    "alphaFrames": 240,
+    "fps": 30.0,
+    "seconds": 8.0,
+    "sourceSha256": "d288bd27e6dbef9c27545cb46fbfdec22ed1920bd06a83fbce17b9e5d2004d0b",
+    "alphaSha256": "7d2249a5d916965fa71d6682fac9a001f3407cf7e9237655057aa10d34677fea",
+    "description": "Two bridge clips concatenated, not a host playback test with B/A/C idle clips."
+  },
+  "formalSnapshot": {
+    "version": "0.8.14-electron",
+    "states": 44,
+    "clips": 44,
+    "packageFiles": 267,
+    "mismatches": [],
+    "newCandidatesRegistered": [],
+    "manifestShaMatches": true
+  },
+  "appWrittenByThisReview": false
+}

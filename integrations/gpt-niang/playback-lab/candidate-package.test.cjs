@@ -1,0 +1,7 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+const {verify}=require('./candidate-package.cjs');
+test('candidate preflight rejects stale code, media and installed owners before launch',()=>{
+ const root=fs.mkdtempSync(path.resolve('work/architecture-manifest-test-'));const write=(name,v)=>fs.writeFileSync(path.join(root,name),typeof v==='string'?v:JSON.stringify(v));const sha=name=>crypto.createHash('sha256').update(fs.readFileSync(path.join(root,name))).digest('hex');
+ try{write('code.cjs','approved code');write('media.webm','fake test media');write('installed.js','formal');write('baseline.json',{gptRoot:root,gptFiles:[{target:'installed.js',sha256:sha('installed.js')}],deepseekRoot:root,deepseekFiles:[],stableRoot:root,stableFiles:[],gptVersion:'fake-test'});write('candidate-manifest.json',{revision:'fake-test',files:[{file:'code.cjs',sha256:sha('code.cjs')}],media:[{file:'media.webm',sha256:sha('media.webm')}],dependencies:[]});assert.equal(verify(root).ok,true);for(const [name,pattern]of [['code.cjs',/CANDIDATE_HASH_DRIFT/],['media.webm',/CANDIDATE_HASH_DRIFT/],['installed.js',/INSTALLED_BASELINE_DRIFT/]]){const old=fs.readFileSync(path.join(root,name));write(name,'changed');assert.throws(()=>verify(root),pattern);fs.writeFileSync(path.join(root,name),old);}}
+ finally{assert(root.startsWith(path.resolve('work')+path.sep));fs.rmSync(root,{recursive:true,force:true});}
+});

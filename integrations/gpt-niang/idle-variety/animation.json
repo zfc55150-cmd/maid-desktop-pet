@@ -1,0 +1,1906 @@
+{
+  "version": 6,
+  "fps": 30,
+  "cellSize": 384,
+  "columns": 8,
+  "pageFrames": 64,
+  "states": {
+    "idle": {
+      "label": "陪着你 · 长裙轻呼吸",
+      "frames": 240,
+      "loop": true,
+      "pages": [
+        {
+          "file": "idle-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "5ef3ab1c3733a299e0459f28d247bd05b88a8623efcda704cfb37f163f4da50c"
+        },
+        {
+          "file": "idle-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "9aa3d3cc03b58b5f336995c1e12d464b599e4abeb3f8118dc2cf39296763ae41"
+        },
+        {
+          "file": "idle-2.png",
+          "start": 128,
+          "count": 64,
+          "rows": 8,
+          "sha256": "04daa072c923806d9634588b1e11b62bee8fbb443de7014b0bbb1332f87e892b"
+        },
+        {
+          "file": "idle-3.png",
+          "start": 192,
+          "count": 48,
+          "rows": 6,
+          "sha256": "970c31ac2ae0f92f87533f9a730d8af004c25f8e4ab3dc5dbd80cf273a00c3d4"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video"
+    },
+    "idlesway": {
+      "label": "放松换重心",
+      "frames": 180,
+      "fps": 30,
+      "loop": true,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "idlesway-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "e33c049a52275fb5979d1e912a9dceed8c2f2460ee9c5b7c804fc7238de486af"
+        },
+        {
+          "file": "idlesway-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "59c7f39c27fe6ed5065189a9b023cc377d9ecfeeeafab37f2d4c44a32f641c61"
+        },
+        {
+          "file": "idlesway-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "563a1e84deb03e9c2d12764b8d1a6854bbc019aab17b654eaa22a3ef9e89c4a0"
+        }
+      ],
+      "playbackPolicy": "idle-rotation"
+    },
+    "poserelax": {
+      "label": "换个放松站姿",
+      "frames": 180,
+      "fps": 30,
+      "loop": false,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "poserelax-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "53eafe1d5e0704c63253f0430d5441e29590774a4ef5c632a4d2ab0e4866bd8c"
+        },
+        {
+          "file": "poserelax-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "984899f7c499385fe738294cba0340d9f32fba7dd3092c4006de5a99f18dca5e"
+        },
+        {
+          "file": "poserelax-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "1ec657a42fbd26a15811a3a29313cfddcad736c30cecb82b28cc967131179cb6"
+        }
+      ],
+      "playbackPolicy": "manual-once"
+    },
+    "weightshift": {
+      "label": "挪脚站稳",
+      "frames": 180,
+      "fps": 30,
+      "loop": false,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "weightshift-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "5ee6afbfc0d5494cd42251f96f8fbbcfd4af617d05f0c3a5b5294f49cb556e89"
+        },
+        {
+          "file": "weightshift-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "d427390aa2cb241df1a4853446ebe91f2f32a05d23d6361b792638b1ac868cdf"
+        },
+        {
+          "file": "weightshift-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "69d86b4a122818b27c06b7e4ba274fb62c5850070e807010e548f765d36401bc"
+        }
+      ],
+      "playbackPolicy": "manual-once"
+    },
+    "brelaxed": {
+      "label": "侧身放松 · 表情变化",
+      "frames": 180,
+      "fps": 30,
+      "loop": true,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "brelaxed-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "22a300453d0d9bff7e74af429bd78783bc500a0f303777cd9dfd90de6a2c53aa"
+        },
+        {
+          "file": "brelaxed-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "fed052298365107de22cafb2e9782b9b401beb158759ea3a273604774feaad25"
+        },
+        {
+          "file": "brelaxed-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "8140b0055a37f4edbc9633623d6640c0b810b355cf31638c84866c9e649be18d"
+        }
+      ],
+      "playbackPolicy": "pose-route"
+    },
+    "turnfront": {
+      "label": "转为正面站姿",
+      "frames": 180,
+      "fps": 30,
+      "loop": false,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "turnfront-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "236d183edac8419f53950af2043f04bbe855e34169fa136b6ef0f44da37c9aa9"
+        },
+        {
+          "file": "turnfront-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "f61b2943f44dd49077c6a5529db10a63bdd1febebaa5ec7f53fed6791aa32733"
+        },
+        {
+          "file": "turnfront-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "9017ace1958eaab8afca6fb9db6f492f558711608f48e354f6f93798657ecc98"
+        }
+      ],
+      "playbackPolicy": "pose-route"
+    },
+    "frontidle": {
+      "label": "正面放松待机",
+      "frames": 180,
+      "fps": 30,
+      "loop": true,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "frontidle-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "5ff6a8c2959aa5d9843d6a2da1af53307f28746fc2b206a4e8a70134d49d32a9"
+        },
+        {
+          "file": "frontidle-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "cd3b68f97c75040d32b56e519ae781e95999381b97265c4acd78ec0d36b4ad71"
+        },
+        {
+          "file": "frontidle-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "b3d14444318a67e78c23fed95790c853fd05ccf52d3d7a3ba7e06d3fd8cf03d8"
+        }
+      ],
+      "playbackPolicy": "pose-route"
+    },
+    "turnside": {
+      "label": "正面回到侧身",
+      "frames": 180,
+      "fps": 30,
+      "loop": false,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "turnside-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "6599eaf5aa3b474949f6480fe85217f8b32edebe8f2d8b7fb691ef5bd0233b30"
+        },
+        {
+          "file": "turnside-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "579773ddbb9433553c9e2f3f970f817114b44e689d03e310f4dfbf89e4c334b7"
+        },
+        {
+          "file": "turnside-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "a9edc4d6b903485c74b9dcc0306db9cbd2a3fc896eaf0ee7b2e0bdda2a0dd66b"
+        }
+      ],
+      "playbackPolicy": "pose-route"
+    },
+    "footrelax": {
+      "label": "小抬脚放松",
+      "frames": 180,
+      "fps": 30,
+      "loop": false,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "footrelax-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "68d54c3eae6ce7236cfdcdcfd12a08497657be3ac0869bc8acc9b73c2ea380d9"
+        },
+        {
+          "file": "footrelax-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "7d6c8a163789cd951cbe1eb9fe6301ee1a5b10a58fd5334bc1ebb77bfaa95373"
+        },
+        {
+          "file": "footrelax-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "7e518a4d99ff2a12c84057e45c51ad6450021e834b6fb75a688e6cb5f21a13ae"
+        }
+      ],
+      "playbackPolicy": "pose-route"
+    },
+    "response": {
+      "label": "自然回应 · 舒展放松",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedresponse-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "bca5f093b971a8384c55118a5312d4817d69a0f2239399b38155137a8c91e998"
+        },
+        {
+          "file": "approvedresponse-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "9ab792847328e0b29973e5be637a4bf6e13c0f0b87fbde0bf685494ce4977fa1"
+        },
+        {
+          "file": "approvedresponse-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "2dedd7973931dabe415d6709608b1d99256a598ae90463614bef6876d3159a34"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-free-thanks-720-v1"
+    },
+    "happy": {
+      "label": "开心 · 收放笑意",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedhappy-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "7d6504fb9284645d4815ec568d6dac184e3b2579f527a9c21bff3e766eae0c55"
+        },
+        {
+          "file": "approvedhappy-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "68a49f1d3e6949cce15533d19b75303c64ef7e4b7431bff6748a1766ea179a4b"
+        },
+        {
+          "file": "approvedhappy-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "fe6b1c1a2617314c530660123c466d3c5a5379dcc8d9aef581dff90145fd1a84"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-parallel-expression-happy-720-r2-silent-v2"
+    },
+    "confused": {
+      "label": "困惑 · 歪头摊掌",
+      "frames": 120,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedconfused-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "d9c2773212b427688fde37fa5dd71c0ca4b88bba3a463da9f53338a9facb9fba"
+        },
+        {
+          "file": "approvedconfused-1.png",
+          "start": 64,
+          "count": 56,
+          "rows": 7,
+          "sha256": "402a0e9e61e585cb33b52f110cad7fcc6604b0648a2440fcfe929957bbeb748e"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-parallel-expression-confused-720-silent-v2"
+    },
+    "wave": {
+      "label": "转身挥手",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedwave-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "779bdbf538f16f7931dc18be31cdd62bc709962eb8e514e0db636d72302c1e0f"
+        },
+        {
+          "file": "approvedwave-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "d631eb7ca18e4abb0add3461bb01685af9b4294fa733a2436b1181536d4c28f6"
+        },
+        {
+          "file": "approvedwave-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "f02c9b30111f4b9eefa9fcf5449ecfa9016b69958015fc08bccb865da92cbbb8"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-wave-turn-720-v1"
+    },
+    "stretching": {
+      "label": "侧向伸展",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedstretching-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "f5d0a99df7e41e99f5d73eb01025528b854b8ed482a8f6bebe6348591c540ad8"
+        },
+        {
+          "file": "approvedstretching-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "69e9ccab4e56cc5117da5ac596d8414f1c437e68a026359d0436a17fe2f9a9dd"
+        },
+        {
+          "file": "approvedstretching-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "ee32430c7ec5f466a901d6e07a347ba04aeeda77e7bc15741d8a9788ba986134"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-stretch-720-v1"
+    },
+    "thinking": {
+      "label": "托腮思考",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedthinking-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "786bf51536ce8d6ab653f21d8563ddb7c933c8cae9ee4ab53689a77e667451e3"
+        },
+        {
+          "file": "approvedthinking-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "174c342f289949595a5c41c1ccd151e5dbaedae17f1c339095093eae3d58ba03"
+        },
+        {
+          "file": "approvedthinking-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "17aad3b7efbdb90279c9707cd4f6cfb91c1265e82133d5b36bdd5becd44490e5"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-thinking-720-v1"
+    },
+    "lookaround": {
+      "label": "回身张望",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedlookaround-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "949c7a185df54c1e12526fae8526dfcc8ba0f0bac911edbd3cb4b2c588cc9836"
+        },
+        {
+          "file": "approvedlookaround-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "3aa4d7581596074cfc3acaebfde433c21b154778f2db4d2482fd00f03a237217"
+        },
+        {
+          "file": "approvedlookaround-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "bc58bbe0545558dcde2dcee7ca8802242818841006933328bf11061ddeec8541"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-lookaround-turn-720-v1"
+    },
+    "sleeping": {
+      "label": "困睡 · 眼睑放松",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedsleeping-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "25f65dc13e42057d27dad19241ffdfbab8d8a04b7030282845a6f1debfdbf673"
+        },
+        {
+          "file": "approvedsleeping-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "45df17a9b254b65ff60dacfffa86744f05408b119179e4e0c088dc73ab5608b1"
+        },
+        {
+          "file": "approvedsleeping-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "a1fe0be1843fcdb2fc7c6662415071607ea6ae2373a1e8b7b5bde002a58727da"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-parallel-daily-sleeping-720-v1"
+    },
+    "tea": {
+      "label": "提杯小饮",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedtea-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "7667412310556c0508bcfbd7dc3f32f3923a594306a820e0c24473df61501ca0"
+        },
+        {
+          "file": "approvedtea-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "5cfea57ba33d715a90accb091b4d1ea343457fafb5653bb605fe0ff68e1ab4d6"
+        },
+        {
+          "file": "approvedtea-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "59404b878824a33a914565bfd9ee86510f0ded3befdbdf739d625b686fb95f13"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-parallel-daily-tea-720-r2-v1",
+      "idleCooldownMs": 120000
+    },
+    "walking": {
+      "label": "走动 · 轻快小得意",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedwalking-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "23dbd9e249c8f3a29f9b65c9f9353a5a48395f1dfe7f4c271abe0a5944a38bc1"
+        },
+        {
+          "file": "approvedwalking-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "34d3069fa543e58f89e22d68bbc61841c96c4933e72b29cb9dac637db6369146"
+        },
+        {
+          "file": "approvedwalking-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "52334e225e24a0e615a17cac3995e3338c34aa616162ec09a276e921873f0757"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-walking-expression-gemini-20261101-03",
+      "idleCooldownMs": 90000
+    },
+    "flutter": {
+      "label": "拖动 · 屈膝悬空",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedflutter-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "0d6a1c1942acfdbcc8db2e3e8bea2f223cdca2967589ebb6e780f80a9df8ef29"
+        },
+        {
+          "file": "approvedflutter-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "51c117e197cd7377755404c332fdfa8ec4454069d152594e12527feaa16161d3"
+        },
+        {
+          "file": "approvedflutter-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "82ebbcb31baf370657039d07c2bc343bc7ab2d6a12e7b246f0fbe25d1202ee40"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-drag-flight-720-v1"
+    },
+    "flutterplay": {
+      "label": "轻盈舒展",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedflutterplay-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "81806e81c4abc76e8689aa1dfc9baf6caca82e98441ef0efaa66572c74ae97bc"
+        },
+        {
+          "file": "approvedflutterplay-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "b48019731633025a9f11c9466aa6005be36a4f87688e604fbcf2f8c6b60b8c22"
+        },
+        {
+          "file": "approvedflutterplay-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "8aced4cf96788f11931db0d6d47374165150d7f3a043903cfce2cb7d7c74c094"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-parallel-body-flutter-720-v1",
+      "idleCooldownMs": 90000
+    },
+    "bodybalance": {
+      "label": "全身与发束",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedbodybalance-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "1b37499a5453dc701755adb8c90b378d6194cf78bc518a9adc2f5c37402e1387"
+        },
+        {
+          "file": "approvedbodybalance-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "4c04ecf92269b40c58293ac37bb1e52e8c5c5aa5fec3bdb5b6e4b6085974ad9d"
+        },
+        {
+          "file": "approvedbodybalance-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "83800c59ecd39a6e1afca65ad14e922665376a46e0ad850fc825573a631fe8c8"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-drag-lively-720-v1"
+    },
+    "confusedquiet": {
+      "label": "安静困惑 · 少量用",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedconfusedquiet-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "df8584e3ded97edcbf94f2cf092795287bec766fd3df26ac188db03e0a702419"
+        },
+        {
+          "file": "approvedconfusedquiet-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "ce81e845c92e7d0fdb4b6b14a0d01af368159750a1b5d492a59b1ff1d9b96a1b"
+        },
+        {
+          "file": "approvedconfusedquiet-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "e12f397499cab08e70f44e7f40c36344bb65762b2b1b7dd1f00cfaef7ed53229"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-confused-silent-720-v1"
+    },
+    "bow": {
+      "label": "心口致意",
+      "frames": 120,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedbow-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "b3f89779cf5f8631c23c0d9c37fbf6d9099e4a93748640e647de6d8be6fc2400"
+        },
+        {
+          "file": "approvedbow-1.png",
+          "start": 64,
+          "count": 56,
+          "rows": 7,
+          "sha256": "25f5dec3763082f06daf9cbf4c7f1d50a8236d286e183623986b710f9c079754"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-bow-quiet-720-v1",
+      "idleCooldownMs": 90000
+    },
+    "frontpose": {
+      "label": "正面轻展",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedfrontpose-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "57ff6b0c75556f65ed21c3f24f1d394cbc3b90d9783322bbc36b21cedcef8bd7"
+        },
+        {
+          "file": "approvedfrontpose-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "f40470a868749c6368c3860dd8a7020013bd97fd373e2309124630d6d9037b77"
+        },
+        {
+          "file": "approvedfrontpose-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "49e1fdcd4c012c2a460e46a810ba0e5019dcb0b4b24c4388595a815a2043db18"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-front-hover-720-v1",
+      "idleCooldownMs": 90000
+    },
+    "complimentavert": {
+      "label": "被夸偷看 · 连续闭口",
+      "frames": 360,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedcomplimentavert-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "88446a67e68006de23592539295e5dba2600d970e88b8e4cfcd69b16fc20458f"
+        },
+        {
+          "file": "approvedcomplimentavert-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "f888947cd998e26e7b6657dbec5ab90388b9cbe4245ce6fc40108cb37a52ee71"
+        },
+        {
+          "file": "approvedcomplimentavert-2.png",
+          "start": 128,
+          "count": 64,
+          "rows": 8,
+          "sha256": "99471a2b0bd829b7d982aab678a557102709668f4f45dac54ba98f30c85b1be1"
+        },
+        {
+          "file": "approvedcomplimentavert-3.png",
+          "start": 192,
+          "count": 64,
+          "rows": 8,
+          "sha256": "5b2f4ff9a0933b7c18f67ef91104359c623a74e01c3d2e77c1b3b10125d669a7"
+        },
+        {
+          "file": "approvedcomplimentavert-4.png",
+          "start": 256,
+          "count": 64,
+          "rows": 8,
+          "sha256": "c470139dc7dd52927803f3ee96bb7273de394b52a7879ec4deb21fbb03fb5b80"
+        },
+        {
+          "file": "approvedcomplimentavert-5.png",
+          "start": 320,
+          "count": 40,
+          "rows": 5,
+          "sha256": "281a96fcc7100012ed3a5556201f87b46f91c071bdde3c245a6221281a425096"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-expression-complimentavert-12s-regenerate-720-v1",
+      "idleCooldownMs": 150000
+    },
+    "proudarms": {
+      "label": "抱臂矜持 · 尾巴修正版",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedproudarms-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "bd7ca08a20034b91f785125f784c0f960700a75fa8eb41a910bcaf5e0124dabf"
+        },
+        {
+          "file": "approvedproudarms-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "ae1497bc3294aceca91a4c1e65020ca75451177246ebae20512210f52b78166d"
+        },
+        {
+          "file": "approvedproudarms-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "9ccf7b656692e27fa227188b42f456f1d92ad84d4fa4c51f726351d3a31c3c39"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-body-proudarms-tailfix2-720-v1"
+    },
+    "gentlereminder": {
+      "label": "有礼轻嗔 · 温柔提醒",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedgentlereminder-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "f1d9823293f31d2b77e3c935c0c82cd8ae47aa42562dc8f70115a1f74ff5a2e9"
+        },
+        {
+          "file": "approvedgentlereminder-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "8fc88ee4d7994324b98af4e76933c96ab2f7391d009eaf0d7305d8534daa7d8e"
+        },
+        {
+          "file": "approvedgentlereminder-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "7359c79ffd54a73e296145d1a5d4036b3b70ac8dfcdd128f4d18ac33e396f27a"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-parallel-daily-gentlereminder-720-r3-v1"
+    },
+    "proudarmsreturn": {
+      "label": "抱臂收势 · 回正面放松",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedproudarmsreturn-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "1677ba7ed3ff7a082c117a521f53d3d5c45bc342cd00be2493abf3843bbea52f"
+        },
+        {
+          "file": "approvedproudarmsreturn-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "fed653d7a2b3feb3bc663fe95498a34177b13ac189dba971bec15d70bcc85d9d"
+        },
+        {
+          "file": "approvedproudarmsreturn-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "423979c42efe67ff23a5634088713185746a8541e0e732b51394d8e917f96b64"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-body-proudarmsreturn-720-v1"
+    },
+    "challengeaccept": {
+      "label": "接下挑战 · 从容应下",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedchallengeaccept-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "bcb9f8d21ba70372b84fdc8438186ba6d67f5f355a859d91e041c1cab2674e96"
+        },
+        {
+          "file": "approvedchallengeaccept-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "ebca56d5a83d59e33e2c23a349401e3293be525f8b3ed6d80944daf9fb493429"
+        },
+        {
+          "file": "approvedchallengeaccept-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "0beaca0f94f206c0c7474aac9c68c38b3d2f2efa0d6f12c37b7eca6b01e240c1"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-round4-expression-challengeaccept-720-v1",
+      "idleCooldownMs": 120000
+    },
+    "draglanding": {
+      "label": "拖动落地 · 屈膝站稳",
+      "frames": 180,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approveddraglanding-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "184c5c09d6a2f7f20b9cc25806a2e14af561e45bb9c2f5dfc384c4a6d4deab82"
+        },
+        {
+          "file": "approveddraglanding-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "f26a5b52e6c955a486edcc57dc841e8a6c4ecf7297392bdadaa7dda7b2f775c8"
+        },
+        {
+          "file": "approveddraglanding-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "27f6711422ba3c016a19d2a1b854d507ff89cf1ae8ce6a3d8de236b0fc12c7a7"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-round4-body-draglanding-720-v1"
+    },
+    "sleeveside": {
+      "label": "侧拂袖口 · 安静整理",
+      "frames": 180,
+      "fps": 30,
+      "loop": false,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "approvedsleeveside-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "f07ab08eedc03c726b34f79ff612a26f2646b0a696df1d855257d769167fcbbc"
+        },
+        {
+          "file": "approvedsleeveside-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "6a8a37110618d1d8f112ad3a6169a718d12c13423a9fc0f648a12ab4ed4a5cec"
+        },
+        {
+          "file": "approvedsleeveside-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "7e4d9d210dc9d4e7d3b06303d22d466735a290d977328cdb5434fbd69f64bccf"
+        }
+      ],
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-round7-daily-sleeveside-redo-720-v1",
+      "idleCooldownMs": 120000
+    },
+    "skirtbeat": {
+      "label": "提裙踏拍 · 小表演",
+      "frames": 180,
+      "fps": 30,
+      "loop": false,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "approvedskirtbeat-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "07f899e976418ef33544238cd9b6869f50c3b926d6db1ed0c35bcc2adccffd53"
+        },
+        {
+          "file": "approvedskirtbeat-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "4ffae43da62932619e238803d374652fb7f30e5c06a2e134a4ee76cf140cc8e6"
+        },
+        {
+          "file": "approvedskirtbeat-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "9393e516e25646fb9005c0228cd67e9456b75bde61d5f4a8a252b7fb55c46aed"
+        }
+      ],
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-round5-body-skirtbeat-720-v1",
+      "idleCooldownMs": 150000
+    },
+    "cheekpuff": {
+      "label": "鼓腮小抗议",
+      "frames": 180,
+      "fps": 30,
+      "loop": false,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "approvedcheekpuff-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "3b062d8283db6bef317c1275f045a1c344c1d9e4180ede48258349d38e00027b"
+        },
+        {
+          "file": "approvedcheekpuff-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "30a4f1d737916af880e8a3b7fffe97f247217e12b324c242f8bbfca7c34517c5"
+        },
+        {
+          "file": "approvedcheekpuff-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "ce06bedcf79638ce4038a4d347588d3c934c0813d94b9a9a28f49e1b1302b29a"
+        }
+      ],
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-round7-expression-cheekpuff-720-v1"
+    },
+    "tickledodge": {
+      "label": "躲痒侧步",
+      "frames": 180,
+      "fps": 30,
+      "loop": false,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "approvedtickledodge-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "5e920ad9d76b574f4e4844e5349de66d175c74175d8e5b2266a71bcc774c8436"
+        },
+        {
+          "file": "approvedtickledodge-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "e98e293d33f2ca79c726d71e597e19589772a713bb18739480235844e0b73e11"
+        },
+        {
+          "file": "approvedtickledodge-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "3736a195eaf8ad5302806b88d60f1f713bba09536dc3262602b524f250ce97e7"
+        }
+      ],
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-round7-body-tickledodge-720-v1"
+    },
+    "fanmishap": {
+      "label": "展扇小意外 · 持扇淡出",
+      "frames": 180,
+      "fps": 30,
+      "loop": false,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "approvedfanmishap-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "17948f0a6f1b1644fca2c98ce01af1be4f368d28db02723a2009907c0ba926a8"
+        },
+        {
+          "file": "approvedfanmishap-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "a2e7eb44e8eb22b1d7f11dd075953adcd911045e20e9798b864a04468e01e0ca"
+        },
+        {
+          "file": "approvedfanmishap-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "df7ed8f1c04466da2cccecff81a3557680ab7d7ba8bdd45d83df22686ce0bab9"
+        }
+      ],
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-round5-expression-fanmishap-720-v1"
+    },
+    "lanterninvite": {
+      "label": "提灯引路 · 持灯淡出",
+      "frames": 180,
+      "fps": 30,
+      "loop": false,
+      "sourceKind": "continuous-video",
+      "pages": [
+        {
+          "file": "approvedlanterninvite-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "52cca4e7a275e040b77fa6980f2129816b45fcb45bd947efc7fbf92f44644b46"
+        },
+        {
+          "file": "approvedlanterninvite-1.png",
+          "start": 64,
+          "count": 64,
+          "rows": 8,
+          "sha256": "9aa859c6c21c3a78f505038b6f183ce4ee2c0bb3087e157a14f3ea8cd7041892"
+        },
+        {
+          "file": "approvedlanterninvite-2.png",
+          "start": 128,
+          "count": 52,
+          "rows": 7,
+          "sha256": "af38c59c9638bcc89d518502d5052ea47ff34288d843e6a9d33faf1832c8ca27"
+        }
+      ],
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-round5-daily-lanterninvite-720-v1"
+    },
+    "thinkingreturn": {
+      "label": "托腮收势 · 回正面放松",
+      "frames": 120,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedthinkingreturn-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "7766e5555f1bfb8ae7fad7fef45b3828d7ef42ac2acebc6f5681de233c6d0432"
+        },
+        {
+          "file": "approvedthinkingreturn-1.png",
+          "start": 64,
+          "count": 56,
+          "rows": 7,
+          "sha256": "f4bb5c3a2bc99cb182a0a10f7fd870de29650f7095a78fc54fc7aa7e27810578"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-thinkingreturn-4s-v1"
+    },
+    "lookaroundreturn": {
+      "label": "张望收势 · 回正面放松",
+      "frames": 120,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedlookaroundreturn-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "484944c92ddd50bb361195bb60d9bfcccedcc63c1fc340d8d3da48b146b04893"
+        },
+        {
+          "file": "approvedlookaroundreturn-1.png",
+          "start": 64,
+          "count": 56,
+          "rows": 7,
+          "sha256": "8048495fce5711660e0d25172b0476d4a91f0d4d0ffe9de48c0d1e9f21b405b7"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-lookaroundreturn-4s-v1"
+    },
+    "wavereturn": {
+      "label": "招手收势 · 回正面放松",
+      "frames": 120,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedwavereturn-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "0972f9c6b376f76877cd261c9fb566262ceb94d35924440d62ba5ae407eed3b5"
+        },
+        {
+          "file": "approvedwavereturn-1.png",
+          "start": 64,
+          "count": 56,
+          "rows": 7,
+          "sha256": "da03ffd84a7e01ed0e318aa51ec6b8a4c209d9a83e1c0961ad6a1bfb1c75efa7"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-wavereturn-4s-v1"
+    },
+    "happyreturn": {
+      "label": "笑颜收势 · 回正面放松",
+      "frames": 120,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedhappyreturn-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "29d4a1085be1e9854ef13f7714820c30aa5c85d2f7f0077f3fe353910fc2cdfa"
+        },
+        {
+          "file": "approvedhappyreturn-1.png",
+          "start": 64,
+          "count": 56,
+          "rows": 7,
+          "sha256": "6a1ee3f031b535426921e8fb835c58e7284187746fd3ccd72f2f19ef884746fe"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-happyreturn-4s-v1"
+    },
+    "stretchingreturn": {
+      "label": "伸展收势 · 回正面放松",
+      "frames": 120,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedstretchingreturn-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "d4b020c3341b877c19f73f4fa593616d16c5ae28d7724c8721620e866e1f0f1d"
+        },
+        {
+          "file": "approvedstretchingreturn-1.png",
+          "start": 64,
+          "count": 56,
+          "rows": 7,
+          "sha256": "972789f2984d6242dfeed57c1feb044592c7e5e54e2e533fb992cd371eff0c55"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-stretchingreturn-4s-v1"
+    },
+    "complimentreturn": {
+      "label": "害羞收势 · 回正面放松",
+      "frames": 120,
+      "loop": false,
+      "pages": [
+        {
+          "file": "approvedcomplimentreturn-0.png",
+          "start": 0,
+          "count": 64,
+          "rows": 8,
+          "sha256": "77d03e08d570d89d11bc1ba3795f55fa3a4e65d29a60329d2f7aa67f93c6a53a"
+        },
+        {
+          "file": "approvedcomplimentreturn-1.png",
+          "start": 64,
+          "count": 56,
+          "rows": 7,
+          "sha256": "1ab63ff51a62507fde5d1db26900b98090f3c33566fafef8c51c3ca3699c6a47"
+        }
+      ],
+      "fps": 30,
+      "sourceKind": "continuous-video",
+      "playbackPolicy": "one-shot",
+      "approvedCandidate": "wan3-interaction-complimentreturn-4s-v1"
+    }
+  },
+  "pools": {
+    "idle": [
+      "idle",
+      "idle",
+      "idlesway",
+      "poserelax",
+      "weightshift",
+      "brelaxed",
+      "turnfront",
+      "frontidle",
+      "turnside",
+      "footrelax"
+    ],
+    "thinking": [
+      "thinking",
+      "frontidle",
+      "lookaround"
+    ],
+    "working": [
+      "thinking",
+      "frontidle",
+      "lookaround"
+    ],
+    "waiting": [
+      "frontidle"
+    ],
+    "happy": [
+      "happy"
+    ],
+    "confused": [
+      "confused"
+    ]
+  },
+  "releaseVersion": "0.7.3-idle-variety.1",
+  "idleBases": [
+    "frontidle"
+  ],
+  "idlePoseEntry": "poserelax",
+  "idlePoseEntryChance": 0,
+  "idlePoseRoutes": {
+    "poserelax": [
+      "brelaxed"
+    ],
+    "brelaxed": [
+      "turnfront"
+    ],
+    "turnfront": [
+      "frontidle"
+    ],
+    "frontidle": [
+      "frontidle",
+      "turnside"
+    ],
+    "turnside": [
+      "brelaxed",
+      "brelaxed",
+      "footrelax"
+    ],
+    "footrelax": [
+      "turnfront"
+    ]
+  },
+  "approvedMaterialCollection": {
+    "approvalSha256": "0ed57fce48f5191449eea45fa209a6a0127c7f9a447c7b4f46380ec5bb8b076a",
+    "groups": 37,
+    "sourceTimingPreserved": true,
+    "retainedNineIdles": true,
+    "additionalApprovalPath": ".\\work\\gpt-niang-animation\\approved-materials-20261025-final-round.json",
+    "additionalApprovalSha256": "b16e01f04703237a6ebab87d3c8d401672c478bc62e22ae3fb594da388d0b8bf",
+    "transitionApprovalPath": ".\\work\\gpt-niang-animation\\approved-transitions-20261025.json",
+    "transitionApprovalSha256": "0ef85a508d37eda14cca9e87896ad106ce911d4daf7faeb3c4e0562c7de45334",
+    "humanApprovedMaterialGroups": 36,
+    "assistantSelectedTransitionGroups": 1,
+    "integrationApprovalPath": ".\\work\\gpt-niang-animation\\approved-integration-20261026.json",
+    "integrationApprovalSha256": "5922ce0d2c2fdc62abc822590775562099c77fcfcc5fc65bd1aecd5591f1af80",
+    "materialIntegrationApprovalPath": ".\\work\\gpt-niang-animation\\approved-integration-20261028-materials.json",
+    "materialIntegrationApprovalSha256": "b8824ccc9c3340217162e2c478b79a11e343d9eb137cc4390239bc2befe58315",
+    "latestHumanRetainedSourceGroups": 37,
+    "latestHumanReviewPath": ".\\work\\deep-audit-20261028\\human-review-20261028.json",
+    "latestHumanReviewSha256": "f7221b87f9ed8e478f10fc734f47186b14835e4eeafb81841111f8e71c89f5e0"
+  },
+  "idleInteractionPool": [
+    "proudarms",
+    "stretching",
+    "lookaround",
+    "sleeveside",
+    "wave",
+    "happy",
+    "tea",
+    "walking",
+    "complimentavert",
+    "skirtbeat",
+    "bow",
+    "flutterplay",
+    "frontpose",
+    "challengeaccept"
+  ],
+  "idleInteractionChance": 0.2,
+  "dragClip": "flutter",
+  "touchResponses": {
+    "head": [
+      "happy",
+      "complimentavert"
+    ],
+    "cheek": [
+      "cheekpuff"
+    ],
+    "tickle": [
+      "tickledodge"
+    ],
+    "tail": [
+      "flutterplay",
+      "flutter"
+    ],
+    "feet": [
+      "bow",
+      "skirtbeat"
+    ],
+    "body": [
+      "response",
+      "wave"
+    ]
+  },
+  "returnPoses": {
+    "response": "brelaxed",
+    "happy": "frontidle",
+    "confused": "frontidle",
+    "wave": "frontidle",
+    "stretching": "frontidle",
+    "thinking": "frontidle",
+    "lookaround": "frontidle",
+    "sleeping": "frontidle",
+    "tea": "frontidle",
+    "walking": "frontidle",
+    "flutter": "frontidle",
+    "flutterplay": "frontidle",
+    "bodybalance": "frontidle",
+    "confusedquiet": "brelaxed",
+    "bow": "frontidle",
+    "frontpose": "frontidle",
+    "complimentavert": "frontidle",
+    "proudarms": "frontidle",
+    "gentlereminder": "frontidle",
+    "proudarmsreturn": "frontidle",
+    "challengeaccept": "frontidle",
+    "draglanding": "frontidle",
+    "sleeveside": "frontidle",
+    "skirtbeat": "frontidle",
+    "cheekpuff": "frontidle",
+    "tickledodge": "frontidle",
+    "fanmishap": "frontidle",
+    "lanterninvite": "frontidle",
+    "thinkingreturn": "frontidle",
+    "lookaroundreturn": "frontidle",
+    "wavereturn": "frontidle",
+    "happyreturn": "frontidle",
+    "stretchingreturn": "frontidle",
+    "complimentreturn": "frontidle"
+  },
+  "menuGroups": {
+    "idle": "待机与姿态",
+    "idlesway": "待机与姿态",
+    "poserelax": "待机与姿态",
+    "weightshift": "待机与姿态",
+    "brelaxed": "待机与姿态",
+    "turnfront": "待机与姿态",
+    "frontidle": "待机与姿态",
+    "turnside": "待机与姿态",
+    "footrelax": "待机与姿态",
+    "response": "表情与回应",
+    "happy": "表情与回应",
+    "confused": "表情与回应",
+    "wave": "表情与回应",
+    "thinking": "日常小动作",
+    "sleeping": "日常小动作",
+    "tea": "日常小动作",
+    "bow": "日常小动作",
+    "walking": "全身动作",
+    "stretching": "全身动作",
+    "lookaround": "全身动作",
+    "flutter": "全身动作",
+    "flutterplay": "全身动作",
+    "bodybalance": "强互动（单次）",
+    "confusedquiet": "保留备选",
+    "frontpose": "保留备选",
+    "complimentavert": "傲娇与回应",
+    "proudarms": "傲娇与回应",
+    "gentlereminder": "任务与回应（单次）",
+    "proudarmsreturn": "姿态连接",
+    "challengeaccept": "任务与回应（单次）",
+    "draglanding": "姿态连接",
+    "sleeveside": "自然小动作",
+    "skirtbeat": "单次表演",
+    "cheekpuff": "单次互动",
+    "tickledodge": "单次互动",
+    "fanmishap": "手动小场景（持物淡出）",
+    "lanterninvite": "手动小场景（持物淡出）",
+    "thinkingreturn": "姿态连接",
+    "lookaroundreturn": "姿态连接",
+    "wavereturn": "姿态连接",
+    "happyreturn": "姿态连接",
+    "stretchingreturn": "姿态连接",
+    "complimentreturn": "姿态连接"
+  },
+  "interactionPolicyVersion": 1,
+  "frontIdleHoldMs": 8000,
+  "actionSettleMs": 3200,
+  "formsVersion": "forms-1.24-continuity",
+  "defaultIdleState": "frontidle",
+  "clickSettlePose": "frontidle",
+  "idleInteractionEntryPoses": {
+    "proudarms": [
+      "frontidle"
+    ],
+    "stretching": [
+      "frontidle"
+    ],
+    "lookaround": [
+      "frontidle"
+    ],
+    "tea": [
+      "frontidle"
+    ],
+    "sleeveside": [
+      "frontidle"
+    ],
+    "wave": [
+      "frontidle"
+    ],
+    "complimentavert": [
+      "frontidle"
+    ],
+    "walking": [
+      "frontidle"
+    ],
+    "skirtbeat": [
+      "frontidle"
+    ],
+    "happy": [
+      "frontidle"
+    ],
+    "bow": [
+      "frontidle"
+    ],
+    "flutterplay": [
+      "frontidle"
+    ],
+    "frontpose": [
+      "frontidle"
+    ],
+    "challengeaccept": [
+      "frontidle"
+    ]
+  },
+  "clipEntryPoses": {
+    "idle": "A",
+    "idlesway": "A",
+    "poserelax": "A",
+    "weightshift": "A",
+    "brelaxed": "B",
+    "turnfront": "B",
+    "frontidle": "C",
+    "turnside": "C",
+    "footrelax": "B",
+    "response": "B",
+    "happy": "C",
+    "confused": "C",
+    "wave": "C",
+    "stretching": "C",
+    "thinking": "C",
+    "lookaround": "C",
+    "sleeping": "C",
+    "tea": "C",
+    "walking": "C",
+    "flutter": "C",
+    "flutterplay": "C",
+    "bodybalance": "C",
+    "confusedquiet": "B",
+    "bow": "C",
+    "frontpose": "C",
+    "complimentavert": "C",
+    "proudarms": "C",
+    "gentlereminder": "C",
+    "proudarmsreturn": "C",
+    "challengeaccept": "C",
+    "draglanding": "C",
+    "sleeveside": "C",
+    "skirtbeat": "C",
+    "cheekpuff": "C",
+    "tickledodge": "C",
+    "fanmishap": "C",
+    "lanterninvite": "C",
+    "thinkingreturn": "C",
+    "lookaroundreturn": "C",
+    "wavereturn": "C",
+    "happyreturn": "C",
+    "stretchingreturn": "C",
+    "complimentreturn": "C"
+  },
+  "clipExitPoses": {
+    "idle": "A",
+    "idlesway": "A",
+    "poserelax": "B",
+    "weightshift": "A",
+    "brelaxed": "B",
+    "turnfront": "C",
+    "frontidle": "C",
+    "turnside": "B",
+    "footrelax": "B",
+    "response": "B",
+    "happy": "C",
+    "confused": "C",
+    "wave": "C",
+    "stretching": "C",
+    "thinking": "C",
+    "lookaround": "C",
+    "sleeping": "C",
+    "tea": "C",
+    "walking": "C",
+    "flutter": "C",
+    "flutterplay": "C",
+    "bodybalance": "C",
+    "confusedquiet": "B",
+    "bow": "C",
+    "frontpose": "C",
+    "complimentavert": "C",
+    "proudarms": "C",
+    "gentlereminder": "C",
+    "proudarmsreturn": "C",
+    "challengeaccept": "C",
+    "draglanding": "C",
+    "sleeveside": "C",
+    "skirtbeat": "C",
+    "cheekpuff": "C",
+    "tickledodge": "C",
+    "thinkingreturn": "C",
+    "lookaroundreturn": "C",
+    "wavereturn": "C",
+    "happyreturn": "C",
+    "stretchingreturn": "C",
+    "complimentreturn": "C"
+  },
+  "transitionClips": {
+    "proudarms": "proudarmsreturn",
+    "thinking": "thinkingreturn",
+    "lookaround": "lookaroundreturn",
+    "wave": "wavereturn",
+    "happy": "happyreturn",
+    "stretching": "stretchingreturn",
+    "complimentavert": "complimentreturn"
+  },
+  "dragLandingClip": "draglanding",
+  "idleInteractionCooldownMs": 22000,
+  "fullPlayClips": [
+    "poserelax",
+    "weightshift",
+    "turnfront",
+    "turnside",
+    "footrelax",
+    "response",
+    "happy",
+    "confused",
+    "wave",
+    "stretching",
+    "lookaround",
+    "sleeping",
+    "tea",
+    "walking",
+    "flutterplay",
+    "bodybalance",
+    "confusedquiet",
+    "bow",
+    "frontpose",
+    "complimentavert",
+    "proudarms",
+    "gentlereminder",
+    "proudarmsreturn",
+    "challengeaccept",
+    "draglanding",
+    "sleeveside",
+    "skirtbeat",
+    "cheekpuff",
+    "tickledodge",
+    "fanmishap",
+    "lanterninvite",
+    "thinkingreturn",
+    "lookaroundreturn",
+    "wavereturn",
+    "happyreturn",
+    "stretchingreturn",
+    "complimentreturn"
+  ],
+  "propPolicies": {
+    "tea": "appear-use-disappear",
+    "fanmishap": "held-prop-fade",
+    "lanterninvite": "held-prop-fade"
+  },
+  "waitingEntryReaction": {
+    "clip": "gentlereminder",
+    "cooldownMs": 60000,
+    "pendingMs": 30000
+  },
+  "clipPresentation": {
+    "happy": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "confused": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "wave": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "stretching": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "thinking": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "lookaround": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "sleeping": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "tea": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "flutter": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "flutterplay": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "bodybalance": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "bow": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "complimentavert": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "proudarms": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "gentlereminder": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "proudarmsreturn": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "draglanding": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "frontpose": {
+      "scale": 1.0199,
+      "offsetX": -7.604031391436763,
+      "offsetY": -8.163999999999987
+    },
+    "thinkingreturn": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "lookaroundreturn": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "wavereturn": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "happyreturn": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "stretchingreturn": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    },
+    "complimentreturn": {
+      "scale": 1.0150844562535586,
+      "offsetX": -6.32836591383565,
+      "offsetY": -5.714329094704917
+    }
+  },
+  "idleRhythmPolicies": {
+    "quiet": {
+      "minGapMs": 24000,
+      "maxGapMs": 40000,
+      "chance": 0.2
+    },
+    "natural": {
+      "minGapMs": 12000,
+      "maxGapMs": 24000,
+      "chance": 0.35
+    }
+  },
+  "activeTaskVariation": {
+    "neutralClip": "frontidle",
+    "clipCooldownMs": {
+      "lookaround": 45000
+    }
+  },
+  "presentationEvidence": {
+    "sourceCameraProof": ".\\work\\continuity-20261028-01\\scale\\unified-c-camera-proof.json",
+    "sourceCameraProofSha256": "4045c59153847399beffc7833bbf335a352c680a306731c8ad97371fd04ce752",
+    "fixedCamera": true,
+    "perFrameRecentering": false,
+    "rawAtlasesChanged": false,
+    "referenceClip": "frontidle"
+  }
+}

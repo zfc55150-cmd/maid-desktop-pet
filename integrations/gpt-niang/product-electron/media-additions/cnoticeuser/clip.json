@@ -1,0 +1,19 @@
+{
+  "id": "cnoticeuser",
+  "label": "注意到你 · 悄悄侧目",
+  "frames": 150,
+  "fps": 30,
+  "loop": false,
+  "automatic": true,
+  "idleCooldownMs": 120000,
+  "sourceKind": "gemini-reviewed-frontal-idle",
+  "menuGroup": "日常陪伴",
+  "entryPose": "C",
+  "exitPose": "C",
+  "sourceVideoSha256": "6d195c8828c2741ed586515c1c930f24b47c04a9ed72f69a1d33d96129be1e6a",
+  "videoFile": "cnoticeuser.webm",
+  "maskFile": "cnoticeuser.bin",
+  "videoSha256": "8efbbeb65c7744c0b3ec6ea86bd7eb2ce33f40f00b24397b0854df729c219eaa",
+  "maskSha256": "b6663b0c3b676a05c53774004ef74d10fd0d2b91c61b44f5c77fc351f1f53a19",
+  "maskBytes": 2764800
+}

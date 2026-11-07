@@ -1,0 +1,19 @@
+{
+  "id": "ctailtipsettle",
+  "label": "尾尖轻摆 · 安心陪你",
+  "frames": 150,
+  "fps": 30,
+  "loop": false,
+  "automatic": true,
+  "idleCooldownMs": 90000,
+  "sourceKind": "gemini-reviewed-frontal-idle",
+  "menuGroup": "日常陪伴",
+  "entryPose": "C",
+  "exitPose": "C",
+  "sourceVideoSha256": "298ce13c528afc00cad554f55b625d7de2cb24ecfbff684bccb15a902573a17d",
+  "videoFile": "ctailtipsettle.webm",
+  "maskFile": "ctailtipsettle.bin",
+  "videoSha256": "cb214bad193e13815e4ad2525185749e9fd69b69acf3118c00adb4fd095ce390",
+  "maskSha256": "3c5fc4e6640bd6c5cb4bdbcf15b9ba2977e749511372d5134ca0af8b286f91d8",
+  "maskBytes": 2764800
+}

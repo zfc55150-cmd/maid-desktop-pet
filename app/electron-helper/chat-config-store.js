@@ -14,7 +14,12 @@ class ChatConfigStore {
   if(data.key!==undefined&&(typeof data.key!=='string'||data.key.length>4096))throw new Error('invalid');
   if(data.prompt!==undefined&&(typeof data.prompt!=='string'||data.prompt.length>4000))throw new Error('invalid');
    if(data.memory!==undefined&&(typeof data.memory!=='string'||data.memory.length>6000))throw new Error('invalid');
+  if(data.autoMemoryEnabled!==undefined&&typeof data.autoMemoryEnabled!=='boolean')throw new Error('invalid');
+  for(const key of ['memorySequence','memoryCursor','memoryEpoch'])if(data[key]!==undefined&&(!Number.isSafeInteger(data[key])||data[key]<0))throw new Error('invalid');
+  if(data.memorySequence!==undefined&&(data.memoryCursor||0)>data.memorySequence)throw new Error('invalid');
+  if(data.memoryUpdatedAt!==undefined&&(typeof data.memoryUpdatedAt!=='string'||data.memoryUpdatedAt.length>64))throw new Error('invalid');
   if(data.messages!==undefined&&(!Array.isArray(data.messages)||data.messages.some(m=>!m||!['user','assistant'].includes(m.role)||typeof m.content!=='string')))throw new Error('invalid');
+  if(data.messages?.some(m=>(m.memorySeq!==undefined&&(!Number.isSafeInteger(m.memorySeq)||m.memorySeq<=0||m.memorySeq>(data.memorySequence||0)))||(m.memoryNoAdd!==undefined&&typeof m.memoryNoAdd!=='boolean')))throw new Error('invalid');
   return data;
  }
  read() {

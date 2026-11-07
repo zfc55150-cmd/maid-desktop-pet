@@ -1,0 +1,114 @@
+{
+  "date": "2026-11-03",
+  "note": "04 MUST use the alternate fourth-review directory; main same-name v4 remains rejected. No install or overwrite performed.",
+  "clips": [
+    {
+      "id": "04_c_brush_fringe",
+      "version": "v4",
+      "selectedDirectory": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘补充动作第四次验收-20261103\\04_c_brush_fringe_v4",
+      "files": [
+        {
+          "name": "c_brush_fringe.mp4",
+          "bytes": 3505879,
+          "sha256": "8684973994e4a82d38392d0779b4354bea45239048e237e5ba7aff168f540038"
+        },
+        {
+          "name": "c_brush_fringe.webm",
+          "bytes": 790702,
+          "sha256": "2fa453501b9f17b941906158ddab6cad7792d05ee2a5de570dc978dda307f5f9"
+        },
+        {
+          "name": "c_brush_fringe.bin",
+          "bytes": 2764800,
+          "sha256": "4047a9d58d293d0d011815a53872f2270773bc5d71e4f9ead5c6acf50e2c6fc8"
+        }
+      ],
+      "knownDefectFrame": 43,
+      "fullSourceAndAlphaDecoded": true,
+      "exactMaskComparison": true,
+      "mouthRepairDefectCheck": "passed; retain candidate; final native-speed/desktop review remains pending",
+      "nativeSpeedGuiReviewCompleted": false
+    },
+    {
+      "id": "05_c_hands_rest",
+      "version": "v4",
+      "selectedDirectory": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\05_c_hands_rest_v4",
+      "files": [
+        {
+          "name": "c_hands_rest.mp4",
+          "bytes": 3450747,
+          "sha256": "294a8748dbf2a15fd371d55b1ba754228412dfd419e3644a4b7578a7335a1545"
+        },
+        {
+          "name": "c_hands_rest.webm",
+          "bytes": 625885,
+          "sha256": "b069ae72d122f8eb8db6c9e530b0a3b9a03dae895c07185992573c99b8d227a9"
+        },
+        {
+          "name": "c_hands_rest.bin",
+          "bytes": 2764800,
+          "sha256": "ac8e9b99f3f9235e717275bf173f73380192ba461236e679e8e4e22ab0d97735"
+        }
+      ],
+      "knownDefectFrame": 32,
+      "fullSourceAndAlphaDecoded": true,
+      "exactMaskComparison": true,
+      "mouthRepairDefectCheck": "passed; retain candidate; final native-speed/desktop review remains pending",
+      "nativeSpeedGuiReviewCompleted": false
+    },
+    {
+      "id": "06_c_small_weight_settle",
+      "version": "v4",
+      "selectedDirectory": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\06_c_small_weight_settle_v4",
+      "files": [
+        {
+          "name": "c_small_weight_settle.mp4",
+          "bytes": 3606144,
+          "sha256": "d88a5c5172d6a7b080d7403e7827d79391c34107bda5b3a9fe72be708a711ee4"
+        },
+        {
+          "name": "c_small_weight_settle.webm",
+          "bytes": 755106,
+          "sha256": "f22281988926473e98bda4825d39e3c13ad9184a11edb9d542e0add680e06e8e"
+        },
+        {
+          "name": "c_small_weight_settle.bin",
+          "bytes": 2764800,
+          "sha256": "526241c3295f4075b40f7f19da63de21f980e485e505f7a2735235223dc53044"
+        }
+      ],
+      "knownDefectFrame": 53,
+      "fullSourceAndAlphaDecoded": true,
+      "exactMaskComparison": true,
+      "mouthRepairDefectCheck": "passed; retain candidate; final native-speed/desktop review remains pending",
+      "nativeSpeedGuiReviewCompleted": false
+    },
+    {
+      "id": "07_c_notice_user",
+      "version": "v4",
+      "selectedDirectory": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\07_c_notice_user_v4",
+      "files": [
+        {
+          "name": "c_notice_user.mp4",
+          "bytes": 3511861,
+          "sha256": "6d195c8828c2741ed586515c1c930f24b47c04a9ed72f69a1d33d96129be1e6a"
+        },
+        {
+          "name": "c_notice_user.webm",
+          "bytes": 469552,
+          "sha256": "8efbbeb65c7744c0b3ec6ea86bd7eb2ce33f40f00b24397b0854df729c219eaa"
+        },
+        {
+          "name": "c_notice_user.bin",
+          "bytes": 2764800,
+          "sha256": "b6663b0c3b676a05c53774004ef74d10fd0d2b91c61b44f5c77fc351f1f53a19"
+        }
+      ],
+      "knownDefectFrame": 74,
+      "fullSourceAndAlphaDecoded": true,
+      "exactMaskComparison": true,
+      "mouthRepairDefectCheck": "passed; retain candidate; final native-speed/desktop review remains pending",
+      "nativeSpeedGuiReviewCompleted": false
+    }
+  ]
+}

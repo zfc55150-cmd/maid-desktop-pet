@@ -1,0 +1,34 @@
+{
+  "id": "frontlanding",
+  "label": "正面降落 · 轻盈站稳",
+  "frames": 90,
+  "fps": 30,
+  "loop": false,
+  "sourceKind": "dedicated-frontal-landing-generated-video",
+  "menuGroup": "姿态连接",
+  "entryPose": "C",
+  "exitPose": "C",
+  "sourceVideoSha256": "eca6af8c69e89418acfdb696d89c73ad654c5e03360347a2cacf9cfe9a24f01d",
+  "videoFile": "frontlanding.webm",
+  "maskFile": "frontlanding.bin",
+  "videoSha256": "07ff84b55947a59cea27cdb92d06fb6d14b975bf2cd507a0d92f78dc6fd66089",
+  "maskSha256": "b20b5c580127ccc02459c9d06d554beb71fa6cd9c78e85057c290b07f4a199b0",
+  "maskBytes": 1658880,
+  "sourceFrameEndpoints": {
+    "first": {
+      "clip": "frontpose",
+      "frame": 179
+    },
+    "last": {
+      "clip": "frontidle",
+      "frame": 0
+    }
+  },
+  "endpointRestoration": {
+    "firstFrames": 4,
+    "lastFrames": 6,
+    "startSpanMs": 100,
+    "endSpanMs": 167,
+    "method": "premultiplied blend between already matching frontal poses and exact production endpoints; no body rotation, resizing, reversed frames, or added frames"
+  }
+}

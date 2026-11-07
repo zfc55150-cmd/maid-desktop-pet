@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-03",
+  "fullBatchAccepted": false,
+  "mouthRepairAcceptedCandidates": [
+    "04 alternate fourth-review directory v4",
+    "05 main v4",
+    "06 main v4",
+    "07 main v4"
+  ],
+  "rejectedSameNameCopy": "04 main delivery directory v4 remains open; do not use.",
+  "unchangedPending": [
+    "02 v4 return",
+    "two bridge middle motions and complete host playback"
+  ],
+  "sourceAndAlphaFramesDecodedThisRound": 1500,
+  "selectedCandidateFramesDecoded": 1200,
+  "manualSelectedMouthFramesInspected": 600,
+  "allFiveMasksBitExact": true,
+  "formalApplicationWrittenByThisReview": false,
+  "nativeSpeedGuiReviewCompleted": false,
+  "formalVersion": "0.8.14-electron",
+  "formalStates": 44,
+  "formalHashesVerified": 267,
+  "files": [
+    {
+      "path": "evidence/04两处交付副本第43帧.png",
+      "bytes": 139623,
+      "sha256": "72bc4faf85e77f8ea1f3fd1f1cdd5007f333688904fe7f317eeddb4408bb9d57"
+    },
+    {
+      "path": "evidence/主交付目录检查.json",
+      "bytes": 124943,
+      "sha256": "2a85fad0a367f2408475ec9b0900e09939e5105b8f7538cf044bbd514e935255"
+    },
+    {
+      "path": "evidence/原文件与正式状态快照.json",
+      "bytes": 833,
+      "sha256": "03206469d7adc7eb09d92107c9de241c2f4fadfa855e25d980bc871f4339fe5d"
+    },
+    {
+      "path": "evidence/正确04副本检查.json",
+      "bytes": 31398,
+      "sha256": "ac1c10e58e338af91c170026ac2ab7121863b29426efb7e721d3f299c08cfff6"
+    },
+    {
+      "path": "evidence/选定正确副本后的嘴部对照.png",
+      "bytes": 304102,
+      "sha256": "f8456b2563c59c285dd205b11834a122a5ff6f51d3a7c9d3e012be2c363b3803"
+    },
+    {
+      "path": "本轮选用版本.json",
+      "bytes": 4523,
+      "sha256": "f638088378ce7bffed4f174e3a693f3d4f22516e505053d9e809072d80fb9c9b"
+    },
+    {
+      "path": "给Gemini的收尾反馈.md",
+      "bytes": 1608,
+      "sha256": "9ab510471f5dda901d2c3e847326b47b8c09507189d968ebdcf2fbc6738281f7"
+    },
+    {
+      "path": "验收结论.md",
+      "bytes": 4791,
+      "sha256": "002a6e8a4af3c9b1eb3183ef7dc96c1296070890291b3573e61fd3c1d502fe90"
+    }
+  ]
+}

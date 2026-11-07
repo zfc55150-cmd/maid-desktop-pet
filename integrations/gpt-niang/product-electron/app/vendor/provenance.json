@@ -1,0 +1,6 @@
+{
+  "source": "app/electron-helper/shared-core.js",
+  "sourceSha256": "cec88e7297591129c2b381b3be33d0d46797c1d9d00d983146949c43213bba07",
+  "vendoredSha256": "6685e5b50c307e7b2e459c4614467555fb364d773ef15d8bfe275e775e2ba3ce",
+  "change": "CommonJS export wrapper only; original shared code unchanged"
+}

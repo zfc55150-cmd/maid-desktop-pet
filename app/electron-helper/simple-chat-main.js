@@ -9,7 +9,10 @@ module.exports = function installSimpleChat(electron, petWindows, options={}) {
  const settingsURL=pathToFileURL(path.join(__dirname,'pet-settings.html')).href;
  const indexURL=pathToFileURL(path.join(__dirname,'index.html')).href;
  const speech=options.speech||new PetSpeech();
- const getService=()=>service ||= options.service||new ChatService({dir:path.join(process.env.DSH_HOME || path.join(app.getPath('appData'),'DeepSeekActionPet'),'simple-chat'),secrets:safeStorage,requireExisting:true});
+ const getService=()=>{
+  service ||= options.service||new ChatService({dir:path.join(process.env.DSH_HOME || path.join(app.getPath('appData'),'DeepSeekActionPet'),'simple-chat'),secrets:safeStorage,requireExisting:true,memoryOptions:{onStatus:status=>{if(settingsWindow&&!settingsWindow.isDestroyed())settingsWindow.webContents.send('simple-chat:memory-status',status);}}});
+  service.setMemoryPaused?.(!!settingsWindow&&!settingsWindow.isDestroyed());return service;
+ };
  const sameFrame=e=>e.senderFrame && e.senderFrame.routingId===e.sender.mainFrame.routingId && e.senderFrame.processId===e.sender.mainFrame.processId;
  const trusted=e=>sameFrame(e)&&e.senderFrame.url.split('?')[0]===indexURL&&[...petWindows.values()].some(w=>!w.isDestroyed()&&w.webContents.id===e.sender.id);
  const trustedSettings=e=>sameFrame(e)&&settingsWindow&&!settingsWindow.isDestroyed()&&e.sender.id===settingsWindow.webContents.id&&e.senderFrame.url===settingsURL;
@@ -29,7 +32,8 @@ module.exports = function installSimpleChat(electron, petWindows, options={}) {
   settingsWindow=new BrowserWindow({title:'蓝鲸女仆 · 设置与记录',width:600,height:780,minWidth:480,minHeight:500,resizable:true,autoHideMenuBar:true,webPreferences:{preload:path.join(__dirname,'pet-settings-preload.js'),nodeIntegration:false,contextIsolation:true,sandbox:true}});
   settingsWindow.webContents.setWindowOpenHandler(()=>({action:'deny'}));
   settingsWindow.webContents.on('will-navigate',e=>e.preventDefault());
-  settingsWindow.on('closed',()=>settingsWindow=null);settingsWindow.loadURL(settingsURL);return true;
+  service?.setMemoryPaused?.(true);
+  settingsWindow.on('closed',()=>{settingsWindow=null;service?.setMemoryPaused?.(false);});settingsWindow.loadURL(settingsURL);return true;
  });
  bind('save',(s,v)=>s.save(v));
  bind('send',async(s,v,e)=>{
@@ -71,6 +75,6 @@ module.exports = function installSimpleChat(electron, petWindows, options={}) {
  bind('voice',(s,v)=>{const state=s.setVoice(v);if(activeReply)activeReply.voiceEnabled=v;if(v===false){if(activeReply)activeReply.sync=false;speech.dispose();activeReply?.notify({type:'voice',status:'muted'});}else speech.warmup().catch(()=>{});return state;});
  bind('speak',s=>{if(activeReply||s.state().busy)throw new Error('请先停止当前回复。');if(!s.snapshot().voiceEnabled)return {stopped:true};const last=s.snapshot().messages.at(-1);return last?.role==='assistant'?speech.speak(last.content):{stopped:true};});
  bind('previewVoice',(s,v,e)=>{if(s.state().busy||activeReply)throw new Error('请先等待回复结束，或点击停止。');return s.snapshot().voiceEnabled?speech.speak('你好，我在这里陪你。',m=>{if(!e.sender.isDestroyed())e.sender.send('simple-chat:event',{requestId:v?.requestId,type:'voice',status:m.event});}):({stopped:true});});
- app.on('before-quit',()=>{invalidate();service?.cancel();speech.dispose();});
+ app.on('before-quit',()=>{invalidate();service?.dispose?.();service?.cancel();speech.dispose();});
  return {isBusy:()=>!!service?.pending||!!activeReply||!!speech.current};
 };

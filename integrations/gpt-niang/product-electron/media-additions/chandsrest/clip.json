@@ -1,0 +1,19 @@
+{
+  "id": "chandsrest",
+  "label": "双手轻合 · 乖巧站好",
+  "frames": 150,
+  "fps": 30,
+  "loop": false,
+  "automatic": true,
+  "idleCooldownMs": 90000,
+  "sourceKind": "gemini-reviewed-frontal-idle",
+  "menuGroup": "日常陪伴",
+  "entryPose": "C",
+  "exitPose": "C",
+  "sourceVideoSha256": "294a8748dbf2a15fd371d55b1ba754228412dfd419e3644a4b7578a7335a1545",
+  "videoFile": "chandsrest.webm",
+  "maskFile": "chandsrest.bin",
+  "videoSha256": "b069ae72d122f8eb8db6c9e530b0a3b9a03dae895c07185992573c99b8d227a9",
+  "maskSha256": "ac8e9b99f3f9235e717275bf173f73380192ba461236e679e8e4e22ab0d97735",
+  "maskBytes": 2764800
+}

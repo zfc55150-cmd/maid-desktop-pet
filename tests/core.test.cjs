@@ -9,8 +9,9 @@ const fakeSecrets={decryptString:()=> 'sk-SYNTHETIC-TEST-ONLY',isEncryptionAvail
 function fixture(t,{fetchImpl,voiceEnabled=false}={}){
  const dir=fs.mkdtempSync(path.join(root,'.test-data-'));
  t.after(()=>{assert.ok(path.resolve(dir).startsWith(root+path.sep+'.test-data-'));fs.rmSync(dir,{recursive:true,force:true});});
- fs.writeFileSync(path.join(dir,'chat.json'),JSON.stringify({key:'SYNTHETIC',prompt:'Test persona',memory:'Remember test preference',messages:[{role:'user',content:'old input'},{role:'assistant',content:'old reply'}],voiceEnabled}));
+ fs.writeFileSync(path.join(dir,'chat.json'),JSON.stringify({key:'SYNTHETIC',prompt:'Test persona',memory:'Remember test preference',autoMemoryEnabled:false,messages:[{role:'user',content:'old input'},{role:'assistant',content:'old reply'}],voiceEnabled}));
  const service=new ChatService({dir,secrets:fakeSecrets,requireExisting:true,fetchImpl:fetchImpl||reply('stop')});
+ t.after(()=>service.dispose());
  return {dir,service,read:()=>JSON.parse(fs.readFileSync(path.join(dir,'chat.json'),'utf8')),backup:()=>JSON.parse(fs.readFileSync(path.join(dir,'chat.json.bak'),'utf8'))};
 }
 function reply(reason,content='Test response'){return async()=>new Response('data: '+JSON.stringify({choices:[{delta:{content},finish_reason:reason}]})+'\n\ndata: [DONE]\n\n');}

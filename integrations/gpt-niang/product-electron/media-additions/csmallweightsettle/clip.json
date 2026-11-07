@@ -1,0 +1,19 @@
+{
+  "id": "csmallweightsettle",
+  "label": "换换重心 · 放松一下",
+  "frames": 150,
+  "fps": 30,
+  "loop": false,
+  "automatic": true,
+  "idleCooldownMs": 90000,
+  "sourceKind": "gemini-reviewed-frontal-idle",
+  "menuGroup": "日常陪伴",
+  "entryPose": "C",
+  "exitPose": "C",
+  "sourceVideoSha256": "d88a5c5172d6a7b080d7403e7827d79391c34107bda5b3a9fe72be708a711ee4",
+  "videoFile": "csmallweightsettle.webm",
+  "maskFile": "csmallweightsettle.bin",
+  "videoSha256": "f22281988926473e98bda4825d39e3c13ad9184a11edb9d542e0add680e06e8e",
+  "maskSha256": "526241c3295f4075b40f7f19da63de21f980e485e505f7a2735235223dc53044",
+  "maskBytes": 2764800
+}

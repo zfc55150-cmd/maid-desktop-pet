@@ -1,0 +1,114 @@
+[
+  {
+    "clip": "proudarms",
+    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\proudarms.webm",
+    "durationSeconds": 6.0,
+    "times": [
+      0.3,
+      1.32,
+      2.34,
+      3.36,
+      4.38,
+      5.4
+    ],
+    "sha256": "9622032316d8e6567ce38b403bc54c198253ed275974bfb6f534150e2d1a6e25"
+  },
+  {
+    "clip": "challengeaccept",
+    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\challengeaccept.webm",
+    "durationSeconds": 6.0,
+    "times": [
+      0.3,
+      1.32,
+      2.34,
+      3.36,
+      4.38,
+      5.4
+    ],
+    "sha256": "ab284ec163e0dd7da7407f02f700c09a8f521a5cd7d32a1d713bfd7c1483426b"
+  },
+  {
+    "clip": "skirtbeat",
+    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\skirtbeat.webm",
+    "durationSeconds": 6.0,
+    "times": [
+      0.3,
+      1.32,
+      2.34,
+      3.36,
+      4.38,
+      5.4
+    ],
+    "sha256": "82a4ff9dd1b9cd4e350f6ad82b7c056d7705498b90466d219bb47885f40aaff7"
+  },
+  {
+    "clip": "fanmishap",
+    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\fanmishap.webm",
+    "durationSeconds": 6.0,
+    "times": [
+      0.3,
+      1.32,
+      2.34,
+      3.36,
+      4.38,
+      5.4
+    ],
+    "sha256": "960d869d053663cb47c1bbfac2b87cb039bf67b6741fd2918662231b44a33cbb"
+  },
+  {
+    "clip": "lanterninvite",
+    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\lanterninvite.webm",
+    "durationSeconds": 6.0,
+    "times": [
+      0.3,
+      1.32,
+      2.34,
+      3.36,
+      4.38,
+      5.4
+    ],
+    "sha256": "be3478d1e8494036bd76510295a7a90578d0129e154d4d907ed4437f2bd40d20"
+  },
+  {
+    "clip": "walking",
+    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\walking.webm",
+    "durationSeconds": 6.0,
+    "times": [
+      0.3,
+      1.32,
+      2.34,
+      3.36,
+      4.38,
+      5.4
+    ],
+    "sha256": "f4aa53d7eef852b5f5657cca7d7e4e9b79de23450e56757ac83bb1f04e898465"
+  },
+  {
+    "clip": "flutter",
+    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\flutter.webm",
+    "durationSeconds": 6.0,
+    "times": [
+      0.3,
+      1.32,
+      2.34,
+      3.36,
+      4.38,
+      5.4
+    ],
+    "sha256": "46dd4c66db1f9e576f24e9044c2025e3c771c6b6e43be0e5340e1d1a84b71a54"
+  },
+  {
+    "clip": "tea",
+    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\tea.webm",
+    "durationSeconds": 6.0,
+    "times": [
+      0.3,
+      1.32,
+      2.34,
+      3.36,
+      4.38,
+      5.4
+    ],
+    "sha256": "954fd68204879ee27e084222346b5d6ed0d2cb8a4850b52a05b9ae991555ddf3"
+  }
+]

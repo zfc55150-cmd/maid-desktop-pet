@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-03",
+  "batchAccepted": false,
+  "latestReviewed": [
+    "02 v4",
+    "04-07 v3",
+    "8s bridge concatenation demo"
+  ],
+  "retainedUnchanged": [
+    "01 v2",
+    "03",
+    "08 v2"
+  ],
+  "resolved": [
+    "02 mixed-version packaging",
+    "VP9 alpha and exact hit masks",
+    "previous bridge aspect mapping preserved"
+  ],
+  "unresolved": [
+    "04-07 old opening remains and new lip line offset",
+    "02 head-lock promise not realized; return still concentrated about 4.0-4.2s",
+    "bridge source motion unchanged; added demo contains only two bridges"
+  ],
+  "fullDecodedCandidateFrames": 1560,
+  "fullDecodedDemoFrames": 480,
+  "nativeSpeedGuiReviewCompleted": false,
+  "formalAppWrittenByThisReview": false,
+  "formalSnapshot": {
+    "version": "0.8.14-electron",
+    "states": 44,
+    "packageHashesVerified": 267,
+    "newCandidatesRegistered": false
+  },
+  "files": [
+    {
+      "path": "evidence/02_v4同帧原片透明对照.jpg",
+      "sha256": "22ab859b8d983f68c28f61b813ee9605d2641bef97ccd7a2bdb8d73e83b6654c",
+      "bytes": 519920
+    },
+    {
+      "path": "evidence/02_v4回正连续帧.jpg",
+      "sha256": "7327fd1e261d22fdf38d0cafd8d72767ce988ca3d9f94f097cd38102008b5301",
+      "bytes": 651469
+    },
+    {
+      "path": "evidence/04至07新嘴形与基准对照.png",
+      "sha256": "e95b0888f138d715b02b0ff88238dec4fe973bd7d27c74bb3e9fe771e8483190",
+      "bytes": 272440
+    },
+    {
+      "path": "evidence/audit.json",
+      "sha256": "99c6f68e83fe37baef5787c4504854708e5d27c5111bb43b6b42767e50c99bb6",
+      "bytes": 162084
+    },
+    {
+      "path": "evidence/supplement.json",
+      "sha256": "5bac8fa895e74b472ed1e368b1d0be766cf4a6ed376ab50b027d55c2ad47cf61",
+      "bytes": 1131
+    },
+    {
+      "path": "evidence/桥段演示中段与接点连续帧.jpg",
+      "sha256": "26f534b229064878554c801fc774a996d2d85e89e7dad4fff81cf921ab7bc2d6",
+      "bytes": 485958
+    },
+    {
+      "path": "给Gemini的本轮反馈.md",
+      "sha256": "76ef0f50ad6ef29631b059e25222c28502e4ed4a93d9e179cc45b068af59b5a2",
+      "bytes": 2216
+    },
+    {
+      "path": "验收结论.md",
+      "sha256": "ff974efa76b95aabaf3cb2bcfa13fe819fe0df0bba37d4d90b8f280e492c676c",
+      "bytes": 6613
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-03",
+  "batchAccepted": false,
+  "preserveCandidates": [
+    "01 v2",
+    "03",
+    "08 v2"
+  ],
+  "bridgeAspectRepairPassed": [
+    "bridge_b_to_a",
+    "bridge_a_to_c"
+  ],
+  "needsWork": {
+    "02 v3": "Mixed API raw master and older optical-flow-derived WebM; raw return still concentrated at f107->108.",
+    "04-07 v2": "Dark cavity recolored but open-mouth contour retained.",
+    "bridges": "Source motion unchanged; mid-clip continuity and full round-trip playback still unaccepted."
+  },
+  "changedClipsFullyDecoded": 8,
+  "decodedSourceFrames": 1170,
+  "decodedAlphaFrames": 1170,
+  "allChangedMasksBitExact": true,
+  "unchanged01And03HashVerified": true,
+  "formalVersionSnapshot": "0.8.13-electron",
+  "formalStates": 44,
+  "formal267FileHashesMatch": true,
+  "formalAppWrittenByThisReview": false,
+  "nativeSpeedGuiReviewCompleted": false,
+  "files": [
+    {
+      "path": "evidence/02原片与透明视频串版.jpg",
+      "bytes": 344717,
+      "sha256": "fc2fc9f7d3fe2e30caddd2854bb02e0170dd25d5d7698816ce9b012f8347bfcf"
+    },
+    {
+      "path": "evidence/02新原片回正连续帧.jpg",
+      "bytes": 713728,
+      "sha256": "ad256bf74b1f5a61af2ba491a04fa1feb47634b3a51ad7566fa9c6a0ec147f51"
+    },
+    {
+      "path": "evidence/04至07嘴形复核.jpg",
+      "bytes": 227928,
+      "sha256": "256d5bddef5a3e8ec25dc312ef2742a88bfbc0983d82fb636bfe8f3680bbe048"
+    },
+    {
+      "path": "evidence/08短眨眼连续帧.jpg",
+      "bytes": 391768,
+      "sha256": "f3dedfdc7475579c11f89c0b7073a29656f7075144146ce76396bbc4faadfd4f"
+    },
+    {
+      "path": "evidence/audit.json",
+      "bytes": 243813,
+      "sha256": "265b1dee83db3a17e8245e83832f39c1f4015d92481b30eb4b027dcac526de24"
+    },
+    {
+      "path": "evidence/installed-and-preservation.json",
+      "bytes": 5757,
+      "sha256": "fe6887ff82fb752caf8e98ed57217cfbdf5b848c3fdd108d6e9c56fc5194eef9"
+    },
+    {
+      "path": "evidence/两桥比例已修复.jpg",
+      "bytes": 182392,
+      "sha256": "554975062375705e2a61293d25e2f1eebd4635dcb7dae49b6cbd867d8f028bd5"
+    },
+    {
+      "path": "给Gemini的复验反馈.md",
+      "bytes": 2366,
+      "sha256": "aa113d0347a72e23a3f2cad43c784df7feed1fa3255c5e9cb51c3246b6ac7519"
+    },
+    {
+      "path": "验收结论.md",
+      "bytes": 7307,
+      "sha256": "d66676b7269418bf42d0cc38fc70783c935d773e59dd3910b0635b1f118559a2"
+    }
+  ]
+}

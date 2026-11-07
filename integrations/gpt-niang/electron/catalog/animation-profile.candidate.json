@@ -1,0 +1,2335 @@
+{
+  "schemaVersion": 1,
+  "characterId": "gptniang",
+  "geometry": {
+    "feetY": 359
+  },
+  "humanoid": true,
+  "animations": {
+    "idle": [
+      "待机呼吸"
+    ],
+    "turn": [
+      "左右张望",
+      "东张西望"
+    ],
+    "drag": [
+      "悬空扑腾",
+      "振翅轻跃"
+    ],
+    "clicks": [
+      "鼓腮抗议",
+      "怕痒躲避",
+      "展颜欢笑",
+      "开心雀跃",
+      "害羞偷看",
+      "害羞撇头",
+      "挥手致意",
+      "热情挥手",
+      "歪头疑惑",
+      "安静歪头",
+      "乖巧回应",
+      "抱臂矜持",
+      "展翅嬉戏",
+      "轻盈平衡",
+      "从容应战",
+      "整理衣袖",
+      "轻摆裙摆",
+      "脚尖轻点",
+      "鞠躬致意",
+      "端庄亮相"
+    ],
+    "moves": {
+      "default": {
+        "minDist": 80,
+        "maxDist": 220,
+        "margin": 24,
+        "leadSec": 1.5,
+        "tailSec": 1.5
+      },
+      "actions": [
+        {
+          "name": "轻快踱步",
+          "params": {
+            "minDist": 60,
+            "maxDist": 140,
+            "leadSec": 1.5,
+            "tailSec": 1.5
+          }
+        },
+        {
+          "name": "静悄悄散步",
+          "params": {
+            "minDist": 50,
+            "maxDist": 120,
+            "leadSec": 1.5,
+            "tailSec": 1.5
+          }
+        },
+        {
+          "name": "轻快小跑",
+          "params": {
+            "minDist": 140,
+            "maxDist": 280,
+            "leadSec": 1.5,
+            "tailSec": 1.8
+          }
+        }
+      ]
+    },
+    "categories": [
+      {
+        "id": "日常小动作",
+        "weight": 5,
+        "noMirror": false,
+        "actions": [
+          "伸个懒腰"
+        ]
+      },
+      {
+        "id": "傲娇与互动",
+        "weight": 4,
+        "noMirror": false,
+        "actions": [
+          "害羞撇头"
+        ]
+      },
+      {
+        "id": "才艺与道具",
+        "weight": 3,
+        "noMirror": false,
+        "actions": []
+      },
+      {
+        "id": "优雅姿态",
+        "weight": 3,
+        "noMirror": false,
+        "actions": [
+          "托腮思考",
+          "开心雀跃",
+          "热情挥手"
+        ]
+      }
+    ],
+    "events": {
+      "balance": [
+        "抱宝箱蹭金币",
+        "数金币得意",
+        "掂钱袋安心",
+        "盯账单心虚",
+        "翻空荷包着急",
+        "倒空钱包抹泪"
+      ],
+      "workStatus": [
+        "翻卷轴思考",
+        "敲击全息键盘",
+        "归档点头",
+        "托腮等待批准",
+        "展翼欢呼",
+        "抱头冒烟报错"
+      ]
+    },
+    "landing": [
+      "轻盈落地"
+    ],
+    "actionRegistry": {
+      "schemaVersion": 1,
+      "character": "gptniang",
+      "clips": [
+        {
+          "clipId": "sha256:4280cd092c07d63698462cbce4b71781e88ada6a424a9c8a741a6598eed10c80",
+          "sha256": "4280cd092c07d63698462cbce4b71781e88ada6a424a9c8a741a6598eed10c80",
+          "aliases": [
+            "东张西望",
+            "左右张望"
+          ],
+          "canonicalName": "左右张望",
+          "sourceKey": "lookaround",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-interaction-lookaround-turn-720-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "c5bc998e3f7769df995c44846d3ecf778d9f6580cde43f974194426a6b9c933a"
+            },
+            {
+              "path": ".\\work\\candidates\\lookaroundreturn-4s-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "2fc8756a566a95e46636ee9a17721eb2a9527cfb24f80d30c1ead97391b35fb6"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "native-return-composite",
+          "purpose": "native-return-composite",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "daily",
+            "manual"
+          ],
+          "autoEligible": true,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:f6c3d28b7418b9e2916cfdec1db85dd8cf9c80493bb51215d1f686791df1c60a",
+          "sha256": "f6c3d28b7418b9e2916cfdec1db85dd8cf9c80493bb51215d1f686791df1c60a",
+          "aliases": [
+            "乖巧回应"
+          ],
+          "canonicalName": "乖巧回应",
+          "sourceKey": "response",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-interaction-free-thanks-720-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "86f5d49a74d509619ddff00940fa423a3fc2ac1144e7b6f0567143ac0a83f675"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "side-pose",
+          "purpose": "side-pose",
+          "entryPose": "side",
+          "exitPose": "side",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "user-approved-preview-20261101",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification",
+          "artApproval": {
+            "at": "2026-11-01",
+            "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+            "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+          }
+        },
+        {
+          "clipId": "sha256:1c2fafa088c945804d4f093030a5c059234205873887c42681fecadc6f14e078",
+          "sha256": "1c2fafa088c945804d4f093030a5c059234205873887c42681fecadc6f14e078",
+          "aliases": [
+            "从容应战"
+          ],
+          "canonicalName": "从容应战",
+          "sourceKey": "challengeaccept",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\integration-round6-20261026-main\\challengeaccept-alpha-lossless.mkv",
+              "sha256": "979ab61575a6953f1423364612e0e403497833831c3591f6351e87991e72b512"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:e5336d9df23d81877ee7a3c5590cc08b00c2ca4c0683e586b3d368c79b88d454",
+          "sha256": "e5336d9df23d81877ee7a3c5590cc08b00c2ca4c0683e586b3d368c79b88d454",
+          "aliases": [
+            "优雅奉茶",
+            "品茶小憩"
+          ],
+          "canonicalName": "优雅奉茶",
+          "sourceKey": "tea",
+          "sources": [
+            {
+              "path": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘动作升级\\并行第二轮_喝茶tea_daily_20261025_01\\透明无损.mkv",
+              "sha256": "4501d54dde08e0cdeb5aeef3a66ee0ee0b8e20b99eb909e688b0e5a92e753b3b"
+            },
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-round6-daily-teareturn-720-v1\\matte-v1\\wan3-round6-daily-teareturn-720-v1-alpha-v1.mkv",
+              "sha256": "d80e59fa3f1559c823ddb390746e261d8e9c1571d96e845ae89fc2bb3a473134"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "native-tea-return-composite",
+          "purpose": "native-tea-return-composite",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "user-approved-preview-20261101",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification",
+          "artApproval": {
+            "at": "2026-11-01",
+            "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+            "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+          },
+          "buildEvidence": "work/optimization-20261101/visual/tea-native-candidate-01/report.json",
+          "knownVisualLimit": "native return end differs from idle; accepted candidate, further continuity work remains",
+          "buildProvenance": "Explicit native master hashes and fixed transforms recorded; exact toolchain byte reproducibility not attested"
+        },
+        {
+          "clipId": "sha256:959cc448f210a55eb7d07b0b48ef25f9f0f61002f9a197220d0a2a84f9eab271",
+          "sha256": "959cc448f210a55eb7d07b0b48ef25f9f0f61002f9a197220d0a2a84f9eab271",
+          "aliases": [
+            "伸个懒腰"
+          ],
+          "canonicalName": "伸个懒腰",
+          "sourceKey": "stretching",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-interaction-stretch-720-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "ef4791bf75153161a0c8d0b646d15601ae38f7c43872b3652b0fc59be8f3d0f9"
+            },
+            {
+              "path": ".\\work\\candidates\\stretchingreturn-4s-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "84cfa65628b1a1f10a0e707c8f8cad44cb5e6ecaf1d22900de2639e4191b2103"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "native-return-composite",
+          "purpose": "native-return-composite",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "daily",
+            "manual"
+          ],
+          "autoEligible": true,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:da5cd1012efb827aecf7b8d4c0d3ec9ebbd705a568b06c681be7f59d66d69b1e",
+          "sha256": "da5cd1012efb827aecf7b8d4c0d3ec9ebbd705a568b06c681be7f59d66d69b1e",
+          "aliases": [
+            "侧身呼吸"
+          ],
+          "canonicalName": "侧身呼吸",
+          "sourceKey": "idle",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\assets\\continuous-source\\idle.mkv",
+              "sha256": "61506c9e181d70fdbf94bdec266aeff4c66b968b2e58b74b25463bbe19e1603f"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "side-pose",
+          "purpose": "side-pose",
+          "entryPose": "side",
+          "exitPose": "side",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:6803302323f0ebecb1111d274d3bc63c9b9079f35f2eab98f83e5879c13f1333",
+          "sha256": "6803302323f0ebecb1111d274d3bc63c9b9079f35f2eab98f83e5879c13f1333",
+          "aliases": [
+            "侧身转正"
+          ],
+          "canonicalName": "侧身转正",
+          "sourceKey": "turnfront",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\assets\\continuous-source\\turnfront.mkv",
+              "sha256": "0ac4e407a22b490776a9ce27540ec736d0dbb3b9e741b0db5d71c027ebea8fee"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "pose-bridge",
+          "purpose": "pose-bridge",
+          "entryPose": "side",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "transition"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:a04d640920f3547a51829ee9235ab20eed0a2214246ab9e13b18f8f15ccedaed",
+          "sha256": "a04d640920f3547a51829ee9235ab20eed0a2214246ab9e13b18f8f15ccedaed",
+          "aliases": [
+            "倒空钱包抹泪"
+          ],
+          "canonicalName": "倒空钱包抹泪",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\bal_tier5\\trial.mp4",
+              "sha256": "fda7d3c2ba23ffad15839cad1f37730b2e5905cd1aa26e78fff9c9ddf789c471"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "event",
+          "purpose": "event",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "event"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:27e2313eaa90829c2614874b88c220b357241be67065c35b0ba9f5962ff29fec",
+          "sha256": "27e2313eaa90829c2614874b88c220b357241be67065c35b0ba9f5962ff29fec",
+          "aliases": [
+            "品尝点心"
+          ],
+          "canonicalName": "品尝点心",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\daily_snack\\trial.mp4",
+              "sha256": "57f18d87c84a7fa254b0e9834b4dbf4d7051e46b15e3e5b3ac746de983701011"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:2cfbecc53a4129b2a8efc63251ad79c279a5edb644454db6470d81f0605d916b",
+          "sha256": "2cfbecc53a4129b2a8efc63251ad79c279a5edb644454db6470d81f0605d916b",
+          "aliases": [
+            "奉茶收杯"
+          ],
+          "canonicalName": "奉茶收杯",
+          "sourceKey": "teareturn",
+          "sources": [],
+          "productionBuildAttested": false,
+          "kind": "return-only",
+          "purpose": "return-only",
+          "entryPose": "tea",
+          "exitPose": "front",
+          "requiredProps": [
+            "cup"
+          ],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "transition"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:d4664fe55db3da3787056db174ab1b778580584762e892dab7e333e9564420cf",
+          "sha256": "d4664fe55db3da3787056db174ab1b778580584762e892dab7e333e9564420cf",
+          "aliases": [
+            "安静歪头"
+          ],
+          "canonicalName": "安静歪头",
+          "sourceKey": "confusedquiet",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-interaction-confused-silent-720-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "00a57895bb8f952a5d6100e0f96c537e300853e5627ae448fb7668f7cda385db"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "side-pose",
+          "purpose": "side-pose",
+          "entryPose": "side",
+          "exitPose": "side",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:fbd8a8ed3476c70277d264b53823297f8bb2cd7a678e5559b191d3c018584e58",
+          "sha256": "fbd8a8ed3476c70277d264b53823297f8bb2cd7a678e5559b191d3c018584e58",
+          "aliases": [
+            "害羞偷看",
+            "害羞撇头"
+          ],
+          "canonicalName": "害羞撇头",
+          "sourceKey": "complimentavert",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\retained-native-masters-20261025\\complimentavert-final-20261025.mkv",
+              "sha256": "61a5200d7789e7f04f5cecb8e5dcf16fdb669571d9e75104d33520554a3b6e57"
+            },
+            {
+              "path": ".\\work\\candidates\\complimentreturn-4s-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "3c5fcd2984250f1f8af1b35766b7db484e438c62c383e0515c37a887c3121b5e"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "native-return-composite",
+          "purpose": "native-return-composite",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "daily",
+            "manual"
+          ],
+          "autoEligible": true,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "user-approved-preview-20261101",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification",
+          "artApproval": {
+            "at": "2026-11-01",
+            "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+            "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+          }
+        },
+        {
+          "clipId": "sha256:99e0ee680d4a972c7362134ed1429a629dbca28bfec72678f91fe8e5458726e3",
+          "sha256": "99e0ee680d4a972c7362134ed1429a629dbca28bfec72678f91fe8e5458726e3",
+          "aliases": [
+            "展扇巧笑"
+          ],
+          "canonicalName": "展扇巧笑",
+          "sourceKey": "fanmishap",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\material-integration-20261028\\fanmishap\\fanmishap-edge-unmix-rgba-lossless.mkv",
+              "sha256": "8d49413bdc6a1d808a163b674c3409538469b4706eec45e391e22dae99eb914c"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "composite-needs-visual-review",
+          "purpose": "composite-needs-visual-review",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "user-approved-preview-20261101",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification",
+          "artApproval": {
+            "at": "2026-11-01",
+            "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+            "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+          }
+        },
+        {
+          "clipId": "sha256:5cfa08a477ea493d6b3246288f3bd413f5c7daa522dc3fe6c2fef32fb837baa0",
+          "sha256": "5cfa08a477ea493d6b3246288f3bd413f5c7daa522dc3fe6c2fef32fb837baa0",
+          "aliases": [
+            "展扇收扇"
+          ],
+          "canonicalName": "展扇收扇",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\fanmishapreturn\\trial.mp4",
+              "sha256": "bdfacc399da79cce05d78f9c0e845b5a64cda1bc8870af95f9bdb0ea2ebd2b61"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "return-only",
+          "purpose": "return-only",
+          "entryPose": "fan",
+          "exitPose": "front",
+          "requiredProps": [
+            "fan"
+          ],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "transition"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:f8a15eaba86b1b988e1b6028e04c703ca13d65c1ba1635186e30a75221011887",
+          "sha256": "f8a15eaba86b1b988e1b6028e04c703ca13d65c1ba1635186e30a75221011887",
+          "aliases": [
+            "展翅嬉戏"
+          ],
+          "canonicalName": "展翅嬉戏",
+          "sourceKey": "flutterplay",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-parallel-body-flutter-720-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "d6f2ca97804585c4b7d49c73f66fe8cb4bb9283981bc472259c15f37c00aa201"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "composite-needs-visual-review",
+          "purpose": "composite-needs-visual-review",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:73c5b3c9f665673290000922fabe86b04fb6e6656672cda3f968976d36dc39ce",
+          "sha256": "73c5b3c9f665673290000922fabe86b04fb6e6656672cda3f968976d36dc39ce",
+          "aliases": [
+            "展翼欢呼"
+          ],
+          "canonicalName": "展翼欢呼",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\work_success\\trial.mp4",
+              "sha256": "f967c3a202198a1a0523603ce3472957b108700e0d1c6e281fca07fa334d484b"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "event",
+          "purpose": "event",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "event"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:237473a58b94b5ed00bf87c9e85a50d5210e0bc6d14d2092983b42cfe86f12d8",
+          "sha256": "237473a58b94b5ed00bf87c9e85a50d5210e0bc6d14d2092983b42cfe86f12d8",
+          "aliases": [
+            "展颜欢笑",
+            "开心雀跃"
+          ],
+          "canonicalName": "开心雀跃",
+          "sourceKey": "happy",
+          "sources": [
+            {
+              "path": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘动作升级\\并行第二轮_开心happy_expression_20261025_01\\开心透明无损.mkv",
+              "sha256": "f38ac714779ad9cb1a6c2f49d8b88692783b090f26f2023808e5645924a35037"
+            },
+            {
+              "path": ".\\work\\candidates\\happyreturn-4s-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "18cec8819feca742cebaea2e8bbc8225a26b8720a9289fa7c977de6b1f42d8c8"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "native-return-composite",
+          "purpose": "native-return-composite",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "daily",
+            "manual"
+          ],
+          "autoEligible": true,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:8ef72cda8f28879e0f42f0f74220921c0663e487400d2d85884e53c570e8a668",
+          "sha256": "8ef72cda8f28879e0f42f0f74220921c0663e487400d2d85884e53c570e8a668",
+          "aliases": [
+            "归档点头"
+          ],
+          "canonicalName": "归档点头",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\work_result\\trial.mp4",
+              "sha256": "83096463a3ec90bb14deda6fdb0d13692ab68d20d247d45c8c35275042d6074b"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "event",
+          "purpose": "event",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "event"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:78f21bfba8de7fa6ac159af6405ed1b59e1f110c8d85608eaee5191ef33b01a2",
+          "sha256": "78f21bfba8de7fa6ac159af6405ed1b59e1f110c8d85608eaee5191ef33b01a2",
+          "aliases": [
+            "待机呼吸"
+          ],
+          "canonicalName": "待机呼吸",
+          "sourceKey": "frontidle",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\assets\\continuous-source\\frontidle.mkv",
+              "sha256": "4b78265fe6e9f63545cd28d9069123ba849123c5ef9d359cd9048bb095e80530"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "native-loop",
+          "purpose": "native-loop",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "daily",
+            "manual"
+          ],
+          "autoEligible": true,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "user-approved-preview-20261101",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification",
+          "artApproval": {
+            "at": "2026-11-01",
+            "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+            "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+          }
+        },
+        {
+          "clipId": "sha256:8d99d079519c656688b8d218af36ecbf226d3f2b523ea820490bcafaeae864f9",
+          "sha256": "8d99d079519c656688b8d218af36ecbf226d3f2b523ea820490bcafaeae864f9",
+          "aliases": [
+            "怕痒躲避"
+          ],
+          "canonicalName": "怕痒躲避",
+          "sourceKey": "tickledodge",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\round7-click-20261026\\body\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "d6da50537470c9aa3ba2450b8ae4e54e7ae36c42669edda1adbc94dd4fc98c80"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "user-approved-preview-20261101",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification",
+          "artApproval": {
+            "at": "2026-11-01",
+            "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+            "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+          }
+        },
+        {
+          "clipId": "sha256:92324ad78395d535d44d32741c3104cf365f1d01d9964afab16edb6110817e77",
+          "sha256": "92324ad78395d535d44d32741c3104cf365f1d01d9964afab16edb6110817e77",
+          "aliases": [
+            "悠闲放松"
+          ],
+          "canonicalName": "悠闲放松",
+          "sourceKey": "brelaxed",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\assets\\continuous-source\\brelaxed.mkv",
+              "sha256": "72f157febac5b805c4d317639f90cf642c556fb04ddee2e2197cb44218f752a1"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "side-pose",
+          "purpose": "side-pose",
+          "entryPose": "side",
+          "exitPose": "side",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:8e7fe59ae90177805230168541d289930ab73ded9d71c43c08a050e981a55cf9",
+          "sha256": "8e7fe59ae90177805230168541d289930ab73ded9d71c43c08a050e981a55cf9",
+          "aliases": [
+            "悬空扑腾"
+          ],
+          "canonicalName": "悬空扑腾",
+          "sourceKey": null,
+          "sources": [],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:0e1200773e94a763b13eca0106e9832ff5be3834b50628c0795fe1e4e3f2d564",
+          "sha256": "0e1200773e94a763b13eca0106e9832ff5be3834b50628c0795fe1e4e3f2d564",
+          "aliases": [
+            "打个盹儿",
+            "打盹小憩"
+          ],
+          "canonicalName": "打个盹儿",
+          "sourceKey": "sleeping",
+          "sources": [
+            {
+              "path": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘动作升级\\并行日常动作_20261025_01\\透明无损.mkv",
+              "sha256": "23c4cb7c1d6570ae1404d906dcb8658d598616dcdce87d91ff7454488182dc05"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "composite-needs-visual-review",
+          "purpose": "composite-needs-visual-review",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:facbb19588d0c928be29010bf81cffc27076b14f6cc89a3c30bf3cd1a0d7aa31",
+          "sha256": "facbb19588d0c928be29010bf81cffc27076b14f6cc89a3c30bf3cd1a0d7aa31",
+          "aliases": [
+            "托腮思考",
+            "托腮沉思"
+          ],
+          "canonicalName": "托腮思考",
+          "sourceKey": "thinking",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-interaction-thinking-720-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "99652436fc5df95bd5b1bcc507417e6369cecb85e1dbdd6aa88e9718f1dafa4b"
+            },
+            {
+              "path": ".\\work\\candidates\\thinkingreturn-4s-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "abadfc7b0c39f1bd954c242631e50788b03b72db5f716deb952af65d9120b62e"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "native-return-composite",
+          "purpose": "native-return-composite",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "daily",
+            "manual"
+          ],
+          "autoEligible": true,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:8a1d5ecf5ee2e37755dd00851ac3b27221850529d11f0370ce736c6d1ad86094",
+          "sha256": "8a1d5ecf5ee2e37755dd00851ac3b27221850529d11f0370ce736c6d1ad86094",
+          "aliases": [
+            "托腮等待批准"
+          ],
+          "canonicalName": "托腮等待批准",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\work_waiting\\trial.mp4",
+              "sha256": "31d768a3f5debb7dafa19b45b261a684455fa9b5965273bfe640ae3190a76655"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "event",
+          "purpose": "event",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "event"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:76da536b0367bb82c5045752b5887719ff11afd6a21baeea2b4d2f147949667a",
+          "sha256": "76da536b0367bb82c5045752b5887719ff11afd6a21baeea2b4d2f147949667a",
+          "aliases": [
+            "抱头冒烟报错"
+          ],
+          "canonicalName": "抱头冒烟报错",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\work_error\\trial.mp4",
+              "sha256": "cde1119c754f62e249c5f586e25289be1cd62864553a55cac1c4a3d7ca239e80"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "event",
+          "purpose": "event",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "event"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:b45d9fdd9b529b296a37e53e416b732eacc6bd570b819e59c49cc4e7bbcae26f",
+          "sha256": "b45d9fdd9b529b296a37e53e416b732eacc6bd570b819e59c49cc4e7bbcae26f",
+          "aliases": [
+            "抱宝箱蹭金币"
+          ],
+          "canonicalName": "抱宝箱蹭金币",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\bal_tier0\\trial.mp4",
+              "sha256": "ba019f64af119dde2f8ef13b1ab5d45483030834ca4fa77106ac89c7ca0697a2"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "event",
+          "purpose": "event",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "event"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:d67b264dfe323261eb59210e32601ddd750be7c80eaaf334e09dc7981909da9b",
+          "sha256": "d67b264dfe323261eb59210e32601ddd750be7c80eaaf334e09dc7981909da9b",
+          "aliases": [
+            "抱臂回正"
+          ],
+          "canonicalName": "抱臂回正",
+          "sourceKey": "proudarmsreturn",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\retained-native-masters-20261025\\proudarmsreturn-final-20261025.mkv",
+              "sha256": "35d4cf20b4eae7b65bff723792acc1334cee90244d716b9628e91ba8294ddaa0"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "return-only",
+          "purpose": "return-only",
+          "entryPose": "proudarms",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "transition"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:0bbee5c6f83ffd0b8194b4c5b44a13e19d37a8e77d059085d9de56452db04996",
+          "sha256": "0bbee5c6f83ffd0b8194b4c5b44a13e19d37a8e77d059085d9de56452db04996",
+          "aliases": [
+            "抱臂矜持"
+          ],
+          "canonicalName": "抱臂矜持",
+          "sourceKey": "proudarms",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\retained-native-masters-20261025\\proudarms-final-20261025.mkv",
+              "sha256": "3a4578c722018102876a964cd6be54940df1e080f11b7a62df5bf4fb7bd19caf"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "composite-needs-visual-review",
+          "purpose": "composite-needs-visual-review",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "user-approved-preview-20261101",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification",
+          "artApproval": {
+            "at": "2026-11-01",
+            "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+            "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+          }
+        },
+        {
+          "clipId": "sha256:3eca93e0d69cd1ab77a0c0bbee787636b57f913ee83ff700ea0bc1ede2309c76",
+          "sha256": "3eca93e0d69cd1ab77a0c0bbee787636b57f913ee83ff700ea0bc1ede2309c76",
+          "aliases": [
+            "拍打裙摆",
+            "轻摆裙摆"
+          ],
+          "canonicalName": "轻摆裙摆",
+          "sourceKey": "skirtbeat",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-round5-body-skirtbeat-720-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "8a4002fe4628b8e61465588560e2cf28b91068ce9b1f83a704fa043291f17371"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:5b7524fa842407b1c0a865ac2c9538be1912f13c75148bd0965bb1ce37f584c0",
+          "sha256": "5b7524fa842407b1c0a865ac2c9538be1912f13c75148bd0965bb1ce37f584c0",
+          "aliases": [
+            "指尖玩火苗"
+          ],
+          "canonicalName": "指尖玩火苗",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\daily_flame\\trial.mp4",
+              "sha256": "2edfb9557663bb7e1586f12beba8a843aff9aab50faf539acff516c2a383f97a"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:5968e10966d593bd46b93e284fd4106f49b038a5022d27232a873c51fd081be5",
+          "sha256": "5968e10966d593bd46b93e284fd4106f49b038a5022d27232a873c51fd081be5",
+          "aliases": [
+            "挥手致意",
+            "热情挥手"
+          ],
+          "canonicalName": "热情挥手",
+          "sourceKey": "wave",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-interaction-wave-turn-720-v1\\matte-v1\\wave-matte-lossless.mkv",
+              "sha256": "0003344fc4d280ab27ec1dcfc85d8aef55f38cca1d888d1657da93d81a3e13c3"
+            },
+            {
+              "path": ".\\work\\candidates\\wavereturn-4s-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "c7aef70f5939ff1a47853bb6fac23992310f7a1d3605636721d83f3f597bb829"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "native-return-composite",
+          "purpose": "native-return-composite",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "daily",
+            "manual"
+          ],
+          "autoEligible": true,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "user-approved-preview-20261101",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification",
+          "artApproval": {
+            "at": "2026-11-01",
+            "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+            "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+          }
+        },
+        {
+          "clipId": "sha256:3734ff442cd679d472349a5cd5c4a588a068fa88c6c1824e4c392d082c907faf",
+          "sha256": "3734ff442cd679d472349a5cd5c4a588a068fa88c6c1824e4c392d082c907faf",
+          "aliases": [
+            "挪步站稳"
+          ],
+          "canonicalName": "挪步站稳",
+          "sourceKey": "weightshift",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\assets\\continuous-source\\weightshift.mkv",
+              "sha256": "9474cddbae143ababbce9bb94b6aacfa9bfb52fbca79b1a53f0c69dcd547405f"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "side-pose",
+          "purpose": "side-pose",
+          "entryPose": "side",
+          "exitPose": "side",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:f9650c6f855fbc4c3431215486397026ad69c3a04b08339b0165ac2f15833e0f",
+          "sha256": "f9650c6f855fbc4c3431215486397026ad69c3a04b08339b0165ac2f15833e0f",
+          "aliases": [
+            "振翅轻跃"
+          ],
+          "canonicalName": "振翅轻跃",
+          "sourceKey": "flutter",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-interaction-drag-flight-720-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "03cf7cecea527d40cef07a7b5c5209bb7cbfe28b203c4144d9650f786bf6b3ee"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:4bc6541844bea2d3f90706c56f301b37fcb4149de981668a8b17dcc80ca244d4",
+          "sha256": "4bc6541844bea2d3f90706c56f301b37fcb4149de981668a8b17dcc80ca244d4",
+          "aliases": [
+            "掂钱袋安心"
+          ],
+          "canonicalName": "掂钱袋安心",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\bal_tier2\\trial.mp4",
+              "sha256": "e72bfb2152722b8290c1ffd5103aebf323e29e22ffda805deacf8cedc476af8e"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "event",
+          "purpose": "event",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "event"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:9574e1c13f2d76d730dee737f8f3ed2741133feaf6ad5a54f7209175eb445bdd",
+          "sha256": "9574e1c13f2d76d730dee737f8f3ed2741133feaf6ad5a54f7209175eb445bdd",
+          "aliases": [
+            "提灯引路"
+          ],
+          "canonicalName": "提灯引路",
+          "sourceKey": "lanterninvite",
+          "sources": [
+            {
+              "path": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘动作升级\\第五轮_提灯引路_去光圈v2_20261026_01\\透明无损.mkv",
+              "sha256": "05fc0c354b163c3b32841b644e5f120f113c70970178d6b707b873787d74bf65"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "composite-needs-visual-review",
+          "purpose": "composite-needs-visual-review",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "user-approved-preview-20261101",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification",
+          "artApproval": {
+            "at": "2026-11-01",
+            "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+            "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+          }
+        },
+        {
+          "clipId": "sha256:25476fa080c10c152361253cd42ebca9b775604ed424d1af7bdb66785d0e2f94",
+          "sha256": "25476fa080c10c152361253cd42ebca9b775604ed424d1af7bdb66785d0e2f94",
+          "aliases": [
+            "提灯收灯"
+          ],
+          "canonicalName": "提灯收灯",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\lanterninvitereturn\\trial.mp4",
+              "sha256": "f4fc1e01c449929267e6ecc6ae2292a6ee0c50c5c3b9ce124040f531938d2905"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "return-only",
+          "purpose": "return-only",
+          "entryPose": "lantern",
+          "exitPose": "front",
+          "requiredProps": [
+            "lantern"
+          ],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "transition"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:86ebbcf84a7325e7eb2dd09ad6fcbb604181fb8c9b4dfb289ebdff16ed2e7f9d",
+          "sha256": "86ebbcf84a7325e7eb2dd09ad6fcbb604181fb8c9b4dfb289ebdff16ed2e7f9d",
+          "aliases": [
+            "数金币得意"
+          ],
+          "canonicalName": "数金币得意",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\bal_tier1\\trial.mp4",
+              "sha256": "1c4387e176c5a885f97935ea14de299900b1452466612ac1d15a0f213dc15470"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "event",
+          "purpose": "event",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "event"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:86372e17d8a8925bb851cc4175d580687638b0a01f599a4bfad57fc54ac0bbc2",
+          "sha256": "86372e17d8a8925bb851cc4175d580687638b0a01f599a4bfad57fc54ac0bbc2",
+          "aliases": [
+            "敲击全息键盘"
+          ],
+          "canonicalName": "敲击全息键盘",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\work_coding\\trial.mp4",
+              "sha256": "e3d42e7e270eb5c54787bd549cfb71e05cc0a5ec3ac0b763688d3cd3b6fe7025"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "event",
+          "purpose": "event",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "event"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:93221df011d1bbc9acce878bcc013e5db2332afdc163f280c882f32b1e4ccb24",
+          "sha256": "93221df011d1bbc9acce878bcc013e5db2332afdc163f280c882f32b1e4ccb24",
+          "aliases": [
+            "整理衣袖"
+          ],
+          "canonicalName": "整理衣袖",
+          "sourceKey": "sleeveside",
+          "sources": [
+            {
+              "path": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘动作升级\\第七轮返工_侧拂袖口daily_20261026_01\\透明无损.mkv",
+              "sha256": "0eb2e9c4406703fb3c461290abadf36c8e8072d27f78875deade3ca90eeb2748"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:21ffc95f6017fac3280e1cb06f47dbcbd065bc73015ac581f6050f12ac0c3f53",
+          "sha256": "21ffc95f6017fac3280e1cb06f47dbcbd065bc73015ac581f6050f12ac0c3f53",
+          "aliases": [
+            "欠身致意",
+            "鞠躬致意"
+          ],
+          "canonicalName": "欠身致意",
+          "sourceKey": "bow",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-interaction-bow-quiet-720-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "35ed48147ddfb23a4dcf2903d4520e747123489d69a28c930867e16980dbeaa1"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:f373562d448dcd91534595046dda6c134121850c39442ab6929d82c52e8a1774",
+          "sha256": "f373562d448dcd91534595046dda6c134121850c39442ab6929d82c52e8a1774",
+          "aliases": [
+            "正面待机"
+          ],
+          "canonicalName": "正面待机",
+          "sourceKey": "frontidle",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\assets\\continuous-source\\frontidle.mkv",
+              "sha256": "4b78265fe6e9f63545cd28d9069123ba849123c5ef9d359cd9048bb095e80530"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "native-loop",
+          "purpose": "native-loop",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "daily",
+            "manual"
+          ],
+          "autoEligible": true,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:076b0fa3fb3760649953590f1dbd29bc0e90aab52300c9a5dd8241f3e41b23d9",
+          "sha256": "076b0fa3fb3760649953590f1dbd29bc0e90aab52300c9a5dd8241f3e41b23d9",
+          "aliases": [
+            "正面转侧"
+          ],
+          "canonicalName": "正面转侧",
+          "sourceKey": "turnside",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\assets\\continuous-source\\turnside.mkv",
+              "sha256": "bfd6481f33f5b03307f9c5f9e5e1e14d8899fd662fd47b4ad080912fac5d6a2d"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "pose-bridge",
+          "purpose": "pose-bridge",
+          "entryPose": "front",
+          "exitPose": "side",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "transition"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:87f36998d8984bd8ad6b9443a38537b73d8c69da35c5b3a465ea083ca285ce30",
+          "sha256": "87f36998d8984bd8ad6b9443a38537b73d8c69da35c5b3a465ea083ca285ce30",
+          "aliases": [
+            "歪头疑惑"
+          ],
+          "canonicalName": "歪头疑惑",
+          "sourceKey": "confused",
+          "sources": [
+            {
+              "path": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘动作升级\\并行表情动作_闭口修正版_20261025_01\\困惑透明无损.mkv",
+              "sha256": "0a6e02b2520ea1851a0c8ffb6a6ebaee7ab8ff409e5986b99e531741f2effa67"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "composite-needs-visual-review",
+          "purpose": "composite-needs-visual-review",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:bc20d6dd7723c48eed213354f5f8a9fc1b9584d49db9eb4d5d60d3b50abfc92d",
+          "sha256": "bc20d6dd7723c48eed213354f5f8a9fc1b9584d49db9eb4d5d60d3b50abfc92d",
+          "aliases": [
+            "温柔提醒",
+            "轻声提醒"
+          ],
+          "canonicalName": "轻声提醒",
+          "sourceKey": "gentlereminder",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\retained-native-masters-20261025\\gentlereminder-final-20261025.mkv",
+              "sha256": "534c253546b8f0d6aa73f3e6f3d67fb660125643544368ae460c11a03bb99e13"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "composite-needs-visual-review",
+          "purpose": "composite-needs-visual-review",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:c03e72f6eebc203c21161eae7da47338320e9c0f144af810364919a65e5d31d0",
+          "sha256": "c03e72f6eebc203c21161eae7da47338320e9c0f144af810364919a65e5d31d0",
+          "aliases": [
+            "盯账单心虚"
+          ],
+          "canonicalName": "盯账单心虚",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\bal_tier3\\trial.mp4",
+              "sha256": "2a94a0087c534a0afb3d49aab7e95f0bda9706716eeb4022b2c26ba91ca352e1"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "event",
+          "purpose": "event",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "event"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:7f24408da12379f4a1ae605e9c632a0b110a4957c287855e21f614aafbc60b40",
+          "sha256": "7f24408da12379f4a1ae605e9c632a0b110a4957c287855e21f614aafbc60b40",
+          "aliases": [
+            "端庄亮相"
+          ],
+          "canonicalName": "端庄亮相",
+          "sourceKey": "frontpose",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-interaction-front-hover-720-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "e2326007851a5d33b76e6c67dd5d10f2f2644b27e40998f79a5df3791d613cc1"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "composite-needs-visual-review",
+          "purpose": "composite-needs-visual-review",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:f9fae96d14bea5700e76eefcc6d002329e7885df146eb31ce4691cb8c91ff3f5",
+          "sha256": "f9fae96d14bea5700e76eefcc6d002329e7885df146eb31ce4691cb8c91ff3f5",
+          "aliases": [
+            "翻卷轴思考"
+          ],
+          "canonicalName": "翻卷轴思考",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\work_thinking\\trial.mp4",
+              "sha256": "d0d4674e7ca20e28794c8fb4751de4294430b03f4f355f1941b85f628df53a02"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "event",
+          "purpose": "event",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "event"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:51a1521994fee51be5d80c9684c01a86ea18f61a5f70019cae9756011b6e9a67",
+          "sha256": "51a1521994fee51be5d80c9684c01a86ea18f61a5f70019cae9756011b6e9a67",
+          "aliases": [
+            "翻空荷包着急"
+          ],
+          "canonicalName": "翻空荷包着急",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\bal_tier4\\trial.mp4",
+              "sha256": "de4b3ae7decbece55e70e805e2823bb36de12277c753776bcf8a946c500d268d"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "event",
+          "purpose": "event",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "event"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:cbc8c2907019cc86f72914fabdde2a495f24e35ff6662fde350d507fc1e25790",
+          "sha256": "cbc8c2907019cc86f72914fabdde2a495f24e35ff6662fde350d507fc1e25790",
+          "aliases": [
+            "脚尖轻点"
+          ],
+          "canonicalName": "脚尖轻点",
+          "sourceKey": "footrelax",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\assets\\continuous-source\\footrelax.mkv",
+              "sha256": "0af388ca32a773c46a2fbd8fc3bb1ad1e82b193dd4da2ce9575aa360474431ca"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "side-pose",
+          "purpose": "side-pose",
+          "entryPose": "side",
+          "exitPose": "side",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:782f49d91402ba8d25d67efa6da10dcdcf8ec48017798e7f590524dbce6a7968",
+          "sha256": "782f49d91402ba8d25d67efa6da10dcdcf8ec48017798e7f590524dbce6a7968",
+          "aliases": [
+            "舒展换姿"
+          ],
+          "canonicalName": "舒展换姿",
+          "sourceKey": "poserelax",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\assets\\continuous-source\\poserelax.mkv",
+              "sha256": "6a39fb0fa91b9251e4012994d70675808a66045c660f371b59daf6343a53d859"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "composite-needs-visual-review",
+          "purpose": "composite-needs-visual-review",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:85cdded312ff198ea75a11c99fc6b982f51033ed9cb65d1d3946dfc74f90bf68",
+          "sha256": "85cdded312ff198ea75a11c99fc6b982f51033ed9cb65d1d3946dfc74f90bf68",
+          "aliases": [
+            "轻快小跑"
+          ],
+          "canonicalName": "轻快小跑",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\daily_jog\\trial.mp4",
+              "sha256": "941bce48daaf588f28f0492618f1e43ec20bb168f96e90abd8726ff2718d3abd"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:8e4f6fc3797dc9c94c30bfdcb147c1fdbd82ef9863aa8a06584df5a653ca5c54",
+          "sha256": "8e4f6fc3797dc9c94c30bfdcb147c1fdbd82ef9863aa8a06584df5a653ca5c54",
+          "aliases": [
+            "轻快踱步",
+            "静悄悄散步"
+          ],
+          "canonicalName": "轻快踱步",
+          "sourceKey": "walking",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-parallel-body-walking-720-r2-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "fdc1cf15567459d892f6149e46d87c6d9a1cfcc20337116f098aea1a1a52224a"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "user-approved-preview-20261101",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification",
+          "artApproval": {
+            "at": "2026-11-01",
+            "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+            "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+          }
+        },
+        {
+          "clipId": "sha256:b5846747d6cff7ee12b47881472bc06cf2d8e1303346b00a31b2666d0d211926",
+          "sha256": "b5846747d6cff7ee12b47881472bc06cf2d8e1303346b00a31b2666d0d211926",
+          "aliases": [
+            "轻抚龙尾"
+          ],
+          "canonicalName": "轻抚龙尾",
+          "sourceKey": null,
+          "sources": [
+            {
+              "path": ".\\work\\phase3_generated\\daily_tailbrush\\trial.mp4",
+              "sha256": "f2c87d07d5112721a83e984f4d9d4a17c41a94d6af07414b873673d11b0ee594"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:bc2106f9225b28c8eb45495696901479ce7520dcda6b4c2c202bf76f36cef253",
+          "sha256": "bc2106f9225b28c8eb45495696901479ce7520dcda6b4c2c202bf76f36cef253",
+          "aliases": [
+            "轻盈平衡"
+          ],
+          "canonicalName": "轻盈平衡",
+          "sourceKey": "bodybalance",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-interaction-drag-lively-720-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "179a7b46d6e89a01117172dbdecd09901a52ebc69f4f5ecb1cddc16be9b59baa"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "composite-needs-visual-review",
+          "purpose": "composite-needs-visual-review",
+          "entryPose": "front",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:8da460e105517b55796d547140888486d5c92bd3c8275b06ffc284a5799b3013",
+          "sha256": "8da460e105517b55796d547140888486d5c92bd3c8275b06ffc284a5799b3013",
+          "aliases": [
+            "轻盈落地"
+          ],
+          "canonicalName": "轻盈落地",
+          "sourceKey": "draglanding",
+          "sources": [
+            {
+              "path": ".\\work\\gpt-niang-animation\\video\\wan3-round4-body-draglanding-720-v1\\matte-v1\\action-matte-lossless.mkv",
+              "sha256": "ef1d0a716b13bd60860dc4dd448d5b6be84fd5000930ea6d403d2def04fbc5d2"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "landing",
+          "purpose": "landing",
+          "entryPose": "airborne-flutter-end",
+          "exitPose": "front",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "landing"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "user-approved-preview-20261101",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification",
+          "artApproval": {
+            "at": "2026-11-01",
+            "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+            "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+          }
+        },
+        {
+          "clipId": "sha256:cd6f2c44dec37dbf2a9a4fce846aa9ea186df90eb49a9335d3b460c1f983ecbd",
+          "sha256": "cd6f2c44dec37dbf2a9a4fce846aa9ea186df90eb49a9335d3b460c1f983ecbd",
+          "aliases": [
+            "重心微晃"
+          ],
+          "canonicalName": "重心微晃",
+          "sourceKey": "idlesway",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\assets\\continuous-source\\idlesway.mkv",
+              "sha256": "c1face90b020a3a0b5eaa82823792b781e15aafc8a583887b509f0e6dd4ce165"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "side-pose",
+          "purpose": "side-pose",
+          "entryPose": "side",
+          "exitPose": "side",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [
+            "manual"
+          ],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "pending-current-normal-speed-review",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification"
+        },
+        {
+          "clipId": "sha256:4d5f1d088f1cbffef99f56c543af583a1a43a423bebd53a214b161c8b87e6d4e",
+          "sha256": "4d5f1d088f1cbffef99f56c543af583a1a43a423bebd53a214b161c8b87e6d4e",
+          "aliases": [
+            "鼓腮抗议"
+          ],
+          "canonicalName": "鼓腮抗议",
+          "sourceKey": "cheekpuff",
+          "sources": [
+            {
+              "path": ".\\integrations\\gpt-niang\\animated\\material-integration-20261028\\cheekpuff\\cheekpuff-edge-unmix-rgba-lossless.mkv",
+              "sha256": "e6c62849a8fb650da5949dc101146891a7a4f4175f30e4f307baae40b6b26d53"
+            }
+          ],
+          "productionBuildAttested": false,
+          "kind": "unreviewed",
+          "purpose": "unreviewed",
+          "entryPose": "unknown",
+          "exitPose": "unknown",
+          "requiredProps": [],
+          "producedProps": [],
+          "mirrorAllowed": null,
+          "loopSegment": null,
+          "interruptWindows": [],
+          "minimumDisplaySec": null,
+          "exitPath": null,
+          "gaitAnchors": [],
+          "landingAnchors": [],
+          "allowedTriggers": [],
+          "autoEligible": false,
+          "technicalStatus": "hash-inventoried-only",
+          "visualStatus": "user-approved-preview-20261101",
+          "semanticEvidence": "studio script declaration; not per-frame visual certification",
+          "artApproval": {
+            "at": "2026-11-01",
+            "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+            "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+          }
+        }
+      ],
+      "sourceConfigSha256": "cfeb4497e639ddde45fb3f07edfb4c8b894c25520dcd15fd55e8ed29a88dae9c",
+      "buildPolicy": "candidate-only; no production writes; unknown semantics fail closed"
+    }
+  },
+  "animationWeights": {
+    "idle": 75,
+    "turn": 5,
+    "move": 5
+  },
+  "hitBox": {
+    "x0": 220,
+    "y0": 25,
+    "x1": 420,
+    "y1": 350
+  },
+  "releaseStatus": "withdrawn-after-desktop-regression",
+  "artApproval": {
+    "at": "2026-11-01",
+    "userText": "感觉候选的要好一些，全部替换吧，然后继续",
+    "scope": "delivered code/profile candidates, twelve preview scenes and tea-native-return candidate; not unseen library clips"
+  },
+  "releaseVersion": "1.2.4-gpt-experience",
+  "withdrawal": {
+    "date": "2026-11-01",
+    "reason": "User reported duplicate GPT-Niang, blurrier extra rendering path and possible DeepSeek regression; do not redeploy as current approved baseline",
+    "evidence": "docs/GPT娘重复与共享引擎回退-20261101.md"
+  }
+}

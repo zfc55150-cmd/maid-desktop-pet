@@ -1,0 +1,11 @@
+'use strict';
+let state=null,lastSpeechKey=null,lastSize='',measureFrame=null;
+function measure(){if(measureFrame!==null)return;measureFrame=requestAnimationFrame(()=>{measureFrame=null;const rect=document.querySelector('article').getBoundingClientRect(),width=Math.ceil(rect.width+40),height=Math.ceil(rect.height+40),key=width+','+height;if(key!==lastSize){lastSize=key;window.product.command({kind:'speech-size',width,height});}});}
+function show(data){lastSpeechKey=JSON.stringify(data);const bubble=document.querySelector('article');bubble.classList.toggle('is-whisper',data.mode!=='quota');const body=document.getElementById('body');body.replaceChildren();
+ if(data.mode==='quota'){for(const w of data.quota.windows){const row=document.createElement('div');row.className='quota-window';const heading=document.createElement('div');heading.className='pet-bub-row';const label=document.createElement('span'),value=document.createElement('strong');label.textContent=w.label;value.textContent=w.remaining===null?'—':w.remaining.toFixed(0)+'%';heading.append(label,value);row.append(heading);if(w.resetsAt){const reset=document.createElement('small');reset.className='pet-bub-sub';reset.textContent='重置 '+new Date(w.resetsAt*1000).toLocaleString('zh-CN');row.append(reset);}body.append(row);}if(!data.quota.windows.length)body.textContent='额度暂不可读，稍后可刷新。';}
+ else{const p=document.createElement('div');p.className='pet-bub-row';p.style.whiteSpace='pre-wrap';p.textContent=data.text;body.append(p);}measure();
+}
+function style(s){state=s;const b=document.getElementById('body');b.classList.toggle('animated',s.appearance.scope!=='none');b.style.backgroundImage=s.appearance.scope!=='none'?'linear-gradient(90deg,'+s.appearance.palette.join(',')+')':'none';b.style.animationPlayState=s.prefs.colorPaused?'paused':'running';}
+window.product.onState(s=>{style(s);if(s.speech&&JSON.stringify(s.speech)!==lastSpeechKey)show(s.speech);});window.product.onNotice(data=>{if(data.mode)show(data);});window.product.snapshot().then(async s=>{style(s);if(s.speech)show(s.speech);try{const font=await new FontFace('ShangshouSoftCandy','url("'+s.fontUrl+'")').load();document.fonts.add(font);measure();}catch{}});
+new ResizeObserver(measure).observe(document.querySelector('article'));
+document.querySelector('article').onclick=()=>window.product.command({kind:'speech-click'});

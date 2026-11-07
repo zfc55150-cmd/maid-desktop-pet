@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-03",
+  "status": "design-and-handoff-only-no-video-api-called",
+  "gptBaseline": "0.8.7-electron",
+  "sourceStates": 43,
+  "sourceFrames": 7500,
+  "deepseekWebmCount": 106,
+  "references": [
+    {
+      "file": "references/01_C姿态主锚点_原始绿底.png",
+      "source": "C:\\Users\\33750\\Documents\\ChatGPT\\女仆桌宠\\work\\continuity-20261028-01\\video-generation\\materials\\lookaroundreturn\\last-frame-green.png",
+      "role": "identity-pose-color-primary",
+      "sha256": "3b9ed2d7e8ce6b651712af30198215e0cf85f2733b2fdab6e24aac6698d244ab",
+      "size": [
+        782,
+        1176
+      ]
+    },
+    {
+      "file": "references/02_正侧背结构参考.png",
+      "source": "C:\\Users\\33750\\Documents\\ChatGPT\\女仆桌宠\\integrations\\gpt-niang\\animated\\character-turnaround-20261025\\turnaround-v2.png",
+      "role": "turnaround-structure-not-first-frame",
+      "sha256": "46716df1cbb0831eb30a511941bf61d025cabda5983b14eec64ecc24f2659324",
+      "size": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "file": "references/03_单尾结构说明.png",
+      "source": "C:\\Users\\33750\\Documents\\ChatGPT\\女仆桌宠\\integrations\\gpt-niang\\animated\\character-turnaround-20261025\\tail-detail-v2.png",
+      "role": "tail-structure-not-first-frame",
+      "sha256": "cc5f9b9c3134d6da4a731dcb4326788ffebc3350c1a1284ba70dd6abac674bf6",
+      "size": [
+        1774,
+        887
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "P01",
+      "title": "万页归序",
+      "slug": "paper_command",
+      "targetSeconds": 14,
+      "prompt": "prompts/P01_paper_command.txt",
+      "status": "designed-not-generated"
+    },
+    {
+      "id": "P02",
+      "title": "白龙回翔",
+      "slug": "dragon_return_flight",
+      "targetSeconds": 12,
+      "prompt": "prompts/P02_dragon_return_flight.txt",
+      "status": "designed-not-generated"
+    },
+    {
+      "id": "P03",
+      "title": "星匣孵龙",
+      "slug": "mechanical_dragon_casket",
+      "targetSeconds": 14,
+      "prompt": "prompts/P03_mechanical_dragon_casket.txt",
+      "status": "designed-not-generated"
+    },
+    {
+      "id": "P04",
+      "title": "镜中较量",
+      "slug": "mirror_duel",
+      "targetSeconds": 12,
+      "prompt": "prompts/P04_mirror_duel.txt",
+      "status": "designed-not-generated"
+    },
+    {
+      "id": "P05",
+      "title": "裂月金缮",
+      "slug": "moon_kintsugi",
+      "targetSeconds": 14,
+      "prompt": "prompts/P05_moon_kintsugi.txt",
+      "status": "designed-not-generated"
+    },
+    {
+      "id": "P06",
+      "title": "失重茶会",
+      "slug": "weightless_tea",
+      "targetSeconds": 12,
+      "prompt": "prompts/P06_weightless_tea.txt",
+      "status": "designed-not-generated"
+    }
+  ],
+  "recommendedOrder": [
+    "P01",
+    "P02",
+    "P03",
+    "P05",
+    "P04",
+    "P06"
+  ],
+  "defaultNextStep": "P01 only; continue according to the user authorization in the Gemini session",
+  "files": [
+    {
+      "path": "00_先读我.md",
+      "bytes": 3062,
+      "sha256": "f2758608a814370d628722503b5f3f2332f9e4dc54def508ddf9999b169c2a53"
+    },
+    {
+      "path": "01_素材差距与美术方向.md",
+      "bytes": 6340,
+      "sha256": "09e94709cc19a720743aed2df4c333ab5ec5dd872360e55cf21e4afc0bcb9c56"
+    },
+    {
+      "path": "02_人物锁定与制作规范.md",
+      "bytes": 6451,
+      "sha256": "eeb3567e2eb93590aec364735b908c308404cf6151b0c3acf87e23fd12852dff"
+    },
+    {
+      "path": "03_六条动作导演稿.md",
+      "bytes": 16525,
+      "sha256": "e4252aa0699301a8084ed9a8ec5802cc3d76523c86bf420f0f63469dcdbb65fd"
+    },
+    {
+      "path": "04_制作次序与验收交付.md",
+      "bytes": 7108,
+      "sha256": "e4d08956d556b45e3caebef7545730eee278eb70bcbd9a1cf2bd990f2987c293"
+    },
+    {
+      "path": "evidence/DeepSeek_八段时间抽样.jpg",
+      "bytes": 712616,
+      "sha256": "fea6747eb84ab9b7f383bce0abd3eed7c08eae165e2e9bfa96142be03a6a88a2"
+    },
+    {
+      "path": "evidence/DeepSeek_抽样时码与哈希.json",
+      "bytes": 3253,
+      "sha256": "867b70d1384650596bc9f76e227d4ce7fd5af2b92be4611a356f182d57988c23"
+    },
+    {
+      "path": "evidence/GPT娘_八段时间抽样.jpg",
+      "bytes": 712713,
+      "sha256": "7aa36afbe91bd0a7ab926bfa050205f3047bdf2915b398d28a74ba83a724b1d8"
+    },
+    {
+      "path": "evidence/GPT娘_抽样时码与哈希.json",
+      "bytes": 3099,
+      "sha256": "6c0be64b6289e51a81d6f44c33797e33bb5cd43423345cc53c514deba41bb51a"
+    },
+    {
+      "path": "evidence/本轮安装素材清单.json",
+      "bytes": 14285,
+      "sha256": "f347d00c016f7ba7616e2235c6eed6eb6038e7f968936a1ff298aafabec98486"
+    },
+    {
+      "path": "prompts/00_common_identity.txt",
+      "bytes": 4718,
+      "sha256": "489347847073d3cab41bb94da3549de5693f328296fc376a880a28abfdd016e6"
+    },
+    {
+      "path": "prompts/P01_paper_command.txt",
+      "bytes": 3331,
+      "sha256": "bf2cf2dfc21723343279fe597e82d671b8a503dfeaee7896db67813f58640da4"
+    },
+    {
+      "path": "prompts/P02_dragon_return_flight.txt",
+      "bytes": 3134,
+      "sha256": "433ee0a2e44082c42d462b501fc63734eaa34209f4427b542de1d47ce91b7582"
+    },
+    {
+      "path": "prompts/P03_mechanical_dragon_casket.txt",
+      "bytes": 2959,
+      "sha256": "fe2a2a619b99e7a50fb699aa5c58ba0ca74f74478f3402b65f4cc5f9b2bc4ba7"
+    },
+    {
+      "path": "prompts/P04_mirror_duel.txt",
+      "bytes": 2825,
+      "sha256": "0eee3807e74abafbd2441737444be56bd97661f858e6720e92e5fe146973393c"
+    },
+    {
+      "path": "prompts/P05_moon_kintsugi.txt",
+      "bytes": 2814,
+      "sha256": "45271c2093d9306a8c14167c22334241ba42f63e62f374b10fda46c9bd67159a"
+    },
+    {
+      "path": "prompts/P06_weightless_tea.txt",
+      "bytes": 2769,
+      "sha256": "a87e523a67b575ce1a9d968eac8f451e4c8a18dcb0fe2d24816e6e0205de8abc"
+    },
+    {
+      "path": "references/01_C姿态主锚点_原始绿底.png",
+      "bytes": 655629,
+      "sha256": "3b9ed2d7e8ce6b651712af30198215e0cf85f2733b2fdab6e24aac6698d244ab"
+    },
+    {
+      "path": "references/02_正侧背结构参考.png",
+      "bytes": 2089223,
+      "sha256": "46716df1cbb0831eb30a511941bf61d025cabda5983b14eec64ecc24f2659324"
+    },
+    {
+      "path": "references/03_单尾结构说明.png",
+      "bytes": 1896438,
+      "sha256": "cc5f9b9c3134d6da4a731dcb4326788ffebc3350c1a1284ba70dd6abac674bf6"
+    }
+  ]
+}

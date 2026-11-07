@@ -1,0 +1,710 @@
+{
+  "date": "2026-11-03",
+  "gptVersion": "0.8.7-electron",
+  "deepseekFiles": [
+    {
+      "name": "三球抛接.webm",
+      "bytes": 549316
+    },
+    {
+      "name": "下五子棋.webm",
+      "bytes": 514704
+    },
+    {
+      "name": "东张西望.webm",
+      "bytes": 427005
+    },
+    {
+      "name": "中秋赏月吃月饼.webm",
+      "bytes": 512341
+    },
+    {
+      "name": "优雅女仆舞.webm",
+      "bytes": 578915
+    },
+    {
+      "name": "余额-分文不剩.webm",
+      "bytes": 490318
+    },
+    {
+      "name": "余额-数金皱眉.webm",
+      "bytes": 319065
+    },
+    {
+      "name": "余额-袋空如洗.webm",
+      "bytes": 383104
+    },
+    {
+      "name": "余额-金袋叮当.webm",
+      "bytes": 530955
+    },
+    {
+      "name": "余额-钱袋如常.webm",
+      "bytes": 387407
+    },
+    {
+      "name": "余额-钱袋满溢.webm",
+      "bytes": 622258
+    },
+    {
+      "name": "偷吃零食被抓住.webm",
+      "bytes": 432201
+    },
+    {
+      "name": "写代码.webm",
+      "bytes": 383960
+    },
+    {
+      "name": "写福字.webm",
+      "bytes": 500314
+    },
+    {
+      "name": "凭空生花.webm",
+      "bytes": 620252
+    },
+    {
+      "name": "动物环绕.webm",
+      "bytes": 981435
+    },
+    {
+      "name": "原地专心玩魔方.webm",
+      "bytes": 442948
+    },
+    {
+      "name": "原地小憩沉眠.webm",
+      "bytes": 433769
+    },
+    {
+      "name": "原地左转奔跑.webm",
+      "bytes": 614526
+    },
+    {
+      "name": "原地敲击桌面互动.webm",
+      "bytes": 403033
+    },
+    {
+      "name": "原地漂浮踏步.webm",
+      "bytes": 591446
+    },
+    {
+      "name": "原地跳跃抓碎头顶物品.webm",
+      "bytes": 619282
+    },
+    {
+      "name": "原地蹲下玩玩具汽车.webm",
+      "bytes": 505114
+    },
+    {
+      "name": "原地重力下蹲压缩.webm",
+      "bytes": 215047
+    },
+    {
+      "name": "变鸽子.webm",
+      "bytes": 509462
+    },
+    {
+      "name": "可爱宅舞.webm",
+      "bytes": 576307
+    },
+    {
+      "name": "吃Token.webm",
+      "bytes": 574754
+    },
+    {
+      "name": "吃冰淇淋融化.webm",
+      "bytes": 509816
+    },
+    {
+      "name": "吃午餐.webm",
+      "bytes": 495122
+    },
+    {
+      "name": "吃大闸蟹.webm",
+      "bytes": 545299
+    },
+    {
+      "name": "吃年糕.webm",
+      "bytes": 451257
+    },
+    {
+      "name": "吃早餐.webm",
+      "bytes": 441484
+    },
+    {
+      "name": "吃晚餐.webm",
+      "bytes": 741965
+    },
+    {
+      "name": "吃汤圆.webm",
+      "bytes": 437152
+    },
+    {
+      "name": "吃白饭.webm",
+      "bytes": 459590
+    },
+    {
+      "name": "吃粽子.webm",
+      "bytes": 446268
+    },
+    {
+      "name": "吃糖葫芦.webm",
+      "bytes": 469809
+    },
+    {
+      "name": "吃腊八粥.webm",
+      "bytes": 460665
+    },
+    {
+      "name": "吃西瓜.webm",
+      "bytes": 482918
+    },
+    {
+      "name": "吃重阳糕.webm",
+      "bytes": 468951
+    },
+    {
+      "name": "吃长寿面.webm",
+      "bytes": 489038
+    },
+    {
+      "name": "吃青团.webm",
+      "bytes": 377524
+    },
+    {
+      "name": "吃饺子.webm",
+      "bytes": 554828
+    },
+    {
+      "name": "吹气球.webm",
+      "bytes": 751040
+    },
+    {
+      "name": "吹笛子.webm",
+      "bytes": 768350
+    },
+    {
+      "name": "哈欠连天.webm",
+      "bytes": 424352
+    },
+    {
+      "name": "堆雪人.webm",
+      "bytes": 519196
+    },
+    {
+      "name": "大口吃零食.webm",
+      "bytes": 806998
+    },
+    {
+      "name": "女仆屈膝礼仪.webm",
+      "bytes": 365712
+    },
+    {
+      "name": "小幅度原地360度旋转展示.webm",
+      "bytes": 585715
+    },
+    {
+      "name": "小提琴演奏.webm",
+      "bytes": 605350
+    },
+    {
+      "name": "工作状态-原地踱步张望.webm",
+      "bytes": 471725
+    },
+    {
+      "name": "工作状态-垂头叹气冒汗.webm",
+      "bytes": 198937
+    },
+    {
+      "name": "工作状态-忙碌点按.webm",
+      "bytes": 475613
+    },
+    {
+      "name": "工作状态-思考冒泡.webm",
+      "bytes": 408849
+    },
+    {
+      "name": "工作状态-清点归档.webm",
+      "bytes": 362510
+    },
+    {
+      "name": "工作状态-雀跃庆祝.webm",
+      "bytes": 488024
+    },
+    {
+      "name": "待机呼吸休闲.webm",
+      "bytes": 441437
+    },
+    {
+      "name": "悠闲哼歌.webm",
+      "bytes": 584008
+    },
+    {
+      "name": "扑克魔术.webm",
+      "bytes": 461997
+    },
+    {
+      "name": "打瞌睡被惊醒.webm",
+      "bytes": 454028
+    },
+    {
+      "name": "抽陀螺.webm",
+      "bytes": 521068
+    },
+    {
+      "name": "拆礼物.webm",
+      "bytes": 517803
+    },
+    {
+      "name": "插茱萸赏菊.webm",
+      "bytes": 486358
+    },
+    {
+      "name": "摇扇纳凉.webm",
+      "bytes": 510022
+    },
+    {
+      "name": "撸猫.webm",
+      "bytes": 348432
+    },
+    {
+      "name": "收红包.webm",
+      "bytes": 472277
+    },
+    {
+      "name": "放孔明灯.webm",
+      "bytes": 594144
+    },
+    {
+      "name": "放河灯.webm",
+      "bytes": 379124
+    },
+    {
+      "name": "放烟花.webm",
+      "bytes": 1330462
+    },
+    {
+      "name": "放风筝.webm",
+      "bytes": 770134
+    },
+    {
+      "name": "整体换装试色.webm",
+      "bytes": 524724
+    },
+    {
+      "name": "是啊，吃什么.webm",
+      "bytes": 588163
+    },
+    {
+      "name": "晨间刷牙.webm",
+      "bytes": 425460
+    },
+    {
+      "name": "涮火锅.webm",
+      "bytes": 466547
+    },
+    {
+      "name": "深度思考碎碎念.webm",
+      "bytes": 433031
+    },
+    {
+      "name": "点击回应-傲娇生气.webm",
+      "bytes": 392336
+    },
+    {
+      "name": "点击回应-元气挥手.webm",
+      "bytes": 421669
+    },
+    {
+      "name": "点击回应-害羞惊讶.webm",
+      "bytes": 538281
+    },
+    {
+      "name": "点击回应-开心跃动.webm",
+      "bytes": 538110
+    },
+    {
+      "name": "点击回应-挠痒咯咯笑.webm",
+      "bytes": 425393
+    },
+    {
+      "name": "照镜子.webm",
+      "bytes": 504127
+    },
+    {
+      "name": "玩水枪.webm",
+      "bytes": 523346
+    },
+    {
+      "name": "玩游戏气急败坏.webm",
+      "bytes": 525022
+    },
+    {
+      "name": "用鲸鱼尾巴拍打地面.webm",
+      "bytes": 352213
+    },
+    {
+      "name": "碎碎念-发呆碎碎念.webm",
+      "bytes": 326752
+    },
+    {
+      "name": "碎碎念-对屏碎碎念.webm",
+      "bytes": 364946
+    },
+    {
+      "name": "碎碎念-擦桌碎碎念.webm",
+      "bytes": 350436
+    },
+    {
+      "name": "穿针乞巧.webm",
+      "bytes": 480887
+    },
+    {
+      "name": "舞狮头.webm",
+      "bytes": 632110
+    },
+    {
+      "name": "荡秋千.webm",
+      "bytes": 644126
+    },
+    {
+      "name": "萌化小幽灵.webm",
+      "bytes": 421990
+    },
+    {
+      "name": "蓝鲸现世.webm",
+      "bytes": 482896
+    },
+    {
+      "name": "蝴蝶蜜蜂环绕头顶开花.webm",
+      "bytes": 852828
+    },
+    {
+      "name": "螃蟹走路.webm",
+      "bytes": 596902
+    },
+    {
+      "name": "被吓一跳.webm",
+      "bytes": 282771
+    },
+    {
+      "name": "被落叶淹没.webm",
+      "bytes": 766832
+    },
+    {
+      "name": "被鼠标拖拽悬空反馈.webm",
+      "bytes": 464764
+    },
+    {
+      "name": "装点圣诞树.webm",
+      "bytes": 818456
+    },
+    {
+      "name": "讨糖南瓜灯.webm",
+      "bytes": 483293
+    },
+    {
+      "name": "超大伸懒腰.webm",
+      "bytes": 396987
+    },
+    {
+      "name": "踢毽子.webm",
+      "bytes": 531015
+    },
+    {
+      "name": "轻快摇摆舞.webm",
+      "bytes": 542928
+    },
+    {
+      "name": "轻快记录.webm",
+      "bytes": 447726
+    },
+    {
+      "name": "骑木马.webm",
+      "bytes": 697580
+    },
+    {
+      "name": "鲸鱼吐泡泡特效.webm",
+      "bytes": 452096
+    }
+  ],
+  "gptStates": [
+    {
+      "id": "idle",
+      "label": "陪着你 · 长裙轻呼吸",
+      "frames": 240,
+      "fps": 30
+    },
+    {
+      "id": "idlesway",
+      "label": "放松换重心",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "poserelax",
+      "label": "换个放松站姿",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "weightshift",
+      "label": "挪脚站稳",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "brelaxed",
+      "label": "侧身放松 · 表情变化",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "turnfront",
+      "label": "转为正面站姿",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "frontidle",
+      "label": "正面放松待机",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "turnside",
+      "label": "正面回到侧身",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "footrelax",
+      "label": "小抬脚放松",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "response",
+      "label": "自然回应 · 舒展放松",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "happy",
+      "label": "开心 · 收放笑意",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "confused",
+      "label": "困惑 · 歪头摊掌",
+      "frames": 120,
+      "fps": 30
+    },
+    {
+      "id": "wave",
+      "label": "转身挥手",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "stretching",
+      "label": "侧向伸展",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "thinking",
+      "label": "托腮思考",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "lookaround",
+      "label": "回身张望",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "sleeping",
+      "label": "困睡 · 眼睑放松",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "tea",
+      "label": "提杯小饮",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "walking",
+      "label": "走动 · 轻快小得意",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "flutter",
+      "label": "拖动 · 屈膝悬空",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "flutterplay",
+      "label": "轻盈舒展",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "bodybalance",
+      "label": "全身与发束",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "confusedquiet",
+      "label": "安静困惑 · 少量用",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "bow",
+      "label": "心口致意",
+      "frames": 120,
+      "fps": 30
+    },
+    {
+      "id": "frontpose",
+      "label": "正面轻展",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "complimentavert",
+      "label": "被夸偷看 · 连续闭口",
+      "frames": 360,
+      "fps": 30
+    },
+    {
+      "id": "proudarms",
+      "label": "抱臂矜持 · 尾巴修正版",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "gentlereminder",
+      "label": "有礼轻嗔 · 温柔提醒",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "proudarmsreturn",
+      "label": "抱臂收势 · 回正面放松",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "challengeaccept",
+      "label": "接下挑战 · 从容应下",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "draglanding",
+      "label": "拖动落地 · 屈膝站稳",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "sleeveside",
+      "label": "侧拂袖口 · 安静整理",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "skirtbeat",
+      "label": "提裙踏拍 · 小表演",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "cheekpuff",
+      "label": "鼓腮小抗议",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "tickledodge",
+      "label": "躲痒侧步",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "fanmishap",
+      "label": "展扇小意外 · 持扇淡出",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "lanterninvite",
+      "label": "提灯引路 · 持灯淡出",
+      "frames": 180,
+      "fps": 30
+    },
+    {
+      "id": "thinkingreturn",
+      "label": "托腮收势 · 回正面放松",
+      "frames": 120,
+      "fps": 30
+    },
+    {
+      "id": "lookaroundreturn",
+      "label": "张望收势 · 回正面放松",
+      "frames": 120,
+      "fps": 30
+    },
+    {
+      "id": "wavereturn",
+      "label": "招手收势 · 回正面放松",
+      "frames": 120,
+      "fps": 30
+    },
+    {
+      "id": "happyreturn",
+      "label": "笑颜收势 · 回正面放松",
+      "frames": 120,
+      "fps": 30
+    },
+    {
+      "id": "stretchingreturn",
+      "label": "伸展收势 · 回正面放松",
+      "frames": 120,
+      "fps": 30
+    },
+    {
+      "id": "complimentreturn",
+      "label": "害羞收势 · 回正面放松",
+      "frames": 120,
+      "fps": 30
+    }
+  ],
+  "gptMediaCount": 43,
+  "gptManifestSha256": "a3404347ff4b6889d22c070a0d11900305f1e0173bf9e33e94b4b0f4902907a9",
+  "gptScenesSha256": "5c13eb261be850cc7d995027e105daf37c7d9c3bc8947b0eddbea8006123dcb7",
+  "sourceManifestIdlePool": [
+    "proudarms",
+    "stretching",
+    "lookaround",
+    "sleeveside",
+    "wave",
+    "happy",
+    "tea",
+    "walking",
+    "complimentavert",
+    "skirtbeat",
+    "bow",
+    "flutterplay",
+    "frontpose",
+    "challengeaccept"
+  ],
+  "note": "20 automatic actions include six additions in current performance-catalog.js; manifest idle pool alone is not the complete runtime pool."
+}

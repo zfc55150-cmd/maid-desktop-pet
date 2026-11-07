@@ -40,7 +40,7 @@ const nextWorkStatusAnim = (pool, current) => {
 };
 const randomBetween = (min, max) => Math.floor(min + Math.random() * (max - min));
 const pickWeightedCategory = (categories, facing) => {
-	const cats = categories.filter((c) => c.actions.length > 0);
+	const cats = categories.filter((c) => c.actions.length > 0 && c.weight > 0);
 	if (!cats.length) return null;
 	const filtered = cats.filter((c) => !(c.noMirror && facing === "right"));
 	const eligible = filtered.length ? filtered : cats;

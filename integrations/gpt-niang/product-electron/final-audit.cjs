@@ -1,0 +1,13 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),{sha}=require('./app/file-integrity.cjs'),{verify}=require('./app/package-doctor.cjs');
+const stage=path.resolve(process.argv[2]),read=p=>JSON.parse(fs.readFileSync(p,'utf8').replace(/^\uFEFF/,'')),baseline=read(path.join(stage,'baseline.json')),plan=read(path.join(stage,'promotion-plan.json'));
+const result=verify(plan.target),protectedState=read(path.join(stage,'protected-state-before.json'));
+const unchanged=(root,rows)=>{for(const row of rows)if(sha(path.join(root,row.target))!==row.sha256)throw Error('PROTECTED_PROGRAM_DRIFT:'+row.target);return rows.length;};
+result.deepseekUnchanged=unchanged(baseline.deepseekRoot,baseline.deepseekFiles);result.stableAgentUnchanged=unchanged(baseline.stableRoot,baseline.stableFiles);
+const data=path.join(process.env.LOCALAPPDATA || path.join(require('node:os').homedir(), 'AppData/Local'), 'GPTNiangUsage/state');result.personalPreferences=protectedState.map(row=>({file:row.file,unchanged:sha(path.join(data,row.file))===row.sha256}));if(result.personalPreferences.some(row=>!row.unchanged))throw Error('PERSONAL_PREFERENCES_CHANGED');
+const runtime=read(path.join(data,'runtime.json')),diag=read(path.join(plan.target,'diagnostics.json')),supervisor=read(path.join(data,'supervisor-status.json'));
+if(runtime.renderer!=='electron'||runtime.version!==plan.version||diag.pid!==runtime.pid||Date.now()-diag.at>6000||diag.errors.length||!diag.visible||supervisor.healthCode!=='healthy'||!supervisor.widgetRunning)throw Error('LIVE_HEALTH');
+const live=read(path.join(stage,'installed-full-smoke.json'));if(!live.ok||live.manifestSha256!==sha(path.join(plan.target,'package-manifest.json')))throw Error('VERIFICATION_DRIFT');
+Object.assign(result,{at:new Date().toISOString(),pid:runtime.pid,liveSince:runtime.startedAt,liveFrames:diag.frameUpdates,visible:diag.visible,errors:diag.errors,size:diag.size,supervisor:supervisor.healthCode,installedChecks:live.checks,oldWpfFilesRemoved:plan.retire.length,rollbackArchive:plan.rollback.archive,rollbackSha256:plan.rollback.sha256,paidCalls:0});
+fs.writeFileSync(path.join(stage,'final-audit.json'),JSON.stringify(result,null,2));fs.copyFileSync(path.join(plan.target,'package-manifest.json'),path.join(stage,'formal-package-manifest.json'));fs.copyFileSync(path.join(baseline.gptRoot,'electron-deployment.json'),path.join(stage,'formal-deployment-receipt.json'));
+console.log(JSON.stringify(result));

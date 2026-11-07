@@ -1,0 +1,14 @@
+GPT 娘半身图（本机双形态适配）
+来源：Feeesack/codex-maid-widget，assets/characters/frost-glass-cheek.png。
+固定提交：0af6aea8ec8f9b1880b9b528fa7e41ada1d6aea4。
+原图：1381 x 1139 RGBA，1611136 字节；未修改图片文件。
+SHA-256：63fa79d524ce3dbecafc623804c9bb4c835b67e019783200051adea12c187f36。
+运行时在原全身画布中缩小显示，沿用同一底部中心，不生成或修改动作美术。
+
+上游称此图为用户提供的 final-2.png，授权在原项目内置使用。
+它被明确排除在该项目既有 CC BY 4.0 插画许可之外；代码 MIT 也不覆盖此图。
+此处按用户指定作本机私人形象适配，不声明获得一般再分发、再许可或商用许可。
+本轮维护包仅供本机备份恢复，不作为朋友分享包发布。
+
+https://github.com/Feeesack/codex-maid-widget/blob/0af6aea8ec8f9b1880b9b528fa7e41ada1d6aea4/docs/asset-provenance.md
+https://github.com/Feeesack/codex-maid-widget/blob/0af6aea8ec8f9b1880b9b528fa7e41ada1d6aea4/ARTWORK_LICENSE.md

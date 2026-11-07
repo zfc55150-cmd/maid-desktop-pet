@@ -1,0 +1,19 @@
+{
+  "id": "cbrushfringe",
+  "label": "理理额发 · 微微得意",
+  "frames": 150,
+  "fps": 30,
+  "loop": false,
+  "automatic": true,
+  "idleCooldownMs": 120000,
+  "sourceKind": "gemini-reviewed-frontal-idle",
+  "menuGroup": "日常陪伴",
+  "entryPose": "C",
+  "exitPose": "C",
+  "sourceVideoSha256": "41c6eae456601be2632755415839e8e72495fa05d0ffe3fc639ee9c7e37df3f3",
+  "videoFile": "cbrushfringe.webm",
+  "maskFile": "cbrushfringe.bin",
+  "videoSha256": "c60dc8be5b0aad09cef62daa7dcf724988a9f18a5a1df3cf9da2200699001064",
+  "maskSha256": "3eb7a033508f4af8e7e4be0982fb01096a801030c96673478ad913bd9e3e48fb",
+  "maskBytes": 2764800
+}

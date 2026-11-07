@@ -1,0 +1,8 @@
+{
+  "source": "DeepSeekActionPet main pet on the same Windows DPI",
+  "deepseekCanvasCssPx": 480,
+  "deepseekWhisperCssRatio": 0.034,
+  "fontSizeDip": 16.32,
+  "gptReferenceScale": 1.4,
+  "lineHeightRatio": 1.6
+}

@@ -1,0 +1,14 @@
+(async()=>{
+ const config=await window.probe.config(),guard=new LabFrameGuard.FrameGuard(document.querySelector('canvas')),player=new LabVideoPlayer.Player([...document.querySelectorAll('video')],name=>config.clips[name].url,{guard}),pause=ms=>new Promise(r=>setTimeout(r,ms)),events=[],checks=[];let shown=null;
+ player.onFrame=data=>{shown=data;};
+ window.releaseDebug=()=>({checks,events,shown,trace:player.trace,videos:player.videos.map(v=>({time:v.currentTime,rate:v.playbackRate,paused:v.paused,ready:v.readyState}))});
+ const step=(clip,extra={})=>({clip,...config.clips[clip],...extra}),note=kind=>events.push({kind,at:Date.now(),shown,guard:guard.active}),check=(name,ok)=>{checks.push({name,ok});if(!ok)throw new Error(name);};
+ await player.playSequence([step('frontidle')]);await pause(200);note('initialized');
+ const pending=player.playSequence([step('flutter',{rateTransition:{frame:66,afterMs:1200,speed:1.25},fadeMs:80})]);LabRelease.lock(player,shown);check('cancel pending takeoff',await pending===false);await pause(200);check('stay on current idle',player.clip==='frontidle');
+ await player.playSequence([step('flutter',{rateTransition:{frame:66,afterMs:1200,speed:1.25},fadeMs:80})]);await pause(160);note('preparation release');check('preparation is visible',shown.clip==='flutter'&&shown.frame<66);check('lock incomplete preparation',LabRelease.lock(player,shown)==='frozen-release');
+ const frozenTime=player.videos[player.front].currentTime,frozenFrames=player.frames.length;await pause(1400);check('no advance into airborne pose',player.frames.length===frozenFrames&&Math.abs(player.videos[player.front].currentTime-frozenTime)<.02);check('retained composite remains visible',guard.active);
+ await player.playSequence([step('draglanding',{speed:1.2,fadeMs:80})]);await pause(100);check('explicit landing can start after frozen release',player.clip==='draglanding'&&!player.frozen);
+ await player.playSequence([step('flutter',{rateTransition:{frame:66,afterMs:1200,speed:1.25},fadeMs:80})]);const deadline=performance.now()+3000;while((shown.clip!=='flutter'||shown.frame<66)&&performance.now()<deadline)await pause(20);note('airborne release');check('airborne is already visible',shown.clip==='flutter'&&shown.frame>=66);const requests=player.trace.filter(t=>t.event==='request').length,time=player.videos[player.front].currentTime;
+ check('lock already airborne pose too',LabRelease.lock(player,shown)==='frozen-release');await pause(250);check('airborne pose cannot keep advancing or reload after release',player.trace.filter(t=>t.event==='request').length===requests&&Math.abs(player.videos[player.front].currentTime-time)<.02&&player.frozen);note('completed');
+ window.probe.finish({completed:true,checks,events,trace:player.trace});
+})().catch(e=>window.probe.finish({error:e.message,...window.releaseDebug?.()}));

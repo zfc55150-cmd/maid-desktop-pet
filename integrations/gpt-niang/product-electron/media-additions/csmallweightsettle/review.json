@@ -1,0 +1,10 @@
+{
+  "acceptedForIntegrationTrial": true,
+  "userVisualAcceptance": false,
+  "sourceVideoSha256": "d88a5c5172d6a7b080d7403e7827d79391c34107bda5b3a9fe72be708a711ee4",
+  "videoSha256": "f22281988926473e98bda4825d39e3c13ad9184a11edb9d542e0add680e06e8e",
+  "reviewer": "Codex primary",
+  "authorization": "User explicitly requested local deployment when no major issues remain, accepting minor visual differences to conserve quota (2026-11-04).",
+  "evidence": "Previously reviewed retained candidate; hashes and all-frame derived alpha masks rechecked for this deployment.",
+  "remaining": "Minor faint lip lines and action tempo remain for user practical acceptance. No unreviewed ear reaction or pose bridges included."
+}

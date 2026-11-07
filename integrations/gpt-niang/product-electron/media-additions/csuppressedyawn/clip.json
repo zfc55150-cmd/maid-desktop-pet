@@ -1,0 +1,19 @@
+{
+  "id": "csuppressedyawn",
+  "label": "忍住哈欠 · 继续陪伴",
+  "frames": 150,
+  "fps": 30,
+  "loop": false,
+  "automatic": true,
+  "idleCooldownMs": 180000,
+  "sourceKind": "gemini-reviewed-frontal-idle",
+  "menuGroup": "日常陪伴",
+  "entryPose": "C",
+  "exitPose": "C",
+  "sourceVideoSha256": "a961a7013c775de5dbd2cb9031fccb82a4c20bc5448d0ceaccc0a13da7cac79a",
+  "videoFile": "csuppressedyawn.webm",
+  "maskFile": "csuppressedyawn.bin",
+  "videoSha256": "f2e32a220efd80c6ceeee6c50d489192da5efadb92bd54d334014f98716d9e71",
+  "maskSha256": "7e2ff3831f52edb28a9c79b89222950ab8e52cea0f9ff40e31e3734bf1cefaf0",
+  "maskBytes": 2764800
+}

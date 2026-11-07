@@ -1,0 +1,47 @@
+DeepSeek 半身素材来源（仅用于本机私人外观切换）
+
+文件：deepseek-bust.png，610 x 610 RGBA PNG。
+上游：MeteorNOX/DeepSeek-Balance-Whale-Widget，assets/DSniang1.png。
+固定修订：5247dd6813d6e4430728f39ccc63d43cda046022。
+SHA-256：dcc456613dbb1102a4b7ef636a8b622371e33b763489d6249c434fb54248ba5c。
+未修改图片像素；保留原来的透明背景、画风和构图。
+
+上游代码的 MIT 许可不覆盖这张美术素材。上游 PROVENANCE.md 将 assets/
+列为 as-is 随原插件分发、仅用于运行原插件，不授予再许可，也不声明为原创。
+本地用户指定以该形象进行私人外观适配，不因此取得商业或再次分发授权。
+本文件保留来源与边界，不改变上游或角色设计权利人的权利。
+不要将该图片当作 MIT 素材发布、独立分发或并入朋友分享包。
+
+原说明：https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget/blob/5247dd6813d6e4430728f39ccc63d43cda046022/PROVENANCE.md
+
+1.2.3 本机互动适配：
+deepseek-bust-press.mp3 = 同一修订 assets/Ya1.mp3，未改字节。
+SHA-256：0ad8f934ae5fa3cbd42745e086a56aa6532766618c6a620b860a795bdc7689f9。
+deepseek-bust-release.mp3 = 同一修订 assets/Ya2.mp3，未改字节。
+SHA-256：1a8998077e5e306c3088bb442ce36617261dd58200754f457469a520801c565b。
+上游 PROVENANCE 对 assets/ 的相同边界适用于这两个音效；不声称取得再分发许可。
+
+本地随机台词改编自同一修订 assets/whale-widget.js 的 bubbleDefaultRandomLines。
+台词所在代码的 MIT 声明如下；不扩展至以上插画与音效：
+
+MIT License
+
+Copyright (c) 2026 MeteorNOX
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

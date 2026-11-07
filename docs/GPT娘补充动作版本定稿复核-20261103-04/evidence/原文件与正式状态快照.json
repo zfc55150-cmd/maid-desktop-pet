@@ -1,0 +1,38 @@
+{
+  "preserved": [
+    {
+      "id": "01_c_soft_breath_blink_v2",
+      "allThreeFilesUnchanged": true
+    },
+    {
+      "id": "03_c_tail_tip_settle",
+      "allThreeFilesUnchanged": true
+    },
+    {
+      "id": "bridge_b_to_a",
+      "allThreeFilesUnchanged": true
+    },
+    {
+      "id": "bridge_a_to_c",
+      "allThreeFilesUnchanged": true
+    },
+    {
+      "id": "08_c_suppressed_yawn_v2",
+      "allThreeFilesUnchanged": true
+    },
+    {
+      "id": "02_c_listen_ear_v4",
+      "allThreeFilesUnchanged": true
+    }
+  ],
+  "formalSnapshot": {
+    "version": "0.8.14-electron",
+    "states": 44,
+    "clips": 44,
+    "packageFilesChecked": 267,
+    "mismatches": [],
+    "newCandidatesRegistered": [],
+    "activeManifestShaMatches": true
+  },
+  "applicationWrittenByThisReview": false
+}

@@ -53,8 +53,8 @@ const { readFileSync, writeFileSync } = require('node:fs');
 const fsPromises = require('node:fs/promises');
 // 点击穿透兜底通道的纯判定（不依赖 Electron 的 forward 鼠标钩子；见文件头注释）
 const { decideWindowIgnore, pointerZone } = require('./pointer-target.js');
-// 置顶看门狗：WS_EX_TOPMOST 只是样式位，不等于窗口真的在置顶带（见 topmost-watchdog.js 头部）
-const { TOPMOST_WATCHDOG_TICK_MS, shouldReassertTopmost } = require('./topmost-watchdog.js');
+// 交互时提升窗口；后台只修复丢失的置顶标记，避免与其它桌宠抢顺序。
+const { TOPMOST_WATCHDOG_TICK_MS, shouldReassertTopmost, raiseOnInteraction } = require('./topmost-watchdog.js');
 // 宿主存活判定（issue #56：宿主退出 → 管道断开 → 自己退，绝不弹框、绝不留僵尸）
 const { HOST_POLL_MS, hostIsGone, isBrokenPipeError, parseHostPid } = require('./host-liveness.js');
 // 全局 DPI 线性化的纯判定与换算（含平台例外：macOS 的 DIP 已是「点」，无需补偿；见该文件头）
@@ -480,11 +480,7 @@ function createPetWindows() {
       const next = decideWindowIgnore(b, point, ignoring, busy, nextMs, inputRegions.get(win.id));
       if (next !== ignoring) setWindowIgnore(win, next);
     }, POINTER_POLL_MS);
-    // [置顶看门狗] 建窗时那次 setAlwaysOnTop 之后再没人复查过：外部任何一次 z 序扰动都能让桌宠
-    // 沉到普通窗下面——而 `WS_EX_TOPMOST` 位还在（点击穿透的读-改-写会把它写回来），于是
-    // "是不是置顶"永远查得出 true、宠物却再也看不见，用户侧只能重启 helper 才回来。
-    // 这里低频重钉一次：落地就是 SetWindowPos(HWND_TOPMOST, SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE)，
-    // 不移动、不重绘、不抢焦点（判定的纯逻辑与全部依据见 topmost-watchdog.js）。
+    // 后台保留置顶资格；只有新的用户交互才调整同级桌宠的前后顺序。
     let lastTopmostAssertMs = Date.now();
     const topmostTimer = setInterval(() => {
       const nowMs = Date.now();
@@ -494,6 +490,7 @@ function createPetWindows() {
         destroyed: win.isDestroyed(),
         visible: win.isVisible(),
         paused: pointerFallbackPaused,
+        alwaysOnTop: win.isAlwaysOnTop(),
       });
       if (!due) return;
       lastTopmostAssertMs = nowMs;
@@ -792,6 +789,7 @@ app.whenReady().then(() => {
     if (!trustedPet(event)) return;
     const win = BrowserWindow.fromWebContents(event.sender);
     if (!win || win.isDestroyed()) return;
+    raiseOnInteraction(win, inputBusy.get(win.id) === true || inputRegions.get(win.id)?.dragging === true, busy === true);
     inputBusy.set(win.id, !!busy);
   });
 
@@ -802,6 +800,8 @@ app.whenReady().then(() => {
     const rects = input.rects.filter(
       (r) => r && [r.x, r.y, r.width, r.height].every(Number.isFinite) && r.width > 0 && r.height > 0,
     );
+    // A fresh drag must raise even when an existing chat already holds the busy lease.
+    raiseOnInteraction(win, inputRegions.get(win.id)?.dragging === true, input.dragging === true);
     inputRegions.set(win.id, { dragging: input.dragging === true, rects });
   });
 

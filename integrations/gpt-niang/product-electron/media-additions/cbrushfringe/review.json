@@ -1,0 +1,10 @@
+{
+  "acceptedForIntegrationTrial": true,
+  "userVisualAcceptance": false,
+  "sourceVideoSha256": "41c6eae456601be2632755415839e8e72495fa05d0ffe3fc639ee9c7e37df3f3",
+  "videoSha256": "c60dc8be5b0aad09cef62daa7dcf724988a9f18a5a1df3cf9da2200699001064",
+  "reviewer": "Codex primary",
+  "authorization": "User explicitly requested local deployment when no major issues remain, accepting minor visual differences to conserve quota (2026-11-04).",
+  "evidence": "v5 actual MP4 full mouth sheets reviewed, former f49/f50 smile flash absent; exact alpha mask and endpoint checks passed.",
+  "remaining": "Minor faint lip lines and action tempo remain for user practical acceptance. No unreviewed ear reaction or pose bridges included."
+}

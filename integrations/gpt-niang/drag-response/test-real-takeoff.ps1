@@ -1,0 +1,11 @@
+param([string]$Package=(Join-Path $PSScriptRoot '../../../work/gpt-drag-takeoff-20261102-02'))
+$ErrorActionPreference='Stop';$Package=[IO.Path]::GetFullPath($Package)
+$probe=[IO.File]::ReadAllText((Join-Path $PSScriptRoot 'test-real-wpf.ps1'))
+$probe=$probe.Replace("ContainsKey('flutter:1')","ContainsKey('flutter:0')")
+$probe=$probe.Replace('$entryFrame-ne 66','$entryFrame-ne 0')
+$probe=$probe.Replace('$visibleDuration-lt 120','$visibleDuration-lt 1000')
+$probe=$probe.Replace("'NOT_LIFTED_ENTRY'","'TAKEOFF_MUST_START_AT_ZERO'")
+$probe=$probe.Replace("  Wait {`$script:dragonLastDrawnClip-eq 'draglanding' -and `$script:dragonFrameIndex-eq 179}","  Wait {`$script:dragonLastDrawnClip-eq 'draglanding' -and `$script:dragonFrameIndex-eq 179}`n  `$landingCompletedMs=`$clock.ElapsedMilliseconds-`$landingAt")
+$probe=$probe.Replace('$r=@{ok=$true;baseline=', '$r=@{landingToFinalFrameMs=$landingCompletedMs;ok=$true;baseline=')
+$probe=$probe.Replace("'real-candidate.json'","'real-takeoff.json'")
+. ([ScriptBlock]::Create($probe)) -Package $Package

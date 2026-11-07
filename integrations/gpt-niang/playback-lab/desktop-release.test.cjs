@@ -1,0 +1,3 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),{lock,canTakeoff}=require('./desktop-release.js');
+test('every release freezes the presentation, including already airborne frames',()=>{for(const clip of ['frontidle','flutter'])for(const frame of [0,15,65,66,85,179]){const actions=[],p={freeze:()=>actions.push('freeze'),retain:()=>actions.push('retain'),playSequence:()=>{throw new Error('NO_NEW_PERFORMANCE_AFTER_RELEASE');}};assert.equal(lock(p,{clip,frame}),'frozen-release');assert.deepEqual(actions,['freeze']);}});
+test('takeoff cannot enter after pointer-up or from an older gesture',()=>{assert(canTakeoff(true,2,2));assert(!canTakeoff(false,2,2));assert(!canTakeoff(true,2,1));assert(!canTakeoff(true,2,null));});

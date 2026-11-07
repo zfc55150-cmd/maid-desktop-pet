@@ -10,5 +10,6 @@ for(const name of fs.readdirSync(path.join(root,'app/electron-helper'))){
  if(fs.statSync(path.join(root,'app/electron-helper',name)).isFile())add('app/electron-helper/'+name,'node_modules/dsh-pet/runtime/electron-helper/'+name);
 }
 for(const name of fs.readdirSync(path.join(root,'app/voice-runtime')))add('app/voice-runtime/'+name,'voice-runtime/'+name);
-fs.writeFileSync(path.join(root,'deployment.json'),JSON.stringify({version:'1.1.0',base:'dsh-pet@0.3.7',files},null,2)+'\n');
+const version=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8')).version;
+fs.writeFileSync(path.join(root,'deployment.json'),JSON.stringify({version,base:'dsh-pet@0.3.7',files},null,2)+'\n');
 console.log(JSON.stringify({files:files.length,changed:files.filter(f=>f.sha256!==f.previousSha256).length}));

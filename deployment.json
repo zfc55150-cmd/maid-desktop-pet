@@ -1,30 +1,60 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.3-interaction-fix.2",
   "base": "dsh-pet@0.3.7",
   "files": [
     {
       "source": "app/launcher.mjs",
       "target": "launcher.mjs",
       "sha256": "7ccc780b301c34b55da03c7308517161a75131ab6cfeb8bd16102429af5fa5ed",
-      "previousSha256": "af96b12f583e04051ddf9caaf4318ef4121c4235209489bff83dc0c0a058880e"
+      "previousSha256": "7ccc780b301c34b55da03c7308517161a75131ab6cfeb8bd16102429af5fa5ed"
     },
     {
       "source": "app/standalone.mjs",
       "target": "node_modules/dsh-pet/lib/standalone.js",
-      "sha256": "70fbe1620f8e09098c6f56b780102df3633d751eec7d28d700be14351c068b6c",
-      "previousSha256": "1ff6841c2ed808ca075f190a42e8701764a6836de25a08504e2b55fa34735201"
+      "sha256": "6de6d7625e9d8bbaefa4bc158cd650e4486082d8ec109e75c453c927994ea9fa",
+      "previousSha256": "6de6d7625e9d8bbaefa4bc158cd650e4486082d8ec109e75c453c927994ea9fa"
+    },
+    {
+      "source": "app/electron-helper/auto-memory.js",
+      "target": "node_modules/dsh-pet/runtime/electron-helper/auto-memory.js",
+      "sha256": "b09d0f3d94db8372827275f3766f47fe3f56ba552999140b711bd08a060de686",
+      "previousSha256": "b09d0f3d94db8372827275f3766f47fe3f56ba552999140b711bd08a060de686"
     },
     {
       "source": "app/electron-helper/chat-config-store.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/chat-config-store.js",
-      "sha256": "9743f9479b3ca48c4e3592499f7a6b3b0e901a65e73e8d0bd998c96c9ac93bb0",
-      "previousSha256": "5f00a16e20122befb119690e67df0e2c5f91283032dd4a11afa36f0bcfa07f26"
+      "sha256": "613bba3ac15b27000b6cf89e244f82de1bad1be82d674fe84324ca1a271ba632",
+      "previousSha256": "613bba3ac15b27000b6cf89e244f82de1bad1be82d674fe84324ca1a271ba632"
     },
     {
       "source": "app/electron-helper/constants.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/constants.js",
       "sha256": "8d78472e12208075eff3f244bad1327a263d5ce4fbea02ac4da1c9352e60b0a2",
-      "previousSha256": "31ee2ad0741c1e125682820343591ee1d13ad3d747dfde6f9d3f08eaf413574c"
+      "previousSha256": "8d78472e12208075eff3f244bad1327a263d5ce4fbea02ac4da1c9352e60b0a2"
+    },
+    {
+      "source": "app/electron-helper/deepseek-bust-NOTICE.txt",
+      "target": "node_modules/dsh-pet/runtime/electron-helper/deepseek-bust-NOTICE.txt",
+      "sha256": "8a98b8cd9a2c054b568df40dbb1b10090a7d587bc2b03e57977a09922872725a",
+      "previousSha256": "8a98b8cd9a2c054b568df40dbb1b10090a7d587bc2b03e57977a09922872725a"
+    },
+    {
+      "source": "app/electron-helper/deepseek-bust-press.mp3",
+      "target": "node_modules/dsh-pet/runtime/electron-helper/deepseek-bust-press.mp3",
+      "sha256": "0ad8f934ae5fa3cbd42745e086a56aa6532766618c6a620b860a795bdc7689f9",
+      "previousSha256": "0ad8f934ae5fa3cbd42745e086a56aa6532766618c6a620b860a795bdc7689f9"
+    },
+    {
+      "source": "app/electron-helper/deepseek-bust-release.mp3",
+      "target": "node_modules/dsh-pet/runtime/electron-helper/deepseek-bust-release.mp3",
+      "sha256": "1a8998077e5e306c3088bb442ce36617261dd58200754f457469a520801c565b",
+      "previousSha256": "1a8998077e5e306c3088bb442ce36617261dd58200754f457469a520801c565b"
+    },
+    {
+      "source": "app/electron-helper/deepseek-bust.png",
+      "target": "node_modules/dsh-pet/runtime/electron-helper/deepseek-bust.png",
+      "sha256": "dcc456613dbb1102a4b7ef636a8b622371e33b763489d6249c434fb54248ba5c",
+      "previousSha256": "dcc456613dbb1102a4b7ef636a8b622371e33b763489d6249c434fb54248ba5c"
     },
     {
       "source": "app/electron-helper/desktop-geometry.js",
@@ -53,20 +83,20 @@
     {
       "source": "app/electron-helper/index.html",
       "target": "node_modules/dsh-pet/runtime/electron-helper/index.html",
-      "sha256": "0e6f99cf6155ecdd1bd4d08e4356f2bfd5fefe6623503fce701fa7055bff390c",
-      "previousSha256": "0e6f99cf6155ecdd1bd4d08e4356f2bfd5fefe6623503fce701fa7055bff390c"
+      "sha256": "c56103cb8a562f7bf88a6b8bd81df38c27d494807323c143c453fd845f610633",
+      "previousSha256": "c56103cb8a562f7bf88a6b8bd81df38c27d494807323c143c453fd845f610633"
     },
     {
       "source": "app/electron-helper/local-control.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/local-control.js",
       "sha256": "6287171f4f0915a067c2201c3bc6523de85eaa0e16024c870f30478090bf1c26",
-      "previousSha256": null
+      "previousSha256": "6287171f4f0915a067c2201c3bc6523de85eaa0e16024c870f30478090bf1c26"
     },
     {
       "source": "app/electron-helper/main.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/main.js",
-      "sha256": "da645b1f412a33e1021d5dc32f837f740a45ec43a56f7e207b95dde42208c064",
-      "previousSha256": "600c6ebd252db23b69ce59dd722c9a1e5af19a3e3dcdc8604be55a51ccacf1ac"
+      "sha256": "4b73450062a2f4b98f1b073a437ab542f9c5c8ef8e791de01c4ee7477349c8f1",
+      "previousSha256": "4b73450062a2f4b98f1b073a437ab542f9c5c8ef8e791de01c4ee7477349c8f1"
     },
     {
       "source": "app/electron-helper/package.json",
@@ -81,40 +111,46 @@
       "previousSha256": "0bdcac4bae9e1b43931a9c86ba50d40128552f27b40a04737dd877bcde8cbe24"
     },
     {
+      "source": "app/electron-helper/pet-form.js",
+      "target": "node_modules/dsh-pet/runtime/electron-helper/pet-form.js",
+      "sha256": "1affa0d894ca1997dc161364c739193496b1df341cf7ed7dd5e380960e561ff5",
+      "previousSha256": "1affa0d894ca1997dc161364c739193496b1df341cf7ed7dd5e380960e561ff5"
+    },
+    {
       "source": "app/electron-helper/pet-inline-chat.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/pet-inline-chat.js",
       "sha256": "e11ec651419b5f6d38c6e8e0ea0d40720c5bf675855c1d88bb84962df5f10479",
-      "previousSha256": "dfb87c6266e440b8e777389c7ed0c5fd7f000a3c342d11e5ecbb42045dc9bdff"
+      "previousSha256": "e11ec651419b5f6d38c6e8e0ea0d40720c5bf675855c1d88bb84962df5f10479"
     },
     {
       "source": "app/electron-helper/pet-settings-preload.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/pet-settings-preload.js",
       "sha256": "df59b9896027a154cf44a186e4e2a78710eb372ea5d61522ed7b3645db77e4c3",
-      "previousSha256": "c21b8bd3e0e7602187e20cea5b52a3d3404c3cba898ebe716121c9e4501a389d"
+      "previousSha256": "df59b9896027a154cf44a186e4e2a78710eb372ea5d61522ed7b3645db77e4c3"
     },
     {
       "source": "app/electron-helper/pet-settings.css",
       "target": "node_modules/dsh-pet/runtime/electron-helper/pet-settings.css",
       "sha256": "79e2920239d764b4957f30018fbe919ece5571393d8520bf894b3a6b268d30f4",
-      "previousSha256": "c010ae78fe6c58935feddfba933b1396a89a2b75dd17edc5260571fb976a506c"
+      "previousSha256": "79e2920239d764b4957f30018fbe919ece5571393d8520bf894b3a6b268d30f4"
     },
     {
       "source": "app/electron-helper/pet-settings.html",
       "target": "node_modules/dsh-pet/runtime/electron-helper/pet-settings.html",
-      "sha256": "49c3259fccc1a4d91090184143b31b0fd828da0bbdea512e9e3e947ad39c95df",
-      "previousSha256": "4d8d831169cb79426aebb64cc807fbf055cb50064cc8385a28da80b1980f50da"
+      "sha256": "0bc43883127a8d32a8a6c556a4aabe265b206652badf8d89622f11b4eff613a8",
+      "previousSha256": "0bc43883127a8d32a8a6c556a4aabe265b206652badf8d89622f11b4eff613a8"
     },
     {
       "source": "app/electron-helper/pet-settings.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/pet-settings.js",
-      "sha256": "71761ca8f2902cbc96c76856574afae0a7f981e54eacfd6e59d12dec9cb280f7",
-      "previousSha256": "e5cb23fd26a3e16ccb49ef007654ed39f21da7b7bb6241a5d08bc3f469e22bf8"
+      "sha256": "18cfa7e7b2aece803c03a4b29befe76ae9eb25498e1efc4de57a8f858f0030b0",
+      "previousSha256": "18cfa7e7b2aece803c03a4b29befe76ae9eb25498e1efc4de57a8f858f0030b0"
     },
     {
       "source": "app/electron-helper/pet-size-main.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/pet-size-main.js",
       "sha256": "200ede2cb1676e561b20378291e791f1a38f86b970797106faae321690a36bde",
-      "previousSha256": "e8364737ced732df46e767cdd80b709c1a4289852bbee69decf1e035383ed97c"
+      "previousSha256": "200ede2cb1676e561b20378291e791f1a38f86b970797106faae321690a36bde"
     },
     {
       "source": "app/electron-helper/pet-size-preload.js",
@@ -150,7 +186,7 @@
       "source": "app/electron-helper/pet-speech.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/pet-speech.js",
       "sha256": "65a113eec14ce32d267b627419d5b04be48dc485c384034a79bc9b48c77070d8",
-      "previousSha256": "6e2135c463954be1e3bcf0618a220def9f1ee7092fae9cdc3e78669ee055390e"
+      "previousSha256": "65a113eec14ce32d267b627419d5b04be48dc485c384034a79bc9b48c77070d8"
     },
     {
       "source": "app/electron-helper/pet-speech.ps1",
@@ -168,25 +204,25 @@
       "source": "app/electron-helper/preload.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/preload.js",
       "sha256": "3ae723f7de23ae898465608e35f9d14efafc44440c1b39f2b37b07680b68cac2",
-      "previousSha256": "580af07f9632d974740c8465ddc993cc5868fb5baa480be7639be1dad924415d"
+      "previousSha256": "3ae723f7de23ae898465608e35f9d14efafc44440c1b39f2b37b07680b68cac2"
     },
     {
       "source": "app/electron-helper/renderer.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/renderer.js",
       "sha256": "87bdd04527b05b86681baffdc81a06c30a8693fe9c393bd9185e46cacfd5abe2",
-      "previousSha256": "819aab206d2c7e5d7d88e5b40085e8f092e60f1b168f72ee1f29f27e4291e4c9"
+      "previousSha256": "87bdd04527b05b86681baffdc81a06c30a8693fe9c393bd9185e46cacfd5abe2"
     },
     {
       "source": "app/electron-helper/shared-core.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/shared-core.js",
-      "sha256": "cec88e7297591129c2b381b3be33d0d46797c1d9d00d983146949c43213bba07",
-      "previousSha256": "3ed15d71ef44eee9ab7a2369c3411d1cf987f386d1731ab03d381b03526132d9"
+      "sha256": "054c1c0304432a314dd3ead55258447320330d6e150a2a655cde26e6af2f40f6",
+      "previousSha256": "cec88e7297591129c2b381b3be33d0d46797c1d9d00d983146949c43213bba07"
     },
     {
       "source": "app/electron-helper/simple-chat-main.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/simple-chat-main.js",
-      "sha256": "890f45d117dd9f79307d312f41a24d9838222451a723ba6eecb013a68032a862",
-      "previousSha256": "63c229759abbd230d413d4b146b24868ac4afe28ced0886a86cff806e64587fd"
+      "sha256": "8d2451dc86607694020719f0e0abd6f2fecba692dd5e5612d65311e86632dd13",
+      "previousSha256": "8d2451dc86607694020719f0e0abd6f2fecba692dd5e5612d65311e86632dd13"
     },
     {
       "source": "app/electron-helper/simple-chat-preload.js",
@@ -197,8 +233,8 @@
     {
       "source": "app/electron-helper/simple-chat-service.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/simple-chat-service.js",
-      "sha256": "ac4f09b56c364057c804aa35e5ad5d597ee3dc2c063315519a2e1e42d11fb520",
-      "previousSha256": "9d716e98e80ff1dbcc9fca01f121f52754ef75e0ee13db8754b3e7e9682fd132"
+      "sha256": "c39226ead677c672b73b21ea98e926365d3835bb5441e3719fed50a993bd6f99",
+      "previousSha256": "c39226ead677c672b73b21ea98e926365d3835bb5441e3719fed50a993bd6f99"
     },
     {
       "source": "app/electron-helper/simple-chat-ui.js",
@@ -227,20 +263,20 @@
     {
       "source": "app/electron-helper/sprite.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/sprite.js",
-      "sha256": "78c3def4fe0d417b73c57b2238497eef7adf81e0b14c519c78ce87c4ca83ed61",
-      "previousSha256": "9cd289056648b186e8df2f1034d0e0d42f6e6dd2847cc3a2ff3e019c3ffb0448"
+      "sha256": "b41b60c482a5461a781f7d734c97df6b84b0f556c72a15d17398bc97580f2771",
+      "previousSha256": "5e1603f5e762403e8ba678a92ba3e4572cf1dfb80f72923041759ce92f55ad13"
     },
     {
       "source": "app/electron-helper/topmost-watchdog.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/topmost-watchdog.js",
-      "sha256": "4585dafb6527e06307092d569c806d5a1372754415c5abc5da38c1571a869e09",
-      "previousSha256": "4585dafb6527e06307092d569c806d5a1372754415c5abc5da38c1571a869e09"
+      "sha256": "d79548b6fd7fe733b71c722534804e50ffa61ca8f240c4d633168e8e3f4d031d",
+      "previousSha256": "d79548b6fd7fe733b71c722534804e50ffa61ca8f240c4d633168e8e3f4d031d"
     },
     {
       "source": "app/electron-helper/voice-log.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/voice-log.js",
       "sha256": "67aa62329702bcbf8882155a9f1ce4066ead8cfc2d48320ad00a7a42d2a869e4",
-      "previousSha256": null
+      "previousSha256": "67aa62329702bcbf8882155a9f1ce4066ead8cfc2d48320ad00a7a42d2a869e4"
     },
     {
       "source": "app/voice-runtime/fast_predictor.py",
@@ -252,7 +288,7 @@
       "source": "app/voice-runtime/requirements.lock.txt",
       "target": "voice-runtime/requirements.lock.txt",
       "sha256": "41b7d7eaaffc23a4bace10fcf0d3fa113609bcb4c510457f4639b60347a8d75f",
-      "previousSha256": "bfca924d65ba8f04d18873853457f50b628ce3320302734b6e45639bdc9f3f7e"
+      "previousSha256": "41b7d7eaaffc23a4bace10fcf0d3fa113609bcb4c510457f4639b60347a8d75f"
     },
     {
       "source": "app/voice-runtime/voice-settings.json",

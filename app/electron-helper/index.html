@@ -40,6 +40,8 @@
         height: calc(var(--pet-size, 462px) * 9 / 16);
         pointer-events: none;
       }
+      .pet-full-layer { position:absolute; inset:0; opacity:1; pointer-events:none; }
+      .pet-bust { position:absolute; object-fit:contain; opacity:0; pointer-events:none; transform-origin:50% 100%; }
       video.pet-video {
         position: absolute;
         inset: 0;
@@ -68,7 +70,7 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        bottom: calc(100% - var(--pet-size, 462px) * 0.108);
+        bottom: var(--pet-bubble-bottom, calc(100% - var(--pet-size, 462px) * 0.108));
         min-width: calc(var(--pet-size, 462px) * 0.26);
         max-width: calc(var(--pet-size, 462px) * 0.5);
         padding: calc(var(--pet-size, 462px) * 0.022) calc(var(--pet-size, 462px) * 0.03);
@@ -169,6 +171,7 @@
     <script src="./shared-core.js"></script>
     <script src="./constants.js"></script>
     <script src="./pet-inline-chat.js"></script>
+    <script src="./pet-form.js"></script>
     <script src="./sprite.js"></script>
     <script src="./events.js"></script>
     <script src="./renderer.js"></script>

@@ -1,0 +1,136 @@
+{
+  "activePointer": {
+    "version": "0.8.11-electron.1",
+    "renderer": "electron",
+    "mainSha256": "3d7d35bb9a42f2d584017dc50eb15f6b722c0ba8ca96cfa1bcee9816878b9c5c",
+    "electronSha256": "31a0176b7c1a81cf379e55e109c57a56493a4d4a9e9b0d2475a678fd7df234dc",
+    "manifestSha256": "2ebc6a5b1a7b482a03cecaa4ee047d568224a02468016c276569fa1446488313"
+  },
+  "scenesClips": 44,
+  "animationStates": 44,
+  "currentIdlePool": [
+    "proudarms",
+    "stretching",
+    "lookaround",
+    "sleeveside",
+    "wave",
+    "happy",
+    "tea",
+    "walking",
+    "complimentavert",
+    "skirtbeat",
+    "bow",
+    "flutterplay",
+    "frontpose",
+    "challengeaccept"
+  ],
+  "deliveryClips": [
+    {
+      "id": "01_c_soft_breath_blink_v2",
+      "clip": "c_soft_breath_blink",
+      "registeredInScenes": false,
+      "registeredInAnimation": false,
+      "mediaExists": false,
+      "mediaSameAsDelivery": false,
+      "inManifestIdlePool": false
+    },
+    {
+      "id": "02_c_listen_ear_v2",
+      "clip": "c_listen_ear",
+      "registeredInScenes": false,
+      "registeredInAnimation": false,
+      "mediaExists": false,
+      "mediaSameAsDelivery": false,
+      "inManifestIdlePool": false
+    },
+    {
+      "id": "03_c_tail_tip_settle",
+      "clip": "c_tail_tip_settle",
+      "registeredInScenes": false,
+      "registeredInAnimation": false,
+      "mediaExists": false,
+      "mediaSameAsDelivery": false,
+      "inManifestIdlePool": false
+    },
+    {
+      "id": "04_c_brush_fringe",
+      "clip": "c_brush_fringe",
+      "registeredInScenes": false,
+      "registeredInAnimation": false,
+      "mediaExists": false,
+      "mediaSameAsDelivery": false,
+      "inManifestIdlePool": false
+    },
+    {
+      "id": "05_c_hands_rest",
+      "clip": "c_hands_rest",
+      "registeredInScenes": false,
+      "registeredInAnimation": false,
+      "mediaExists": false,
+      "mediaSameAsDelivery": false,
+      "inManifestIdlePool": false
+    },
+    {
+      "id": "06_c_small_weight_settle",
+      "clip": "c_small_weight_settle",
+      "registeredInScenes": false,
+      "registeredInAnimation": false,
+      "mediaExists": false,
+      "mediaSameAsDelivery": false,
+      "inManifestIdlePool": false
+    },
+    {
+      "id": "07_c_notice_user",
+      "clip": "c_notice_user",
+      "registeredInScenes": false,
+      "registeredInAnimation": false,
+      "mediaExists": false,
+      "mediaSameAsDelivery": false,
+      "inManifestIdlePool": false
+    },
+    {
+      "id": "08_c_suppressed_yawn",
+      "clip": "c_suppressed_yawn",
+      "registeredInScenes": false,
+      "registeredInAnimation": false,
+      "mediaExists": false,
+      "mediaSameAsDelivery": false,
+      "inManifestIdlePool": false
+    },
+    {
+      "id": "bridge_b_to_a",
+      "clip": "bridge_b_to_a",
+      "registeredInScenes": false,
+      "registeredInAnimation": false,
+      "mediaExists": false,
+      "mediaSameAsDelivery": false,
+      "inManifestIdlePool": false
+    },
+    {
+      "id": "bridge_a_to_c",
+      "clip": "bridge_a_to_c",
+      "registeredInScenes": false,
+      "registeredInAnimation": false,
+      "mediaExists": false,
+      "mediaSameAsDelivery": false,
+      "inManifestIdlePool": false
+    }
+  ],
+  "packageManifestRootKeys": [
+    "schema",
+    "version",
+    "renderer",
+    "baseline",
+    "files",
+    "clips",
+    "frames",
+    "mediaAdditions",
+    "paidCalls"
+  ],
+  "activeManifestHashMatches": true,
+  "note": "Read-only snapshot. Does not assert all clips are playing in an already-running process.",
+  "packageFileChecksCount": 267,
+  "packageFileMismatches": [],
+  "catalogRouteContainsBToA": false,
+  "catalogRouteContainsAToC": false
+}

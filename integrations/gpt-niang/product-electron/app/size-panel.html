@@ -1,0 +1,6 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'"><title>调整大小</title><link rel="stylesheet" href="size-panel.css"></head><body>
+<h1>调整人物大小</h1><p class="intro">拖动滑块选择大小，保存后立即生效。</p>
+<label for="size">人物大小 <strong id="value">—</strong></label><input id="size" type="range" min="45" max="175" step="1" disabled><div class="ends"><span>小 · 45%</span><span>大 · 175%</span></div>
+<div class="preview"><b id="height">—</b><small>菜单大小保持</small></div>
+<p class="hint">100% 为默认大小。调整人物不会缩小右键菜单和文字卡片；位置会以脚底为基准保持。</p>
+<div class="buttons"><button id="reset" disabled>默认 100%</button><button id="reload-size" disabled>重新读取</button><button id="save" class="primary" disabled>保存并应用</button></div><p id="status" role="status">正在读取…</p><script src="preference-draft.js"></script><script src="size-panel.js"></script></body></html>
