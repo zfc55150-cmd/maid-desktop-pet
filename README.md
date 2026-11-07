@@ -1,3 +1,70 @@
+# 🚀 新手 3 步快速下载与启动指南 / Quick start (3 steps)
+
+**免安装便携绿色版**已在 [Release v1.0.0](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.0) 提供：包内自带 Electron 与 Node.js 运行时，**无需**安装 Node.js、Python、pnpm 或任何 SDK，解压即用，删除目录即彻底清除。
+
+## 第 1 步：下载 / Download
+
+打开 [Release v1.0.0 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.0)，选择需要的桌宠：
+
+| 附件 | 桌宠 | 大小 | 内容 |
+|---|---|---|---|
+| `GPTNiang-v0.8.17-electron-win-x64.zip` | **GPT娘** | 282.9 MB | 完整版：51 段动画 / 8670 帧 / 51 个命中遮罩，371×371 画布 |
+| `DeepSeekActionPet-v1.0.0-win-x64.zip` | **DeepSeek娘** | 235.3 MB | 核心版：动作、交互、气泡齐全；**不含语音子系统**（原因见下方 FAQ） |
+
+两个包可同时下载、同时运行，互不冲突（各自独立的状态目录与端口）。
+
+## 第 2 步：解压 / Extract
+
+解压到**任意有写权限的文件夹**，例如 `D:\Pets\GPTNiang`：
+
+- ❌ 不要解压到 `C:\Program Files` 等需要管理员权限的目录（运行时要往包内 `state\` 写设置与日志）
+- ✅ 路径含中文或空格均可
+- ✅ 请**完整解压**后再运行，不要直接在压缩包内双击
+
+## 第 3 步：双击启动 / Double-click to run
+
+| 桌宠 | 启动 | 停止 |
+|---|---|---|
+| GPT娘 | `启动GPT娘 (Start GPT-Niang).cmd` | `停止GPT娘 (Stop GPT-Niang).cmd` |
+| DeepSeek娘 | `启动DeepSeek娘 (Start DeepSeek-Niang).cmd` | `停止DeepSeek娘 (Stop DeepSeek-Niang).cmd` |
+
+若解压工具把中文文件名变成乱码，改用同目录的 ASCII 别名（内容完全相同）：`Start-GPT-Niang.cmd` / `Stop-GPT-Niang.cmd` / `Start-DeepSeek-Niang.cmd` / `Stop-DeepSeek-Niang.cmd`。
+
+每个包内均附 `PORTABLE-README.md`：完整使用说明、隔离机制、故障排查与隐私声明。
+
+## 常见问题 / FAQ
+
+- **GPT娘首次启动做了什么？** 启动器先运行 `portable\bootstrap.cjs`，按解压位置动态生成 `product.json` / `installation.json`，并在 `state\` 写入默认设置（缩放 1.26、不跟随宿主窗口）。不写注册表、不创建开机自启、不改系统目录；Electron 用户数据也落在包内 `state\electron\profile`，与已安装版本完全隔离。
+- **DeepSeek娘为什么没有语音？** 原语音子系统约 9.6 GB：Python 虚拟环境 5.2 GB 由 `pyvenv.cfg` 硬编码绝对路径、换机即失效，模型权重 4.3 GB 可重新下载。故核心包不含语音，桌宠本体功能不受影响；恢复步骤见包内 `PORTABLE-README.md` 第六节。
+- **会和已安装的正式版冲突吗？** 不会。便携版使用**包内独立状态目录**；DeepSeek娘便携版另改用 **3089** 端口（官方版 3088），支持 `DSH_PET_PORT` / `DSH_PET_HOME` 覆盖。「停止」脚本只结束命令行包含本包路径的进程，且**显式排除官方安装目录**，绝不会误杀已安装的桌宠。
+- **便携版有哪些功能不可用？** GPT娘便携版不含应用商店兼容层，故 ChatGPT/Codex 额度显示、自动更新、开机自启、Codex 插件注册不可用；桌宠本体（动画、点击、拖拽、缩放、气泡语录、形象图库、设置面板、自定义音效）完全正常。自动更新已在包内主动关闭，避免绿色版自我改写。
+- **如何彻底清除？** 删除整个解压目录即可，所有数据都在包内 `state\`。
+- **杀毒软件报毒？** Electron/Node 未签名二进制的常见误报；两个包均不上传数据、不写系统目录，可添加信任。
+
+## 完整性自检 / Integrity self-check
+
+GPT娘包内附官方自检工具，可校验 **281 个受 SHA-256 保护的文件**与 **51 段视频哈希**：
+
+```bat
+cd /d "你的解压目录"
+node\node.exe app\package-doctor.cjs "%CD%"
+```
+
+期望输出：`{"ok":true,"version":"0.8.17-electron","files":281,"clips":51,"frames":8670,...}`
+
+## 隐私保证 / Privacy guarantee
+
+两个便携包均由构建脚本在临时目录中生成，出厂前通过**二进制级全量扫描**：
+
+- **无本机用户名残留**：`C:\Users\...` 已彻底脱敏，包括 MSVC 构建中间件（`.exp` / `.obj` / `build.log`）内以**等长字节**替换的硬编码路径；启动时被校验的 `native-lease.node` 未做任何改动（哈希与 `build.json` 一致）
+- **无凭据**：`sk-…`、`AKIA…`、`PRIVATE KEY`、长 `api_key` 字面量全部 0 命中
+- **不含任何用户个人状态**：聊天记录、个人设置、诊断快照、运行日志、pnpm 记账注释均未打包
+- `animation.json` 中 6 条指向构建机的审批/溯源绝对路径已替换为 `<redacted-local-build-path>`，`package-manifest.json` 对应条目同步刷新，故自检仍为 `ok:true`
+
+---
+
+# 📜 版本记录 / Version log
+
 2026-11-04 当前正式版：GPT娘 **0.8.17-electron** 分别设置大、小形态的点击额度和语录，小形态默认开启，大形态沿用原设置。100项本地、245项候选及110项安装检查通过。[使用、验证与回退](docs/GPT娘小形态点击卡片默认开启-20261104.md)。
 
 历史 0.8.16 记录：移除“安静30分钟”，新增点击卡片开关；当时安装版隔离进程出现间歇性退出超时。[记录](docs/GPT娘点击卡片开关与退出复验-20261104.md)。
