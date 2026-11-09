@@ -1,0 +1,7 @@
+{
+  "acceptedForIntegrationTrial": true,
+  "userVisualAcceptance": true,
+  "sourceVideoSha256": "b99e47f60bc2b9d2aa10bea39c2c485b2e17045ec7d006aa6f0ea04564858930",
+  "videoSha256": "10cba48171913aed4d4cd33ca39308c59cdbd813aab84f4b16227b5b979489d5",
+  "evidence": "用户认可提灯反光版原始像素预览并要求直接接入。原火色保留，脚底绿闪修复。打包只裁透明左右留白、在下方补透明，不缩放。354帧保留，逐帧验证裁切范围及命中遮罩。"
+}

@@ -10,7 +10,7 @@ module.exports = function installSimpleChat(electron, petWindows, options={}) {
  const indexURL=pathToFileURL(path.join(__dirname,'index.html')).href;
  const speech=options.speech||new PetSpeech();
  const getService=()=>{
-  service ||= options.service||new ChatService({dir:path.join(process.env.DSH_HOME || path.join(app.getPath('appData'),'DeepSeekActionPet'),'simple-chat'),secrets:safeStorage,requireExisting:true,memoryOptions:{onStatus:status=>{if(settingsWindow&&!settingsWindow.isDestroyed())settingsWindow.webContents.send('simple-chat:memory-status',status);}}});
+  service ||= options.service||new ChatService({dir:path.join(process.env.DSH_HOME || path.join(app.getPath('appData'),'DeepSeekActionPet'),'simple-chat'),secrets:safeStorage,requireExisting:true,allowFirstUse:true,memoryOptions:{onStatus:status=>{if(settingsWindow&&!settingsWindow.isDestroyed())settingsWindow.webContents.send('simple-chat:memory-status',status);}}});
   service.setMemoryPaused?.(!!settingsWindow&&!settingsWindow.isDestroyed());return service;
  };
  const sameFrame=e=>e.senderFrame && e.senderFrame.routingId===e.sender.mainFrame.routingId && e.senderFrame.processId===e.sender.mainFrame.processId;

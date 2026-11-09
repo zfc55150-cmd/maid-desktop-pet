@@ -1,0 +1,19 @@
+{
+  "id": "lanterninvitereturn",
+  "label": "提灯收灯",
+  "frames": 180,
+  "fps": 30,
+  "loop": false,
+  "automatic": false,
+  "sourceKind": "studio-prop-return",
+  "menuGroup": "姿态与收势",
+  "entryPose": "C",
+  "exitPose": "C",
+  "follows": "lanterninvite",
+  "sourceVideoSha256": "c20bfc612b356c1d82ffa9f2f6d4f019cc358a159fe15d04b6eebe7fb2f3c55b",
+  "videoFile": "lanterninvitereturn.webm",
+  "maskFile": "lanterninvitereturn.bin",
+  "videoSha256": "6a38cbcd2bc013b7da81749484df0a256ff7a47e9f5426b66953d37f8bebaddd",
+  "maskSha256": "46c83f11fb6d433c2e8376fb225a73c5730434dd6ee4bb36a211503bcf68918f",
+  "maskBytes": 3317760
+}

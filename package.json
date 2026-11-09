@@ -1,6 +1,6 @@
 {
   "name": "blue-whale-maid-maintenance",
-  "version": "1.2.3-interaction-fix.2",
+  "version": "1.2.3-chat-setup.1",
   "private": true,
   "description": "Reviewed local customization for dsh-pet 0.3.7",
   "scripts": {

@@ -1,6 +1,6 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),{sha}=require('./app/file-integrity.cjs');
-const project=path.resolve(__dirname,'../../..'),stage=path.resolve(process.argv[2]),version='0.8.0-electron';
+const project=path.resolve(__dirname,'../../..'),stage=path.resolve(process.argv[2]),version='0.8.0-electron',releaseTag='v1.0.0';
 if(!stage.startsWith(path.join(project,'work')+path.sep))throw Error('WORK_SCOPE');
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8').replace(/^\uFEFF/,'')),baseline=read(path.join(stage,'baseline.json')),target=path.join(baseline.gptRoot,'versions',version),out=path.join(stage,'package');
 if(fs.existsSync(out))throw Error('FRESH_PACKAGE_REQUIRED');
@@ -27,7 +27,7 @@ for(const [name,clip]of Object.entries(scenes.clips)){
 }
 const config=read(path.join(stage,'installation.json'));
 fs.writeFileSync(path.join(out,'installation.json'),JSON.stringify({...config,appDir:target,nodePath:path.join(target,'node','node.exe')},null,2));
-fs.writeFileSync(path.join(out,'product.json'),JSON.stringify({version,stage:false,dataDir:config.dataDir,compatRoot:baseline.gptRoot,serviceRoot:'runtime',nativeRoot:'native-product'},null,2));
+fs.writeFileSync(path.join(out,'product.json'),JSON.stringify({version,releaseTag,stage:false,dataDir:config.dataDir,compatRoot:baseline.gptRoot,serviceRoot:'runtime',nativeRoot:'native-product'},null,2));
 fs.writeFileSync(path.join(out,'scenes.json'),JSON.stringify(scenes,null,2));fs.writeFileSync(path.join(out,'hit-masks.json'),JSON.stringify(masks,null,2));copy(path.join(stage,'animation.json'),path.join(out,'animation.json'));
 const files=[];function walk(dir){for(const d of fs.readdirSync(dir,{withFileTypes:true})){const file=path.join(dir,d.name);if(d.isSymbolicLink())throw Error('SYMLINK');if(d.isDirectory())walk(file);else files.push({path:path.relative(out,file).replaceAll('\\','/'),bytes:fs.statSync(file).size,sha256:sha(file)});}}walk(out);
 const manifest={schema:1,version,renderer:'electron',baseline:baseline.gptVersion,files,clips:43,frames:7500,paidCalls:0};

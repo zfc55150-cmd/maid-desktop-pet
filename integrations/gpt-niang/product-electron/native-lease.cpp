@@ -85,6 +85,26 @@ static napi_value Follow(napi_env env,napi_callback_info call){
 }
 static napi_value Detach(napi_env env,napi_callback_info){DropFollow();return Boolean(env,true);}
 static napi_value ForegroundPid(napi_env env,napi_callback_info){DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);napi_value result=nullptr;numberValue(env,(double)pid,&result);return result;}
+static napi_value CaptureActive(napi_env env,napi_callback_info){
+ HWND window=GetAncestor(GetForegroundWindow(),GA_ROOT);if(!window)return Boolean(env,false);
+ DWORD pid=0;GetWindowThreadProcessId(window,&pid);
+ static DWORD lastPid=0;static bool clippingHost=false,snippingTool=false;
+ if(pid!=lastPid){
+  lastPid=pid;clippingHost=snippingTool=false;
+  HANDLE process=OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION,FALSE,pid);
+  if(process){
+   wchar_t file[32768]={};DWORD size=32768;
+   if(QueryFullProcessImageNameW(process,0,file,&size)){
+    const wchar_t* name=wcsrchr(file,L'\\');name=name?name+1:file;
+    clippingHost=_wcsicmp(name,L"ScreenClippingHost.exe")==0;
+    snippingTool=_wcsicmp(name,L"SnippingTool.exe")==0;
+   }
+   CloseHandle(process);
+  }
+ }
+ // The Snipping Tool editor has a caption. Its selection overlay does not.
+ return Boolean(env,clippingHost||(snippingTool&&(GetWindowLongPtrW(window,GWL_STYLE)&WS_CAPTION)!=WS_CAPTION));
+}
 
 extern "C" __declspec(dllexport) int node_api_module_get_api_version_v1(){return 3;}
 extern "C" __declspec(dllexport) napi_value napi_register_module_v1(napi_env env,napi_value exports){
@@ -100,6 +120,7 @@ extern "C" __declspec(dllexport) napi_value napi_register_module_v1(napi_env env
  if(functionValue(env,"follow",6,Follow,nullptr,&fn)||property(env,exports,"follow",fn))return exports;
  if(functionValue(env,"detach",6,Detach,nullptr,&fn)||property(env,exports,"detach",fn))return exports;
  if(functionValue(env,"foregroundPid",13,ForegroundPid,nullptr,&fn)||property(env,exports,"foregroundPid",fn))return exports;
+ if(functionValue(env,"captureActive",13,CaptureActive,nullptr,&fn)||property(env,exports,"captureActive",fn))return exports;
  if(cleanup(env,Release,nullptr))return exports;
  return exports;
 }

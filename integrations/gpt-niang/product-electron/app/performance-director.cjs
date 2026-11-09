@@ -8,7 +8,10 @@ class PerformanceDirector{
  matches(data){return !!data&&data.requestId===this.current?.requestId&&data.serial===this.serial&&data.gesture===this.gesture;}
  present(data){if(!this.matches(data)||data.visible!==true||!Number.isInteger(data.frame))return false;
   if(['held','preparing','airborne'].includes(this.phase)){this.evidence=this.current.name==='takeoff'&&catalog.airborne(data)?{...data}:null;if(this.evidence)this.phase='airborne';else if(data.clip==='frontidle')this.phase='held';}
-  else if(data.clip==='frontidle'&&this.phase!=='coasting'){this.phase='idle';this.pose='C';}
+  else if(this.phase!=='coasting'){
+   const pose=catalog.idlePose(data.clip);
+   if(pose){this.phase='idle';this.pose=pose;}
+  }
   return true;
  }
  motion(e){const {type,serial}=e;if(type==='grab'){this.serial=serial;this.gesture=e.gesture;this.phase='held';this.airborneAtRelease=false;this.pose='C';this.request('hold',{origin:'interaction'});return;}

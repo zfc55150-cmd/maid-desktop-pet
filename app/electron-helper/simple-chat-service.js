@@ -4,10 +4,10 @@ const {ChatConfigStore} = require('./chat-config-store');
 const {AutoMemory, classify, forgetAll} = require('./auto-memory');
 const DEFAULT_PROMPT = '你是用户桌面上的蓝鲸女仆小伙伴。请用自然、温柔、简洁的中文交流，可以适度可爱，但不要每句都使用固定口头禅。';
 class ChatService {
-  constructor({ dir, secrets, fetchImpl = globalThis.fetch, timeoutMs = 60000, fsImpl=fs, requireExisting=false, memoryOptions={} }) {
+  constructor({ dir, secrets, fetchImpl = globalThis.fetch, timeoutMs = 60000, fsImpl=fs, requireExisting=false, allowFirstUse=false, memoryOptions={} }) {
     this.dir = dir; this.secrets = secrets; this.fetchImpl = fetchImpl; this.timeoutMs = timeoutMs;
     this.file = path.join(dir, 'chat.json'); this.pending = null;
-    this.store=new ChatConfigStore({dir,fsImpl,requireExisting});this.refresh();
+    this.store=new ChatConfigStore({dir,fsImpl,requireExisting,allowFirstUse});this.refresh();
     this.memoryWorker = new AutoMemory(this, memoryOptions);
   }
   normalize(data) { return {...data,prompt:typeof data.prompt==='string'?data.prompt:DEFAULT_PROMPT,memory:typeof data.memory==='string'?data.memory:'',messages:(data.messages||[]).slice(-80),autoMemoryEnabled:data.autoMemoryEnabled!==false,memorySequence:data.memorySequence||0,memoryCursor:data.memoryCursor||0,memoryEpoch:data.memoryEpoch||0}; }

@@ -1,0 +1,19 @@
+{
+  "id": "fanmishapreturn",
+  "label": "展扇收扇",
+  "frames": 180,
+  "fps": 30,
+  "loop": false,
+  "automatic": false,
+  "sourceKind": "studio-prop-return",
+  "menuGroup": "姿态与收势",
+  "entryPose": "C",
+  "exitPose": "C",
+  "follows": "fanmishap",
+  "sourceVideoSha256": "dda2dfc37daae276991080894821f0245a61dce47a7af413ce0db775b71e1e3e",
+  "videoFile": "fanmishapreturn.webm",
+  "maskFile": "fanmishapreturn.bin",
+  "videoSha256": "15184c9b7ab9284ccb48fd41f1c5f5a1dd6e31b01aeb568601942dd8a2ee8493",
+  "maskSha256": "e0b2b23c531bb6122092f5d4396688da33b57797d56f1e18e155f7555b0d9193",
+  "maskBytes": 3317760
+}

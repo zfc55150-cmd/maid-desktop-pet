@@ -1,15 +1,15 @@
 # 🚀 新手 3 步快速下载与启动指南 / Quick start (3 steps)
 
-**免安装便携绿色版**已在 [Release v1.0.0](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.0) 提供：包内自带 Electron 与 Node.js 运行时，**无需**安装 Node.js、Python、pnpm 或任何 SDK，解压即用，删除目录即彻底清除。
+**免安装便携绿色版**已在 [Release v1.0.1](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.1) 提供：包内自带 Electron 与 Node.js 运行时，**无需**安装 Node.js、Python、pnpm 或任何 SDK，解压即用，删除目录即彻底清除。
 
 ## 第 1 步：下载 / Download
 
-打开 [Release v1.0.0 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.0)，选择需要的桌宠：
+打开 [Release v1.0.1 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.1)，选择需要的桌宠：
 
 | 附件 | 桌宠 | 大小 | 内容 |
 |---|---|---|---|
-| `GPTNiang-v0.8.17-electron-win-x64.zip` | **GPT娘** | 282.9 MB | 完整版：51 段动画 / 8670 帧 / 51 个命中遮罩，371×371 画布 |
-| `DeepSeekActionPet-v1.0.0-win-x64.zip` | **DeepSeek娘** | 235.3 MB | 核心版：动作、交互、气泡齐全；**不含语音子系统**（原因见下方 FAQ） |
+| [GPTNiang-v0.8.22-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.1/GPTNiang-v0.8.22-electron-win-x64.zip) | **GPT娘** | 303.4 MiB | 54 段动画、9384 帧，素材画布 384×384 |
+| [DeepSeekActionPet-v1.0.1-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.1/DeepSeekActionPet-v1.0.1-win-x64.zip) | **DeepSeek娘** | 237.2 MiB | 修复首次保存 API Key，语音运行环境为选配 |
 
 两个包可同时下载、同时运行，互不冲突（各自独立的状态目录与端口）。
 
@@ -50,7 +50,7 @@ cd /d "你的解压目录"
 node\node.exe app\package-doctor.cjs "%CD%"
 ```
 
-期望输出：`{"ok":true,"version":"0.8.17-electron","files":281,"clips":51,"frames":8670,...}`
+期望输出：`{"ok":true,"version":"0.8.22-electron","files":285,"clips":54,"frames":9384,...}`
 
 ## 隐私保证 / Privacy guarantee
 
@@ -65,7 +65,7 @@ node\node.exe app\package-doctor.cjs "%CD%"
 
 # 📜 版本记录 / Version log
 
-2026-11-04 当前正式版：GPT娘 **0.8.17-electron** 分别设置大、小形态的点击额度和语录，小形态默认开启，大形态沿用原设置。100项本地、245项候选及110项安装检查通过。[使用、验证与回退](docs/GPT娘小形态点击卡片默认开启-20261104.md)。
+2026-11-04 版本记录：GPT娘 **0.8.17-electron** 分别设置大、小形态的点击额度和语录，小形态默认开启，大形态沿用原设置。100项本地、245项候选及110项安装检查通过。[使用、验证与回退](docs/GPT娘小形态点击卡片默认开启-20261104.md)。
 
 历史 0.8.16 记录：移除“安静30分钟”，新增点击卡片开关；当时安装版隔离进程出现间歇性退出超时。[记录](docs/GPT娘点击卡片开关与退出复验-20261104.md)。
 

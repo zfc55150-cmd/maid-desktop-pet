@@ -11,6 +11,11 @@ function apply(base,out){
   for(const [file,hash,relative]of [[c.videoFile,c.videoSha256,'media/'+id+'.webm'],[c.maskFile,c.maskSha256,'hit-masks/'+id+'.bin']]){const from=path.join(dir,file),to=path.join(out,relative);if(sha(from)!==hash||fs.lstatSync(from).isSymbolicLink())throw Error('ADDITION_HASH:'+id);fs.mkdirSync(path.dirname(to),{recursive:true});if(fs.existsSync(to))fs.unlinkSync(to);fs.copyFileSync(from,to);}
   if(fs.statSync(path.join(dir,c.maskFile)).size!==c.maskBytes)throw Error('ADDITION_MASK_BYTES');
   animation.states[id]={label:c.label,frames:c.frames,fps:c.fps,loop:false,pages:[],sourceKind:c.sourceKind,playbackPolicy:'one-shot',representation:'vp9-alpha'};
+  if(c.follows){
+   if(!animation.states[c.follows]||c.follows===id||c.automatic===true)throw Error('ADDITION_FOLLOW_UP:'+id);
+   animation.states[id].followUpOnly=true;
+   animation.transitionClips[c.follows]=id;
+  }
   if(c.automatic===true){
    if(c.entryPose!=='C'||c.exitPose!=='C'||!Number.isInteger(c.idleCooldownMs)||c.idleCooldownMs<22000)throw Error('ADDITION_AUTOMATIC_POLICY:'+id);
    animation.states[id].idleCooldownMs=c.idleCooldownMs;

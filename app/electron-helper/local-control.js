@@ -27,10 +27,10 @@ function publish(home, token, port) {
   new ChatConfigStore({ dir: home }).writeAtomic(path.join(home, 'control-session.json'),
     JSON.stringify({ token, port, pid: process.pid }));
 }
-function readSession(home) {
+function readSession(home, expectedPort = 3088) {
   const value = JSON.parse(fs.readFileSync(path.join(home, 'control-session.json'), 'utf8'));
   headers(value.token);
-  if (value.port !== 3088 || !Number.isSafeInteger(value.pid)) throw new Error('Invalid control session');
+  if (value.port !== expectedPort || !Number.isSafeInteger(value.pid) || value.pid <= 0) throw new Error('Invalid control session');
   return value;
 }
 module.exports = { createToken, headers, validPeer, authorized, publish, readSession };

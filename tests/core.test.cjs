@@ -37,15 +37,47 @@ test('control token, origin, host and browser metadata are checked',()=>{
  for(const headers of [{'x-pet-control':''},{'x-pet-control':'b'.repeat(64)},{origin:'https://untrusted.invalid'},{host:'untrusted.invalid:3088'},{host:'127.0.0.1:3089'},{'sec-fetch-site':'cross-site'}])assert.equal(control.authorized(request('POST','/shutdown',headers),token),false);
 });
 function serverContext(){const source=fs.readFileSync(path.join(root,'app/standalone.mjs'),'utf8');const a=source.indexOf('const CORS_HEADERS ='),b=source.indexOf('async function listenStandaloneServer',a);const c={localControl:control,URL,Buffer,queueMicrotask,PORT_SCAN_LIMIT:25};vm.createContext(c);vm.runInContext(source.slice(a,b)+'\nthis.make=createRequestListener;this.bind=bindFirstFree;',c);return c;}
+test('portable shutdown validates its own port without relaxing the installed default',t=>{
+ const dir=fs.mkdtempSync(path.join(root,'.test-data-'));
+ t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));
+ control.publish(dir,'a'.repeat(64),3089);
+ assert.equal(control.readSession(dir,3089).pid,process.pid);
+ assert.throws(()=>control.readSession(dir),/Invalid control session/);
+ assert.throws(()=>control.readSession(dir,33889),/Invalid control session/);
+});
 test('shutdown requires POST and token; never advertises cross-origin access',async()=>{const c=serverContext();let stopped=0;const handler=c.make({routes:[],logger:{debug(){}},token,onShutdown(){stopped++;}});for(const [req,want]of [[request('GET'),405],[request('POST','/shutdown',{'x-pet-control':''}),403],[request(),200]]){let status,headers;handler(req,{writeHead(s,h){status=s;headers=h;},end(){}});assert.equal(status,want);assert.equal(headers['access-control-allow-origin'],undefined);}await Promise.resolve();assert.equal(stopped,1);});
 test('unauthenticated config requests never reach mutation handlers',()=>{const c=serverContext();let invoked=false,status;const handler=c.make({routes:[{kind:'prefix',path:'/dsh-pet-7340',handler(){invoked=true;}}],logger:{debug(){}},token});handler(request('PUT','/dsh-pet-7340/config',{'x-pet-control':''}),{writeHead(s){status=s;},end(){}});assert.equal(status,403);assert.equal(invoked,false);});
 test('occupied port cannot fall through to a second port',async()=>{const c=serverContext(),server=new EventEmitter();let calls=0;server.listen=()=>{calls++;queueMicrotask(()=>server.emit('error',Object.assign(new Error('occupied'),{code:'EADDRINUSE'})));};await assert.rejects(c.bind(server,3088,{warn(){}}),/未启动第二个实例/);assert.equal(calls,1);});
 
-function installChat(service){const handlers=new Map(),events=[];const {pathToFileURL}=require('node:url');const sender={id:1,mainFrame:{routingId:2,processId:3},isDestroyed:()=>false,send:(_n,v)=>events.push(v)};const event={sender,senderFrame:{...sender.mainFrame,url:pathToFileURL(path.join(helper,'index.html')).href}};
+function installChat(service,home){const handlers=new Map(),events=[];const {pathToFileURL}=require('node:url');const sender={id:1,mainFrame:{routingId:2,processId:3},isDestroyed:()=>false,send:(_n,v)=>events.push(v)};const event={sender,senderFrame:{...sender.mainFrame,url:pathToFileURL(path.join(helper,'index.html')).href}};
  const speech={current:null,stops:0,status:()=> 'ready',stop(){this.stops++;this.current?.resolve({stopped:true});this.current=null;},begin(){let resolve;const done=new Promise(r=>resolve=r);this.current={resolve};return {done,append(){},end(){}};},dispose(){this.stop();},voiceSettings:()=>({})};
- const api=require(helper+'/simple-chat-main')({app:{on(){},getPath(){return'';}},ipcMain:{handle:(n,f)=>handlers.set(n,f)},safeStorage:{},BrowserWindow:function(){},clipboard:{writeText(){}}},new Map([[1,{isDestroyed:()=>false,webContents:sender}]]),{service,speech});
- return {events,speech,api,call:(name,arg)=>handlers.get('simple-chat:'+name)(event,arg)};
+ let stop;
+ const api=require(helper+'/simple-chat-main')({app:{on(_name,fn){stop=fn;},getPath(){return home;}},ipcMain:{handle:(n,f)=>handlers.set(n,f)},safeStorage:fakeSecrets,BrowserWindow:function(){},clipboard:{writeText(){}}},new Map([[1,{isDestroyed:()=>false,webContents:sender}]]),{service,speech});
+ return {events,speech,api,stop,call:(name,arg)=>handlers.get('simple-chat:'+name)(event,arg)};
 }
+test('fresh portable profile can save its first key through the real chat IPC',async t=>{
+ const home=fs.mkdtempSync(path.join(root,'.test-data-'));
+ const env=process.env.DSH_HOME;process.env.DSH_HOME=home;
+ const ui=installChat(undefined,home);
+ t.after(()=>{ui.stop();if(env===undefined)delete process.env.DSH_HOME;else process.env.DSH_HOME=env;fs.rmSync(home,{recursive:true,force:true});});
+ const state=await ui.call('state');
+ assert.equal(state.ok,true);
+ assert.equal(state.data.hasKey,false);
+ assert.equal(state.data.revision,null);
+ const key='sk-FAKE-PORTABLE-KEY';
+ const saved=await ui.call('save',{apiKey:key,prompt:state.data.prompt,revision:state.data.revision});
+ assert.equal(saved.ok,true);
+ assert.equal(saved.data.hasKey,true);
+ assert.ok(!JSON.stringify(saved).includes(key));
+ const file=path.join(home,'simple-chat','chat.json');
+ assert.ok(!fs.readFileSync(file,'utf8').includes(key));
+ assert.equal((await ui.call('state')).data.hasKey,true);
+ await ui.call('save',{apiKey:'',prompt:saved.data.prompt,revision:saved.data.revision});
+ fs.unlinkSync(file);
+ const reopened=installChat(undefined,home);
+ assert.equal((await reopened.call('state')).ok,false);
+ assert.equal(fs.existsSync(file+'.bak'),true);
+});
 async function until(fn){for(let i=0;i<100;i++){if(fn())return;await new Promise(r=>setImmediate(r));}assert.fail('timed out waiting for mock');}
 test('clear during speech invalidates old reply and resets pet',async t=>{const {service,read}=fixture(t,{voiceEnabled:true});const ui=installChat(service);const pending=ui.call('send',{text:'new',requestId:1});await until(()=>ui.events.some(e=>e.type==='text-done'));const r=await ui.call('clear',{includeBackup:true});assert.equal(r.ok,true);assert.equal(read().messages.length,0);assert.equal((await pending).data.cancelled,true);assert.ok(ui.events.some(e=>e.type==='reset'));assert.equal(ui.api.isBusy(),false);});
 test('a second send cannot steal an active speech reply',async t=>{const {service}=fixture(t,{voiceEnabled:true});const ui=installChat(service);const pending=ui.call('send',{text:'new',requestId:1});await until(()=>ui.events.some(e=>e.type==='text-done'));const next=await ui.call('send',{text:'second',requestId:2});assert.equal(next.ok,false);assert.match(next.error,/朗读/);await ui.call('cancel');assert.equal((await pending).data.cancelled,true);});

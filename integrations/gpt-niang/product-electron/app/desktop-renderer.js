@@ -13,8 +13,7 @@
  }
  applyState(config.product);updateAudio();stage.style.cursor='url("'+product.cursors.grab+'") 16 16,grab';
  player.onFrame=data=>{if(product.display.mode==='static')return;shown=data;window.desktop.frame(data);};player.onEnd=data=>window.desktop.media({type:'ended',...data});player.onError=data=>window.desktop.media({type:'error',...data});
- const flightClock=new LabFlightClock.Driver(data=>window.desktop.step(data),()=>window.desktop.status({ok:false,error:'FLIGHT_STEP_FAILED'}));
- const pointer=new LabPointerSession.PointerSession({stage,send:data=>window.desktop.input(data),presentation:()=>shown,press:()=>{flightClock.stop();player.retain();stage.classList.add('held');stage.style.cursor='url("'+product.cursors.grabbing+'") 16 16,grabbing';sound('press');},release:(cancel,e)=>{if(e)clickPoint={x:e.clientX/stage.clientWidth,y:e.clientY/stage.clientHeight};player.freeze();if(cancel)stopSound();else sound('release');},reset:reason=>{if(reason==='main')stopSound();stage.style.cursor='url("'+product.cursors.grab+'") 16 16,grab';stage.classList.remove('held');}});
+ const pointer=new LabPointerSession.PointerSession({stage,send:data=>window.desktop.input(data),presentation:()=>shown,press:()=>{player.retain();stage.classList.add('held');stage.style.cursor='url("'+product.cursors.grabbing+'") 16 16,grabbing';sound('press');},release:(cancel,e)=>{if(e)clickPoint={x:e.clientX/stage.clientWidth,y:e.clientY/stage.clientHeight};player.freeze();if(cancel)stopSound();else sound('release');},reset:reason=>{if(reason==='main')stopSound();stage.style.cursor='url("'+product.cursors.grab+'") 16 16,grab';stage.classList.remove('held');}});
  async function action(command){
   if(!command||!Number.isSafeInteger(command.requestId)||command.requestId<=(current?.requestId??0)||command.gesture!==null&&command.gesture<pointer.gesture||command.resetThroughGesture!==undefined&&command.resetThroughGesture<pointer.gesture)return;
   if(command.name==='takeoff'&&(!pointer.held||command.gesture!==pointer.gesture||product.display.mode==='static'))return;
@@ -33,11 +32,21 @@
    if(current!==command)return;window.desktop.status({ok:true,action:command.name,requestId:command.requestId,clip:player.clip,mediaStats:{trace:player.trace.length,frameSamples:player.frames.length,videoElements:player.videos.length},ui:{width:stage.clientWidth,height:stage.clientHeight}});
   }catch{window.desktop.media({type:'error',...owner,code:'PLAYBACK_FAILED'});}
  }
- window.desktop.onInputAck(data=>pointer.ack(data));window.desktop.onAction(action);window.desktop.onState(applyState);window.desktop.onTransport(data=>{pointer.transport(data);if(data.phase==='flight')flightClock.start(data.serial);else flightClock.stop();});
+ let flightFrame=null;
+ function stopFlightFrames(){if(flightFrame!==null){cancelAnimationFrame(flightFrame);flightFrame=null;}}
+ window.desktop.onInputAck(data=>pointer.ack(data));window.desktop.onAction(action);window.desktop.onState(applyState);
+ window.desktop.onTransport(data=>{
+  if(!Number.isSafeInteger(data.serial)||data.serial<pointer.serial)return;
+  pointer.transport(data);
+  stopFlightFrames();
+  if(data.phase!=='flight')return;
+  function pulse(){window.desktop.flightFrame(data.serial);flightFrame=requestAnimationFrame(pulse);}
+  flightFrame=requestAnimationFrame(pulse);
+ });
  stage.addEventListener('pointerdown',e=>pointer.begin(e));
  window.addEventListener('mousemove',()=>{if(!pointer.held)window.desktop.input({kind:'hover'});});
  window.addEventListener('pointermove',e=>pointer.move(e));window.addEventListener('pointerup',e=>{if(e.button===0)pointer.end(false,e);});window.addEventListener('pointercancel',e=>pointer.end(true,e));stage.addEventListener('lostpointercapture',e=>pointer.lost(e));
  stage.addEventListener('contextmenu',e=>{e.preventDefault();pointer.end(true);player.freeze();window.desktop.input({kind:'menu'});});window.addEventListener('blur',()=>pointer.end(true));
  const inputHealth=setInterval(()=>window.desktop.status({input:pointer.status()}),1000);
- window.addEventListener('beforeunload',()=>{clearInterval(inputHealth);pointer.dispose();if(geometryFrame!==null)cancelAnimationFrame(geometryFrame);flightClock.stop();stopSound();player.dispose();});window.desktop.ready();
+ window.addEventListener('beforeunload',()=>{clearInterval(inputHealth);stopFlightFrames();pointer.dispose();if(geometryFrame!==null)cancelAnimationFrame(geometryFrame);stopSound();player.dispose();});window.desktop.ready();
 })().catch(()=>window.desktop.status({ok:false,error:'RENDERER_INIT_FAILED'}));

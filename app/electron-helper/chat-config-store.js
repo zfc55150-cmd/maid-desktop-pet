@@ -4,9 +4,9 @@ const crypto = require('node:crypto');
 
 const unavailable = () => new Error('暂时无法读取已保存的聊天配置。请稍后重新打开“对话”或点“重新读取”，无需重新填写密钥。');
 class ChatConfigStore {
- constructor({dir, fsImpl=fs, requireExisting=false}) {
+ constructor({dir, fsImpl=fs, requireExisting=false, allowFirstUse=false}) {
   this.fs=fsImpl;this.dir=dir;this.file=path.join(dir,'chat.json');
-  this.backup=this.file+'.bak';this.requireExisting=requireExisting;this.seenFile=false;
+  this.backup=this.file+'.bak';this.requireExisting=requireExisting;this.allowFirstUse=allowFirstUse;this.seenFile=false;
  }
  validate(data) {
   if(!data||typeof data!=='object'||Array.isArray(data))throw new Error('invalid');
@@ -26,7 +26,12 @@ class ChatConfigStore {
   let raw;
   try{raw=this.fs.readFileSync(this.file,'utf8');}
   catch(error){
-   if(error.code==='ENOENT'&&!this.requireExisting&&!this.seenFile)return {data:{},raw:null,revision:null};
+   if(error.code==='ENOENT'&&!this.seenFile){
+    if(this.allowFirstUse){
+     try{this.fs.lstatSync(this.backup);}
+     catch(backupError){if(backupError.code==='ENOENT')return {data:{},raw:null,revision:null};}
+    }else if(!this.requireExisting)return {data:{},raw:null,revision:null};
+   }
    throw unavailable();
   }
   let data;
