@@ -40,5 +40,5 @@
   return {name,clip,entryPose,clips:[...new Set(steps.map(s=>s.clip))],idlePose:idlePose(steps.at(-1).clip),cooldownMs:manifest.states[clip].idleCooldownMs||extraAutomatic[clip]||manifest.idleInteractionCooldownMs||22000};
  });
  const airborne=f=>f?.clip===takeoff.clip&&Number.isInteger(f.frame)&&f.frame>=takeoff.airborneFrame&&f.visible===true;
- return {configure,plan,route,idlePose,needsLanding,airborne,takeoff,geometry,revision:'0.8.25-electron',isSelectable:name=>selectableClip(aliases[name]||name.replace(/^clip:/,'')),get selectable(){return Object.keys(manifest?.states||{}).filter(selectableClip).map(clip=>({name:'clip:'+clip,clip,label:manifest.states[clip].label,group:manifest.menuGroups?.[clip]||'其他动作'}));},get automatic(){return automatic();}};
+ return {configure,plan,route,idlePose,needsLanding,airborne,takeoff,geometry,revision:'0.8.26-electron',isSelectable:name=>selectableClip(aliases[name]||name.replace(/^clip:/,'')),get selectable(){return Object.keys(manifest?.states||{}).filter(selectableClip).map(clip=>({name:'clip:'+clip,clip,label:manifest.states[clip].label,group:manifest.menuGroups?.[clip]||'其他动作'}));},get automatic(){return automatic();}};
 });

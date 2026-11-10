@@ -144,7 +144,8 @@ async function checkReleaseNotice({
   fetchImpl = globalThis.fetch,
   now = Date.now,
   timeoutMs = REQUEST_TIMEOUT_MS,
-  onNotify = null
+  onNotify = null,
+  assetKind = null
 } = {}) {
   const nowMs = typeof now === 'function' ? now() : Number(now);
   const current = normalizeReleaseState(readStore(store), localTag);
@@ -277,6 +278,17 @@ async function checkReleaseNotice({
     };
     writeStore(store, failed);
     return { ok: false, notified: false, state: normalizeReleaseState(failed, localTag) };
+  }
+
+  if (assetKind === 'gpt' && (payload?.draft === true || payload?.prerelease === true ||
+      !Array.isArray(payload?.assets) || !payload.assets.some(asset =>
+        asset?.state === 'uploaded' && Number.isFinite(asset.size) && asset.size > 0 &&
+        /^GPTNiang-v\d+\.\d+\.\d+-electron(?:\.\d+)?-win-x64\.zip$/.test(asset.name || '')))) {
+    const noAsset = { latestTag: localTag, url: null, checkedAt: nowMs, phase: 'current',
+      lastNotifiedTag: current.lastNotifiedTag, retryAfterAt: null, errorReason: null };
+    writeStore(store, noAsset);
+    return { ok: true, skipped: 'no-gpt-asset', notified: false,
+      state: normalizeReleaseState(noAsset, localTag) };
   }
 
   const safeUrl = sanitizeReleaseUrl(payload?.html_url);

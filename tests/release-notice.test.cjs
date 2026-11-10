@@ -202,6 +202,7 @@ test('ProductHost defaults portable release notice to enabled while keeping upst
         headers: {},
         json: async () => ({
           tag_name: 'v1.1.0',
+          assets: [{ name: 'GPTNiang-v0.8.26-electron-win-x64.zip', state: 'uploaded', size: 100 }],
           html_url: 'https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.1.0'
         })
       })
@@ -218,4 +219,25 @@ test('ProductHost defaults portable release notice to enabled while keeping upst
   } finally {
     fs.rmSync(temp, { recursive: true, force: true });
   }
+});
+
+test('GPT ignores releases without an uploaded nonempty GPT package and clears stale notices', async () => {
+  const gpt = { name: 'GPTNiang-v0.8.26-electron-win-x64.zip', state: 'uploaded', size: 100 };
+  for (const payload of [
+    { assets: [{ name: 'DeepSeekActionPet-v1.0.2-win-x64.zip', state: 'uploaded', size: 100 }] },
+    { assets: [{ ...gpt, state: 'new' }] }, { assets: [{ ...gpt, size: 0 }] },
+    { assets: [] }, { assets: [gpt], draft: true }, { assets: [gpt], prerelease: true }
+  ]) {
+    const store = { latestTag: 'v1.0.9', phase: 'available' };
+    const result = await checkReleaseNotice({ store, localTag: 'v1.0.1', assetKind: 'gpt', force: true,
+      fetchImpl: async () => ({ status: 200, json: async () => ({ tag_name: 'v1.0.2', ...payload }) }),
+      onNotify: () => assert.fail('must not notify') });
+    assert.equal(result.skipped, 'no-gpt-asset');
+    assert.equal(result.state.hasUpdate, false);
+  }
+  let notified = 0;
+  const result = await checkReleaseNotice({ store: {}, localTag: 'v1.0.1', assetKind: 'gpt', force: true,
+    fetchImpl: async () => ({ status: 200, json: async () => ({ tag_name: 'v1.0.2', assets: [gpt] }) }),
+    onNotify: () => notified++ });
+  assert.equal(result.state.hasUpdate, true); assert.equal(notified, 1);
 });

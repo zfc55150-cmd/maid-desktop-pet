@@ -638,6 +638,16 @@ async function handleBridgeRequest(request) {
   return new Response(resp.body ?? '', { status: resp.status || 200, headers });
 }
 
+// Installed distribution: check the public release without changing installed code.
+if (process.env.DSH_PET_DPI_PROBE !== '1' && process.env.DSH_PET_SMOKE !== '1' && process.env.DSH_HOME) {
+  app.whenReady().then(() => require('./release-reminder.js').start({
+    electron: electronApi,
+    localTag: 'v1.0.1',
+    stateDir: process.env.DSH_HOME,
+    getPetWindow: () => [...windows.values()].find(pet => !pet.isDestroyed() && pet.isVisible())
+  })).catch(() => {});
+}
+
 app.whenReady().then(() => {
   // 探测子进程：此时没有 force-device-scale-factor，读到的是 Windows 的真实主屏缩放。
   // 退出推迟一拍——在 ready 回调里直接 app.exit() 会赶在 stdout 落盘前拆掉进程

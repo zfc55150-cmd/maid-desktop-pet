@@ -5,6 +5,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { checkOnce } = require('../integrations/deepseek-portable/release-reminder.cjs');
+const { checkOnce: checkInstalledOnce } = require('../app/electron-helper/release-reminder.js');
 const { checkReleaseNotice } = require('../integrations/gpt-niang/product-electron/services/release-notice.cjs');
 
 const version = 'v1.0.3';
@@ -63,4 +64,14 @@ test('portable release reminder skips when disabled, stays silent offline and re
 test('portable release reminder stays silent when its embedded release is already current', async t => {
   const opts = options(t);
   assert.equal(await checkOnce({ ...opts, localTag: version, show: () => assert.fail('current') }), false);
+});
+
+test('installed reminder ignores GPT-only releases and announces the DeepSeek package once', async t => {
+  const opts = options(t, { ...release, assets: [{ ...asset, name: 'GPTNiang-v0.8.26-electron-win-x64.zip' }] });
+  assert.equal(await checkInstalledOnce({ ...opts, show: () => assert.fail('wrong pet') }), false);
+  const next = options(t);
+  let shown = 0;
+  assert.equal(await checkInstalledOnce({ ...next, show: () => { shown++; return true; } }), true);
+  assert.equal(await checkInstalledOnce({ ...next, show: () => { shown++; return true; } }), false);
+  assert.equal(shown, 1);
 });

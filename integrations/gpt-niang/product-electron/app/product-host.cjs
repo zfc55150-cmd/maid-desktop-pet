@@ -55,7 +55,7 @@ class ProductHost {
  async checkReleaseNotice(mode='automatic',options={}){
   if(this.closed)return null;
   if(this.releaseCheckPromise)return this.releaseCheckPromise;
-  const run=this.releaseNotice.checkReleaseNotice({store:this.updatePreferences,localTag:this.releaseTag,mode,force:options.force??(mode==='manual'),fetchImpl:options.fetchImpl||this.fetchImpl,now:options.now||Date.now,onNotify:info=>this.onReleaseNotice?.(info)}).catch(()=>{this.note('RELEASE_NOTICE_FAILED');return {ok:false,notified:false};}).finally(()=>{if(this.releaseCheckPromise===run)this.releaseCheckPromise=null;});
+  const run=this.releaseNotice.checkReleaseNotice({store:this.updatePreferences,localTag:this.releaseTag,assetKind:'gpt',mode,force:options.force??(mode==='manual'),fetchImpl:options.fetchImpl||this.fetchImpl,now:options.now||Date.now,onNotify:info=>this.onReleaseNotice?.(info)}).catch(()=>{this.note('RELEASE_NOTICE_FAILED');return {ok:false,notified:false};}).finally(()=>{if(this.releaseCheckPromise===run)this.releaseCheckPromise=null;});
   this.releaseCheckPromise=run;return run;
  }
  spawnUpstreamUpdate(mode='manual'){if(this.testOnly||this.isPortable||this.closed||this.updateChild)return false;const node=readJson(this.configPath)?.nodePath;if(!node)return false;const child=this.spawnNode(node,[path.join(this.compatRoot,'runtime/update.mjs'),path.join(this.compatRoot,'installation.json'),mode],{windowsHide:true,stdio:'ignore'});this.updateChild=child;this.children.add(child);const done=()=>{this.children.delete(child);if(this.updateChild===child)this.updateChild=null;};child.once('exit',done);child.once('error',()=>{done();this.note('UPDATE_CHECK_FAILED');});return true;}
