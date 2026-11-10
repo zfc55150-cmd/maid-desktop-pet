@@ -10,7 +10,7 @@ test('idle watchdog preserves peer order beyond multiple former reassert interva
 });
 test('a new interaction raises its own pet once and a later interaction can reverse order',()=>{
   let order=['deepseek','gpt'];
-  const win=name=>({isDestroyed:()=>false,isVisible:()=>true,setAlwaysOnTop:(value,level)=>{assert.equal(value,true);assert.equal(level,'screen-saver');order=[name,...order.filter(x=>x!==name)];}});
+  const win=name=>({isDestroyed:()=>false,isVisible:()=>true,isAlwaysOnTop:()=>true,setAlwaysOnTop:()=>assert.fail('an already topmost pet need not change bands'),moveTop:()=>{order=[name,...order.filter(x=>x!==name)];}});
   const ds=win('deepseek'),gpt=win('gpt');
   assert.equal(raiseOnInteraction(gpt,false,true),true);assert.equal(order[0],'gpt');
   assert.equal(raiseOnInteraction(ds,false,true),true);assert.equal(order[0],'deepseek');

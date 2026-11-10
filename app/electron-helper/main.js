@@ -681,6 +681,16 @@ app.whenReady().then(() => {
       if(!response.ok)throw new Error('reload');return {ok:true};
     } catch {return {ok:false,error:'暂时无法重新加载，请稍后再试。'};}
   });
+  ipcMain.handle('pet:quit', async event => {
+    if (!trustedReload(event)) return {ok:false,error:'无效的窗口请求。'};
+    if (chatControls.isBusy()) return {ok:false,error:'请先停止回复或朗读，再退出桌宠。'};
+    try {
+      const url=localControl.shutdownURL(process.env.DSH_PET_CONFIG_URL);
+      const response=await fetch(url,{method:'POST',headers:localControl.headers(),redirect:'error',signal:AbortSignal.timeout(5000)});
+      if(!response.ok)throw new Error('shutdown');
+      return {ok:true};
+    } catch {return {ok:false,error:'暂时无法退出桌宠，请稍后再试。'};}
+  });
   function trustedReload(event) {
     return event.senderFrame && event.senderFrame === event.sender.mainFrame &&
       event.senderFrame.url.split('?')[0] === require('node:url').pathToFileURL(path.join(__dirname,'index.html')).href &&

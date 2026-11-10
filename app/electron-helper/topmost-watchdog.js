@@ -10,7 +10,8 @@ function shouldReassertTopmost(state) {
 }
 function raiseOnInteraction(win, wasBusy, busy) {
   if (!busy || wasBusy || !win || win.isDestroyed() || !win.isVisible()) return false;
-  win.setAlwaysOnTop(true, 'screen-saver');
+  if (!win.isAlwaysOnTop()) win.setAlwaysOnTop(true, 'screen-saver');
+  win.moveTop();
   return true;
 }
 module.exports = {TOPMOST_WATCHDOG_TICK_MS, TOPMOST_REASSERT_MS, shouldReassertTopmost, raiseOnInteraction};

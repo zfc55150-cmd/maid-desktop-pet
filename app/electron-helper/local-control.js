@@ -33,4 +33,12 @@ function readSession(home, expectedPort = 3088) {
   if (value.port !== expectedPort || !Number.isSafeInteger(value.pid) || value.pid <= 0) throw new Error('Invalid control session');
   return value;
 }
-module.exports = { createToken, headers, validPeer, authorized, publish, readSession };
+function shutdownURL(configUrl) {
+  const url = new URL(configUrl);
+  if (url.protocol !== 'http:' || url.hostname !== '127.0.0.1' || !url.port ||
+      url.username || url.password || url.pathname !== '/dsh-pet-7340/config' || url.search || url.hash) {
+    throw new Error('Invalid standalone control endpoint');
+  }
+  return new URL('/shutdown', url).href;
+}
+module.exports = { createToken, headers, validPeer, authorized, publish, readSession, shutdownURL };

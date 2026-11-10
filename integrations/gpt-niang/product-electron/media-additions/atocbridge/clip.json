@@ -1,0 +1,19 @@
+{
+  "id": "atocbridge",
+  "label": "长裙站姿转回正面",
+  "frames": 120,
+  "fps": 30,
+  "loop": false,
+  "automatic": false,
+  "sourceKind": "gemini-idle-turn-matched",
+  "menuGroup": "姿态与收势",
+  "entryPose": "A",
+  "exitPose": "C",
+  "poseBridge": true,
+  "sourceVideoSha256": "0f7d960e2a3ea8ac5950f7776b6704eeacda7e7cd2dcd66bfdc86640ce48a0bd",
+  "videoFile": "atocbridge.webm",
+  "maskFile": "atocbridge.bin",
+  "videoSha256": "cfa1fdad93176333f952e5e1d4634b13c7f78eaedc80f4cad1fe9cc51e04cfcc",
+  "maskSha256": "62e8dd5a70eb4dbed982959c2c30bd1fcae6be04fb44fccd4d01e110b3d01bc7",
+  "maskBytes": 2211840
+}

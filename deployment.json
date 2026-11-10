@@ -1,5 +1,5 @@
 {
-  "version": "1.2.3-chat-setup.1",
+  "version": "1.2.3-window-menu.1",
   "base": "dsh-pet@0.3.7",
   "files": [
     {
@@ -24,7 +24,7 @@
       "source": "app/electron-helper/chat-config-store.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/chat-config-store.js",
       "sha256": "34afeeceded32f9efcf876ecb0650591f92c9899ae5e6b4bc971cf6e12f8d3c0",
-      "previousSha256": "613bba3ac15b27000b6cf89e244f82de1bad1be82d674fe84324ca1a271ba632"
+      "previousSha256": "34afeeceded32f9efcf876ecb0650591f92c9899ae5e6b4bc971cf6e12f8d3c0"
     },
     {
       "source": "app/electron-helper/constants.js",
@@ -89,13 +89,13 @@
     {
       "source": "app/electron-helper/local-control.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/local-control.js",
-      "sha256": "9be404ee3d4933951d1f441183040ed000e95ef59073be51ffff82a9c4a62ec4",
-      "previousSha256": "6287171f4f0915a067c2201c3bc6523de85eaa0e16024c870f30478090bf1c26"
+      "sha256": "c704d11ef8f7e000c6fa85e30d7b11ca3999c10dba40bfd187dc2d8ec6580ac0",
+      "previousSha256": "9be404ee3d4933951d1f441183040ed000e95ef59073be51ffff82a9c4a62ec4"
     },
     {
       "source": "app/electron-helper/main.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/main.js",
-      "sha256": "4b73450062a2f4b98f1b073a437ab542f9c5c8ef8e791de01c4ee7477349c8f1",
+      "sha256": "34ff7e0199d89997174fc86b46e92c63a570d6850403f5405c615c32349c7752",
       "previousSha256": "4b73450062a2f4b98f1b073a437ab542f9c5c8ef8e791de01c4ee7477349c8f1"
     },
     {
@@ -203,7 +203,7 @@
     {
       "source": "app/electron-helper/preload.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/preload.js",
-      "sha256": "3ae723f7de23ae898465608e35f9d14efafc44440c1b39f2b37b07680b68cac2",
+      "sha256": "4dfa7912aed7a459dbcdc55b59b672268d15b0c1a1ee46eba8de993bc374fe32",
       "previousSha256": "3ae723f7de23ae898465608e35f9d14efafc44440c1b39f2b37b07680b68cac2"
     },
     {
@@ -222,7 +222,7 @@
       "source": "app/electron-helper/simple-chat-main.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/simple-chat-main.js",
       "sha256": "f3988c10774e06e365b7f2c6c2431d5b6154135320f72b13b5e5d15dc69dd586",
-      "previousSha256": "8d2451dc86607694020719f0e0abd6f2fecba692dd5e5612d65311e86632dd13"
+      "previousSha256": "f3988c10774e06e365b7f2c6c2431d5b6154135320f72b13b5e5d15dc69dd586"
     },
     {
       "source": "app/electron-helper/simple-chat-preload.js",
@@ -234,7 +234,7 @@
       "source": "app/electron-helper/simple-chat-service.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/simple-chat-service.js",
       "sha256": "9b51c70280ace2dd0ecf6e707f4911178774b8b7f196c4b03e1fd9d4f8666674",
-      "previousSha256": "c39226ead677c672b73b21ea98e926365d3835bb5441e3719fed50a993bd6f99"
+      "previousSha256": "9b51c70280ace2dd0ecf6e707f4911178774b8b7f196c4b03e1fd9d4f8666674"
     },
     {
       "source": "app/electron-helper/simple-chat-ui.js",
@@ -263,13 +263,13 @@
     {
       "source": "app/electron-helper/sprite.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/sprite.js",
-      "sha256": "b41b60c482a5461a781f7d734c97df6b84b0f556c72a15d17398bc97580f2771",
+      "sha256": "90814b715bce08f73f3f645711fb07b22f08dcf2ac2018d7452f82cc1589e568",
       "previousSha256": "b41b60c482a5461a781f7d734c97df6b84b0f556c72a15d17398bc97580f2771"
     },
     {
       "source": "app/electron-helper/topmost-watchdog.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/topmost-watchdog.js",
-      "sha256": "d79548b6fd7fe733b71c722534804e50ffa61ca8f240c4d633168e8e3f4d031d",
+      "sha256": "fd481963a3f3395a184fbe9df3f89bb3da4aadeb38872686068ca6203d9228c9",
       "previousSha256": "d79548b6fd7fe733b71c722534804e50ffa61ca8f240c4d633168e8e3f4d031d"
     },
     {

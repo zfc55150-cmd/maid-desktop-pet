@@ -1,6 +1,6 @@
 {
   "name": "gpt-niang-desktop-electron",
-  "version": "0.8.22-electron",
+  "version": "0.8.25-electron",
   "releaseTag": "v1.0.1",
   "private": true,
   "type": "commonjs",

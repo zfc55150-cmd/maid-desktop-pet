@@ -66,6 +66,30 @@ async function run({win,product,director,scheduler,motion,stats,root,openPanel,a
    }
   }
   if(!process.argv.includes('--smoke-quick'))for(const clip of ['brelaxed','footrelax','response']){director.pose='C';check('automatic side-route-'+clip,director.manual('clip:'+clip));const request=director.requestId;await until(()=>stats.currentFrame?.requestId===request&&stats.currentFrame?.clip===clip&&stats.currentFrame.visible&&stats.currentFrame.frame>=60,25000);fs.writeFileSync(path.join(root,'automatic-'+clip+'-preview.png'),(await win.webContents.capturePage()).toPNG());await until(()=>stats.currentFrame?.requestId===request&&stats.currentFrame?.clip==='brelaxed'&&stats.currentFrame.visible&&director.phase==='idle',25000);check('side route settles in the side idle-'+clip,director.pose==='B');director.manual('clip:frontidle');await until(()=>stats.currentFrame?.requestId===director.requestId&&stats.currentFrame?.clip==='frontidle'&&stats.currentFrame.visible,25000);}
+  if(!process.argv.includes('--smoke-quick')&&catalog.route('B','A')!==null){
+   const {ProductScheduler}=require('./schedulers.cjs'),clips=JSON.parse(fs.readFileSync(path.join(root,'scenes.json'))).clips;
+   let clock=10000;const probe=new ProductScheduler({director,now:()=>clock,random:()=>0}),state={prefs:{...product.prefs(),form:'full',idleRhythm:'natural',quietUntil:0},task:{phase:'idle'}};
+   director.manual('clip:brelaxed');
+   await until(()=>stats.currentFrame?.requestId===director.requestId&&stats.currentFrame.clip==='brelaxed'&&director.phase==='idle',16000);
+   probe.rotationPose='B';probe.localBeats=1;stats.automaticIdleRoundtrip=[];
+   const advance=async(clip,route,rest)=>{
+    probe.tick(state,{clips});clock=probe.due;
+    let choice;
+    await until(()=>{const f=stats.currentFrame;if(f?.requestId!==director.requestId||director.phase!=='idle')return false;probe.present({...director.current,...f});choice=probe.tick(state,{clips});return !!choice;},10000);
+    check('hands-off scheduler chooses '+clip,choice.clip===clip);
+    const request=director.requestId;
+    if(route)await until(()=>stats.currentFrame?.requestId===request&&stats.currentFrame.clip===route&&stats.currentFrame.visible,10000);
+    await until(()=>stats.currentFrame?.requestId===request&&stats.currentFrame.clip===clip&&stats.currentFrame.visible,12000);
+    probe.present({...director.current,...stats.currentFrame});
+    await until(()=>stats.currentFrame?.requestId===request&&stats.currentFrame.clip===rest&&director.phase==='idle',10000);
+    stats.automaticIdleRoundtrip.push({clip,route,rest,pose:director.pose});
+   };
+   await advance('idle','btoabridge','idle');
+   await advance('idlesway',null,'idlesway');
+   await advance('weightshift',null,'idle');
+   await advance('frontidle','atocbridge','frontidle');
+   check('three stance round trip ends in the visible front loop',director.pose==='C');
+  }
   if(!process.argv.includes('--smoke-quick')){
    const additions=Object.entries(JSON.parse(fs.readFileSync(path.join(root,'animation.json'))).states).filter(([,s])=>s.sourceKind==='gemini-reviewed-frontal-idle');stats.supplementalIdleProof=[];
    for(const [clip]of additions){director.pose='C';check('supplemental automatic pool-'+clip,catalog.automatic.some(r=>r.clip===clip));check('supplemental starts-'+clip,director.manual('clip:'+clip,{origin:'automatic'}));const request=director.requestId;await until(()=>stats.currentFrame?.requestId===request&&stats.currentFrame.clip===clip&&stats.currentFrame.visible&&stats.currentFrame.frame>=2);await until(()=>stats.currentFrame?.requestId===request&&stats.currentFrame.clip==='frontidle'&&stats.currentFrame.visible,10000);const ended=stats.events.filter(e=>e.type==='media-ended'&&e.requestId===request).map(e=>e.clip);check('supplemental completes once before front idle-'+clip,ended.join(',')===clip);stats.supplementalIdleProof.push({clip,request,ended,final:stats.currentFrame.clip});}
@@ -107,7 +131,13 @@ async function run({win,product,director,scheduler,motion,stats,root,openPanel,a
    else if(reason==='blur')await js("window.dispatchEvent(new Event('blur'))");else input.recover({x:0,y:0},false,Date.now()+200);
    await until(()=>motion.phase==='idle');check(reason+' persists the real moved window before follow can resume',product.settings.value.desktopLeft===dropped.x&&product.settings.value.desktopTop===dropped.y);await until(()=>stats.currentFrame?.clip==='frontidle');
   }
-  const dedup=win.getBounds();writePosition({x:dedup.x+8,y:dedup.y});win.setPosition(dedup.x-15,dedup.y,false);writePosition({x:dedup.x+8,y:dedup.y});check('position writes recover after external native movement',win.getBounds().x===dedup.x+8);writePosition(dedup);
+  const dedup=win.getBounds();writePosition({x:dedup.x+8,y:dedup.y});win.setPosition(dedup.x-15,dedup.y,false);writePosition({x:dedup.x+8,y:dedup.y});check('position writes recover after external native movement',win.getBounds().x===dedup.x+8);
+  for(const point of [{x:-0.49,y:12},{x:12,y:-0.49},{x:-0,y:-0},{x:-1.5,y:-1.5},{x:0.49,y:0.49}]){
+   writePosition(point);
+   const actual=win.getBounds();
+   check('native position across coordinate zero '+JSON.stringify(point),actual.x===Math.round(point.x)&&actual.y===Math.round(point.y));
+  }
+  writePosition(dedup);
   // Exercise failure paths through the actual renderer IPC, rather than bypassing capture.
   await js("window.__captureBeforeTest=document.querySelector('main').setPointerCapture;document.querySelector('main').setPointerCapture=()=>{throw new DOMException('No active pointer','NotFoundError')}");
   const captureStart=stats.input.accepted;await press(80);check('capture exception cannot cancel an accepted physical press',motion.phase==='drag');await js("document.querySelector('main').dispatchEvent(new PointerEvent('lostpointercapture',{bubbles:true,pointerId:80}))");await sleep(25);check('lost capture does not invent a physical release',motion.phase==='drag');
@@ -157,8 +187,10 @@ async function run({win,product,director,scheduler,motion,stats,root,openPanel,a
   product.onReleaseNotice=origReleaseNotice;
   check('music controls and preload hook are removed',!menuTemplate().some(m=>m.label==='音乐律动')&&await win.webContents.executeJavaScript("typeof window.desktop.onMusic==='undefined'"));check('retired loopback capture services are absent',!fs.existsSync(path.join(root,'runtime/music-monitor.ps1'))&&!fs.existsSync(path.join(root,'runtime/music-audio.cs')));const retiredMusic=await invoke({kind:'music'});check('old music command cannot reactivate the removed module',retiredMusic.error==='ACTION_FAILED'&&!Object.hasOwn(snapshot(),'musicEnabled'));
   check('unknown settings fields survive',product.settings.value.unknownProtectedTest==='keep-me');check('mask cache is bounded',cache.bytes<=cache.budget);await invoke({kind:'preferences',prefs:{colorMode:'linked'}});director.manual('idle');await until(()=>stats.currentFrame?.clip==='frontidle');await sleep(150);const colorPaint=await win.webContents.capturePage(),colorBytes=colorPaint.toBitmap(),cs=colorPaint.getSize();check('flowing color retains transparent character surroundings',[[0,0],[cs.width-1,0],[0,cs.height-1],[cs.width-1,cs.height-1]].every(([x,y])=>colorBytes[(y*cs.width+x)*4+3]===0));await invoke({kind:'preferences',prefs:{colorMode:'original'}});check('no full transparent transition output',paints.length>50&&paints.every(p=>p.pixels>0));check('test windows use offscreen rendering without show requests',BrowserWindow.getAllWindows().every(w=>w.webContents.isOffscreen())&&!stats.events.some(e=>e.type==='window-show'));check('no runtime errors',stats.errors.length===0);
+  check('right-click menu has a distinct reload configuration action',menuTemplate().some(m=>m.label==='重载配置'&&typeof m.click==='function')&&menuTemplate().some(m=>m.label==='退出'));
   stats.smokeOk=true;
  }catch(e){stats.smokeOk=false;stats.errors.push('PRODUCT_SMOKE:'+e.message);}
- fs.writeFileSync(path.join(root,'product-smoke.json'),JSON.stringify({ok:stats.smokeOk,checks,paints,windows:BrowserWindow.getAllWindows().map(w=>({title:w.getTitle(),visible:w.isVisible(),offscreen:w.webContents.isOffscreen()})),events:stats.events,errors:stats.errors,smokeConsole:stats.smokeConsole,cardProof:stats.cardProof,supplementalIdleProof:stats.supplementalIdleProof,pressContinuityProof:stats.pressContinuityProof,pressLayerProof:stats.pressLayerProof,flightReturnProof:stats.flightReturnProof,edgeProof:stats.edgeProof,screenPresentationVerified:false,dragStress:stats.dragStress,rendererInput:stats.rendererInput,paidCalls:0,personalStateWritten:false},null,2));await close(stats.smokeOk?'test-complete':'failure');
+ fs.writeFileSync(path.join(root,'product-smoke.json'),JSON.stringify({ok:stats.smokeOk,checks,paints,windows:BrowserWindow.getAllWindows().map(w=>({title:w.getTitle(),visible:w.isVisible(),offscreen:w.webContents.isOffscreen()})),events:stats.events,errors:stats.errors,smokeConsole:stats.smokeConsole,cardProof:stats.cardProof,supplementalIdleProof:stats.supplementalIdleProof,pressContinuityProof:stats.pressContinuityProof,pressLayerProof:stats.pressLayerProof,flightReturnProof:stats.flightReturnProof,edgeProof:stats.edgeProof,screenPresentationVerified:false,dragStress:stats.dragStress,rendererInput:stats.rendererInput,paidCalls:0,personalStateWritten:false},null,2));
+ if(stats.smokeOk)menuTemplate().find(m=>m.label==='重载配置').click();else await close('failure');
 }
 module.exports={run};

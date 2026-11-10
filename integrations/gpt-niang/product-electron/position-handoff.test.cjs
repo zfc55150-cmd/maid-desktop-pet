@@ -10,7 +10,7 @@ function fixture(){
  const host={found:true,x:100,y:50,width:1800,height:1300,dpi:144};
  let saved=0;const values={followHost:true,anchor:'free',left:200,right:724.6666666667,bottom:424.6666666667};
  const product={prefs:()=>values,update(patch){Object.assign(values,patch);saved++;},settings:{update(patch){Object.assign(values,patch);saved++;}}};
- const context={testOnly:false,win,product,native:{hostFrame:()=>host,detach(){}},Motion:require('./app/desktop-motion.cjs').Motion,display:{mode:'full'},director:{motion(){}},scheduler:{reset(){}},hideSpeech(){},showClickCard(){},positionSpeech(){},expected:413,lastRequested:null,stats:{moves:0},moveOnly:require('./app/desktop-geometry.cjs').moveOnly,error(code){throw Error(code);},Date};
+ const context={testOnly:false,win,product,native:{hostFrame:()=>host,detach(){}},Motion:require('./app/desktop-motion.cjs').Motion,display:{mode:'full'},director:{motion(){}},scheduler:{reset(){}},hideSpeech(){},showClickCard(){},positionSpeech(){},expected:413,lastRequested:null,stats:{moves:0},windowCoordinate:require('./app/desktop-geometry.cjs').windowCoordinate,error(code){throw Error(code);},Date};
  vm.createContext(context);vm.runInContext(functions+wire,context);
  const follow=()=>{const dpi=host.dpi/96;win.setPosition(Math.round(host.x+values.left*dpi),Math.round(host.y+host.height-win.box.height-values.bottom*dpi));};
  return {c:context,win,host,values,follow,saved:()=>saved,begin(){context.motion.begin({x:500,y:400},win.getBounds(),100,1);},move(){const next=context.motion.move({x:720,y:320},600);context.writePosition(next);}};

@@ -21,6 +21,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('petBridge', {
   reloadConfig() { return ipcRenderer.invoke('pet:reload'); },
+  quitPet() { return ipcRenderer.invoke('pet:quit'); },
   openSizeSettings() { return ipcRenderer.invoke('pet-size:open'); },
   chatState() { return ipcRenderer.invoke('simple-chat:state'); },
   chatInput(value) { return ipcRenderer.invoke('simple-chat:input', value); },

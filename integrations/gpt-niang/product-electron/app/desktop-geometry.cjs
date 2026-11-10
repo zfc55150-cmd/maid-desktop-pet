@@ -7,7 +7,13 @@ class PresentationHit {
  update(data){if(this.current?.clip!==data.clip)this.retained=this.current;this.current={clip:data.clip,index:data.frame};if(data.visible===true)this.retained=null;}
  test(predicate){return !!(this.current&&predicate(this.current)||this.retained&&predicate(this.retained));}
 }
-function moveOnly(win,p){if(!Number.isFinite(p.x)||!Number.isFinite(p.y))throw new Error('POSITION_RANGE');win.setPosition(Math.round(p.x),Math.round(p.y),false);}
+function windowCoordinate(value){
+ const rounded=Math.round(value);
+ if(!Number.isFinite(value)||rounded< -2147483648||rounded>2147483647)throw new Error('POSITION_RANGE');
+ // Math.round(-0.4) is negative zero, which Electron's int32 converter rejects.
+ return rounded===0?0:rounded;
+}
+function moveOnly(win,p){win.setPosition(windowCoordinate(p.x),windowCoordinate(p.y),false);}
 function sizeMatches(size,expected){return size.length===2&&Math.abs(size[0]-expected)<=1&&Math.abs(size[1]-expected)<=1;}
 function motionBounds(position,displays,size,body={left:0,top:0,right:geometry.sourceSize,bottom:geometry.feetY}){
  if(!displays.length)throw new Error('NO_DISPLAY');let chosen=displays[0],best=-1,distance=Infinity;
@@ -28,4 +34,4 @@ function motionBounds(position,displays,size,body={left:0,top:0,right:geometry.s
  }
  return result;
 }
-module.exports={canvasPixels,moveOnly,sizeMatches,motionBounds,sourcePoint,PresentationHit};
+module.exports={canvasPixels,windowCoordinate,moveOnly,sizeMatches,motionBounds,sourcePoint,PresentationHit};

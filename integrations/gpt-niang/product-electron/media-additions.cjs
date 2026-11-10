@@ -11,6 +11,11 @@ function apply(base,out){
   for(const [file,hash,relative]of [[c.videoFile,c.videoSha256,'media/'+id+'.webm'],[c.maskFile,c.maskSha256,'hit-masks/'+id+'.bin']]){const from=path.join(dir,file),to=path.join(out,relative);if(sha(from)!==hash||fs.lstatSync(from).isSymbolicLink())throw Error('ADDITION_HASH:'+id);fs.mkdirSync(path.dirname(to),{recursive:true});if(fs.existsSync(to))fs.unlinkSync(to);fs.copyFileSync(from,to);}
   if(fs.statSync(path.join(dir,c.maskFile)).size!==c.maskBytes)throw Error('ADDITION_MASK_BYTES');
   animation.states[id]={label:c.label,frames:c.frames,fps:c.fps,loop:false,pages:[],sourceKind:c.sourceKind,playbackPolicy:'one-shot',representation:'vp9-alpha'};
+  if(c.poseBridge===true){
+   const endpoints={btoabridge:['B','A'],atocbridge:['A','C']}[id];
+   if(!endpoints||c.automatic||c.follows||c.entryPose!==endpoints[0]||c.exitPose!==endpoints[1])throw Error('ADDITION_POSE_BRIDGE:'+id);
+   animation.states[id].followUpOnly=true;
+  }
   if(c.follows){
    if(!animation.states[c.follows]||c.follows===id||c.automatic===true)throw Error('ADDITION_FOLLOW_UP:'+id);
    animation.states[id].followUpOnly=true;

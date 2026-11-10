@@ -1,0 +1,26 @@
+{
+  "acceptedForIntegrationTrial": true,
+  "userVisualAcceptance": false,
+  "sourceVideoSha256": "005ce54acc301e1b75601ccaaa6f1a5924b04fdd5a1b9973ca8c5108e85efa30",
+  "videoSha256": "a1b77d6385ef338b03fee7b5149f948bd491c1139a15dc6f93f77cff5b195ea0",
+  "evidence": {
+    "sourceBefore": {
+      "silhouetteIou": 0.9701,
+      "opaqueRgbMeanError": 31.03
+    },
+    "packagedBefore": {
+      "silhouetteIou": 0.9998,
+      "opaqueRgbMeanError": 1.25
+    },
+    "sourceAfter": {
+      "silhouetteIou": 0.9871,
+      "opaqueRgbMeanError": 12.39
+    },
+    "packagedAfter": {
+      "silhouetteIou": 0.9984,
+      "opaqueRgbMeanError": 3.08
+    },
+    "beforeMediaSha256": "c7329d3925b8f3609d012dd5e61dea9491e22efd2578afc004c83b50b0422a49",
+    "afterMediaSha256": "1260f46f6fc8aa0fff8d323dba1611fea655eb94cd6877b82e0a1546c665305c"
+  }
+}

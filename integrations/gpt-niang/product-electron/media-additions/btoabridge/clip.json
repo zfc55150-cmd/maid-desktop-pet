@@ -1,0 +1,19 @@
+{
+  "id": "btoabridge",
+  "label": "侧身转入长裙待机",
+  "frames": 120,
+  "fps": 30,
+  "loop": false,
+  "automatic": false,
+  "sourceKind": "gemini-idle-turn-matched",
+  "menuGroup": "姿态与收势",
+  "entryPose": "B",
+  "exitPose": "A",
+  "poseBridge": true,
+  "sourceVideoSha256": "005ce54acc301e1b75601ccaaa6f1a5924b04fdd5a1b9973ca8c5108e85efa30",
+  "videoFile": "btoabridge.webm",
+  "maskFile": "btoabridge.bin",
+  "videoSha256": "a1b77d6385ef338b03fee7b5149f948bd491c1139a15dc6f93f77cff5b195ea0",
+  "maskSha256": "379f27dc8a0eea2a8163eb1269546204ce387e5f8781dda4483d790b764ce57d",
+  "maskBytes": 2211840
+}

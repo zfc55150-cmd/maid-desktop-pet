@@ -5,6 +5,11 @@ const {ChatService}=require(helper+'/simple-chat-service');
 const control=require(helper+'/local-control');
 const {ChatConfigStore}=require(helper+'/chat-config-store');
 const {AppearanceStore}=require(helper+'/pet-appearance-store');
+test('desktop exit resolves only the authenticated local standalone endpoint',()=>{
+ assert.equal(control.shutdownURL('http://127.0.0.1:3088/dsh-pet-7340/config'),'http://127.0.0.1:3088/shutdown');
+ assert.equal(control.shutdownURL('http://127.0.0.1:3089/dsh-pet-7340/config'),'http://127.0.0.1:3089/shutdown');
+ for(const url of ['https://127.0.0.1:3088/dsh-pet-7340/config','http://example.com:3088/dsh-pet-7340/config','http://127.0.0.1:3088/other/config','http://127.0.0.1:3088/dsh-pet-7340/config?extra=1'])assert.throws(()=>control.shutdownURL(url));
+});
 const fakeSecrets={decryptString:()=> 'sk-SYNTHETIC-TEST-ONLY',isEncryptionAvailable:()=>true,encryptString:s=>Buffer.from(s)};
 function fixture(t,{fetchImpl,voiceEnabled=false}={}){
  const dir=fs.mkdtempSync(path.join(root,'.test-data-'));

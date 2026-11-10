@@ -1653,6 +1653,7 @@ class PetSprite {
       { label: '停止回复 / 朗读', action: 'chat-stop' },
       { label: '试听语音与气泡', action: 'chat-preview' },
       { label: '重载配置', action: 'reload' },
+      { label: '退出', action: 'quit' },
     ];
     const tree = tools.concat(this.forms.mode === 'full' ? S.buildMenuTree(this.animations) : []);
     if (!tree.length) return;
@@ -1708,6 +1709,12 @@ class PetSprite {
     if (leaf.action === 'chat-continue') { if(!this.inlineChat.pending) void this.inlineChat.send('请接着上一条未完成的回复继续，不要重复已经说过的内容。'); return; }
     if (leaf.action === 'reload') {
       this.reloadDesktop(); // 请宿主重启桌面 Helper：全部桌面宠物窗口按最新配置重建
+      return;
+    }
+    if (leaf.action === 'quit') {
+      window.petBridge.quitPet().then(result => {
+        if (!result.ok) this.inlineChat.bubble(result.error);
+      }).catch(() => this.inlineChat.bubble('暂时无法退出桌宠，请稍后再试。'));
       return;
     }
     if (!leaf.anim) return;

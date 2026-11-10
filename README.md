@@ -1,6 +1,6 @@
 # 🚀 新手 3 步快速下载与启动指南 / Quick start (3 steps)
 
-**免安装便携绿色版**已在 [Release v1.0.1](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.1) 提供：包内自带 Electron 与 Node.js 运行时，**无需**安装 Node.js、Python、pnpm 或任何 SDK，解压即用，删除目录即彻底清除。
+**便携版**可在 [Release v1.0.1](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.1) 下载，包内自带 Electron 与 Node.js。**已知问题：该版本 DeepSeek 娘在全新解压后可能无法显示桌宠，且 Electron 配置会写到用户目录。**修复候选尚未发布，详见[DeepSeek 便携版修复记录](docs/DeepSeek便携版首启与隔离修复-20261109.md)。
 
 ## 第 1 步：下载 / Download
 
@@ -11,7 +11,7 @@
 | [GPTNiang-v0.8.22-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.1/GPTNiang-v0.8.22-electron-win-x64.zip) | **GPT娘** | 303.4 MiB | 54 段动画、9384 帧，素材画布 384×384 |
 | [DeepSeekActionPet-v1.0.1-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.1/DeepSeekActionPet-v1.0.1-win-x64.zip) | **DeepSeek娘** | 237.2 MiB | 修复首次保存 API Key，语音运行环境为选配 |
 
-两个包可同时下载、同时运行，互不冲突（各自独立的状态目录与端口）。
+两个包可同时下载。DeepSeek v1.0.1 的便携与安装版本仍会共用 Electron 配置，详见下方说明。
 
 ## 第 2 步：解压 / Extract
 
@@ -32,14 +32,16 @@
 
 每个包内均附 `PORTABLE-README.md`：完整使用说明、隔离机制、故障排查与隐私声明。
 
+维护入口：[仓库同步、推送前检查与便携版发布](docs/仓库同步与便携版发布.md)。已发布的 v1.0.1 中，GPT 娘带版本提醒；DeepSeek 娘需先手动换成带提醒的新包。
+
 ## 常见问题 / FAQ
 
 - **GPT娘首次启动做了什么？** 启动器先运行 `portable\bootstrap.cjs`，按解压位置动态生成 `product.json` / `installation.json`，并在 `state\` 写入默认设置（缩放 1.26、不跟随宿主窗口）。不写注册表、不创建开机自启、不改系统目录；Electron 用户数据也落在包内 `state\electron\profile`，与已安装版本完全隔离。
 - **DeepSeek娘为什么没有语音？** 原语音子系统约 9.6 GB：Python 虚拟环境 5.2 GB 由 `pyvenv.cfg` 硬编码绝对路径、换机即失效，模型权重 4.3 GB 可重新下载。故核心包不含语音，桌宠本体功能不受影响；恢复步骤见包内 `PORTABLE-README.md` 第六节。
-- **会和已安装的正式版冲突吗？** 不会。便携版使用**包内独立状态目录**；DeepSeek娘便携版另改用 **3089** 端口（官方版 3088），支持 `DSH_PET_PORT` / `DSH_PET_HOME` 覆盖。「停止」脚本只结束命令行包含本包路径的进程，且**显式排除官方安装目录**，绝不会误杀已安装的桌宠。
-- **便携版有哪些功能不可用？** GPT娘便携版不含应用商店兼容层，故 ChatGPT/Codex 额度显示、自动更新、开机自启、Codex 插件注册不可用；桌宠本体（动画、点击、拖拽、缩放、气泡语录、形象图库、设置面板、自定义音效）完全正常。自动更新已在包内主动关闭，避免绿色版自我改写。
-- **如何彻底清除？** 删除整个解压目录即可，所有数据都在包内 `state\`。
-- **杀毒软件报毒？** Electron/Node 未签名二进制的常见误报；两个包均不上传数据、不写系统目录，可添加信任。
+- **会和已安装的正式版冲突吗？** v1.0.1 的 DeepSeek 状态和端口有区分，但 Electron 配置目录与安装版共用；停止脚本在路径前缀相同时也可能误认其他副本。修复候选尚未公开。
+- **便携版有哪些功能不可用？** GPT娘便携版不含应用商店兼容层，故 ChatGPT/Codex 额度显示、上游安装型自动更新、开机自启、Codex 插件注册不可用；桌宠本体（动画、点击、拖拽、缩放、气泡语录、形象图库、设置面板、自定义音效）完全正常。便携版默认开启针对本仓库（`zfc55150-cmd/maid-desktop-pet`）的轻量版本提醒（仅检查、气泡提醒一次并提供跳转下载页按钮），而上游覆盖安装器已在包内主动关闭，避免绿色版自我改写。
+- **如何清除？** 停止后删除解压目录可清除其中的数据；v1.0.1 DeepSeek 的 Electron 配置另存用户目录，删除包不会自动删除它。
+- **杀毒软件报毒？** 请先核对下载来源和 SHA-256，再检查安全软件给出的具体原因。聊天功能会将请求内容发送给 DeepSeek。
 
 ## 完整性自检 / Integrity self-check
 
@@ -65,7 +67,7 @@ node\node.exe app\package-doctor.cjs "%CD%"
 
 # 📜 版本记录 / Version log
 
-2026-11-04 版本记录：GPT娘 **0.8.17-electron** 分别设置大、小形态的点击额度和语录，小形态默认开启，大形态沿用原设置。100项本地、245项候选及110项安装检查通过。[使用、验证与回退](docs/GPT娘小形态点击卡片默认开启-20261104.md)。
+2026-11-04 当前正式版：GPT娘 **0.8.17-electron** 分别设置大、小形态的点击额度和语录，小形态默认开启，大形态沿用原设置。100项本地、245项候选及110项安装检查通过。[使用、验证与回退](docs/GPT娘小形态点击卡片默认开启-20261104.md)。
 
 历史 0.8.16 记录：移除“安静30分钟”，新增点击卡片开关；当时安装版隔离进程出现间歇性退出超时。[记录](docs/GPT娘点击卡片开关与退出复验-20261104.md)。
 
