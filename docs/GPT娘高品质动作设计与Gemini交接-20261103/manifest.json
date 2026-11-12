@@ -9,7 +9,7 @@
   "references": [
     {
       "file": "references/01_C姿态主锚点_原始绿底.png",
-      "source": "C:\\Users\\33750\\Documents\\ChatGPT\\女仆桌宠\\work\\continuity-20261028-01\\video-generation\\materials\\lookaroundreturn\\last-frame-green.png",
+      "source": "%USERPROFILE%\\Documents\\ChatGPT\\女仆桌宠\\work\\continuity-20261028-01\\video-generation\\materials\\lookaroundreturn\\last-frame-green.png",
       "role": "identity-pose-color-primary",
       "sha256": "3b9ed2d7e8ce6b651712af30198215e0cf85f2733b2fdab6e24aac6698d244ab",
       "size": [
@@ -19,7 +19,7 @@
     },
     {
       "file": "references/02_正侧背结构参考.png",
-      "source": "C:\\Users\\33750\\Documents\\ChatGPT\\女仆桌宠\\integrations\\gpt-niang\\animated\\character-turnaround-20261025\\turnaround-v2.png",
+      "source": "%USERPROFILE%\\Documents\\ChatGPT\\女仆桌宠\\integrations\\gpt-niang\\animated\\character-turnaround-20261025\\turnaround-v2.png",
       "role": "turnaround-structure-not-first-frame",
       "sha256": "46716df1cbb0831eb30a511941bf61d025cabda5983b14eec64ecc24f2659324",
       "size": [
@@ -29,7 +29,7 @@
     },
     {
       "file": "references/03_单尾结构说明.png",
-      "source": "C:\\Users\\33750\\Documents\\ChatGPT\\女仆桌宠\\integrations\\gpt-niang\\animated\\character-turnaround-20261025\\tail-detail-v2.png",
+      "source": "%USERPROFILE%\\Documents\\ChatGPT\\女仆桌宠\\integrations\\gpt-niang\\animated\\character-turnaround-20261025\\tail-detail-v2.png",
       "role": "tail-structure-not-first-frame",
       "sha256": "cc5f9b9c3134d6da4a731dcb4326788ffebc3350c1a1284ba70dd6abac674bf6",
       "size": [

@@ -175,7 +175,7 @@ async function run({win,product,director,scheduler,motion,stats,root,openPanel,a
   let releaseNotifies=0;
   const origReleaseNotice=product.onReleaseNotice;
   product.onReleaseNotice=info=>{releaseNotifies++;origReleaseNotice(info);};
-  product.fetchImpl=async()=>({status:200,ok:true,headers:{},json:async()=>({tag_name:nextReleaseTag,assets:[{name:'GPTNiang-v0.8.26-electron-win-x64.zip',state:'uploaded',size:100}],html_url:`https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/${nextReleaseTag}`})});
+  product.fetchImpl=async()=>({status:200,ok:true,headers:{},json:async()=>[{tag_name:nextReleaseTag,draft:false,prerelease:false,assets:[{name:'GPTNiang-v0.8.26-electron-win-x64.zip',state:'uploaded',size:100}],html_url:`https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/${nextReleaseTag}`}]});
   await invoke({kind:'update-check'});
   check('new release triggers speech bubble once',releaseNotifies===1&&snapshot().speech?.mode==='release'&&snapshot().speech?.text.includes(nextReleaseTag)&&snapshot().update.lastNotifiedTag===nextReleaseTag);
   await invoke({kind:'speech-close'});

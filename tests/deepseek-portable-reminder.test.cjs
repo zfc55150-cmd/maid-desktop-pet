@@ -20,7 +20,7 @@ function options(t, payload = release) {
     stateFile: path.join(root, 'release-reminder.json'),
     localTag: 'v1.0.2', checkRelease: checkReleaseNotice, show: () => true,
     now: () => 1794200000000,
-    fetchImpl: async () => ({ ok: true, status: 200, headers: {}, json: async () => payload })
+    fetchImpl: async () => ({ ok: true, status: 200, headers: {}, json: async () => [payload] })
   };
 }
 

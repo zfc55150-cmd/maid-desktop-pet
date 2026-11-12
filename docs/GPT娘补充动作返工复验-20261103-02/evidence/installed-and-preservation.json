@@ -24,13 +24,13 @@
         {
           "file": "c_listen_ear.bin",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\02_c_listen_ear_v3\\c_listen_ear.bin"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\02_c_listen_ear_v3\\c_listen_ear.bin"
           ]
         },
         {
           "file": "c_listen_ear.webm",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\02_c_listen_ear_v3\\c_listen_ear.webm"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\02_c_listen_ear_v3\\c_listen_ear.webm"
           ]
         }
       ]
@@ -41,13 +41,13 @@
         {
           "file": "c_brush_fringe.bin",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\04_c_brush_fringe_v2\\c_brush_fringe.bin"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\04_c_brush_fringe_v2\\c_brush_fringe.bin"
           ]
         },
         {
           "file": "c_brush_fringe.webm",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\04_c_brush_fringe_v2\\c_brush_fringe.webm"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\04_c_brush_fringe_v2\\c_brush_fringe.webm"
           ]
         }
       ]
@@ -58,13 +58,13 @@
         {
           "file": "c_hands_rest.bin",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\05_c_hands_rest_v2\\c_hands_rest.bin"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\05_c_hands_rest_v2\\c_hands_rest.bin"
           ]
         },
         {
           "file": "c_hands_rest.webm",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\05_c_hands_rest_v2\\c_hands_rest.webm"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\05_c_hands_rest_v2\\c_hands_rest.webm"
           ]
         }
       ]
@@ -75,13 +75,13 @@
         {
           "file": "c_small_weight_settle.bin",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\06_c_small_weight_settle_v2\\c_small_weight_settle.bin"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\06_c_small_weight_settle_v2\\c_small_weight_settle.bin"
           ]
         },
         {
           "file": "c_small_weight_settle.webm",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\06_c_small_weight_settle_v2\\c_small_weight_settle.webm"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\06_c_small_weight_settle_v2\\c_small_weight_settle.webm"
           ]
         }
       ]
@@ -92,13 +92,13 @@
         {
           "file": "c_notice_user.bin",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\07_c_notice_user_v2\\c_notice_user.bin"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\07_c_notice_user_v2\\c_notice_user.bin"
           ]
         },
         {
           "file": "c_notice_user.webm",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\07_c_notice_user_v2\\c_notice_user.webm"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\07_c_notice_user_v2\\c_notice_user.webm"
           ]
         }
       ]
@@ -109,13 +109,13 @@
         {
           "file": "c_suppressed_yawn.bin",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\08_c_suppressed_yawn_v2\\c_suppressed_yawn.bin"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\08_c_suppressed_yawn_v2\\c_suppressed_yawn.bin"
           ]
         },
         {
           "file": "c_suppressed_yawn.webm",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\08_c_suppressed_yawn_v2\\c_suppressed_yawn.webm"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\08_c_suppressed_yawn_v2\\c_suppressed_yawn.webm"
           ]
         }
       ]
@@ -126,15 +126,15 @@
         {
           "file": "bridge_b_to_a.bin",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_b_to_a.bin",
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_b_to_a\\bridge_b_to_a.bin"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_b_to_a.bin",
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_b_to_a\\bridge_b_to_a.bin"
           ]
         },
         {
           "file": "bridge_b_to_a.webm",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_b_to_a.webm",
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_b_to_a\\bridge_b_to_a.webm"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_b_to_a.webm",
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_b_to_a\\bridge_b_to_a.webm"
           ]
         }
       ]
@@ -145,15 +145,15 @@
         {
           "file": "bridge_a_to_c.bin",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_a_to_c.bin",
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_a_to_c\\bridge_a_to_c.bin"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_a_to_c.bin",
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_a_to_c\\bridge_a_to_c.bin"
           ]
         },
         {
           "file": "bridge_a_to_c.webm",
           "sameHashWorkspacePaths": [
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_a_to_c.webm",
-            "C:\\Users\\33750\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_a_to_c\\bridge_a_to_c.webm"
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_a_to_c.webm",
+            "%USERPROFILE%\\.gemini\\antigravity\\scratch\\DesktopPetStudio\\work\\output_webm\\bridge_a_to_c\\bridge_a_to_c.webm"
           ]
         }
       ]

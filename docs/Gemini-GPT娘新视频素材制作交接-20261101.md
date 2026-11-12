@@ -24,7 +24,7 @@
 
 包中`参考图/来源与用途.json`记载来源及SHA256。第一张的预期SHA256为`3b9ed2d7e8ce6b651712af30198215e0cf85f2733b2fdab6e24aac6698d244ab`。原生参考画布较紧，不能据此承诺高幅度动作无裁切。
 
-如本机能访问工程，唯一维护来源为`C:\Users\33750\Documents\ChatGPT\女仆桌宠`。绿底锚点原路径为`work/continuity-20261028-01/video-generation/materials/lookaroundreturn/last-frame-green.png`；设定图原路径位于`integrations/gpt-niang/animated/character-turnaround-20261025/`。不要因为原文件名含lookaroundreturn就当成张望表演，这是正面放松目标帧。
+如本机能访问工程，唯一维护来源为`%USERPROFILE%\Documents\ChatGPT\女仆桌宠`。绿底锚点原路径为`work/continuity-20261028-01/video-generation/materials/lookaroundreturn/last-frame-green.png`；设定图原路径位于`integrations/gpt-niang/animated/character-turnaround-20261025/`。不要因为原文件名含lookaroundreturn就当成张望表演，这是正面放松目标帧。
 
 首帧与三视图略有表现差异时，**脸、比例、色调和线条以首帧为准，侧背结构以设定图补充**。不要混合成新脸，不重画基础人设。默认只向生成端发送主锚点；补充图仅在入口确实支持独立身份参考时发送，并记录真实用途。不要把参考视频、三视图和首尾帧字段任意混搭。
 
@@ -228,7 +228,7 @@ alpha.webm                   可选，核实确有alpha才这样标注
 
 最低交付是原片、实际提示词和一份如实说明；原片质量是重点，不因不会透明处理停在计划阶段。原片、透明版与不同背景预览只算同一素材；生成完成、助手筛查、用户认可、接点通过和正式安装分别记录。你本轮的`productionInstalled`始终false。
 
-在用户指示的交付目录中新建自己的候选文件夹，不覆盖旧候选、认可母版和其他会话文件。默认输出建议：`C:\Users\33750\Documents\Codex_产出\DeepSeek桌宠\GPT娘动作升级\Gemini新素材生成_20261101\动作ID_candidate01\`；目录已存在则用新的候选号。若你没有本地文件系统，提供实际可下载原片，让用户传回即可，不虚构本机路径。
+在用户指示的交付目录中新建自己的候选文件夹，不覆盖旧候选、认可母版和其他会话文件。默认输出建议：`%USERPROFILE%\Documents\Codex_产出\DeepSeek桌宠\GPT娘动作升级\Gemini新素材生成_20261101\动作ID_candidate01\`；目录已存在则用新的候选号。若你没有本地文件系统，提供实际可下载原片，让用户传回即可，不虚构本机路径。
 
 完成时先给视频，再用几句说明主事件完成情况、明显不足、文件位置和下一步待用户选择。第一条交付后等待反馈，不因为本包有六条设计就自动把其余全部提交。
 

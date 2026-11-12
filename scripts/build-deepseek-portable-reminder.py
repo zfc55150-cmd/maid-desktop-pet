@@ -1,9 +1,10 @@
-"""Add the portable-only reminder to a verified, clean DeepSeek release ZIP."""
+"""Build a local reminder test candidate from a verified DeepSeek ZIP."""
 import argparse
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import re
+import subprocess
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -73,8 +74,9 @@ def build(base, expected_sha, tag, output_dir):
         raise ValueError("Use a clean DeepSeek x64 release ZIP and a newer vX.Y.Z tag")
     if not re.fullmatch(r"[a-f0-9]{64}", expected_sha) or sha256(base) != expected_sha:
         raise ValueError("Base ZIP SHA-256 does not match")
+    subprocess.run(["node", str(ROOT / "scripts/sync-shared.cjs")], cwd=ROOT, check=True)
 
-    name = f"DeepSeekActionPet-{tag}-win-x64"
+    name = "DeepSeekActionPet-candidate-reminder-win-x64"
     output_dir.mkdir(parents=True, exist_ok=True)
     target = output_dir / (name + ".zip")
     module = ROOT / "integrations/deepseek-portable/release-reminder.cjs"
@@ -131,7 +133,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base", required=True, type=Path)
     parser.add_argument("--base-sha256", required=True)
-    parser.add_argument("--tag", required=True)
+    parser.add_argument("--tag", required=True, help="Embedded comparison baseline for the local test; does not assign a public tag")
     parser.add_argument("--out", required=True, type=Path)
     args = parser.parse_args()
     result = build(args.base, args.base_sha256.lower(), args.tag, args.out)

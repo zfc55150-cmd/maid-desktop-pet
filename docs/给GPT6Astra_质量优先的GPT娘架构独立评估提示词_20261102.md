@@ -15,7 +15,7 @@
 ## 二、本机入口
 
 维护项目：
-`C:\Users\33750\Documents\ChatGPT\女仆桌宠`
+`%USERPROFILE%\Documents\ChatGPT\女仆桌宠`
 
 先读项目AGENTS.md、README.md、docs/改进与副作用说明.md，核对Git状态、当前安装和部署回执。不要覆盖其他会话的修改。
 
@@ -28,10 +28,10 @@
 5. `work/architecture-material-audit-20261102/`下的summary.json、installed-snapshot.json、first-frame-geometry.json、concurrent-update-boundary.json和same-height-first-frames.png。
 
 DeepSeek安装：
-`C:\Users\33750\AppData\Local\Programs\DeepSeekActionPet`
+`%USERPROFILE%\AppData\Local\Programs\DeepSeekActionPet`
 
 GPT娘安装：
-`C:\Users\33750\AppData\Local\Programs\GPTNiangUsage\gpt-niang-usage`
+`%USERPROFILE%\AppData\Local\Programs\GPTNiangUsage\gpt-niang-usage`
 
 技术入口：
 - DeepSeek：`app/electron-helper/sprite.js`及安装副本、index.html、shared-core.js等。

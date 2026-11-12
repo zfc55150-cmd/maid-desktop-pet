@@ -1,5 +1,5 @@
 {
-  "version": "1.2.3-release-notice.1",
+  "version": "1.2.3-release-notice.2",
   "base": "dsh-pet@0.3.7",
   "files": [
     {
@@ -311,14 +311,14 @@
     {
       "source": "app/electron-helper/release-notice.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/release-notice.js",
-      "sha256": "34c89660aedfc11cac09aac1c460d0d9ff0869eaef81f3456499c56064930d0b",
-      "previousSha256": null
+      "sha256": "0a903b70d97ff917391c66bc35ed9447fdde7e9d1a3b5bbbf1ef5fb250f3fedc",
+      "previousSha256": "34c89660aedfc11cac09aac1c460d0d9ff0869eaef81f3456499c56064930d0b"
     },
     {
       "source": "app/electron-helper/release-reminder.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/release-reminder.js",
-      "sha256": "6ec426f86f8afe0e4a2a95774b29fb249f6f409cfb3d3636c765c8cae1fc7761",
-      "previousSha256": null
+      "sha256": "4fc2e88b24a5cb551cd4f5e9c69c00b1c775f11fe0698d4d48e3c40a172650a7",
+      "previousSha256": "6ec426f86f8afe0e4a2a95774b29fb249f6f409cfb3d3636c765c8cae1fc7761"
     }
   ]
 }

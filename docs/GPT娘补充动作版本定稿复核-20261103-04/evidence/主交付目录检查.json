@@ -5,7 +5,7 @@
   "clips": [
     {
       "id": "04_c_brush_fringe_v4",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\04_c_brush_fringe_v4\\c_brush_fringe.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\04_c_brush_fringe_v4\\c_brush_fringe.mp4",
       "filesSha256": {
         "c_brush_fringe.mp4": "5df555152f45581293068de35ce4a6e218647481547be4e1af83335c7ca914fb",
         "c_brush_fringe.webm": "8803af7f89dd6c37019d1163fdb9ebbea4b505f6719a4a576d16fd815b77a37f",
@@ -2005,7 +2005,7 @@
     },
     {
       "id": "05_c_hands_rest_v4",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\05_c_hands_rest_v4\\c_hands_rest.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\05_c_hands_rest_v4\\c_hands_rest.mp4",
       "filesSha256": {
         "c_hands_rest.mp4": "294a8748dbf2a15fd371d55b1ba754228412dfd419e3644a4b7578a7335a1545",
         "c_hands_rest.webm": "b069ae72d122f8eb8db6c9e530b0a3b9a03dae895c07185992573c99b8d227a9",
@@ -4005,7 +4005,7 @@
     },
     {
       "id": "06_c_small_weight_settle_v4",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\06_c_small_weight_settle_v4\\c_small_weight_settle.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\06_c_small_weight_settle_v4\\c_small_weight_settle.mp4",
       "filesSha256": {
         "c_small_weight_settle.mp4": "d88a5c5172d6a7b080d7403e7827d79391c34107bda5b3a9fe72be708a711ee4",
         "c_small_weight_settle.webm": "f22281988926473e98bda4825d39e3c13ad9184a11edb9d542e0add680e06e8e",
@@ -6005,7 +6005,7 @@
     },
     {
       "id": "07_c_notice_user_v4",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\07_c_notice_user_v4\\c_notice_user.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\07_c_notice_user_v4\\c_notice_user.mp4",
       "filesSha256": {
         "c_notice_user.mp4": "6d195c8828c2741ed586515c1c930f24b47c04a9ed72f69a1d33d96129be1e6a",
         "c_notice_user.webm": "8efbbeb65c7744c0b3ec6ea86bd7eb2ce33f40f00b24397b0854df729c219eaa",

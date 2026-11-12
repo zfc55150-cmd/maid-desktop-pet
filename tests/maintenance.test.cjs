@@ -5,6 +5,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const {verifyManifest} = require('../scripts/verify.cjs');
+
+test('generated product copies match their canonical sources', () => {
+  assert.equal(require('../scripts/sync-shared.cjs').syncShared(), 5);
+});
 const root = path.resolve(__dirname, '..');
 
 function fixture(t) {

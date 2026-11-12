@@ -30,22 +30,11 @@ async function checkOnce({ stateFile, localTag, show, fetchImpl = globalThis.fet
   if (!TAG.test(localTag)) return false;
   const state = readState(stateFile);
   if (state.enabled === false) return false;
-  const result = await checkRelease({
-    store: state, localTag, now, fetchImpl: async (url, init) => {
-      // Require this pet's published ZIP. A GPT-only release or a draft must not alert DeepSeek users.
-      const response = await fetchImpl(url, { ...init, redirect: 'error' });
-      if (!response.ok) return response;
-      const release = await response.json();
-      const tag = release?.tag_name;
-      const hasZip = TAG.test(tag) && Array.isArray(release.assets) && release.assets.some(asset =>
-        asset?.state === 'uploaded' && asset.size > 0 && asset.name === `DeepSeekActionPet-${tag}-win-x64.zip`);
-      if (release?.draft !== false || release?.prerelease !== false || !hasZip) return { status: 404 };
-      return { status: 200, headers: response.headers, body: release };
-    }
-  });
-  if (!result.skipped) saveState(stateFile, state);
+  const result = await checkRelease({ store: state, localTag, now, fetchImpl, assetKind: 'deepseek' });
+  if (result.skipped !== 'throttled' && result.skipped !== 'rate-limited') saveState(stateFile, state);
   const { latestTag } = result.state;
-  if (!result.ok || !result.state.hasUpdate || !TAG.test(latestTag) || latestTag === state.lastShownTag) return false;
+  if (!result.ok || !result.state.hasUpdate || !TAG.test(latestTag) ||
+      latestTag !== state.lastNotifiedTag || latestTag === state.lastShownTag) return false;
   if (!await show(latestTag, releaseUrl(latestTag))) return false;
   saveState(stateFile, { ...state, lastShownTag: latestTag });
   return true;

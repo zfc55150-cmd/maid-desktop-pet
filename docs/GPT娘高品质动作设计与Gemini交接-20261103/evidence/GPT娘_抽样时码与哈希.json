@@ -1,7 +1,7 @@
 [
   {
     "clip": "proudarms",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\proudarms.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\proudarms.webm",
     "durationSeconds": 6.0,
     "times": [
       0.3,
@@ -15,7 +15,7 @@
   },
   {
     "clip": "challengeaccept",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\challengeaccept.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\challengeaccept.webm",
     "durationSeconds": 6.0,
     "times": [
       0.3,
@@ -29,7 +29,7 @@
   },
   {
     "clip": "skirtbeat",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\skirtbeat.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\skirtbeat.webm",
     "durationSeconds": 6.0,
     "times": [
       0.3,
@@ -43,7 +43,7 @@
   },
   {
     "clip": "fanmishap",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\fanmishap.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\fanmishap.webm",
     "durationSeconds": 6.0,
     "times": [
       0.3,
@@ -57,7 +57,7 @@
   },
   {
     "clip": "lanterninvite",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\lanterninvite.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\lanterninvite.webm",
     "durationSeconds": 6.0,
     "times": [
       0.3,
@@ -71,7 +71,7 @@
   },
   {
     "clip": "walking",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\walking.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\walking.webm",
     "durationSeconds": 6.0,
     "times": [
       0.3,
@@ -85,7 +85,7 @@
   },
   {
     "clip": "flutter",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\flutter.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\flutter.webm",
     "durationSeconds": 6.0,
     "times": [
       0.3,
@@ -99,7 +99,7 @@
   },
   {
     "clip": "tea",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\tea.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\GPTNiangUsage\\gpt-niang-usage\\versions\\0.8.7-electron\\media\\tea.webm",
     "durationSeconds": 6.0,
     "times": [
       0.3,

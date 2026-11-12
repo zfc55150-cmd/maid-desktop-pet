@@ -2,6 +2,8 @@
 
 **便携版**可在 [Release v1.0.1](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.1) 下载，包内自带 Electron 与 Node.js。**已知问题：该版本 DeepSeek 娘在全新解压后可能无法显示桌宠，且 Electron 配置会写到用户目录。**修复候选尚未发布，详见[DeepSeek 便携版修复记录](docs/DeepSeek便携版首启与隔离修复-20261109.md)。
 
+双宠更新提醒已在源码中修复。新的便携下载仍待素材许可和双包验收。截图、录屏、重复实例与异常退出目前为已缓解、待实屏验收。[审计与发布状态](docs/桌宠审计与发布状态-20261112.md)
+
 ## 第 1 步：下载 / Download
 
 打开 [Release v1.0.1 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.1)，选择需要的桌宠：
@@ -58,7 +60,7 @@ node\node.exe app\package-doctor.cjs "%CD%"
 
 两个便携包均由构建脚本在临时目录中生成，出厂前通过**二进制级全量扫描**：
 
-- **无本机用户名残留**：`C:\Users\...` 已彻底脱敏，包括 MSVC 构建中间件（`.exp` / `.obj` / `build.log`）内以**等长字节**替换的硬编码路径；启动时被校验的 `native-lease.node` 未做任何改动（哈希与 `build.json` 一致）
+- **无本机用户名残留**：`%USERPROFILE%` 已彻底脱敏，包括 MSVC 构建中间件（`.exp` / `.obj` / `build.log`）内以**等长字节**替换的硬编码路径；启动时被校验的 `native-lease.node` 未做任何改动（哈希与 `build.json` 一致）
 - **无凭据**：`sk-…`、`AKIA…`、`PRIVATE KEY`、长 `api_key` 字面量全部 0 命中
 - **不含任何用户个人状态**：聊天记录、个人设置、诊断快照、运行日志、pnpm 记账注释均未打包
 - `animation.json` 中 6 条指向构建机的审批/溯源绝对路径已替换为 `<redacted-local-build-path>`，`package-manifest.json` 对应条目同步刷新，故自检仍为 `ok:true`

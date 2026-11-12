@@ -32,7 +32,7 @@ test('semver comparison handles v-prefix, prerelease suffix, equality, and inval
 });
 
 test('url whitelist permits only zfc55150-cmd/maid-desktop-pet https urls', () => {
-  assert.equal(RELEASE_NOTICE_API, 'https://api.github.com/repos/zfc55150-cmd/maid-desktop-pet/releases/latest');
+  assert.equal(RELEASE_NOTICE_API, 'https://api.github.com/repos/zfc55150-cmd/maid-desktop-pet/releases?per_page=10');
   assert.equal(isAllowedReleaseUrl('https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.1'), true);
   assert.equal(isAllowedReleaseUrl('https://github.com/zfc55150-cmd/maid-desktop-pet/releases'), true);
   assert.equal(isAllowedReleaseUrl('http://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.1'), false);
@@ -54,10 +54,11 @@ test('new version notifies once, persists lastNotifiedTag, and throttles daily a
       status: 200,
       ok: true,
       headers: {},
-      json: async () => ({
+      json: async () => ([{
         tag_name: 'v1.0.1',
+        draft: false, prerelease: false,
         html_url: 'https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.1'
-      })
+      }])
     };
   };
 
@@ -200,11 +201,12 @@ test('ProductHost defaults portable release notice to enabled while keeping upst
         status: 200,
         ok: true,
         headers: {},
-        json: async () => ({
+        json: async () => ([{
           tag_name: 'v1.1.0',
+          draft: false, prerelease: false,
           assets: [{ name: 'GPTNiang-v0.8.26-electron-win-x64.zip', state: 'uploaded', size: 100 }],
           html_url: 'https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.1.0'
-        })
+        }])
       })
     });
 
@@ -230,14 +232,46 @@ test('GPT ignores releases without an uploaded nonempty GPT package and clears s
   ]) {
     const store = { latestTag: 'v1.0.9', phase: 'available' };
     const result = await checkReleaseNotice({ store, localTag: 'v1.0.1', assetKind: 'gpt', force: true,
-      fetchImpl: async () => ({ status: 200, json: async () => ({ tag_name: 'v1.0.2', ...payload }) }),
+      fetchImpl: async () => ({ status: 200, json: async () => [{ tag_name: 'v1.0.2', draft: false, prerelease: false, ...payload }] }),
       onNotify: () => assert.fail('must not notify') });
-    assert.equal(result.skipped, 'no-gpt-asset');
+    assert.equal(result.skipped, 'no-matching-release');
     assert.equal(result.state.hasUpdate, false);
   }
   let notified = 0;
   const result = await checkReleaseNotice({ store: {}, localTag: 'v1.0.1', assetKind: 'gpt', force: true,
-    fetchImpl: async () => ({ status: 200, json: async () => ({ tag_name: 'v1.0.2', assets: [gpt] }) }),
+    fetchImpl: async () => ({ status: 200, json: async () => [{ tag_name: 'v1.0.2', draft: false, prerelease: false, assets: [gpt] }] }),
     onNotify: () => notified++ });
   assert.equal(result.state.hasUpdate, true); assert.equal(notified, 1);
+});
+
+test('both pets select the highest compatible formal tag and retry early after no match', async () => {
+  const gpt = 'GPTNiang-v0.8.32-electron-win-x64.zip';
+  const release = (tag_name, ...names) => ({ tag_name, draft: false, prerelease: false,
+    assets: names.map(name => ({ name, state: 'uploaded', size: 100 })) });
+  const ds = tag => `DeepSeekActionPet-${tag}-win-x64.zip`;
+  for (const [assetKind, other, own, expected] of [
+    ['gpt', release('v1.0.6', ds('v1.0.6')), release('v1.0.4', gpt), 'v1.0.4'],
+    ['deepseek', release('v1.0.6', gpt), release('v1.0.4', ds('v1.0.4')), 'v1.0.4']
+  ]) {
+    const store = { phase: 'current', checkedAt: 1794109999000, latestTag: 'v1.0.1' }, notified = [];
+    let releases = [other];
+    let at = 1794110000000, calls = 0;
+    const check = () => checkReleaseNotice({ store, localTag: 'v1.0.1', assetKind, now: () => at,
+      onNotify: notice => notified.push(notice.latestTag),
+      fetchImpl: async () => { calls++; return { status: 200, json: async () => releases }; } });
+    assert.equal((await check()).skipped, 'no-matching-release');
+    releases = [other, release('v1.0.2', gpt, ds('v1.0.2')), own,
+      { ...release('v1.0.9', gpt, ds('v1.0.9')), prerelease: true }];
+    at += 1000;
+    assert.equal((await check()).skipped, 'throttled');
+    at += 3600000;
+    assert.equal((await check()).state.latestTag, expected);
+    assert.deepEqual(notified, [expected]);
+    assert.equal(calls, 2);
+    at += 3600000;
+    assert.equal((await check()).skipped, 'throttled');
+    at += 86400000;
+    assert.equal((await check()).notified, false);
+    assert.deepEqual(notified, [expected]);
+  }
 });

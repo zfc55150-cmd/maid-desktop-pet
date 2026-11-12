@@ -30,22 +30,11 @@ async function checkOnce({ stateFile, localTag, show, fetchImpl = globalThis.fet
   if (!TAG.test(localTag)) return false;
   const state = readState(stateFile);
   if (state.enabled === false) return false;
-  const result = await checkRelease({
-    store: state, localTag, now, fetchImpl: async (url, init) => {
-      // Require this pet's published ZIP. A GPT-only release or a draft must not alert DeepSeek users.
-      const response = await fetchImpl(url, { ...init, redirect: 'error' });
-      if (!response.ok) return response;
-      const release = await response.json();
-      const tag = release?.tag_name;
-      const hasZip = TAG.test(tag) && Array.isArray(release.assets) && release.assets.some(asset =>
-        asset?.state === 'uploaded' && asset.size > 0 && asset.name === `DeepSeekActionPet-${tag}-win-x64.zip`);
-      if (release?.draft !== false || release?.prerelease !== false || !hasZip) return { status: 404 };
-      return { status: 200, headers: response.headers, body: release };
-    }
-  });
-  if (!result.skipped) saveState(stateFile, state);
+  const result = await checkRelease({ store: state, localTag, now, fetchImpl, assetKind: 'deepseek' });
+  if (result.skipped !== 'throttled' && result.skipped !== 'rate-limited') saveState(stateFile, state);
   const { latestTag } = result.state;
-  if (!result.ok || !result.state.hasUpdate || !TAG.test(latestTag) || latestTag === state.lastShownTag) return false;
+  if (!result.ok || !result.state.hasUpdate || !TAG.test(latestTag) ||
+      latestTag !== state.lastNotifiedTag || latestTag === state.lastShownTag) return false;
   if (!await show(latestTag, releaseUrl(latestTag))) return false;
   saveState(stateFile, { ...state, lastShownTag: latestTag });
   return true;
@@ -74,7 +63,7 @@ async function showNotice({ BrowserWindow, screen, shell }, pet, tag, url) {
     // The only dynamic HTML is a strictly validated numeric release tag.
     const html = `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'"><title>DeepSeek 娘更新提醒</title>
 <style>body{font:14px "Segoe UI","Microsoft YaHei",sans-serif;margin:16px;color:#233047}h1{font-size:18px;margin:0 0 8px}p{margin:0 0 14px}a{display:inline-block;padding:6px 12px;margin-right:8px;border:1px solid #b8c5db;border-radius:7px;color:#233047;text-decoration:none}a:first-of-type{background:#2458ab;color:white}</style>
-<h1>DeepSeek 娘有新版本 ${tag}</h1><p>可以前往 GitHub 下载新版便携包。</p><a href="${action}download">前往下载</a><a href="${action}dismiss">知道了</a></html>`;
+<h1>DeepSeek 娘有新版本 ${tag}</h1><p>可以前往 GitHub 查看新版便携包。</p><a href="${action}download">前往下载</a><a href="${action}dismiss">知道了</a></html>`;
     await win.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(html));
     if (win.isDestroyed()) return false;
     if (pet.isDestroyed() || !pet.isVisible()) { win.close(); return false; }

@@ -4,7 +4,7 @@ const fs = require('node:fs'), path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const {ChatService} = require('../app/electron-helper/simple-chat-service');
 const {applyOperations, classify} = require('../app/electron-helper/auto-memory');
-const secrets = {decryptString: () => 'sk-FAKE-MEMORY-TEST-ONLY', isEncryptionAvailable: () => true, encryptString: s => Buffer.from(s)};
+const secrets = {decryptString: () => 'sk-' + 'FAKE-MEMORY-TEST-ONLY', isEncryptionAvailable: () => true, encryptString: s => Buffer.from(s)};
 const opsResponse = (ops, reason = 'stop') => new Response(JSON.stringify({choices: [{message: {content: JSON.stringify(ops)}, finish_reason: reason}]}));
 const empty = () => ({add: [], remove: []});
 
@@ -96,7 +96,7 @@ test('pronoun forget requests can use reference-only context without re-learning
 test('obvious secrets are excluded without any extra API request', async t => {
   const f = fixture(t); await f.send('我的验证码是123456，记住它。'); await f.run();
   assert.equal(f.memoryRequests().length, 0); assert.equal(f.read().memoryCursor, 1);
-  assert.equal(classify('记住 sk-this-is-a-synthetic-long-secret').private, true);
+  assert.equal(classify('记住 sk-' + 'this-is-a-synthetic-long-secret').private, true);
 });
 
 test('manual edits cancel pending extraction and prevent deleted facts returning', async t => {

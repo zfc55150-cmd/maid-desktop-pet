@@ -76,6 +76,7 @@ function main(args) {
     } else throw new Error('Usage: node scripts/verify.cjs [--installed] [--installed-root PATH]');
   }
   const root = path.resolve(__dirname, '..');
+  console.log('Shared files OK: ' + require('./sync-shared.cjs').syncShared());
   const installedRoot = installed ? (explicitRoot || path.join(process.env.LOCALAPPDATA || path.join(require('node:os').homedir(), 'AppData/Local'), 'Programs/DeepSeekActionPet')) : null;
   const manifest = verifyManifest({root, installedRoot});
   console.log('Manifest OK: ' + manifest.sourceFiles + ' source files' + (installedRoot ? ', ' + manifest.installedFiles + ' installed files' : ''));

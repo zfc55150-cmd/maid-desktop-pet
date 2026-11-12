@@ -1,11 +1,14 @@
 'use strict';
 
-const RELEASE_NOTICE_API = 'https://api.github.com/repos/zfc55150-cmd/maid-desktop-pet/releases/latest';
+const RELEASE_NOTICE_API = 'https://api.github.com/repos/zfc55150-cmd/maid-desktop-pet/releases?per_page=10';
 const ALLOWED_URL_PREFIX = 'https://github.com/zfc55150-cmd/maid-desktop-pet/';
 const DEFAULT_DOWNLOAD_URL = 'https://github.com/zfc55150-cmd/maid-desktop-pet/releases';
 const CHECK_INTERVAL_MS = 86400000;
+const NO_ASSET_INTERVAL_MS = 3600000;
 const REQUEST_TIMEOUT_MS = 10000;
 const USER_AGENT = 'maid-desktop-pet-release-notice/1.0';
+const FORMAL_TAG = /^v(?:0|[1-9]\d{0,8})\.(?:0|[1-9]\d{0,8})\.(?:0|[1-9]\d{0,8})$/;
+const GPT_ZIP = /^GPTNiang-v\d+\.\d+\.\d+-electron(?:\.\d+)?-win-x64\.zip$/;
 
 function parseReleaseVersion(tag) {
   if (typeof tag !== 'string') return null;
@@ -26,6 +29,20 @@ function compareReleaseVersions(a, b) {
 
 function isNewerRelease(localTag, remoteTag) {
   return compareReleaseVersions(localTag, remoteTag) === -1;
+}
+
+function newestMatchingRelease(releases, assetKind) {
+  let newest = null;
+  for (const release of releases) {
+    const tag = release?.tag_name;
+    if (release?.draft !== false || release?.prerelease !== false || !FORMAL_TAG.test(tag)) continue;
+    if (assetKind && (!Array.isArray(release.assets) || !release.assets.some(asset =>
+      asset?.state === 'uploaded' && Number.isFinite(asset.size) && asset.size > 0 &&
+      (assetKind === 'gpt' ? GPT_ZIP.test(asset.name) :
+        assetKind === 'deepseek' && asset.name === `DeepSeekActionPet-${tag}-win-x64.zip`)))) continue;
+    if (!newest || isNewerRelease(newest.tag_name, tag)) newest = release;
+  }
+  return newest;
 }
 
 function isAllowedReleaseUrl(url) {
@@ -86,7 +103,7 @@ function formatClock(ms) {
 function normalizeReleaseState(raw = {}, localTag = 'v1.0.0') {
   const v = raw && typeof raw === 'object' ? raw : {};
   const validTag = typeof v.latestTag === 'string' && parseReleaseVersion(v.latestTag) ? v.latestTag.trim() : null;
-  const phase = ['idle', 'checking', 'current', 'available', 'rate-limited', 'failed'].includes(v.phase) ? v.phase : 'idle';
+  const phase = ['idle', 'checking', 'current', 'available', 'no-asset', 'rate-limited', 'failed'].includes(v.phase) ? v.phase : 'idle';
   const url = isAllowedReleaseUrl(v.url) ? v.url : (validTag ? DEFAULT_DOWNLOAD_URL : null);
   const checkedAt = Number.isFinite(v.checkedAt) ? v.checkedAt : null;
   const lastNotifiedTag = typeof v.lastNotifiedTag === 'string' && v.lastNotifiedTag.trim() ? v.lastNotifiedTag.trim() : null;
@@ -114,6 +131,8 @@ function formatReleaseStatusText(state, localTag = 'v1.0.0') {
       return `本仓库新版本：发现新版本 ${s.latestTag}`;
     case 'current':
       return `本仓库新版本：已是最新版本（${s.latestTag || localTag}）`;
+    case 'no-asset':
+      return '本仓库新版本：近期发布中未找到本桌宠的下载包';
     case 'rate-limited':
       return `本仓库新版本：${s.errorReason || `GitHub 访问限流，请于 ${formatClock(s.retryAfterAt)} 后重试`}`;
     case 'failed':
@@ -148,7 +167,8 @@ async function checkReleaseNotice({
   assetKind = null
 } = {}) {
   const nowMs = typeof now === 'function' ? now() : Number(now);
-  const current = normalizeReleaseState(readStore(store), localTag);
+  const saved = readStore(store);
+  const current = normalizeReleaseState(saved, localTag);
 
   if (current.retryAfterAt && nowMs < current.retryAfterAt) {
     const reason = current.errorReason || `GitHub 访问限流，请于 ${formatClock(current.retryAfterAt)} 后重试`;
@@ -165,7 +185,9 @@ async function checkReleaseNotice({
     return { ok: false, skipped: 'rate-limited', notified: false, state: normalizeReleaseState(blocked, localTag) };
   }
 
-  if (!force && mode === 'automatic' && current.checkedAt && nowMs - current.checkedAt < CHECK_INTERVAL_MS) {
+  const interval = current.phase === 'no-asset' ? NO_ASSET_INTERVAL_MS : CHECK_INTERVAL_MS;
+  if (!force && mode === 'automatic' && saved.releaseListChecked === true &&
+      current.checkedAt && nowMs - current.checkedAt < interval) {
     return { ok: true, skipped: 'throttled', notified: false, state: current };
   }
 
@@ -174,6 +196,7 @@ async function checkReleaseNotice({
       latestTag: current.latestTag,
       url: current.url,
       checkedAt: nowMs,
+      releaseListChecked: true,
       phase: 'failed',
       lastNotifiedTag: current.lastNotifiedTag,
       retryAfterAt: null,
@@ -189,6 +212,7 @@ async function checkReleaseNotice({
   try {
     response = await fetchImpl(RELEASE_NOTICE_API, {
       method: 'GET',
+      redirect: 'error',
       headers: {
         'Accept': 'application/vnd.github+json',
         'User-Agent': USER_AGENT
@@ -203,6 +227,7 @@ async function checkReleaseNotice({
       latestTag: current.latestTag,
       url: current.url,
       checkedAt: nowMs,
+      releaseListChecked: true,
       phase: 'failed',
       lastNotifiedTag: current.lastNotifiedTag,
       retryAfterAt: null,
@@ -211,17 +236,17 @@ async function checkReleaseNotice({
     writeStore(store, failed);
     return { ok: false, notified: false, state: normalizeReleaseState(failed, localTag) };
   }
-  clearTimeout(timer);
-
   const status = Number(response?.status ?? (response?.ok ? 200 : 0));
   const remaining = getHeader(response?.headers, 'x-ratelimit-remaining');
   if (status === 403 || status === 429 || (remaining !== null && remaining.trim() === '0')) {
+    clearTimeout(timer);
     const retryAfterAt = computeResetTimeMs(response?.headers, nowMs);
     const reason = `GitHub 访问受限（HTTP ${status || 403}），限流至 ${formatClock(retryAfterAt)}`;
     const rateLimited = {
       latestTag: current.latestTag,
       url: current.url,
       checkedAt: nowMs,
+      releaseListChecked: true,
       phase: 'rate-limited',
       lastNotifiedTag: current.lastNotifiedTag,
       retryAfterAt,
@@ -232,10 +257,12 @@ async function checkReleaseNotice({
   }
 
   if (status < 200 || status >= 300) {
+    clearTimeout(timer);
     const failed = {
       latestTag: current.latestTag,
       url: current.url,
       checkedAt: nowMs,
+      releaseListChecked: true,
       phase: 'failed',
       lastNotifiedTag: current.lastNotifiedTag,
       retryAfterAt: null,
@@ -250,11 +277,13 @@ async function checkReleaseNotice({
     if (typeof response.json === 'function') payload = await response.json();
     else if (typeof response.text === 'function') payload = JSON.parse(await response.text());
     else payload = response.body;
+    if (!Array.isArray(payload)) throw new Error('INVALID_RELEASE_LIST');
   } catch {
     const failed = {
       latestTag: current.latestTag,
       url: current.url,
       checkedAt: nowMs,
+      releaseListChecked: true,
       phase: 'failed',
       lastNotifiedTag: current.lastNotifiedTag,
       retryAfterAt: null,
@@ -262,43 +291,45 @@ async function checkReleaseNotice({
     };
     writeStore(store, failed);
     return { ok: false, notified: false, state: normalizeReleaseState(failed, localTag) };
+  } finally {
+    clearTimeout(timer);
   }
 
-  const rawTag = typeof payload?.tag_name === 'string' ? payload.tag_name.trim() : '';
+  const release = newestMatchingRelease(payload, assetKind);
+  if (!release) {
+    const noAsset = { latestTag: null, url: null, checkedAt: nowMs, releaseListChecked: true, phase: 'no-asset',
+      lastNotifiedTag: current.lastNotifiedTag, retryAfterAt: null, errorReason: null };
+    writeStore(store, noAsset);
+    return { ok: true, skipped: 'no-matching-release', notified: false,
+      state: normalizeReleaseState(noAsset, localTag) };
+  }
+  const rawTag = release.tag_name;
   const cmp = compareReleaseVersions(localTag, rawTag);
   if (cmp === null) {
     const failed = {
       latestTag: current.latestTag,
       url: current.url,
       checkedAt: nowMs,
+      releaseListChecked: true,
       phase: 'failed',
       lastNotifiedTag: current.lastNotifiedTag,
       retryAfterAt: null,
-      errorReason: `远端版本号格式无效（${rawTag || '空'}）`
+      errorReason: '本地发布版本号格式无效'
     };
     writeStore(store, failed);
     return { ok: false, notified: false, state: normalizeReleaseState(failed, localTag) };
   }
 
-  if (assetKind === 'gpt' && (payload?.draft === true || payload?.prerelease === true ||
-      !Array.isArray(payload?.assets) || !payload.assets.some(asset =>
-        asset?.state === 'uploaded' && Number.isFinite(asset.size) && asset.size > 0 &&
-        /^GPTNiang-v\d+\.\d+\.\d+-electron(?:\.\d+)?-win-x64\.zip$/.test(asset.name || '')))) {
-    const noAsset = { latestTag: localTag, url: null, checkedAt: nowMs, phase: 'current',
-      lastNotifiedTag: current.lastNotifiedTag, retryAfterAt: null, errorReason: null };
-    writeStore(store, noAsset);
-    return { ok: true, skipped: 'no-gpt-asset', notified: false,
-      state: normalizeReleaseState(noAsset, localTag) };
-  }
-
-  const safeUrl = sanitizeReleaseUrl(payload?.html_url);
+  const safeUrl = sanitizeReleaseUrl(release.html_url);
   if (cmp === -1) {
-    const shouldNotify = rawTag !== current.lastNotifiedTag;
+    const notifiedComparison = compareReleaseVersions(current.lastNotifiedTag, rawTag);
+    const shouldNotify = notifiedComparison === null || notifiedComparison === -1;
     const nextNotifiedTag = shouldNotify ? rawTag : current.lastNotifiedTag;
     const nextState = {
       latestTag: rawTag,
       url: safeUrl,
       checkedAt: nowMs,
+      releaseListChecked: true,
       phase: 'available',
       lastNotifiedTag: nextNotifiedTag,
       retryAfterAt: null,
@@ -316,6 +347,7 @@ async function checkReleaseNotice({
     latestTag: rawTag,
     url: safeUrl,
     checkedAt: nowMs,
+    releaseListChecked: true,
     phase: 'current',
     lastNotifiedTag: current.lastNotifiedTag,
     retryAfterAt: null,

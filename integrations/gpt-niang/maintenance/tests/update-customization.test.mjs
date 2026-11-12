@@ -8,7 +8,7 @@ import {createHash} from 'node:crypto';
 import {spawnSync} from 'node:child_process';
 
 const maintenance=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const installed=String.raw`C:\Users\USER\AppData\Local\Programs\GPTNiangUsage\gpt-niang-usage`;
+const installed=path.join(process.env.LOCALAPPDATA || path.join(os.homedir(),'AppData/Local'),'Programs/GPTNiangUsage/gpt-niang-usage');
 function fixture(){
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'gpt-update-guard-'));
  const app=path.join(root,'app','gpt-niang-usage'),dataDir=path.join(root,'state'),agentDir=path.join(root,'agent');

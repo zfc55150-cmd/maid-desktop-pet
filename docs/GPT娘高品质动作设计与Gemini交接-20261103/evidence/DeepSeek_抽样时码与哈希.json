@@ -1,7 +1,7 @@
 [
   {
     "clip": "蓝鲸现世",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\蓝鲸现世.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\蓝鲸现世.webm",
     "durationSeconds": 10.04,
     "times": [
       0.502,
@@ -15,7 +15,7 @@
   },
   {
     "clip": "扑克魔术",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\扑克魔术.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\扑克魔术.webm",
     "durationSeconds": 10.04,
     "times": [
       0.502,
@@ -29,7 +29,7 @@
   },
   {
     "clip": "小提琴演奏",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\小提琴演奏.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\小提琴演奏.webm",
     "durationSeconds": 10.04,
     "times": [
       0.502,
@@ -43,7 +43,7 @@
   },
   {
     "clip": "玩游戏气急败坏",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\玩游戏气急败坏.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\玩游戏气急败坏.webm",
     "durationSeconds": 10.04,
     "times": [
       0.502,
@@ -57,7 +57,7 @@
   },
   {
     "clip": "偷吃零食被抓住",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\偷吃零食被抓住.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\偷吃零食被抓住.webm",
     "durationSeconds": 10.04,
     "times": [
       0.502,
@@ -71,7 +71,7 @@
   },
   {
     "clip": "用鲸鱼尾巴拍打地面",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\用鲸鱼尾巴拍打地面.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\用鲸鱼尾巴拍打地面.webm",
     "durationSeconds": 10.04,
     "times": [
       0.502,
@@ -85,7 +85,7 @@
   },
   {
     "clip": "工作状态-清点归档",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\工作状态-清点归档.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\工作状态-清点归档.webm",
     "durationSeconds": 10.04,
     "times": [
       0.502,
@@ -99,7 +99,7 @@
   },
   {
     "clip": "动物环绕",
-    "path": "C:\\Users\\33750\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\动物环绕.webm",
+    "path": "%USERPROFILE%\\AppData\\Local\\Programs\\DeepSeekActionPet\\node_modules\\dsh-pet\\assets\\webm\\动物环绕.webm",
     "durationSeconds": 10.04,
     "times": [
       0.502,

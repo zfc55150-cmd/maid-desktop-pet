@@ -5,7 +5,7 @@
   "clips": [
     {
       "id": "01_c_soft_breath_blink_v2",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\01_c_soft_breath_blink_v2\\c_soft_breath_blink.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\01_c_soft_breath_blink_v2\\c_soft_breath_blink.mp4",
       "filesSha256": {
         "c_soft_breath_blink.mp4": "4fc463e593f105db096350e46a68e5a0c2293205da9da0842b51fe22b90c8298",
         "c_soft_breath_blink.webm": "9806d31cdd0f065ccd70c65de637a4c1393726461116aae95e9d76fc8f453174",
@@ -2395,7 +2395,7 @@
     },
     {
       "id": "02_c_listen_ear_v2",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\02_c_listen_ear_v2\\c_listen_ear.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\02_c_listen_ear_v2\\c_listen_ear.mp4",
       "filesSha256": {
         "c_listen_ear.mp4": "ed768565789c378b5c9d87128ecb6fa937e78feb5b8644b2316a208a1d2644e1",
         "c_listen_ear.webm": "5c255892e24020b65c68d29f7d787bf63ac9c5b1dc4cd3f9e24f87d5402bec64",
@@ -4785,7 +4785,7 @@
     },
     {
       "id": "03_c_tail_tip_settle",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\03_c_tail_tip_settle\\c_tail_tip_settle.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\03_c_tail_tip_settle\\c_tail_tip_settle.mp4",
       "filesSha256": {
         "c_tail_tip_settle.mp4": "298ce13c528afc00cad554f55b625d7de2cb24ecfbff684bccb15a902573a17d",
         "c_tail_tip_settle.webm": "cb214bad193e13815e4ad2525185749e9fd69b69acf3118c00adb4fd095ce390",
@@ -6785,7 +6785,7 @@
     },
     {
       "id": "04_c_brush_fringe",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\04_c_brush_fringe\\c_brush_fringe.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\04_c_brush_fringe\\c_brush_fringe.mp4",
       "filesSha256": {
         "c_brush_fringe.mp4": "9b09fbaf40c7897b7ebb676bc8b151fdbcbb22dffaf1df2693edbdb1f901519d",
         "c_brush_fringe.webm": "813de59d3ffb3acad18164db7128c90954e4df32f84782071395049d5c4fd8eb",
@@ -8785,7 +8785,7 @@
     },
     {
       "id": "05_c_hands_rest",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\05_c_hands_rest\\c_hands_rest.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\05_c_hands_rest\\c_hands_rest.mp4",
       "filesSha256": {
         "c_hands_rest.mp4": "e1c350ecb2303dfcf1c6fff10c368d6a7c0c261d031384e5ebd3ef2c582bffa2",
         "c_hands_rest.webm": "86e54627c67bd483212c182036960c47b6681d611cd56f580b1746f1753e3bf9",
@@ -10785,7 +10785,7 @@
     },
     {
       "id": "06_c_small_weight_settle",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\06_c_small_weight_settle\\c_small_weight_settle.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\06_c_small_weight_settle\\c_small_weight_settle.mp4",
       "filesSha256": {
         "c_small_weight_settle.mp4": "f49852083ceb11196d03aa41bbfd2921f5d7efd3d6eae98b0333b269286bceb0",
         "c_small_weight_settle.webm": "563ae1d201756966411f50b48925ccd20002167304d9ba5167d664f410ec5e08",
@@ -12785,7 +12785,7 @@
     },
     {
       "id": "07_c_notice_user",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\07_c_notice_user\\c_notice_user.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\07_c_notice_user\\c_notice_user.mp4",
       "filesSha256": {
         "c_notice_user.mp4": "730be2e09b9cabc9e4fadf6e7c58a2928dfaf6be0c1c98e69a1d8d338cee8813",
         "c_notice_user.webm": "8e6bf635357b156fa489f3c4073d618bba66ba236d3cb21992d9bb3945b6cdb8",
@@ -14785,7 +14785,7 @@
     },
     {
       "id": "08_c_suppressed_yawn",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\08_c_suppressed_yawn\\c_suppressed_yawn.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\08_c_suppressed_yawn\\c_suppressed_yawn.mp4",
       "filesSha256": {
         "c_suppressed_yawn.mp4": "4c2b34dba55f32dca3c509557566ed641c8b548d8b22c68e2fb532cd0f9dd713",
         "c_suppressed_yawn.webm": "c0731c4058da3e2f02f669e92aa3178b6dbb7e079d25ee4f7b068522e0693101",
@@ -16785,7 +16785,7 @@
     },
     {
       "id": "bridge_b_to_a",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\bridge_b_to_a\\bridge_b_to_a.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\bridge_b_to_a\\bridge_b_to_a.mp4",
       "filesSha256": {
         "bridge_b_to_a.mp4": "53a38c3c1bb92a92dcf8f72045acaba4c4188290fdfc504e9cc38476af6a2509",
         "bridge_b_to_a.webm": "ae6ce53b59550095b72ca405eea269a3ee1b63b1623b8023f436ea0d559819b7",
@@ -18395,7 +18395,7 @@
     },
     {
       "id": "bridge_a_to_c",
-      "source": "C:\\Users\\33750\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\bridge_a_to_c\\bridge_a_to_c.mp4",
+      "source": "%USERPROFILE%\\Documents\\Codex_产出\\DeepSeek桌宠\\GPT娘菜单与待机优化-20261103\\新素材交付_20261103\\bridge_a_to_c\\bridge_a_to_c.mp4",
       "filesSha256": {
         "bridge_a_to_c.mp4": "b6f5c68f587f23c327792b65850aa77c3d03825d33d23c530920beff9263aaa9",
         "bridge_a_to_c.webm": "7ac8bac939a120d1991eba5d730a051822ba894c5ecca9281176aebf74358e00",

@@ -1,8 +1,10 @@
 {
   "name": "gpt-niang-desktop-electron",
   "version": "0.8.26-electron",
-  "releaseTag": "v1.0.1",
   "private": true,
   "type": "commonjs",
-  "main": "app/main.cjs"
+  "main": "app/main.cjs",
+  "scripts": {
+    "test": "node -e \"require('node:fs').mkdirSync('work',{recursive:true})\" && node --test *.test.cjs"
+  }
 }

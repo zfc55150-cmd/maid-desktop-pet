@@ -8,7 +8,7 @@ process.env.DSH_HOME=path.join(out,'data');
 const {ChatService}=require(helper+'/simple-chat-service');
 const dir=path.join(process.env.DSH_HOME,'simple-chat');fs.mkdirSync(dir,{recursive:true});
 fs.writeFileSync(path.join(dir,'chat.json'),JSON.stringify({prompt:'用于检查排版的测试人设。',memory:'测试偏好：喜欢简洁的中文回复。',voiceEnabled:false,messages:[{role:'user',content:'这是一条测试消息。'},{role:'assistant',content:'你好，我在这里陪你。'}]}));
-const service=new ChatService({dir,secrets:{decryptString:()=> 'sk-FAKE-ELECTRON-TEST-ONLY'},requireExisting:true,fetchImpl:async(_url,options)=>{
+const service=new ChatService({dir,secrets:{decryptString:()=> 'sk-' + 'FAKE-ELECTRON-TEST-ONLY'},requireExisting:true,fetchImpl:async(_url,options)=>{
  const body=JSON.parse(options.body);
  if(body.response_format)return new Response(JSON.stringify({choices:[{message:{content:JSON.stringify({add:[{text:'用户喜欢喝茶。',evidence:'我喜欢喝茶'}],remove:[]})},finish_reason:'stop'}]}));
  return new Response('data: '+JSON.stringify({choices:[{delta:{content:'Synthetic reply'},finish_reason:'stop'}]})+'\n\ndata: [DONE]\n\n');

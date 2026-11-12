@@ -26,19 +26,19 @@
 
 真实桌面重启的肉眼观感仍由用户复核；不将隔离窗口尺寸检查称为逐帧屏幕录像或艺术验收。修复仅纠正首次显示换算，不调整用户大小偏好。
 
-GPT娘回退备份：`C:\Users\33750\AppData\Local\GPTNiangUsage\state\animation-backups\20261101-234016-3887c6fb3c914c9d949b179b470e03fe`。从项目根目录执行：
+GPT娘回退备份：`%USERPROFILE%\AppData\Local\GPTNiangUsage\state\animation-backups\20261101-234016-3887c6fb3c914c9d949b179b470e03fe`。从项目根目录执行：
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File work/gpt-startup-size-20261101-02/reviewed-delta.ps1 -RollbackBackup 'C:\Users\33750\AppData\Local\GPTNiangUsage\state\animation-backups\20261101-234016-3887c6fb3c914c9d949b179b470e03fe' -Apply
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File work/gpt-startup-size-20261101-02/reviewed-delta.ps1 -RollbackBackup '%USERPROFILE%\AppData\Local\GPTNiangUsage\state\animation-backups\20261101-234016-3887c6fb3c914c9d949b179b470e03fe' -Apply
 ```
 
 ## DeepSeek娘登录自启动
 
 已在当前用户Windows启动文件夹创建 `DeepSeekActionPet.lnk`：
 
-`C:\Users\33750\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\DeepSeekActionPet.lnk`
+`%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\DeepSeekActionPet.lnk`
 
-目标为系统 `wscript.exe`，参数为现有安装目录的 `start.vbs`，工作目录为 `C:\Users\33750\AppData\Local\Programs\DeepSeekActionPet`。复用现有隐藏窗口启动及固定端口/单实例保护；不添加第二套宿主、服务或计划任务，不重启DeepSeek。当前启动文件夹此前无其他桌宠入口，所选快捷方式不存在，StartupApproved中也无禁用项。
+目标为系统 `wscript.exe`，参数为现有安装目录的 `start.vbs`，工作目录为 `%USERPROFILE%\AppData\Local\Programs\DeepSeekActionPet`。复用现有隐藏窗口启动及固定端口/单实例保护；不添加第二套宿主、服务或计划任务，不重启DeepSeek。当前启动文件夹此前无其他桌宠入口，所选快捷方式不存在，StartupApproved中也无禁用项。
 
 脚本：`scripts/install-deepseek-autostart.ps1`，默认只预检，`-Apply`创建。写后重新打开快捷方式，核对目标/参数/目录；再次预检显示alreadyPresent=true、wasDisabled=false。receipt保存在 `work/deepseek-autostart-20261101-01/receipt.json`。创建前无同名入口，无需覆盖旧快捷方式；未修改StartupApproved记录。
 

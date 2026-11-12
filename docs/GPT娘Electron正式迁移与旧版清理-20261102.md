@@ -4,15 +4,15 @@
 
 用户已明确安排“把这个当作正式版，剩余内容补齐，全部改好后删除旧版本”。原正式启动入口现已切至 **0.8.0-electron**。原WPF人物不再是日常入口；清单中的300个旧人物程序、PNG图集和旧UI测试文件已删除。必要的服务兼容代码与回退归档保留。
 
-正式人物目录：`C:\Users\33750\AppData\Local\Programs\GPTNiangUsage\gpt-niang-usage\versions\0.8.0-electron`。
+正式人物目录：`%USERPROFILE%\AppData\Local\Programs\GPTNiangUsage\gpt-niang-usage\versions\0.8.0-electron`。
 
-个人数据目录：`C:\Users\33750\AppData\Local\GPTNiangUsage\state`，未迁移或覆盖。既有settings.json、pet-form.json、quotes.json的最终哈希与交接前一致。个人聊天和密钥未复制、导出或提交；任务观察沿用原元数据输出边界。DeepSeek的51项部署文件及GPT稳定代理8项文件仍与冻结基线一致。
+个人数据目录：`%USERPROFILE%\AppData\Local\GPTNiangUsage\state`，未迁移或覆盖。既有settings.json、pet-form.json、quotes.json的最终哈希与交接前一致。个人聊天和密钥未复制、导出或提交；任务观察沿用原元数据输出边界。DeepSeek的51项部署文件及GPT稳定代理8项文件仍与冻结基线一致。
 
-机器结论保存在 `C:\Users\33750\Documents\ChatGPT\女仆桌宠\work\gpt-electron-formal-20261102-01\final-audit.json`；实时身份与固定错误码在正式人物目录diagnostics.json中。原额度插件协议仍保留自身版本号，不能以它代替人物版本号。
+机器结论保存在 `%USERPROFILE%\Documents\ChatGPT\女仆桌宠\work\gpt-electron-formal-20261102-01\final-audit.json`；实时身份与固定错误码在正式人物目录diagnostics.json中。原额度插件协议仍保留自身版本号，不能以它代替人物版本号。
 
 ## 架构与责任
 
-维护源码位于 `C:\Users\33750\Documents\ChatGPT\女仆桌宠\integrations\gpt-niang\product-electron`。
+维护源码位于 `%USERPROFILE%\Documents\ChatGPT\女仆桌宠\integrations\gpt-niang\product-electron`。
 
 | 层 | 责任与主要模块 |
 | --- | --- |
@@ -61,7 +61,7 @@ Windows状态快照采用异步合并、独立临时文件与原子替换。遇�
 
 本轮查到并修正的实际缺陷包括：设置窗口标题被HTML覆盖、离屏测试意外置顶请求、半身接错原图、静态图尚未合成就报告就绪、退出驻留、父目录ESM设置导致正式安装首次启动失败、额度卡片不跟随后续缓存、长路线缓存淘汰后的命中交接、配色产生矩形色层，以及Windows短暂文件读锁导致状态写入失败。失败回执保留，未将失败写成成功。
 
-执行证据目录：`C:\Users\33750\Documents\ChatGPT\女仆桌宠\work\gpt-electron-formal-20261102-01`，重点为installed-full-smoke.json、installed-product-smoke.json、final-regressions.txt、final-audit.json、formal-package-manifest.json、formal-deployment-receipt.json及live-resources.json。
+执行证据目录：`%USERPROFILE%\Documents\ChatGPT\女仆桌宠\work\gpt-electron-formal-20261102-01`，重点为installed-full-smoke.json、installed-product-smoke.json、final-regressions.txt、final-audit.json、formal-package-manifest.json、formal-deployment-receipt.json及live-resources.json。
 
 ## 真实体验与资源边界
 
@@ -73,7 +73,7 @@ Windows状态快照采用异步合并、独立临时文件与原子替换。遇�
 
 ## 启动、退出与回退
 
-继续使用原“打开GPT娘.cmd”或原开机入口。也可用 `C:\Users\33750\Documents\ChatGPT\女仆桌宠\integrations\gpt-niang\product-electron\打开GPT娘正式版.cmd`。旧“打开透明桌面试用.cmd”现指向正式启动器，不再启动旧恢复控制器。
+继续使用原“打开GPT娘.cmd”或原开机入口。也可用 `%USERPROFILE%\Documents\ChatGPT\女仆桌宠\integrations\gpt-niang\product-electron\打开GPT娘正式版.cmd`。旧“打开透明桌面试用.cmd”现指向正式启动器，不再启动旧恢复控制器。
 
 右键人物打开菜单，选择“设置与功能”。选择“退出GPT娘”后暂停自动拉起；再次使用正式启动入口即可恢复。没有五分钟到时切回WPF的机制。
 

@@ -29,6 +29,10 @@ process.on('uncaughtException',failure=>{
  const frames=typeof failure?.stack==='string'?failure.stack.split('\n'):[];
  stats.mainException={phase:motion?.phase||'startup',frames:frames.map(line=>
   line.match(/[\\/]app[\\/]([\w.-]+\.(?:cjs|js):\d+:\d+)\)?$/)?.[1]).filter(Boolean).slice(0,6)};
+ try{
+  fs.writeFileSync(path.join(root,testOnly?'test-main-exception.json':'diagnostics-main-exception.json'),
+   JSON.stringify({at:new Date().toISOString(),version:catalog.revision,code:'MAIN_UNCAUGHT_EXCEPTION',...stats.mainException})+'\n');
+ }catch{}
  if(closing){app.exit(1);return;}
  close('failure').catch(()=>app.exit(1));
 });
