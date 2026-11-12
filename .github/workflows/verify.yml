@@ -1,0 +1,28 @@
+name: Verify desktop pets
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Check JavaScript syntax
+        shell: pwsh
+        run: |
+          $files = git -c core.quotePath=false ls-files -- '*.js' '*.cjs' '*.mjs'
+          foreach ($file in $files) {
+            node --check $file
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          Write-Output "Syntax OK ($($files.Count) files)"
+      - run: node scripts/verify.cjs
+      - name: Run GPT product tests and package doctor fixture
+        run: npm --prefix integrations/gpt-niang/product-electron test
