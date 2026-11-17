@@ -1,19 +1,17 @@
 # 🚀 新手 3 步快速下载与启动指南 / Quick start (3 steps)
 
-**便携版**可在 [Release v1.0.1](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.1) 下载，包内自带 Electron 与 Node.js。**已知问题：该版本 DeepSeek 娘在全新解压后可能无法显示桌宠，且 Electron 配置会写到用户目录。**修复候选尚未发布，详见[DeepSeek 便携版修复记录](docs/DeepSeek便携版首启与隔离修复-20261109.md)。
-
-2026-11-11 的 DeepSeek 本地候选已复验首启和独立停止，双包仍在核对再分发许可。GPT 娘的录屏与截图、重复实例、异常退出均记为**已缓解，待实屏验收**。[审计处理记录](docs/Muse审计处理记录-20261111.md)
+**便携版**可在 [Release v1.0.4](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.4) 下载，包内自带 Electron 与 Node.js。两款包内的角色与动画素材均仅限非商业署名分享（`CC BY-NC-SA 4.0`，详见各包根目录 `ANIMATION-LICENSE.md`），且已完成包内 `state/` 隔离与双副本独立停止修复。详见[素材补证与双宠同步记录](docs/GPT娘素材补证与双宠同步-20261117.md)。
 
 ## 第 1 步：下载 / Download
 
-打开 [Release v1.0.1 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.1)，选择需要的桌宠：
+打开 [Release v1.0.4 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.4)，选择需要的桌宠：
 
 | 附件 | 桌宠 | 大小 | 内容 |
 |---|---|---|---|
-| [GPTNiang-v0.8.22-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.1/GPTNiang-v0.8.22-electron-win-x64.zip) | **GPT娘** | 303.4 MiB | 54 段动画、9384 帧，素材画布 384×384 |
-| [DeepSeekActionPet-v1.0.1-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.1/DeepSeekActionPet-v1.0.1-win-x64.zip) | **DeepSeek娘** | 237.2 MiB | 修复首次保存 API Key，语音运行环境为选配 |
+| [GPTNiang-v0.8.38-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.4/GPTNiang-v0.8.38-electron-win-x64.zip) | **GPT娘** | 433.9 MiB | `0.8.38-electron`：59 段动画、10,948 帧，Codex 连接与用量面板、拖动微倾、崩溃自恢复 |
+| [DeepSeekActionPet-v1.0.4-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.4/DeepSeekActionPet-v1.0.4-win-x64.zip) | **DeepSeek娘** | 232.8 MiB | 106 段透明动画，包内首启与 Electron profile 隔离、右键退出与新版提醒 |
 
-两个包可同时下载。DeepSeek v1.0.1 的便携与安装版本仍会共用 Electron 配置，详见下方说明。
+两个包可同时下载运行；下载后可用同页 `SHA256SUMS.txt` 校验文件完整性。
 
 ## 第 2 步：解压 / Extract
 
@@ -34,27 +32,27 @@
 
 每个包内均附 `PORTABLE-README.md`：完整使用说明、隔离机制、故障排查与隐私声明。
 
-维护入口：[仓库同步、推送前检查与便携版发布](docs/仓库同步与便携版发布.md)。已发布的 v1.0.1 中，GPT 娘带版本提醒；DeepSeek 娘需先手动换成带提醒的新包。
+维护入口：[仓库同步、推送前检查与便携版发布](docs/仓库同步与便携版发布.md)。已发布的 v1.0.4 双宠均带轻量版本提醒；若仍在使用旧版 v1.0.1 DeepSeek 娘，需先手动替换为 v1.0.4 新包。
 
 ## 常见问题 / FAQ
 
 - **GPT娘首次启动做了什么？** 启动器先运行 `portable\bootstrap.cjs`，按解压位置动态生成 `product.json` / `installation.json`，并在 `state\` 写入默认设置（缩放 1.26、不跟随宿主窗口）。不写注册表、不创建开机自启、不改系统目录；Electron 用户数据也落在包内 `state\electron\profile`，与已安装版本完全隔离。
-- **DeepSeek娘为什么没有语音？** 原语音子系统约 9.6 GB：Python 虚拟环境 5.2 GB 由 `pyvenv.cfg` 硬编码绝对路径、换机即失效，模型权重 4.3 GB 可重新下载。故核心包不含语音，桌宠本体功能不受影响；恢复步骤见包内 `PORTABLE-README.md` 第六节。
-- **会和已安装的正式版冲突吗？** v1.0.1 的 DeepSeek 状态和端口有区分，但 Electron 配置目录与安装版共用；停止脚本在路径前缀相同时也可能误认其他副本。修复候选尚未公开。
-- **便携版有哪些功能不可用？** GPT娘便携版不含应用商店兼容层，故 ChatGPT/Codex 额度显示、上游安装型自动更新、开机自启、Codex 插件注册不可用；桌宠本体（动画、点击、拖拽、缩放、气泡语录、形象图库、设置面板、自定义音效）完全正常。便携版默认开启针对本仓库（`zfc55150-cmd/maid-desktop-pet`）的轻量版本提醒（仅检查、气泡提醒一次并提供跳转下载页按钮），而上游覆盖安装器已在包内主动关闭，避免绿色版自我改写。
-- **如何清除？** 停止后删除解压目录可清除其中的数据；v1.0.1 DeepSeek 的 Electron 配置另存用户目录，删除包不会自动删除它。
+- **DeepSeek娘为什么没有语音？** 原语音子系统约 9.6 GB：Python 虚拟环境 5.2 GB 由 `pyvenv.cfg` 硬编码绝对路径、换机即失效，模型权重 4.3 GB 可重新下载。故核心包不含语音，桌宠本体功能不受影响；恢复步骤见包内 `PORTABLE-README.md`。
+- **会和已安装的正式版冲突吗？** 不会。v1.0.4 两款便携版的配置、运行状态、Electron 用户目录和进程停止逻辑均与解压目录绑定；同一台电脑也可同时运行多个便携副本互不干扰。
+- **便携版有哪些功能不可用？** GPT娘便携版支持本体动画、点击、拖拽、缩放、气泡语录、形象图库、设置面板与本地 Codex 连接/用量面板（需本机已安装 Codex）；不含应用商店兼容层，故上游安装型自动更新与开机自启已在包内主动关闭，仅保留本仓库（`zfc55150-cmd/maid-desktop-pet`）的轻量版本提醒（仅检查、气泡提醒一次并提供跳转下载页按钮）。
+- **如何清除？** 停止后删除解压目录即可清除其中的所有配置、缓存与日志。
 - **杀毒软件报毒？** 请先核对下载来源和 SHA-256，再检查安全软件给出的具体原因。聊天功能会将请求内容发送给 DeepSeek。
 
 ## 完整性自检 / Integrity self-check
 
-GPT娘包内附官方自检工具，可校验 **281 个受 SHA-256 保护的文件**与 **51 段视频哈希**：
+GPT娘包内附官方自检工具，可校验 **283 个受 SHA-256 保护的文件**与 **59 段视频哈希**：
 
 ```bat
 cd /d "你的解压目录"
 node\node.exe app\package-doctor.cjs "%CD%"
 ```
 
-期望输出：`{"ok":true,"version":"0.8.22-electron","files":285,"clips":54,"frames":9384,...}`
+期望输出：`{"ok":true,"version":"0.8.38-electron","releaseTag":"v1.0.4","files":283,"clips":59,"frames":10948,...}`
 
 ## 隐私保证 / Privacy guarantee
 
