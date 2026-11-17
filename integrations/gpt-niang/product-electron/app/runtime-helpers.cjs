@@ -33,9 +33,16 @@ function resolvePackageRoot(argv = process.argv, appDir = __dirname) {
 
 function loadProductConfig(argv = process.argv, appDir = __dirname, readJson = defaultReadJson) {
   const resolved = resolvePackageRoot(argv, appDir);
-  const tried = [path.join(resolved.root, 'product.json')];
-  const cfg = readJson(tried[0]);
-  if (cfg) return {root: resolved.root, cfg, source: resolved.source};
+  const candidates = resolved.root === resolved.fallback ? [resolved.root] : [resolved.root, resolved.fallback];
+  const tried = candidates.map(r => path.join(r, 'product.json'));
+  for (const r of candidates) {
+    const cfg = readJson(path.join(r, 'product.json'));
+    if (cfg) {
+      if (typeof cfg.dataDir === 'string') cfg.dataDir = path.resolve(r, cfg.dataDir);
+      if (typeof cfg.compatRoot === 'string') cfg.compatRoot = path.resolve(r, cfg.compatRoot);
+      return {root: r, cfg, source: r === resolved.root ? resolved.source : 'default'};
+    }
+  }
   throw new Error('PRODUCT_PACKAGE_REQUIRED: product.json not readable at ' + tried.join(', '));
 }
 
