@@ -8,6 +8,9 @@
   const PHRASES = ['好模型…↓', '好女孩…↓', '哦鲸鲸…', '难道说…', '没吃饱喵',
     '终于上当了！', '不知道用户有什么用，先养着吧～', '我…我…我也要挣钱吗？',
     '我去吃饭啦！测完叫我', '压力一只蓝色大肥鱼？！'];
+  const DRAGON_PHRASES = ['哼，本龙娘今天也很精神哦~', '别一直盯着本龙娘的龙角看啦！',
+    '主人在忙什么呢？陪我玩嘛~', '再戳我脸颊，本龙娘要鼓腮帮子咯！',
+    '尾巴可不能随便乱摸的！', '夸夸本龙娘，今天给你加满好运~'];
   function bustBox(size, height, bottomPad, bodyWidth) {
     const edge=bodyWidth*0.8;
     return {left:(size-edge)/2, top:height-bottomPad-edge, width:edge, height:edge, bottom:bottomPad};
@@ -16,22 +19,31 @@
     constructor(sprite, options={}) {
       this.sprite=sprite;this.storage=options.storage||root.localStorage;
       this.random=options.random||Math.random;this.lastLine=-1;this.lastChatterAt=-Infinity;this.pressed=false;this.chatterView=null;
-      this.key='deepseek-pet-form:'+sprite.pet.id;this.mode='full';this.target='full';this.disposed=false;this.task=null;
+      const petId=sprite.pet?.id||'main',isWhale=petId==='main';
+      this.isWhale=isWhale;this.src=options.src||sprite.pet?.bustSrc||(isWhale?imageURL:null);
+      this.supported=Boolean(this.src);
+      this.phrases=Array.isArray(sprite.pet?.bustPhrases)&&sprite.pet.bustPhrases.length?sprite.pet.bustPhrases:(petId==='gptniang'?DRAGON_PHRASES:PHRASES);
+      this.key='deepseek-pet-form:'+petId;this.mode='full';this.target='full';this.disposed=false;this.task=null;
       this.full=sprite.fullLayer;this.image=root.document.createElement('img');
-      this.image.className='pet-bust';this.image.alt='蓝鲸女仆半身';this.image.draggable=false;
+      this.image.className='pet-bust';this.image.alt=isWhale?'蓝鲸女仆半身':(sprite.pet?.name||'桌宠')+'半身';this.image.draggable=false;
       const box=bustBox(sprite.size,sprite.height,sprite.bottomPad,sprite.hitRect.w);
       this.box=box;
       Object.assign(this.image.style,{left:box.left+'px',width:box.width+'px',height:box.height+'px',bottom:box.bottom+'px'});
       sprite.stage.insertBefore(this.image,sprite.hit);
-      this.load=new Promise((resolve,reject)=>{
-        const finish=(error)=>{root.clearTimeout(timer);this.image.onload=this.image.onerror=null;error?reject(error):resolve();};
-        const timer=root.setTimeout(()=>finish(new Error('半身图片暂时无法读取，已保留全身形象。')),5000);
-        this.image.onload=()=>finish();this.image.onerror=()=>finish(new Error('半身图片暂时无法读取，已保留全身形象。'));
-      });
-      // Handle errors even when this session stays in full-body mode.
-      this.load.catch(()=>{});this.image.src=options.src||imageURL;
+      if(this.supported){
+        this.load=new Promise((resolve,reject)=>{
+          const finish=(error)=>{root.clearTimeout(timer);this.image.onload=this.image.onerror=null;error?reject(error):resolve();};
+          const timer=root.setTimeout(()=>finish(new Error('半身图片暂时无法读取，已保留全身形象。')),5000);
+          this.image.onload=()=>finish();this.image.onerror=()=>finish(new Error('半身图片暂时无法读取，已保留全身形象。'));
+        });
+        // Handle errors even when this session stays in full-body mode.
+        this.load.catch(()=>{});this.image.src=this.src;
+      }else{
+        this.load=Promise.reject(new Error('当前角色仅支持全身动态形态。'));
+        this.load.catch(()=>{});
+      }
       let saved;try{saved=this.storage.getItem(this.key);}catch{}
-      if(saved==='bust'){
+      if(saved==='bust'&&this.supported){
         this.target='bust';
         this.full.style.opacity='0';
         this.ready=this.load.then(()=>{if(!this.disposed){this.apply('bust');this.image.style.opacity='1';}}).catch(error=>{if(!this.disposed){this.apply('full');this.full.style.opacity='1';sprite.inlineChat.bubble(error.message);}});
@@ -105,14 +117,15 @@
       if(this.mode!=='bust')return false;
       if(this.task||this.disposed||this.protectedInteraction())return true;
       const now=Date.now();if(now-this.lastChatterAt<350)return true;
-      let next=Math.floor(this.random()*(PHRASES.length-(this.lastLine<0?0:1)));
+      const phrases=this.phrases||PHRASES;
+      let next=Math.floor(this.random()*(phrases.length-(this.lastLine<0?0:1)));
       if(this.lastLine>=0&&next>=this.lastLine)next++;
       this.lastLine=next;this.lastChatterAt=now;
-      this.sprite.inlineChat.bubble(PHRASES[next],5500);
+      this.sprite.inlineChat.bubble(phrases[next],5500);
       this.chatterView=this.sprite.whisperView;
       return true;
     }
-    soundEnabled() {return !this.disposed&&this.mode==='bust'&&this.sprite.inlineChat.state?.voiceEnabled===true&&!this.protectedInteraction();}
+    soundEnabled() {return !this.disposed&&(this.isWhale||Boolean(this.sprite.pet?.bustSound))&&this.mode==='bust'&&this.sprite.inlineChat.state?.voiceEnabled===true&&!this.protectedInteraction();}
     playSound(down) {
       if(!this.soundEnabled()||!root.Audio){this.stopSound();return;}
       if(down){

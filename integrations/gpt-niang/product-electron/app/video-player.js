@@ -18,11 +18,15 @@
    if(this.clip===step.clip&&this.front>=0&&this.sequence&&this.retain(owner))return Promise.resolve(true);
    return this.playSequence([{...step,reuse:true}],owner);
   }
-  prewarmIdle(){
-   if(!this.env.idleClip||this.clip===this.env.idleClip||this.front<0||this.pendingCancel||this.disposed)return;
-   const standby=this.videos[this.front===0?1:0],url=this.resolve(this.env.idleClip);
-   if(standby.src===url)return;
-   standby.pause();standby.onended=null;standby.style.transition='none';standby.style.opacity='0';standby.loop=true;standby.src=url;standby.load();
+  prewarmNext(steps,index){
+   if(this.front<0||this.pendingCancel||this.disposed)return;
+   const next=steps[index+1];
+   const clip=next?.clip??this.env.idleClip;
+   if(!clip||clip===this.clip)return;
+   const standby=this.videos[this.front===0?1:0],url=this.resolve(clip);
+   if(standby.src===url&&standby.currentTime===0&&!standby.error)return;
+   standby.pause();standby.onended=null;standby.style.transition='none';standby.style.opacity='0';
+   standby.loop=next?!!next.loop:true;standby.src=url;standby.load();
   }
   async switch(steps,index,token){
    if(this.disposed||this.generation!==token)return false;
@@ -61,7 +65,7 @@
       this.bindEnd(target,steps,index,token,presentation);
       if(this.frames.length<16384)this.frames.push({clip:step.clip,token,mediaTime:metadata.mediaTime,presentedFrames:metadata.presentedFrames,at:now});
       this.publish(target,step,token,metadata);
-      this.monitor(target,step,token,presentation);target.play().catch(()=>{if(current())this.onError?.({...step.owner,clip:step.clip,code:'MEDIA_PLAY_FAILED'});});complete(true);this.prewarmIdle();
+      this.monitor(target,step,token,presentation);target.play().catch(()=>{if(current())this.onError?.({...step.owner,clip:step.clip,code:'MEDIA_PLAY_FAILED'});});complete(true);this.prewarmNext(steps,index);
     };
     const ready=()=>{
      if(settled||!current()){complete(false);return;}
@@ -79,9 +83,13 @@
     this.pendingCancel=cancel;target.pause();target.onended=null;target.loop=!!step.loop;
     target.addEventListener('loadeddata',ready,{once:true});target.addEventListener('error',error,{once:true});
     timer=setTimeout(error,10000);
-    // Reuse a decoded standby loop without clearing its valid first frame.
-    if(step.reuse&&target.src===url&&target.readyState>=2&&!target.seeking&&!target.error){commit(this.env.now(),{mediaTime:target.currentTime||0,presentedFrames:0});}
-    else{target.src=url;frameId=target.requestVideoFrameCallback(commit);target.load();}
+    // The matching paused standby already contains, or is decoding, frame zero.
+    const atStart=target.src===url&&target.currentTime===0&&!target.seeking&&!target.error;
+    if(atStart&&target.readyState>=2){commit(this.env.now(),{mediaTime:0,presentedFrames:0});}
+    else{
+      frameId=target.requestVideoFrameCallback(commit);
+      if(!atStart){target.src=url;target.load();}
+    }
    });
   }
   bindEnd(video,steps,index,token,presentation){

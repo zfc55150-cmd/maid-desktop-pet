@@ -2,7 +2,77 @@
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),{pathToFileURL}=require('node:url'),{spawn}=require('node:child_process'),{SettingsStore}=require('./settings-store.cjs');
 const bounded=(n,low,high,fallback)=>Number.isFinite(n)&&n>=low&&n<=high?n:fallback;
 function readJson(file,fallback=null){try{if(fs.statSync(file).size>1024*1024)return fallback;return JSON.parse(fs.readFileSync(file,'utf8').replace(/^\uFEFF/,''));}catch{return fallback;}}
-function publicQuota(value){return {ok:value?.ok===true,queryOk:value?.queryOk===true,planLabel:typeof value?.planLabel==='string'?value.planLabel.slice(0,80):'',observedAt:Number.isFinite(value?.observedAt)?value.observedAt:null,checkedAt:Number.isFinite(value?.checkedAt)?value.checkedAt:null,windows:(Array.isArray(value?.windows)?value.windows:[]).slice(0,8).map(w=>({label:typeof w.label==='string'?w.label.slice(0,60):'额度',remaining:bounded(w.remaining,0,100,null),used:bounded(w.used,0,100,null),minutes:Number.isFinite(w.minutes)?w.minutes:null,resetsAt:Number.isFinite(w.resetsAt)?w.resetsAt:null})),errorCode:value?.ok&&value?.queryOk?null:'QUOTA_UNAVAILABLE'};}
+function safeQuotaError(value){
+ if(typeof value!=='string')return '';
+ const cleaned=value.replace(/[\x00-\x1f\x7f]/g,' ').trim().slice(0,160);
+ if(!cleaned||/sk-[a-zA-Z0-9_-]{8,}|Bearer\s+\S+|[^\s@]+@[^\s@]+\.[^\s@]+/i.test(cleaned))return '';
+ return cleaned;
+}
+function resolveCodexCli(configuredPath,{env=process.env,platform=process.platform}={}) {
+ const isFile=file=>{try{return fs.statSync(file).isFile();}catch{return false;}};
+ if(typeof configuredPath==='string'&&isFile(configuredPath))return configuredPath;
+ const executable=platform==='win32'?'codex.exe':'codex';
+ if(platform==='darwin'){
+  const applications=env.GPT_NIANG_CODEX_APP?[env.GPT_NIANG_CODEX_APP]:[
+   '/Applications/Codex.app',
+   ...(env.HOME?[path.join(env.HOME,'Applications','Codex.app')]:[]),
+   '/Applications/ChatGPT.app',
+   ...(env.HOME?[path.join(env.HOME,'Applications','ChatGPT.app')]:[])
+  ];
+  for(const appDir of applications){
+   for(const relative of ['Contents/Resources/codex-cli/bin/codex','Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex','Contents/Resources/codex']){
+    const file=path.join(appDir,relative);
+    if(isFile(file))return file;
+   }
+  }
+ }
+ const localData=env.LOCALAPPDATA??env.LocalAppData;
+ if(platform==='win32'&&localData){
+  const binRoot=path.join(localData,'OpenAI','Codex','bin');
+  const candidates=[];
+  const add=file=>{try{const stat=fs.statSync(file);if(stat.isFile())candidates.push({file,modified:stat.mtimeMs});}catch{}};
+  add(path.join(binRoot,executable));
+  try{for(const entry of fs.readdirSync(binRoot,{withFileTypes:true})){if(entry.isDirectory())add(path.join(binRoot,entry.name,executable));}}catch{}
+  candidates.sort((a,b)=>b.modified-a.modified||a.file.localeCompare(b.file));
+  if(candidates.length)return candidates[0].file;
+ }
+ for(const directory of (env.PATH??env.Path??'').split(platform==='win32'?';':':')){
+  const trimmed=directory.trim().replace(/^"(.*)"$/,'$1');
+  if(!trimmed)continue;
+  const file=path.join(trimmed,executable);
+  if(isFile(file))return file;
+ }
+ return null;
+}
+function publicQuota(value){
+ const ok=value?.ok===true,queryOk=value?.queryOk===true;
+ const authType=['chatgpt','chatgptAuthTokens','apiKey'].includes(value?.authType)?value.authType:null;
+ const connected=ok||authType==='chatgpt'||authType==='chatgptAuthTokens';
+ const errorCode=ok&&queryOk?null:(typeof value?.errorCode==='string'&&/^[A-Z0-9_]{2,60}$/.test(value.errorCode)?value.errorCode:'QUOTA_UNAVAILABLE');
+ return {
+  ok,
+  queryOk,
+  connected,
+  authType,
+  planLabel:typeof value?.planLabel==='string'?value.planLabel.slice(0,80):'',
+  planKnown:value?.planKnown===true,
+  observedAt:Number.isFinite(value?.observedAt)?value.observedAt:null,
+  checkedAt:Number.isFinite(value?.checkedAt)?value.checkedAt:null,
+  windows:(Array.isArray(value?.windows)?value.windows:[]).slice(0,8).map(w=>({
+   kind:w.kind==='individual'?'individual':'window',
+   label:typeof w.label==='string'?w.label.slice(0,60):'额度',
+   remaining:bounded(w.remaining,0,100,null),
+   used:bounded(w.used,0,100,null),
+   minutes:Number.isFinite(w.minutes)?w.minutes:null,
+   resetsAt:Number.isFinite(w.resetsAt)?w.resetsAt:null,
+   total:bounded(w.total,0,1e12,null),
+   amountUsed:bounded(w.amountUsed,0,1e12,null),
+   amountRemaining:bounded(w.amountRemaining,0,1e12,null)
+  })),
+  errorCode,
+  errorMessage:ok&&queryOk?'':safeQuotaError(value?.error)
+ };
+}
 function loadReleaseNotice(serviceRoot){
  for(const candidate of [serviceRoot&&path.join(serviceRoot,'release-notice.cjs'),path.join(__dirname,'../services/release-notice.cjs'),path.join(__dirname,'release-notice.cjs')].filter(Boolean)){
   if(fs.existsSync(candidate))return require(candidate);
@@ -17,17 +87,27 @@ class ProductHost {
   this.appVersion=prod?.version||pkg?.version||require('./performance-catalog.js').revision||'0.8.17-electron';
   this.isPortable=Boolean(prod?.portable||fs.existsSync(path.join(this.root,'portable')));
   this.releaseNotice=loadReleaseNotice(this.serviceRoot);
-  this.settings=new SettingsStore(path.join(dataDir,'settings.json'));this.forms=new SettingsStore(path.join(dataDir,'pet-form.json'));this.experience=new SettingsStore(path.join(dataDir,'experience-preferences.json'));this.audio=new SettingsStore(path.join(dataDir,'audio-preferences.json'));this.updatePreferences=new SettingsStore(path.join(dataDir,'update-preferences.json'));this.startedAt=Date.now();this.updateChild=null;this.releaseCheckPromise=null;this.children=new Set();this.task={phase:'idle',active:0};this.closed=false;this.lastWorkerProbe=0;this.lastAutoQuote=0;this.lastQuote=null;this.lastCompletion=0;this.errors=[];
+  this.settings=new SettingsStore(path.join(dataDir,'settings.json'));this.forms=new SettingsStore(path.join(dataDir,'pet-form.json'));this.experience=new SettingsStore(path.join(dataDir,'experience-preferences.json'));this.audio=new SettingsStore(path.join(dataDir,'audio-preferences.json'));this.updatePreferences=new SettingsStore(path.join(dataDir,'update-preferences.json'));this.startedAt=Date.now();this.updateChild=null;this.releaseCheckPromise=null;this.children=new Set();this.task={phase:'idle',active:0};this.closed=false;this.lastWorkerProbe=0;this.lastCodexProbe=0;this.codexInstalledCache=false;this.lastRefreshQuota=null;this.lastAutoQuote=0;this.lastQuote=null;this.lastCompletion=0;this.errors=[];
+  if(!this.testOnly&&this.settings.canSave&&this.settings.value.followHost!==false){try{this.settings.update({followHost:false});}catch{}}
+ }
+ codexInstalled(force=false){
+  if(this.testOnly)return false;
+  const now=Date.now();
+  if(!force&&now-this.lastCodexProbe<15000)return this.codexInstalledCache;
+  this.lastCodexProbe=now;
+  const configured=this.configPath?readJson(this.configPath)?.codexPath:null;
+  this.codexInstalledCache=Boolean(resolveCodexCli(configured));
+  return this.codexInstalledCache;
  }
  isUpdateAutomatic(){const v=this.updatePreferences.value;if(typeof v.userSetAutomatic==='boolean')return v.automatic!==false;if(this.isPortable)return true;return v.automatic!==false;}
  setUpdateAutomatic(enabled){return this.updatePreferences.update({automatic:enabled===true,userSetAutomatic:true});}
  isAllowedReleaseUrl(url){return this.releaseNotice.isAllowedReleaseUrl(url);}
- prefs(){const p=this.settings.value,e=this.experience.value;return {scale:bounded(p.scale,.6,2.5,1.26),bubbleScale:bounded(p.bubbleScale,.6,2.5,1.4),soundOn:p.soundOn!==false,soundVolume:bounded(p.soundVolume,0,1,.9),followHost:p.followHost!==false,desktopTopmost:p.desktopTopmost===true,desktopLeft:bounded(p.desktopLeft,-100000,100000,null),desktopTop:bounded(p.desktopTop,-100000,100000,null),anchor:['left','right','free'].includes(p.anchor)?p.anchor:'right',side:p.side==='left'?'left':'right',left:bounded(p.left,-100000,100000,0),right:bounded(p.right,-100000,100000,0),bottom:bounded(p.bottom,-100000,100000,0),collapsed:p.collapsed!==false,hideMenu:p.hideMenu===true,clickCardsEnabled:p.clickCardsEnabled===true,bustClickCardsEnabled:p.bustClickCardsEnabled!==false,autoQuoteEnabled:p.autoQuoteEnabled!==false,autoQuoteIntervalSeconds:bounded(p.autoQuoteIntervalSeconds,30,3600,180),taskCompletionBubble:p.taskCompletionBubble!==false,dragonAnimationEnabled:p.dragonAnimationEnabled!==false,dragonCodexEnabled:p.dragonCodexEnabled!==false,dragonTouchEnabled:p.dragonTouchEnabled!==false,idleRhythm:['active','natural','quiet'].includes(e.idleRhythm)?e.idleRhythm:'natural',smoothManualRoutes:e.smoothManualRoutes!==false,quietUntil:bounded(e.quietUntil,-1,1e16,0),observationPaused:fs.existsSync(path.join(this.dataDir,'task-observers-paused.flag')),form:this.forms.value.form==='bust'?'bust':'full',autoBubble:this.forms.value.autoBubble!==false,characterId:typeof p.characterId==='string'?p.characterId:'gpt-dragon',colorMode:typeof p.colorMode==='string'?p.colorMode:'original',colorChance:bounded(p.colorChance,0,30,2),colorTextChance:bounded(p.colorTextChance,0,30,2),colorPaused:p.colorPaused===true,bubbleTapAdvance:p.bubbleTapAdvance===true};}
+ prefs(){const p=this.settings.value,e=this.experience.value;return {scale:bounded(p.scale,.6,2.5,1.26),bubbleScale:bounded(p.bubbleScale,.6,2.5,1.4),soundOn:p.soundOn!==false,soundVolume:bounded(p.soundVolume,0,1,.9),followHost:false,desktopTopmost:p.desktopTopmost===true,desktopLeft:bounded(p.desktopLeft,-100000,100000,null),desktopTop:bounded(p.desktopTop,-100000,100000,null),anchor:['left','right','free'].includes(p.anchor)?p.anchor:'right',side:p.side==='left'?'left':'right',left:bounded(p.left,-100000,100000,0),right:bounded(p.right,-100000,100000,0),bottom:bounded(p.bottom,-100000,100000,0),collapsed:p.collapsed!==false,hideMenu:p.hideMenu===true,clickCardsEnabled:p.clickCardsEnabled===true,bustClickCardsEnabled:p.bustClickCardsEnabled!==false,autoQuoteEnabled:p.autoQuoteEnabled!==false,autoQuoteIntervalSeconds:bounded(p.autoQuoteIntervalSeconds,30,3600,180),taskCompletionBubble:p.taskCompletionBubble!==false,dragonAnimationEnabled:p.dragonAnimationEnabled!==false,dragonCodexEnabled:p.dragonCodexEnabled!==false,dragonTouchEnabled:p.dragonTouchEnabled!==false,idleRhythm:'active',smoothManualRoutes:e.smoothManualRoutes!==false,quietUntil:this.testOnly?bounded(e.quietUntil,-1,1e16,0):0,observationPaused:fs.existsSync(path.join(this.dataDir,'task-observers-paused.flag')),form:this.forms.value.form==='bust'?'bust':'full',autoBubble:this.forms.value.autoBubble!==false,characterId:typeof p.characterId==='string'?p.characterId:'gpt-dragon',colorMode:typeof p.colorMode==='string'?p.colorMode:'original',colorChance:bounded(p.colorChance,0,30,2),colorTextChance:bounded(p.colorTextChance,0,30,2),colorPaused:p.colorPaused===true,bubbleTapAdvance:p.bubbleTapAdvance===true};}
  safeAudio(){const p=this.prefs(),a=this.audio.value,mode=['builtin','custom','none'].includes(a.mode)?a.mode:'builtin';const url=slot=>{let file=path.join(this.root,'assets',slot+'.wav');if(mode==='none')return null;if(mode==='custom'){const entry=a[slot];if(!entry||typeof entry.file!=='string'||!/^[a-f0-9-]+\.wav$/i.test(entry.file))return null;file=path.join(this.dataDir,'sounds',entry.file);}return fs.existsSync(file)?pathToFileURL(file).href:null;};return {enabled:p.soundOn,volume:p.soundVolume,press:url('press'),release:url('release'),mode};}
- snapshot(){const upstream=readJson(path.join(this.dataDir,'update-status.json')),upstreamPhase=this.isPortable?'disabled-portable':(upstream?.phase||'idle'),notice=this.releaseNotice.normalizeReleaseState(this.updatePreferences.value,this.releaseTag);return {update:{automatic:this.isUpdateAutomatic(),releaseTag:this.releaseTag,appVersion:this.appVersion,portable:this.isPortable,latestTag:notice.latestTag,url:notice.url,checkedAt:notice.checkedAt,phase:notice.phase,lastNotifiedTag:notice.lastNotifiedTag,retryAfterAt:notice.retryAfterAt,errorReason:notice.errorReason,hasUpdate:notice.hasUpdate,statusText:this.releaseNotice.formatReleaseStatusText(notice,this.releaseTag),upstreamPhase,upstreamMessage:typeof upstream?.message==='string'?upstream.message.slice(0,160):''},prefs:this.prefs(),task:this.task,quota:publicQuota(readJson(path.join(this.dataDir,'status.json'))),audio:this.safeAudio(),settingsWritable:this.settings.canSave&&this.forms.canSave&&this.experience.canSave};}
+ snapshot(){const upstream=readJson(path.join(this.dataDir,'update-status.json')),upstreamPhase=this.isPortable?'disabled-portable':(upstream?.phase||'idle'),notice=this.releaseNotice.normalizeReleaseState(this.updatePreferences.value,this.releaseTag);const rawStatus=readJson(path.join(this.dataDir,'status.json')),fileQuota=publicQuota(rawStatus);if(fileQuota.ok&&fileQuota.queryOk&&(fileQuota.checkedAt??0)>=(this.lastRefreshQuota?.checkedAt??0))this.lastRefreshQuota=null;const quota=(this.lastRefreshQuota&&(!rawStatus||!this.lastRefreshQuota.ok&&(this.lastRefreshQuota.checkedAt??0)>=(fileQuota.checkedAt??0)))?{...fileQuota,queryOk:false,errorCode:this.lastRefreshQuota.errorCode,errorMessage:this.lastRefreshQuota.errorMessage||fileQuota.errorMessage}:fileQuota;const codex={installed:this.codexInstalled(),connected:quota.connected,authType:quota.authType,planLabel:quota.planLabel};return {update:{automatic:this.isUpdateAutomatic(),releaseTag:this.releaseTag,appVersion:this.appVersion,portable:this.isPortable,latestTag:notice.latestTag,url:notice.url,checkedAt:notice.checkedAt,phase:notice.phase,lastNotifiedTag:notice.lastNotifiedTag,retryAfterAt:notice.retryAfterAt,errorReason:notice.errorReason,hasUpdate:notice.hasUpdate,statusText:this.releaseNotice.formatReleaseStatusText(notice,this.releaseTag),upstreamPhase,upstreamMessage:typeof upstream?.message==='string'?upstream.message.slice(0,160):''},prefs:this.prefs(),task:this.task,quota,codex,audio:this.safeAudio(),settingsWritable:this.settings.canSave&&this.forms.canSave&&this.experience.canSave};}
  validatePreferences(values){
-  if(!values||typeof values!=='object')throw Error('INVALID_PREFERENCES');const bool=['soundOn','followHost','desktopTopmost','hideMenu','clickCardsEnabled','bustClickCardsEnabled','autoQuoteEnabled','taskCompletionBubble','dragonAnimationEnabled','dragonCodexEnabled','dragonTouchEnabled','colorPaused','bubbleTapAdvance'],ranges={scale:[.6,2.5],bubbleScale:[.6,2.5],soundVolume:[0,1],desktopLeft:[-100000,100000],desktopTop:[-100000,100000],left:[-100000,100000],right:[-100000,100000],bottom:[-100000,100000],autoQuoteIntervalSeconds:[30,3600],colorChance:[0,30],colorTextChance:[0,30]},patch={};
-  for(const [key,value]of Object.entries(values)){if(bool.includes(key)){if(typeof value!=='boolean')throw Error('INVALID_PREFERENCE');patch[key]=value;}else if(ranges[key]){if(bounded(value,...ranges[key],null)===null)throw Error('INVALID_PREFERENCE');patch[key]=value;}else if(key==='anchor'&&['left','right','free'].includes(value)||key==='side'&&['left','right'].includes(value)||key==='colorMode'&&['original','linked','rainbow','surprise','rare','special','mixed'].includes(value)){patch[key]=value;}else throw Error('UNKNOWN_PREFERENCE');}
+  if(!values||typeof values!=='object')throw Error('INVALID_PREFERENCES');const bool=['soundOn','desktopTopmost','hideMenu','clickCardsEnabled','bustClickCardsEnabled','autoQuoteEnabled','taskCompletionBubble','dragonAnimationEnabled','dragonCodexEnabled','dragonTouchEnabled','colorPaused','bubbleTapAdvance'],ranges={scale:[.6,2.5],bubbleScale:[.6,2.5],soundVolume:[0,1],desktopLeft:[-100000,100000],desktopTop:[-100000,100000],left:[-100000,100000],right:[-100000,100000],bottom:[-100000,100000],autoQuoteIntervalSeconds:[30,3600],colorChance:[0,30],colorTextChance:[0,30]},patch={};
+  for(const [key,value]of Object.entries(values)){if(key==='followHost'){if(value!==false)throw Error('INVALID_PREFERENCE');patch.followHost=false;}else if(bool.includes(key)){if(typeof value!=='boolean')throw Error('INVALID_PREFERENCE');patch[key]=value;}else if(ranges[key]){if(bounded(value,...ranges[key],null)===null)throw Error('INVALID_PREFERENCE');patch[key]=value;}else if(key==='anchor'&&['left','right','free'].includes(value)||key==='side'&&['left','right'].includes(value)||key==='colorMode'&&['original','linked','rainbow','surprise','rare','special','mixed'].includes(value)){patch[key]=value;}else throw Error('UNKNOWN_PREFERENCE');}
   return patch;
  }
  update(values){this.settings.update(this.validatePreferences(values));return this.snapshot();}
@@ -61,7 +141,21 @@ class ProductHost {
  spawnUpstreamUpdate(mode='manual'){if(this.testOnly||this.isPortable||this.closed||this.updateChild)return false;const node=readJson(this.configPath)?.nodePath;if(!node)return false;const child=this.spawnNode(node,[path.join(this.compatRoot,'runtime/update.mjs'),path.join(this.compatRoot,'installation.json'),mode],{windowsHide:true,stdio:'ignore'});this.updateChild=child;this.children.add(child);const done=()=>{this.children.delete(child);if(this.updateChild===child)this.updateChild=null;};child.once('exit',done);child.once('error',()=>{done();this.note('UPDATE_CHECK_FAILED');});return true;}
  checkAutomaticUpdate(){if(this.testOnly||this.closed||Date.now()-this.startedAt<30000||!this.isUpdateAutomatic())return;this.checkReleaseNotice('automatic');if(this.isPortable)return;const status=readJson(path.join(this.dataDir,'update-status.json'));if(Date.now()<(status?.nextCheckAt||0))return;this.spawnUpstreamUpdate('automatic');}
  checkUpdate(mode='manual'){if(this.closed)return false;const noticePromise=this.checkReleaseNotice(mode);this.spawnUpstreamUpdate(mode);return noticePromise;}
- async refresh(){if(this.testOnly)return {ok:false,testOnly:true};const {requestRefresh}=await import(pathToFileURL(path.join(this.serviceRoot,'refresh-client.mjs')).href);const config=readJson(this.configPath);return publicQuota(await requestRefresh(config,this.configPath));}
+ async refresh(){if(this.testOnly)return {ok:false,testOnly:true};this.codexInstalled(true);const {requestRefresh}=await import(pathToFileURL(path.join(this.serviceRoot,'refresh-client.mjs')).href);const config=readJson(this.configPath);if(!config){this.lastRefreshQuota=publicQuota({ok:false,queryOk:false,checkedAt:Date.now(),errorCode:'NO_CONFIG',error:'缺少安装配置，暂时无法连接 Codex'});return this.lastRefreshQuota;}const raw=await requestRefresh(config,this.configPath);this.lastRefreshQuota=publicQuota({...raw,checkedAt:Number.isFinite(raw?.checkedAt)?raw.checkedAt:Date.now()});return this.lastRefreshQuota;}
+ async loginCodex(){
+  if(this.testOnly)return {ok:false,testOnly:true};
+  const configured=this.configPath?readJson(this.configPath)?.codexPath:null;
+  const cli=resolveCodexCli(configured);
+  this.lastCodexProbe=Date.now();
+  this.codexInstalledCache=Boolean(cli);
+  if(!cli)return {ok:false,errorCode:'ENOENT',errorMessage:'未找到本地 Codex 客户端或 CLI，请先安装 Codex 后重试。'};
+  try{
+   const child=this.spawnNode(cli,['login'],{windowsHide:false,detached:true,stdio:'ignore'});
+   child.on('error',()=>{});
+   child.unref();
+   return {ok:true,started:true};
+  }catch{return {ok:false,errorCode:'CODEX_LOGIN_FAILED',errorMessage:'未能启动 Codex 登录窗口，请手动打开 Codex 登录后点击刷新。'};}
+ }
  async close(){this.closed=true;this.activity?.stop();this.completion?.stop();for(const child of this.children){try{child.kill();}catch{}}this.children.clear();}
 }
-module.exports={ProductHost,publicQuota,readJson};
+module.exports={ProductHost,publicQuota,readJson,resolveCodexCli};

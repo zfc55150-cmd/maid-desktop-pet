@@ -3,6 +3,7 @@ contextBridge.exposeInMainWorld('desktop',{
  config:()=>ipcRenderer.invoke('desktop-config'),
  state:()=>ipcRenderer.invoke('product-snapshot'),
  product:data=>ipcRenderer.invoke('product-command',data),
+ onHover:fn=>ipcRenderer.on('desktop-hover',(_event,point)=>fn(point)),
  onState:fn=>ipcRenderer.on('product-state',(_event,data)=>fn(data)),
  hitGeometry:data=>ipcRenderer.send('desktop-hit-geometry',data),
  input:data=>ipcRenderer.send('desktop-input',data),

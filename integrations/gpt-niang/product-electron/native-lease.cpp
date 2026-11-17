@@ -85,25 +85,53 @@ static napi_value Follow(napi_env env,napi_callback_info call){
 }
 static napi_value Detach(napi_env env,napi_callback_info){DropFollow();return Boolean(env,true);}
 static napi_value ForegroundPid(napi_env env,napi_callback_info){DWORD pid=0;GetWindowThreadProcessId(GetForegroundWindow(),&pid);napi_value result=nullptr;numberValue(env,(double)pid,&result);return result;}
-static napi_value CaptureActive(napi_env env,napi_callback_info){
- HWND window=GetAncestor(GetForegroundWindow(),GA_ROOT);if(!window)return Boolean(env,false);
+// Windows can leave its selection surface visible after foreground focus changes.
+enum class CaptureProcess { Other, ClippingHost, SnippingTool };
+static CaptureProcess IdentifyCaptureProcess(HWND window){
  DWORD pid=0;GetWindowThreadProcessId(window,&pid);
- static DWORD lastPid=0;static bool clippingHost=false,snippingTool=false;
- if(pid!=lastPid){
-  lastPid=pid;clippingHost=snippingTool=false;
-  HANDLE process=OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION,FALSE,pid);
-  if(process){
-   wchar_t file[32768]={};DWORD size=32768;
-   if(QueryFullProcessImageNameW(process,0,file,&size)){
-    const wchar_t* name=wcsrchr(file,L'\\');name=name?name+1:file;
-    clippingHost=_wcsicmp(name,L"ScreenClippingHost.exe")==0;
-    snippingTool=_wcsicmp(name,L"SnippingTool.exe")==0;
-   }
-   CloseHandle(process);
+ struct ProcessKind{DWORD pid=0;CaptureProcess kind=CaptureProcess::Other;ULONGLONG until=0;};
+ static ProcessKind cache[16];static unsigned next=0;
+ const auto now=GetTickCount64();
+ for(const auto& item:cache)if(item.pid==pid&&now<item.until)return item.kind;
+ auto kind=CaptureProcess::Other;
+ HANDLE process=OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION,FALSE,pid);
+ if(process){
+  wchar_t file[32768];DWORD size=32768;
+  if(QueryFullProcessImageNameW(process,0,file,&size)){
+   const wchar_t* name=wcsrchr(file,L'\\\\');name=name?name+1:file;
+   if(_wcsicmp(name,L"ScreenClippingHost.exe")==0)kind=CaptureProcess::ClippingHost;
+   else if(_wcsicmp(name,L"SnippingTool.exe")==0)kind=CaptureProcess::SnippingTool;
   }
+  CloseHandle(process);
  }
- // The Snipping Tool editor has a caption. Its selection overlay does not.
- return Boolean(env,clippingHost||(snippingTool&&(GetWindowLongPtrW(window,GWL_STYLE)&WS_CAPTION)!=WS_CAPTION));
+ cache[next++%16]={pid,kind,now+1500};
+ return kind;
+}
+static bool CoversMonitor(HWND window){
+ RECT box={};if(!GetWindowRect(window,&box))return false;
+ MONITORINFO monitor={};monitor.cbSize=sizeof(monitor);
+ if(!GetMonitorInfoW(MonitorFromWindow(window,MONITOR_DEFAULTTONULL),&monitor))return false;
+ const auto& screen=monitor.rcMonitor;
+ return box.left<=screen.left+3&&box.top<=screen.top+3&&box.right>=screen.right-3&&box.bottom>=screen.bottom-3;
+}
+static BOOL CALLBACK FindCaptureOverlay(HWND window,LPARAM result){
+ if(!IsWindowVisible(window)||IsIconic(window)||(GetWindowLongPtrW(window,GWL_STYLE)&WS_CAPTION)==WS_CAPTION||!CoversMonitor(window))return TRUE;
+ const auto kind=IdentifyCaptureProcess(window);if(kind==CaptureProcess::Other)return TRUE;
+ DWORD cloaked=0;DwmGetWindowAttribute(window,DWMWA_CLOAKED,&cloaked,sizeof(cloaked));
+ if(cloaked)return TRUE;
+ *reinterpret_cast<bool*>(result)=true;return FALSE;
+}
+static napi_value CaptureActive(napi_env env,napi_callback_info){
+ HWND foreground=GetAncestor(GetForegroundWindow(),GA_ROOT);
+ const auto kind=foreground?IdentifyCaptureProcess(foreground):CaptureProcess::Other;
+ if(kind==CaptureProcess::ClippingHost||
+    (kind==CaptureProcess::SnippingTool&&(GetWindowLongPtrW(foreground,GWL_STYLE)&WS_CAPTION)!=WS_CAPTION&&CoversMonitor(foreground)))return Boolean(env,true);
+ bool active=false;EnumWindows(FindCaptureOverlay,reinterpret_cast<LPARAM>(&active));return Boolean(env,active);
+}
+static napi_value CursorOver(napi_env env,napi_callback_info call){
+ size_t count=1;napi_value arg=nullptr;double handle=0;POINT point={};
+ if(info(env,call,&count,&arg,nullptr,nullptr)||count!=1||readNumber(env,arg,&handle)||!GetCursorPos(&point))return Boolean(env,false);
+ return Boolean(env,GetAncestor(WindowFromPoint(point),GA_ROOT)==reinterpret_cast<HWND>((uintptr_t)handle));
 }
 
 extern "C" __declspec(dllexport) int node_api_module_get_api_version_v1(){return 3;}
@@ -121,6 +149,7 @@ extern "C" __declspec(dllexport) napi_value napi_register_module_v1(napi_env env
  if(functionValue(env,"detach",6,Detach,nullptr,&fn)||property(env,exports,"detach",fn))return exports;
  if(functionValue(env,"foregroundPid",13,ForegroundPid,nullptr,&fn)||property(env,exports,"foregroundPid",fn))return exports;
  if(functionValue(env,"captureActive",13,CaptureActive,nullptr,&fn)||property(env,exports,"captureActive",fn))return exports;
+ if(functionValue(env,"cursorOver",10,CursorOver,nullptr,&fn)||property(env,exports,"cursorOver",fn))return exports;
  if(cleanup(env,Release,nullptr))return exports;
  return exports;
 }

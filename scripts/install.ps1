@@ -1,4 +1,4 @@
-param([string]$OutputRoot,[switch]$PreflightOnly,[string]$InstalledRoot,[string]$BaselinePath,[string]$ProfileSyncManifest,[string]$MediaSyncManifest)
+﻿param([string]$OutputRoot,[switch]$PreflightOnly,[string]$InstalledRoot,[string]$BaselinePath,[string]$ProfileSyncManifest,[string]$MediaSyncManifest)
 $ErrorActionPreference='Stop'
 $sourceRoot=Split-Path $PSScriptRoot -Parent
 $appRoot=Join-Path $env:LOCALAPPDATA 'Programs\DeepSeekActionPet'
@@ -96,7 +96,7 @@ try {
  }
  & (Join-Path $appRoot 'node.exe') (Join-Path $appRoot 'launcher.mjs')
  if($LASTEXITCODE -ne 0){throw 'New launcher failed to start'}
- $h=Invoke-RestMethod -Uri 'http://127.0.0.1:3088/health' -NoProxy -TimeoutSec 5
+ $h=Invoke-RestMethod -Uri 'http://127.0.0.1:3088/health' -TimeoutSec 5
  if($h.plugin.root -ne (Join-Path $appRoot 'node_modules\dsh-pet')){throw 'Unexpected running instance'}
  $result=[ordered]@{version=$manifest.version;installed=$true;changedFiles=$changed.Count;protectedFilesUnchanged=$true;profileSync=[bool]$ProfileSyncManifest;mediaSync=[bool]$MediaSyncManifest;backup=$backupRoot;pid=$h.pid}
  $result | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $OutputRoot '安装结果.json') -Encoding utf8

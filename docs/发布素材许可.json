@@ -33,5 +33,1849 @@
     "license": "原项目内置使用，排除在通用插画许可之外",
     "evidence": "integrations/gpt-niang/forms/assets/NOTICE.txt",
     "redistributable": false
+  },
+  "a64c08a4b7e5c3549616faf9dcd418e17f156b4b72d906646e4d57067df70d23": {
+    "file": "node_modules/dsh-pet/assets/webm/三球抛接.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/三球抛接.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "0802b6b808f44846b3d194a857fb0ffd38bdea2d7cdb91c9e5e6f311e44f1953": {
+    "file": "node_modules/dsh-pet/assets/webm/下五子棋.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/下五子棋.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "a20ed02ccc5e72075a3ca83fabb57d9aac5ded699f52d00ec6de72069799fcd5": {
+    "file": "node_modules/dsh-pet/assets/webm/东张西望.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/东张西望.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "3f64003262d3f129470721495695ecd231795d859693a748914c02c6e3883a3a": {
+    "file": "node_modules/dsh-pet/assets/webm/中秋赏月吃月饼.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/中秋赏月吃月饼.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "74209c4c668545ab1e2366e0d1c0709b7bea0312eeba7e89b553d5b977bfe649": {
+    "file": "node_modules/dsh-pet/assets/webm/优雅女仆舞.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/优雅女仆舞.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "b232349bdbd962bad7f3a15cfce539c6fadadfd0a286b7f03b03e59cf7aca7a8": {
+    "file": "node_modules/dsh-pet/assets/webm/余额-分文不剩.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/余额-分文不剩.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "94a7e0ee8e1012aadec33492301c893c2d1c5df7e36049dbada8c4a264bf1810": {
+    "file": "node_modules/dsh-pet/assets/webm/余额-数金皱眉.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/余额-数金皱眉.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "3db780bbc96bb362ced36078fecacfb63b9d292c06b533cfb61797adb553a7f8": {
+    "file": "node_modules/dsh-pet/assets/webm/余额-袋空如洗.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/余额-袋空如洗.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "6fda0c4ae013cf7906afa1cb846717d097db576343dab11006f14ca5c7a9a34f": {
+    "file": "node_modules/dsh-pet/assets/webm/余额-金袋叮当.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/余额-金袋叮当.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "f6cb9aa1c829fcbc62478dbddd0e0fcd7beb47433cea751d18b81ccccbec95d3": {
+    "file": "node_modules/dsh-pet/assets/webm/余额-钱袋如常.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/余额-钱袋如常.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "dddd6ffc4e763b77360e49c0ccee0987a43c3d253a23e3133c334aabb598b362": {
+    "file": "node_modules/dsh-pet/assets/webm/余额-钱袋满溢.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/余额-钱袋满溢.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "c3b783351ad38fdd931e80b188ecb12d273f21e4794aed2c41f267bdb75ff897": {
+    "file": "node_modules/dsh-pet/assets/webm/偷吃零食被抓住.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/偷吃零食被抓住.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "0441287737cdbb993ce90dfa74c67ea4ea3549d8c8ea98946604668464589ed7": {
+    "file": "node_modules/dsh-pet/assets/webm/写代码.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/写代码.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "7841a47a6997bb7c90d81671d524c44b1afc87ca2e8fceb17d06d99003a67181": {
+    "file": "node_modules/dsh-pet/assets/webm/写福字.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/写福字.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "d1c336bc54c57a282bec180859c7b7b58912b70b5bca7b2f49495cd30cc7d5d6": {
+    "file": "node_modules/dsh-pet/assets/webm/凭空生花.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/凭空生花.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "814d41e7d619f9a61f38e5494a0cfd703f8bcfd829a14fa921e1c59acf3ce872": {
+    "file": "node_modules/dsh-pet/assets/webm/动物环绕.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/动物环绕.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "ad54da175ba86b19a84b73b3169fb418b2df016560bb274283f200aca351e712": {
+    "file": "node_modules/dsh-pet/assets/webm/原地专心玩魔方.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/原地专心玩魔方.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "31d4a6b36a29b2a4fe097384173d3bbeb3fa2f40f526b13191791456bf7507a1": {
+    "file": "node_modules/dsh-pet/assets/webm/原地小憩沉眠.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/原地小憩沉眠.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "79882aedd7b77caaacce1a34dece68e2f001a3dbfa5f9d049c1ce2fc04518d52": {
+    "file": "node_modules/dsh-pet/assets/webm/原地左转奔跑.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/原地左转奔跑.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "a40f481e89abcc726c89f30b01d085ca8c17a090e71facdd5e7f747e771093eb": {
+    "file": "node_modules/dsh-pet/assets/webm/原地敲击桌面互动.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/原地敲击桌面互动.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "7dee1c14672f1f99bebe5e6f1a52d6664b851ed95f9958ac6c12b753a5e5cc81": {
+    "file": "node_modules/dsh-pet/assets/webm/原地漂浮踏步.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/原地漂浮踏步.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "ccb906c677c7b739eb0dbf5307160e66583562c2a6caec72a9d3d14a202fcccd": {
+    "file": "node_modules/dsh-pet/assets/webm/原地跳跃抓碎头顶物品.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/原地跳跃抓碎头顶物品.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "3ec9978ce3663d9bc4bfe5f5223f0a4e3d9ea6fcd0a6acdbaa802e0cfba36bf2": {
+    "file": "node_modules/dsh-pet/assets/webm/原地蹲下玩玩具汽车.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/原地蹲下玩玩具汽车.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "1c8972478a7f347818165db62b468f1624ec11d0862f38aec3078e3870831d24": {
+    "file": "node_modules/dsh-pet/assets/webm/原地重力下蹲压缩.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/原地重力下蹲压缩.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "796eba8ebe705e9339035e533e4f913fb8b9810432dcd6e7ae4fc1602e9ce3cf": {
+    "file": "node_modules/dsh-pet/assets/webm/变鸽子.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/变鸽子.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "4f737e44ea67c20368bdce474b951902c87c37991fb0750da8ed7794df6ec55c": {
+    "file": "node_modules/dsh-pet/assets/webm/可爱宅舞.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/可爱宅舞.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "d46ef798fb189cd7652f63d03a35e6f314e5a598b4a65f76202ec95852eb719c": {
+    "file": "node_modules/dsh-pet/assets/webm/吃Token.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃Token.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "17d73682926d6ce4203ad12d9049527e604d448bcc5c82ac5b12950b4ceb0447": {
+    "file": "node_modules/dsh-pet/assets/webm/吃冰淇淋融化.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃冰淇淋融化.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "e48a70e61d93195c611c2d4041be32a26a114f78c835ff6b2345459ae39a90ce": {
+    "file": "node_modules/dsh-pet/assets/webm/吃午餐.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃午餐.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "fbd0f445c15fda1f827e6eb485270ddf9025ac29b3edcac28a5eff7d9aa80f46": {
+    "file": "node_modules/dsh-pet/assets/webm/吃大闸蟹.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃大闸蟹.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "ba0c86988687801a5b19d055d728bb182c8a95a0bdd7071dea16b83c1162135c": {
+    "file": "node_modules/dsh-pet/assets/webm/吃年糕.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃年糕.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "893b61587aeda8ca146e32b596b00903461aab04684a146d84b31965968d60e4": {
+    "file": "node_modules/dsh-pet/assets/webm/吃早餐.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃早餐.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "8902602fb012c29d33392822ab534ed119a136610f6bc2e8c0c51d60afec673a": {
+    "file": "node_modules/dsh-pet/assets/webm/吃晚餐.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃晚餐.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "53a0f93612bb59c7279010f993a1101b033fc01df1998dd9874d8aea175afa6f": {
+    "file": "node_modules/dsh-pet/assets/webm/吃汤圆.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃汤圆.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "b620413d6fa303a0ed9168dc71453c3bddc10141a0b7edeff87dc2e6e054d502": {
+    "file": "node_modules/dsh-pet/assets/webm/吃白饭.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃白饭.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "f3af3217674427fdc5609bf50b170f69669c84cf229cd7b44261c00da7876ade": {
+    "file": "node_modules/dsh-pet/assets/webm/吃粽子.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃粽子.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "6900468dc166bfb90e1cfb73de9b41a08c62513483ce1300658340cf942be3cd": {
+    "file": "node_modules/dsh-pet/assets/webm/吃糖葫芦.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃糖葫芦.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "f821527812875262cc0dda50fe023c603fc89ec566172777c6bff4fa45943011": {
+    "file": "node_modules/dsh-pet/assets/webm/吃腊八粥.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃腊八粥.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "0dd992fb7fb51d707d6589cb813a450437a2bd54046709f424a73353e2d7f78d": {
+    "file": "node_modules/dsh-pet/assets/webm/吃西瓜.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃西瓜.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "d2b6b466fcb1ee689ae130680bf38311e9988d995879ca3b5b1d9aa0b5438058": {
+    "file": "node_modules/dsh-pet/assets/webm/吃重阳糕.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃重阳糕.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "2881e1cd4ca31fd56ca578ce2ee73d21222f0006f237c865d9b2dc1ebc436edd": {
+    "file": "node_modules/dsh-pet/assets/webm/吃长寿面.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃长寿面.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "0d99393dd64ddf0b1ec4ab4cf392c86092ab5edf58d12f5b72e325035da23606": {
+    "file": "node_modules/dsh-pet/assets/webm/吃青团.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃青团.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "a607391c206cb2a1a977d72f318a6b5bfe95aee4da9b11c9de8724bd9981cc06": {
+    "file": "node_modules/dsh-pet/assets/webm/吃饺子.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吃饺子.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "3258f91b2000d949ba38f34c1f161b0d5fa148ecffb5a95eb8a3e10b5df7fc87": {
+    "file": "node_modules/dsh-pet/assets/webm/吹气球.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吹气球.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "9c8b754a3256778cddd88fbb073b649d5b1d2e5f96e70231bc2c3bee06fa7c78": {
+    "file": "node_modules/dsh-pet/assets/webm/吹笛子.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/吹笛子.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "2b23372e1ff2bc2f9078c09740708c960d4ea021f9fc3cca294d9df11e393ec8": {
+    "file": "node_modules/dsh-pet/assets/webm/哈欠连天.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/哈欠连天.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "478bdc31cc60e55e3efa139b81c7d8680a8cf83aca2304495e6da50a20a09cf5": {
+    "file": "node_modules/dsh-pet/assets/webm/堆雪人.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/堆雪人.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "fdacb534a828b0c669f22a54e8da9bb9b5d731e0132dd5ea946f7badc9229a39": {
+    "file": "node_modules/dsh-pet/assets/webm/大口吃零食.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/大口吃零食.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "6536fb519ba73bbc338d30cf7286b14ffde1278b6d469c64573536dc0f896918": {
+    "file": "node_modules/dsh-pet/assets/webm/女仆屈膝礼仪.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/女仆屈膝礼仪.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "9f1a927f63c73e3c35ee5f4d2eb58f4a46ac7eca2af69388f320d10cdef8d29c": {
+    "file": "node_modules/dsh-pet/assets/webm/小幅度原地360度旋转展示.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/小幅度原地360度旋转展示.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "03816be0fcd499b63ed667e8b87c234094e64c59f1cd222455cf6a27ac832d1c": {
+    "file": "node_modules/dsh-pet/assets/webm/小提琴演奏.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/小提琴演奏.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "a56c17ef901fa531324a46a04def2381f65922d319ec83dadde34d2a4669e411": {
+    "file": "node_modules/dsh-pet/assets/webm/工作状态-原地踱步张望.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/工作状态-原地踱步张望.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "ab00c844e62221905574b4c070e0d7b6fa14fb2afa1064c27a160f10e25f7196": {
+    "file": "node_modules/dsh-pet/assets/webm/工作状态-垂头叹气冒汗.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/工作状态-垂头叹气冒汗.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "b5d702e0c04adb7b255ac702001c24da36c8bf95efc891f693f4976986ab2435": {
+    "file": "node_modules/dsh-pet/assets/webm/工作状态-忙碌点按.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/工作状态-忙碌点按.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "b4a36cfa28ea5d7089e362a01972c6e880297c6dcd0d39f1994efd889a3c1be5": {
+    "file": "node_modules/dsh-pet/assets/webm/工作状态-思考冒泡.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/工作状态-思考冒泡.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "8c84f58f3a9e7b912e1cbfd89f77eb3652053fc9b2844295c8440cb636305d3b": {
+    "file": "node_modules/dsh-pet/assets/webm/工作状态-清点归档.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/工作状态-清点归档.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "3ff681051a0bb4f152d7535d64b7f3194c30298bf56d41e521216a278f135d3e": {
+    "file": "node_modules/dsh-pet/assets/webm/工作状态-雀跃庆祝.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/工作状态-雀跃庆祝.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "deb965d05a85dacf5ff4a20faa757846f0d11679598c3ec578a5571487660395": {
+    "file": "node_modules/dsh-pet/assets/webm/待机呼吸休闲.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/待机呼吸休闲.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "358905afc2c81a9ed478bcf121a8f2f19276766b1d382d0067456bd57d1d7dbb": {
+    "file": "node_modules/dsh-pet/assets/webm/悠闲哼歌.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/悠闲哼歌.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "1d44a7624fb027e5f615c747014ab040ddc497f6bdbcb67194a23a53a5dba78c": {
+    "file": "node_modules/dsh-pet/assets/webm/扑克魔术.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/扑克魔术.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "7e10c87cfcbd63b20b5a3787be71b0500381d54ea04a5ac0e9d99f59ed49a6d7": {
+    "file": "node_modules/dsh-pet/assets/webm/打瞌睡被惊醒.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/打瞌睡被惊醒.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "693689d7b4d02ae8cda53f8d580de5087287fc339360dd20909342f566e969ba": {
+    "file": "node_modules/dsh-pet/assets/webm/抽陀螺.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/抽陀螺.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "6f781e7eac2b295417c80ff9468902280fdcf3ae5921d59977daa8dab537940c": {
+    "file": "node_modules/dsh-pet/assets/webm/拆礼物.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/拆礼物.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "4e1ba56724da3663e2f5480001ab1141a82e8618c316e6e81e3dae84998452f3": {
+    "file": "node_modules/dsh-pet/assets/webm/插茱萸赏菊.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/插茱萸赏菊.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "87d4b9454692484e4809b45071751b2144fc82fd8696fafabb32e19af98350f2": {
+    "file": "node_modules/dsh-pet/assets/webm/摇扇纳凉.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/摇扇纳凉.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "068d84e944dfce17de1c5a2ee2a4bc391e2848dad88a7df4877ebf23cf38bcec": {
+    "file": "node_modules/dsh-pet/assets/webm/撸猫.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/撸猫.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "a0e7a9a5997aff1357c76eeaaad7a01503c320f7017766dd5a42e643daa505c1": {
+    "file": "node_modules/dsh-pet/assets/webm/收红包.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/收红包.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "cc6540b4651f6603363dd326801921d6ba220ecaaf00828b42d248eb28beeb31": {
+    "file": "node_modules/dsh-pet/assets/webm/放孔明灯.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/放孔明灯.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "af744bed1ff20cc1b0492247add45f2b16433fde0b0897c31d6b0579429b788d": {
+    "file": "node_modules/dsh-pet/assets/webm/放河灯.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/放河灯.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "539ac09ae29ed0a11bd828df096f3e72f606529b3c59e29a5fcf3b051779a4d0": {
+    "file": "node_modules/dsh-pet/assets/webm/放烟花.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/放烟花.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "9d9ac75871b1c70a77fc4aaa63dd24778d79cbf492c2c5df42167199c7dd2132": {
+    "file": "node_modules/dsh-pet/assets/webm/放风筝.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/放风筝.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "e8e599b12da7f3437c98425f6b192dd0c81a6b63bbba5e7927f53c22f757b094": {
+    "file": "node_modules/dsh-pet/assets/webm/整体换装试色.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/整体换装试色.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "94e1d69e05cc66cc1dc8bf6986efc51dfd71fe22fd34166f9efe7ca2d21c1e8c": {
+    "file": "node_modules/dsh-pet/assets/webm/是啊，吃什么.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/是啊，吃什么.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "017e384e7e13732fb12428d024ef686e79df5b79bfab0d83faa7fa50653d1bc4": {
+    "file": "node_modules/dsh-pet/assets/webm/晨间刷牙.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/晨间刷牙.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "f0b345c22cf2841137d215a7b9d50252b8be0ede64887e91fdc9bd09843e3c8f": {
+    "file": "node_modules/dsh-pet/assets/webm/涮火锅.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/涮火锅.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "db66867cd1f5bf68b0638fe1f966d0fdf95d1573523e60c77aa8913706118e82": {
+    "file": "node_modules/dsh-pet/assets/webm/深度思考碎碎念.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/深度思考碎碎念.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "6b7176b98408cb649d1d37b6a6222a21aa6b128187e3e0b2d18550d35ab81064": {
+    "file": "node_modules/dsh-pet/assets/webm/点击回应-傲娇生气.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/点击回应-傲娇生气.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "48cd729ccdcf746369942ea954d242e9afdd5643e1dac3827fa5e67450eb8776": {
+    "file": "node_modules/dsh-pet/assets/webm/点击回应-元气挥手.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/点击回应-元气挥手.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "a04968bbc46d1ebea07f81e5dabd93b0b67a9d07f1371e9887b33075134ad00d": {
+    "file": "node_modules/dsh-pet/assets/webm/点击回应-害羞惊讶.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/点击回应-害羞惊讶.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "86dcb0c3dd7b651de9c107e927d57a5c4224599101706dbdcc782fa48bcd0ad7": {
+    "file": "node_modules/dsh-pet/assets/webm/点击回应-开心跃动.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/点击回应-开心跃动.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "f228279219f4084323ca1bfef1604f7c77bb3f505d45a8d1747b5ac3f9f2393b": {
+    "file": "node_modules/dsh-pet/assets/webm/点击回应-挠痒咯咯笑.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/点击回应-挠痒咯咯笑.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "13dc61c003e500d906b6526765072b7a78c0709491a397d4e70a88ec7ea63310": {
+    "file": "node_modules/dsh-pet/assets/webm/照镜子.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/照镜子.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "448f732417ac4dcb6ca140cd3d73896aaea7f5dac2876a9a0f7c0776478d7128": {
+    "file": "node_modules/dsh-pet/assets/webm/玩水枪.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/玩水枪.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "8e406bc52cf2a20c9d288867367c4df7c45a5dc78443bc5c2fdc83835ac0b4c3": {
+    "file": "node_modules/dsh-pet/assets/webm/玩游戏气急败坏.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/玩游戏气急败坏.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "e3f92df2cf182fdcb109ad0a865689d66e0a0d10db14c1528e5b3cb2f0bf090d": {
+    "file": "node_modules/dsh-pet/assets/webm/用鲸鱼尾巴拍打地面.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/用鲸鱼尾巴拍打地面.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "02da8cc2194250ae9708b137a3deff43fed2ebd40a7aa4a033b6262c3485eb5b": {
+    "file": "node_modules/dsh-pet/assets/webm/碎碎念-发呆碎碎念.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/碎碎念-发呆碎碎念.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "fda85ca286e173b7cf868c91829c3445e55c395e0c788b6be310a855b9b37973": {
+    "file": "node_modules/dsh-pet/assets/webm/碎碎念-对屏碎碎念.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/碎碎念-对屏碎碎念.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "bfb616a3e6ed7375826d8fd00b41b9476d2e4bd65e10abddfb98f04c734e30e6": {
+    "file": "node_modules/dsh-pet/assets/webm/碎碎念-擦桌碎碎念.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/碎碎念-擦桌碎碎念.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "cf16647ec4cb5634e4ff022bfc139a2233cd8be82f2391472bc842f7014ddc90": {
+    "file": "node_modules/dsh-pet/assets/webm/穿针乞巧.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/穿针乞巧.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "6d2006b4023d44087cf4c7dc055d1d8f2a8cec32e22610807a2dfea7bb0dc367": {
+    "file": "node_modules/dsh-pet/assets/webm/舞狮头.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/舞狮头.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "f32ea98e9c04553ae39939cd76c469192ebc19d98b90ebf93ec4b88bf95b25c9": {
+    "file": "node_modules/dsh-pet/assets/webm/荡秋千.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/荡秋千.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "ac2012601d05bf7de7c7cced415b8793b0be3b7cfa569da06c2325f135f7e94f": {
+    "file": "node_modules/dsh-pet/assets/webm/萌化小幽灵.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/萌化小幽灵.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "ed72f0ede7c6cd9482d44aa31002214d461b833c456f3ea40a52c3a0ddc20230": {
+    "file": "node_modules/dsh-pet/assets/webm/蓝鲸现世.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/蓝鲸现世.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "fd286c78001fe57fc093c06a4b79ef077ade2dacd2a77e011d3f393f587707ec": {
+    "file": "node_modules/dsh-pet/assets/webm/蝴蝶蜜蜂环绕头顶开花.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/蝴蝶蜜蜂环绕头顶开花.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "5696b0878be38cc450d6eaace837aef1c1b5834f1382bc6c11c2de582f284673": {
+    "file": "node_modules/dsh-pet/assets/webm/螃蟹走路.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/螃蟹走路.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "537dde496e0f776e775dec1bb7bfe3fbc5eebf89112469a1a910ad0433ccde66": {
+    "file": "node_modules/dsh-pet/assets/webm/被吓一跳.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/被吓一跳.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "91fc8e3dbfcd24546bc30366beb120fb5de7823ed67986dd8032c9c1b29ff079": {
+    "file": "node_modules/dsh-pet/assets/webm/被落叶淹没.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/被落叶淹没.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "31373a86026636eecc890db763760309360310eb095cf5575b13c9ca2a6cc80e": {
+    "file": "node_modules/dsh-pet/assets/webm/被鼠标拖拽悬空反馈.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/被鼠标拖拽悬空反馈.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "25da448acdbba49c2d4b209d24053b6dd1b79e656273d1f3e659385dc2bc3759": {
+    "file": "node_modules/dsh-pet/assets/webm/装点圣诞树.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/装点圣诞树.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "9535d1a29f780aa2d78ffaabd7ee1765952bf34b2b380e9edc25dc6a3003070b": {
+    "file": "node_modules/dsh-pet/assets/webm/讨糖南瓜灯.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/讨糖南瓜灯.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "0ac66d918cc5efd49be1273c3830de73eae5f9bdcd5fcb968d1b2f9b487705ad": {
+    "file": "node_modules/dsh-pet/assets/webm/超大伸懒腰.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/超大伸懒腰.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "68937b619a44e9ca7ccdfe77e5657f7a9bfa238beb33768378b6f254a16f3dbd": {
+    "file": "node_modules/dsh-pet/assets/webm/踢毽子.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/踢毽子.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "c621d00e1b959b991df8fc420e409b569e768fad7f75d1fb489375d101fee630": {
+    "file": "node_modules/dsh-pet/assets/webm/轻快摇摆舞.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/轻快摇摆舞.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "1da04162fed5cd52bd4a6a6027a6902f50bda0969d34465bc2d332cf3679bbd5": {
+    "file": "node_modules/dsh-pet/assets/webm/轻快记录.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/轻快记录.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "5f54a98ccac97eac000d799043411f4fc0732096dc51a2ad766552737578f313": {
+    "file": "node_modules/dsh-pet/assets/webm/骑木马.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/骑木马.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "d64d02059dc1602f7de5aa3135d381351363f021b2bceed47655db322cc71db3": {
+    "file": "node_modules/dsh-pet/assets/webm/鲸鱼吐泡泡特效.webm",
+    "source": "dsh-pet@0.3.7 npm package, assets/webm/鲸鱼吐泡泡特效.webm",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://github.com/PC2005-cloud/dsh-pet/blob/v0.3.7/README.md#许可",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "4d74c3ed505c5567f61ff5b1a1697c807cfdc8d149de9282fea310eb7e0f798d"
+    }
+  },
+  "7787b108d9c972d06228acf4c41721217ae88489b79dc116e2a78d4f81767204": {
+    "file": "gpt-dragon-niang-bust.png (T7moris upstream)",
+    "source": "https://github.com/T7moris/GPT-Niang/blob/main/gpt-niang-usage/assets/gpt-dragon-niang-bust.png",
+    "license": "随原挂件非商业展示，不授予独立素材包再分发；已在候选包中替换为自研长裙头像",
+    "evidence": "https://github.com/T7moris/GPT-Niang#许可与素材使用",
+    "redistributable": false
+  },
+  "b84eb1a7ccdcc70a78025ba31518c99a705a77027934b6ee600ef7b1fad6bb4b": {
+    "file": "assets/frontidle.png",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 管线非商业衍生生成的全身待机基准立绘",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "37c84f3a1e16a24a5722c5fe51142250ef2dfa6e76d250631c04172756333d4e": {
+    "file": "assets/gpt-dragon-niang-bust.png",
+    "source": "本项目从自研长裙全身立绘 longdress-master-v3-mouth.png 裁切的头像预览图（替换旧版 T7moris 半身图），角色外观设定参考 ZipZipPipe《AI娘化》GPT 白龙娘",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "2972d9b0867cdcac561fde84d7c7329df30066c5622f9c33e347abbebca2ddbf": {
+    "file": "media/atocbridge.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/atocbridge.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "1af4565b794f98d969ecd275e701dabc4c857e9156f40c34533ddd742fef60dd": {
+    "file": "media/bodybalance.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/bodybalance.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "af1f7ebbf6adc1e5384548e9b066ab174cc82ea9b7d0beac70c779e1cb3392f8": {
+    "file": "media/bow.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/bow.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "527c3f3f490ff69d2d0e677894540de8c54c0fcee6e2ce4bbea027f3edd5fbfb": {
+    "file": "media/brelaxed.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/brelaxed.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "63a9da78a12272c080b1d6f5085feada0b3021572ff6c531977781c7d3d8a03d": {
+    "file": "media/btoabridge.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/btoabridge.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "aed3730dccbbb40b4b50abaf8e8a441bfcce11140a0f26d9dde590d7946ea39d": {
+    "file": "media/cbrushfringe.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/cbrushfringe.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "eb65b0dc53210bf343908b3aecf2b5dde87110d3dd770148c414c0c9ae2cd7c0": {
+    "file": "media/challengeaccept.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/challengeaccept.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "691af66b1132a90d59af852dfc275a61316a5ca3d204ecd6cb4752a8367a84c0": {
+    "file": "media/chandsrest.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/chandsrest.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "3d2aad251615f8b0a145e92bdbe2ce811563589938d80405fd78d8edc3f3ec27": {
+    "file": "media/cheekpuff.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/cheekpuff.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "98ff126ab334a9133d86de40b06188948c4a7baf1eb86622b8d61a27b012c763": {
+    "file": "media/cnoticeuser.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/cnoticeuser.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "dc754226e176285e9ce3a882d5e3890219bae3ebf905bc39142279502640d4fa": {
+    "file": "media/complimentavert.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/complimentavert.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "00b22f2cdb63ceb04cd196dbcd99700321b9e6b1cc60349bd0951ca2a56be033": {
+    "file": "media/complimentreturn.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/complimentreturn.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "948f0c3b72759c6ea4a9ab3f0bdd9073c7de30358150afb6581c69a1c3960d7d": {
+    "file": "media/confused.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/confused.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "99f3105ec77ecbdafb575547eb8c9b81ad9cce61cae4c5d02df72a8029534af8": {
+    "file": "media/confusedquiet.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/confusedquiet.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "b22c16598baa1c3518606d594251f6f3dcad8e32660fb1029a8d20575e4d8ca6": {
+    "file": "media/csmallweightsettle.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/csmallweightsettle.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "d848b52c89e47b43eecea9920351d58f0bc3e21c656b623aaccce628d94407ee": {
+    "file": "media/csoftbreathblink.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/csoftbreathblink.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "7e06ac49a13cac5fe0417640295a7dad256053296d28bdcac2d13d1c81d88e65": {
+    "file": "media/csuppressedyawn.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/csuppressedyawn.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "a8961138f56c6d1cb0c922c418aeda0c70c5ed4b65573a56884467471ec6734f": {
+    "file": "media/ctailtipsettle.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/ctailtipsettle.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "1b30b67964b9abcccff13c12d32f44d46e622d7118c0bfede3e838d04152840a": {
+    "file": "media/draglanding.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/draglanding.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "e304520e0a34beef07436fdff0d59e11d0f16baaf6d334514960015838e0386b": {
+    "file": "media/dragonflame.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/dragonflame.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "bc3e0a248ac97399ae33c8ccde874272954dfe83313ae55e41449440787ffb37": {
+    "file": "media/fanmishap.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/fanmishap.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "613d6223546af78230e52073419b05e4809128e3c4b24b88d4acecf7c4864df0": {
+    "file": "media/fanmishapreturn.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/fanmishapreturn.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "f611c25bdae864e1419b7af3b7b61c02a39fc25263a80ddcbdb079a6a457435f": {
+    "file": "media/flutter.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/flutter.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "5ee3c20c20370bc47ce63bb5b40d4b3a90ce36d7553612bd65689343a585520b": {
+    "file": "media/flutterplay.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/flutterplay.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "995c9e8c36c9c975359ec0657a90ef87e1d55dca783d1225e00895958024aa13": {
+    "file": "media/footrelax.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/footrelax.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "9c7c51c2bad7175c67e70e5852e2ee654631a4277ebe6fa0b4725b14bf3e8bf7": {
+    "file": "media/frontidle.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/frontidle.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "d267787a7204bea74672cb26fbf21af1b69814cb510ed6ffd0c028b889cbd046": {
+    "file": "media/frontlanding.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/frontlanding.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "6762bd319db3ed5f5867671afb4d285e98c7345719693a01f521c02c08dc8e2e": {
+    "file": "media/frontpose.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/frontpose.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "8cab692867e1f59e81b8b04c3c99fd68a02e4a8a90346b164176d81eb9623c89": {
+    "file": "media/gentlereminder.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/gentlereminder.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "d6a0c4c6d94e8f852c0edd1fd4e138f1cd1219a970015518b480447d9d35d3bf": {
+    "file": "media/happy.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/happy.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "ebb38ea336023010084a8fd6a521f86aebade57cbfee57d6e84caa9eaa767498": {
+    "file": "media/happyreturn.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/happyreturn.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "1dd638c58433b77c644b3a077d743ab35fb7581460077bf7733fc958ab01d4d3": {
+    "file": "media/idle.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/idle.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "b3fc8ef52e439cc57635e1efb3846fe7ebef5808701a58e8818d54c2dba86b58": {
+    "file": "media/idlesway.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/idlesway.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "b63f5b11ca8c1b338adc037f94142511eaf73bb833f6fe76dc99b8c2ff00da2c": {
+    "file": "media/lanterninvite.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/lanterninvite.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "060c9d6c073415b346f2d80491a95070e3755627034a39e1eb95016475057686": {
+    "file": "media/lanterninvitereturn.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/lanterninvitereturn.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "77e1a2d403993383384e0dde377f38e9e8932699431f16c03f9a7d785fd81302": {
+    "file": "media/lookaround.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/lookaround.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "25e7af52ef26e4a367db6ba4cf63301650263bfc1025e30ef2aa8665727e8557": {
+    "file": "media/lookaroundreturn.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/lookaroundreturn.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "dd39645f38ec67c1681f8ee820f7dbc01f0ff4f9ab6e2909fbfe6d81cbeaf24a": {
+    "file": "media/mirroradmire.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/mirroradmire.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "d4f32174da17458eaf0e90b7a311ac23c7e66cfff37ed8a2527ee3aa18b3478a": {
+    "file": "media/poserelax.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/poserelax.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "e04d7403818d520abf666dc43253c9382af54120a2e828243c33c0bc201915b2": {
+    "file": "media/proudarms.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/proudarms.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "05d991df3d0ed6790c583d03042e766c9f83b8d301003ae083dabdf87ffc1350": {
+    "file": "media/proudarmsreturn.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/proudarmsreturn.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "b3c70fcf570b93524650ad3dee3432d6555401b2ba1d353b1ef9f44c6c2aa5d3": {
+    "file": "media/response.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/response.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "360a005bb4725827229bfd1293b7794db685a259b1955eca746c5b459ca6fd38": {
+    "file": "media/scrollcatch.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/scrollcatch.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "bed88075b0b44efa49fd366005f3aa3e013cfa61817c6a90b1bed773ce8e2a73": {
+    "file": "media/skirtbeat.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/skirtbeat.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "48359aa96b1aff554dd070fcc16072f82ec7204aed1b3ce3021d7d2e0702b3dc": {
+    "file": "media/sleeping.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/sleeping.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "09b1a5f63affde8607ed8c52917ebad4be6a1956b3976eef21315d7fd2dd118d": {
+    "file": "media/sleeveside.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/sleeveside.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "6271916d92e858be1bf424f0ca64fdfd7b986f8e5b760ad6c9065e0a9fda7f56": {
+    "file": "media/stargift.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/stargift.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "ba6db5a0a5155c61c670d15a78bd50708725042d21b112be9d37f73be7f707e1": {
+    "file": "media/stretching.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/stretching.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "e30648aeffa0dc2b054b72bdb33cf94fd0594188bb7b3e8c646b4b0277c4c202": {
+    "file": "media/stretchingreturn.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/stretchingreturn.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "578ce75dee48d3921653811c836d68a53d5b5b575fa515cbc656dcaae72af23d": {
+    "file": "media/tea.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/tea.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "b63251efb374373bbe3149af5403a6969ec92165764b7e136f28d305104593ee": {
+    "file": "media/thinking.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/thinking.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "9c43be79fa968b493083e36f307a8431273d6d084a3760645f87085215b6d3b4": {
+    "file": "media/thinkingreturn.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/thinkingreturn.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "976d0a13c998acdfe711b76763026d03557b59b865d55c9f807623d7e959cf30": {
+    "file": "media/tickledodge.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/tickledodge.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "af610fd262abb420af90c467013c686afba87b95e9efe75024bbb82c21d76f71": {
+    "file": "media/turnfront.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/turnfront.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "959adfa86a5277b572c88a72243853dfb3ef1d5efabb715dbaee340473eaf8ba": {
+    "file": "media/turnside.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/turnside.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "4249a4032701d5a7387c0dc578260dae23d62b957125e74c8168895d95b742e3": {
+    "file": "media/walking.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/walking.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "fc8b331b325abfd4f792ae1e156f2e9b24b4d1a30a8e0d0d90973338b4bf7ec4": {
+    "file": "media/wave.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/wave.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "44b81d3c39bfcb6acb1c881ed96df4f3ed7efff5c43fda1e35937123502bf20a": {
+    "file": "media/wavereturn.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/wavereturn.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
+  },
+  "996c91555438b639402d5e3895be29e756c6d07f91a2c64c0272be2683325e19": {
+    "file": "media/weightshift.webm",
+    "source": "本项目基于 ZipZipPipe《AI娘化》GPT 白龙娘设定以 AI 视频管线非商业衍生生成的动作素材 (media/weightshift.webm)",
+    "license": "CC BY-NC-SA 4.0; noncommercial distribution with attribution",
+    "evidence": "https://www.pixiv.net/artworks/148186519 | https://space.bilibili.com/4168597",
+    "redistributable": true,
+    "requiredNotice": {
+      "path": "ANIMATION-LICENSE.md",
+      "sha256": "f156d62aa1d7d82fe2a47a21b40a4df05f2b55a0eab8cde5280b1d21452fb5c9"
+    }
   }
 }

@@ -1,0 +1,18 @@
+{
+  "id": "scrollcatch",
+  "label": "执卷巧接",
+  "frames": 354,
+  "fps": 30,
+  "loop": false,
+  "automatic": false,
+  "sourceKind": "approved-reserve-transparent-video",
+  "menuGroup": "玩耍",
+  "entryPose": "C",
+  "exitPose": "C",
+  "sourceVideoSha256": "26c4fb0ecec60d8877ddb84e07440c493edd1918e586b7cf64b703cb34196a8c",
+  "videoFile": "scrollcatch.webm",
+  "maskFile": "scrollcatch.bin",
+  "videoSha256": "b1d08c1559acdf0718c113d133da394a6e634e29279d20965eba962aa526c367",
+  "maskSha256": "5a5213d9ab0c0c2fe06e796d798864c4336d458966c0bb6e2fbfcd641ef0888f",
+  "maskBytes": 6524928
+}

@@ -17,6 +17,8 @@ EXTENSIONS = {
 
 def inventory(zip_path, licenses):
     with zipfile.ZipFile(zip_path) as archive:
+        entries = set(archive.namelist())
+        notices = {}
         for info in archive.infolist():
             name = PurePosixPath(info.filename)
             if info.is_dir() or name.suffix.lower() not in EXTENSIONS:
@@ -31,7 +33,17 @@ def inventory(zip_path, licenses):
             if record.get("redistributable") is False:
                 status = "blocked"
             elif record.get("redistributable") is True and all(record.get(k) for k in ("source", "license", "evidence")):
-                status = "approved"
+                notice = record.get("requiredNotice")
+                if notice is None:
+                    status = "approved"
+                else:
+                    root = name.parts[0]
+                    notice_path = root + "/" + notice["path"]
+                    if notice_path not in notices:
+                        notices[notice_path] = (hashlib.sha256(archive.read(notice_path)).hexdigest()
+                                                if notice_path in entries else None)
+                    if notices[notice_path] == notice["sha256"]:
+                        status = "approved"
             yield {"file": str(name), "sha256": sha, "status": status,
                    "source": record.get("source"), "license": record.get("license"),
                    "evidence": record.get("evidence")}

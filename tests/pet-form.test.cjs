@@ -81,3 +81,27 @@ test('one flat menu item toggles forms and half clicks never play hidden full-bo
  context.Sprite.prototype.onMenuAction.call(sprite,{action:'form-toggle'});assert.equal(sprite.forms.target,'full');assert.equal(calls,1);
  context.Sprite.prototype.onClick.call(sprite);
 });
+
+test('non-whale pets avoid BlueWhale bust fallback and route center-face clicks and feetY accurately',async()=>{
+ const f=fixture();
+ const dragonSprite={...f.sprite,pet:{id:'gptniang',name:'白发紫眼龙娘'},fullLayer:f.sprite.fullLayer};
+ const unsupported=new f.win.PetForms.Controller(dragonSprite);
+ assert.equal(unsupported.supported,false);
+ assert.equal(await unsupported.set('bust'),false);
+ assert.equal(unsupported.mode,'full');
+ const customDragon=new f.win.PetForms.Controller({...dragonSprite,pet:{id:'gptniang',name:'白发紫眼龙娘',bustSrc:'file:///test/dragon-bust.png'}});
+ assert.equal(customDragon.supported,true);
+ assert.equal(await customDragon.set('bust'),true);
+ customDragon.lastChatterAt=-Infinity;customDragon.click();
+ assert.doesNotMatch(f.errors.at(-1),/鲸|肥鱼/);
+ let chosen=null,menu=null;
+ const context={window:{__dshPetDebug:{}},S:{CANVAS_H:360,FEET_Y:330,HIT_BOX:{x0:200,y0:40,x1:440,y1:330},pick:arr=>arr[0],buildMenuTree:()=>[],mountContextMenu:o=>(menu=o.tree,{close(){}})}};
+ vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(__dirname,'../app/electron-helper/sprite.js'),'utf8')+';globalThis.Sprite=PetSprite;',context);
+ const mock={pet:{id:'gptniang'},facing:'left',anim:'待机呼吸',dragState:{},forms:{mode:'full',supported:false,click:()=>false},inlineChat:{state:{}},stopThrow(){},stopMove(){},cancelPendingSwitch(){},setInteractive(){},syncInputBusy(){},visibleClampRect(){},syncInputRegions(){},closeMenu(){},
+  hit:{getBoundingClientRect:()=>({left:0,top:0,width:100,height:100})},
+  animations:{clicks:['鼓腮抗议','展颜欢笑'],landing:['落地']},playOnce(name){chosen=name;}};
+ context.Sprite.prototype.onClick.call(mock,{clientX:50,clientY:36});
+ assert.equal(chosen,'鼓腮抗议');
+ context.Sprite.prototype.onContextMenu.call(mock,{preventDefault(){},clientX:20,clientY:20});
+ assert.equal(menu.some(x=>x.action==='form-toggle'),false);
+});

@@ -1,0 +1,18 @@
+{
+  "id": "mirroradmire",
+  "label": "揽镜自赏",
+  "frames": 354,
+  "fps": 30,
+  "loop": false,
+  "automatic": false,
+  "sourceKind": "approved-reserve-transparent-video",
+  "menuGroup": "玩耍",
+  "entryPose": "C",
+  "exitPose": "C",
+  "sourceVideoSha256": "aebdc3939573678e3ec98838d63ace1a3a3ed3d39e808ceb338e7893d635aecb",
+  "videoFile": "mirroradmire.webm",
+  "maskFile": "mirroradmire.bin",
+  "videoSha256": "5b6a3aca24683e91584194e947991bc69f4df32961b9210bb5597e0f41c3932c",
+  "maskSha256": "1606543694e40098a2def7f46d91a7d9a0e77ca782db24b75b7512dda99c6590",
+  "maskBytes": 6524928
+}

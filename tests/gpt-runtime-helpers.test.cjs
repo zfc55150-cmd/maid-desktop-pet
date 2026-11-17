@@ -42,14 +42,14 @@ test('T3: isolated test state is seeded only where files are missing', () => {
 });
 
 // Run the production persistPosition() source in isolation.
-function persistFixture({hostFrame, settingsUpdate, followHost = true}) {
+function persistFixture({settingsUpdate} = {}) {
   const main = fs.readFileSync(path.join(appDir, 'main.cjs'), 'utf8');
   const source = main.slice(main.indexOf('function persistPosition('), main.indexOf('async function command('));
   const errors = [], saved = [];
   const context = {
     win: {getBounds: () => ({x: 10, y: 20, width: 300, height: 300})},
-    product: {prefs: () => ({followHost}), update: patch => saved.push({follow: patch}), settings: {update: settingsUpdate || (patch => saved.push({free: patch}))}},
-    native: {hostFrame}, expected: 300, error: code => errors.push(code)
+    product: {settings: {update: settingsUpdate || (patch => saved.push({free: patch}))}},
+    expected: 300, error: code => errors.push(code)
   };
   vm.createContext(context);
   vm.runInContext(source, context);
@@ -57,23 +57,18 @@ function persistFixture({hostFrame, settingsUpdate, followHost = true}) {
   return {errors, saved};
 }
 
-test('C1: unavailable host frame falls back to a normal save with a precise code', () => {
-  for (const hostFrame of [() => null, () => { throw new Error('native gone'); }]) {
-    const r = persistFixture({hostFrame});
-    assert.deepEqual(r.errors, ['POSITION_HOSTFRAME_UNAVAILABLE']);
-    assert.equal(r.saved.length, 1);
-    assert.equal(JSON.stringify(r.saved[0].free), JSON.stringify({desktopLeft: 10, desktopTop: 20, desktopCanvasPixels: 300}));
-  }
+test('C1: persistPosition always saves independent desktop bounds cleanly', () => {
+  const r = persistFixture();
+  assert.deepEqual(r.errors, []);
+  assert.equal(r.saved.length, 1);
+  assert.equal(JSON.stringify(r.saved[0].free), JSON.stringify({desktopLeft: 10, desktopTop: 20, desktopCanvasPixels: 300}));
 });
 
 test('C1: save failures keep the real message and only conflicts use the conflict code', () => {
-  const failed = persistFixture({hostFrame: () => ({found: false}), settingsUpdate: () => { throw new Error('EACCES'); }});
+  const failed = persistFixture({settingsUpdate: () => { throw new Error('EACCES'); }});
   assert.deepEqual(failed.errors, ['POSITION_SAVE_FAILED:EACCES']);
-  const conflict = persistFixture({hostFrame: () => ({found: false}), settingsUpdate: () => { throw new Error('SETTINGS_CHANGED'); }});
+  const conflict = persistFixture({settingsUpdate: () => { throw new Error('SETTINGS_CHANGED'); }});
   assert.deepEqual(conflict.errors, ['POSITION_SAVE_CONFLICT:SETTINGS_CHANGED']);
-  const found = persistFixture({hostFrame: () => ({found: true, x: 0, y: 0, width: 1000, height: 800, dpi: 96})});
-  assert.deepEqual(found.errors, []);
-  assert.equal(found.saved[0].follow.anchor, 'free');
 });
 
 test('T2: close records step timings and arms a 10 s fallback exit', () => {

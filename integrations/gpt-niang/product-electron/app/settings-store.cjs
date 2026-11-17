@@ -1,5 +1,14 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+const RETRY_CODES=new Set(['EPERM','EACCES','EBUSY']),RETRY_WAIT=new Int32Array(new SharedArrayBuffer(4));
+function pauseSync(ms){Atomics.wait(RETRY_WAIT,0,0,ms);}
+function renameWithRetry(from,to){
+ const delays=[10,20,40,80];
+ for(let attempt=0;;attempt++){
+  try{fs.renameSync(from,to);return;}
+  catch(e){if(!RETRY_CODES.has(e?.code)||attempt>=delays.length)throw e;pauseSync(delays[attempt]);}
+ }
+}
 const digest=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 function object(value){return !!value&&typeof value==='object'&&!Array.isArray(value);}
 class SettingsStore {
@@ -10,8 +19,8 @@ class SettingsStore {
   if(!this.canSave||!object(patch))throw Error('SETTINGS_SAVE_BLOCKED');const current=this.read(this.file);if(current.revision!==this.revision){const conflict=Object.keys(patch).some(key=>JSON.stringify(current.value[key])!==JSON.stringify(this.value[key])&&JSON.stringify(current.value[key])!==JSON.stringify(patch[key]));this.value=current.value;this.revision=current.revision;if(conflict){this.error='SETTINGS_CHANGED';throw Error('SETTINGS_CHANGED');}}
   const next={...current.value,...patch},text=JSON.stringify(next,null,2)+'\n';if(Buffer.byteLength(text)>this.maxBytes)throw Error('SETTINGS_TOO_LARGE');
   fs.mkdirSync(path.dirname(this.file),{recursive:true});const temporary=this.file+'.'+crypto.randomUUID()+'.tmp';
-  try{fs.writeFileSync(temporary,text,{flag:'wx'});if(this.read(this.file).revision!==this.revision)throw Error('SETTINGS_CHANGED');if(current.exists)fs.copyFileSync(this.file,this.file+'.bak');fs.renameSync(temporary,this.file);this.value=next;this.revision=digest(Buffer.from(text));this.error=null;return this.value;}finally{if(fs.existsSync(temporary))fs.unlinkSync(temporary);}
+  try{fs.writeFileSync(temporary,text,{flag:'wx'});if(this.read(this.file).revision!==this.revision)throw Error('SETTINGS_CHANGED');if(current.exists)fs.copyFileSync(this.file,this.file+'.bak');renameWithRetry(temporary,this.file);this.value=next;this.revision=digest(Buffer.from(text));this.error=null;return this.value;}finally{if(fs.existsSync(temporary))fs.unlinkSync(temporary);}
  }
 }
-function updateBatch(plans){const committed=[];try{for(const {store,patch}of plans){const before=fs.existsSync(store.file)?fs.readFileSync(store.file):null;store.update(patch);committed.push({store,before,revision:store.revision});}}catch(error){let rollbackFailed=false;for(const {store,before,revision}of committed.reverse()){try{if(store.read(store.file).revision!==revision)throw Error('CONCURRENT_ROLLBACK');if(before===null)fs.unlinkSync(store.file);else{const temporary=store.file+'.'+crypto.randomUUID()+'.rollback';try{fs.writeFileSync(temporary,before,{flag:'wx'});if(store.read(store.file).revision!==revision)throw Error('CONCURRENT_ROLLBACK');fs.renameSync(temporary,store.file);}finally{if(fs.existsSync(temporary))fs.unlinkSync(temporary);}}store.load();}catch{rollbackFailed=true;}}if(rollbackFailed)throw Error('PREFERENCES_RELOAD_REQUIRED');throw error;}}
+function updateBatch(plans){const committed=[];try{for(const {store,patch}of plans){const before=fs.existsSync(store.file)?fs.readFileSync(store.file):null;store.update(patch);committed.push({store,before,revision:store.revision});}}catch(error){let rollbackFailed=false;for(const {store,before,revision}of committed.reverse()){try{if(store.read(store.file).revision!==revision)throw Error('CONCURRENT_ROLLBACK');if(before===null)fs.unlinkSync(store.file);else{const temporary=store.file+'.'+crypto.randomUUID()+'.rollback';try{fs.writeFileSync(temporary,before,{flag:'wx'});if(store.read(store.file).revision!==revision)throw Error('CONCURRENT_ROLLBACK');renameWithRetry(temporary,store.file);}finally{if(fs.existsSync(temporary))fs.unlinkSync(temporary);}}store.load();}catch{rollbackFailed=true;}}if(rollbackFailed)throw Error('PREFERENCES_RELOAD_REQUIRED');throw error;}}
 module.exports={SettingsStore,updateBatch};

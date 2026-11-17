@@ -27,7 +27,8 @@ m['files']=[{'target':target,'sha256':sha(dest),'previousSha256':sha(installed/t
 for name in ['cursor-grab.cur','cursor-grabbing.cur','hover-font.ttf']:
  relative='assets/identity-hover/'+name
  assert not (installed/relative).exists(),'New asset baseline changed'
- p=out/'files'/relative;p.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source/'assets'/name,p)
+ asset=source.parent/'forms/assets/soft-candy.ttf' if name=='hover-font.ttf' else source/'assets'/name
+ p=out/'files'/relative;p.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(asset,p)
  m['files'].append({'target':relative,'sha256':sha(p),'previousSha256':None})
 for entry in m['hostFiles']:
  assert sha(installed/entry['target'])==entry['sha256'],'Concurrent change: '+entry['target']

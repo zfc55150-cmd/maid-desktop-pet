@@ -1,0 +1,18 @@
+{
+  "id": "stargift",
+  "label": "龙息凝星",
+  "frames": 393,
+  "fps": 30,
+  "loop": false,
+  "automatic": false,
+  "sourceKind": "approved-reserve-transparent-video",
+  "menuGroup": "玩耍",
+  "entryPose": "C",
+  "exitPose": "C",
+  "sourceVideoSha256": "6f106bc26f7468c28709c059520e303b3cfcebdc7095d22b4be8cf75106fba87",
+  "videoFile": "stargift.webm",
+  "maskFile": "stargift.bin",
+  "videoSha256": "02be635f7c74c6bd3318ee8f70aab6ed19a1cad0207a52cc00bf0c2dc3e472ca",
+  "maskSha256": "28a982bef7ec4f605d63cf22483e5af34f50275e0fa7341439221a05aced4aa8",
+  "maskBytes": 7243776
+}

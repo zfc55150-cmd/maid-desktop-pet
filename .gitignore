@@ -19,3 +19,4 @@ integrations/gpt-niang/runtime/
 control-session.json
 chat.json*
 main-config.jsonc*
+integrations/gpt-niang/product-electron/media-additions/*/*.bin

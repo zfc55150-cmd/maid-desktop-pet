@@ -19,7 +19,10 @@ class PetSprite {
     this.height = (this.size * 9) / 16;
     this.halfW = this.size / 2;
     this.halfH = this.height / 2;
-    this.bottomPad = (this.size * (9 / 16) * (S.CANVAS_H - S.FEET_Y)) / S.CANVAS_H;
+    const feetY = Number.isFinite(this.pet.geometry?.feetY)
+      ? this.pet.geometry.feetY
+      : (Number.isFinite(this.pet.feetY) ? this.pet.feetY : (this.pet.id === 'gptniang' ? 359 : S.FEET_Y));
+    this.bottomPad = (this.size * (9 / 16) * (S.CANVAS_H - feetY)) / S.CANVAS_H;
     // 窗口高 = 舞台高 + 脚底垫高（stage 被 translateY(bottomPad) 下移的余量，防底部被窗口裁剪）
     this.winH = this.height + this.bottomPad;
     // 窗口内【可交互区域】= 身体命中区（像素，窗口坐标）。浏览器 overlay 只有 .dsh-pet-hit 是
@@ -1576,8 +1579,10 @@ class PetSprite {
       // 6 大部位精准交互路由（龙娘与所有桌宠通用，坐标自适应角色朝向）
       if (ry < 0.28) {
         chosen = findOrPick(['害羞偷看', '歪头疑惑', '安静歪头', '乖巧回应']); // 头部/龙角/呆毛
-      } else if (ry < 0.46 && (rx < 0.32 || rx > 0.68)) {
-        chosen = findOrPick(['鼓腮抗议', '害羞撇头', '抱臂矜持']); // 脸颊/耳侧
+      } else if (ry < 0.46) {
+        chosen = findOrPick(rx >= 0.28 && rx <= 0.72
+          ? ['鼓腮抗议', '害羞撇头', '害羞偷看', '歪头疑惑'] // 正面脸颊/五官
+          : ['鼓腮抗议', '害羞撇头', '抱臂矜持']); // 耳侧/发鬓
       } else if (ry >= 0.46 && ry < 0.70 && rx >= 0.30 && rx <= 0.70) {
         chosen = findOrPick(['怕痒躲避', '展翅嬉戏', '轻盈平衡']); // 腰部/腹部
       } else if (ry >= 0.45 && (rx < 0.25 || rx > 0.75)) {
@@ -1649,7 +1654,7 @@ class PetSprite {
       { label: '设置与聊天记录', action: 'chat-settings' },
       ...(this.inlineChat?.state?.messages?.at(-1)?.incomplete ? [{label:'继续未完成的回复',action:'chat-continue'}] : []),
       { label: '调整大小', action: 'pet-size' },
-      { label: '切换形态', action: 'form-toggle' },
+      ...(this.forms?.supported !== false ? [{ label: '切换形态', action: 'form-toggle' }] : []),
       { label: '停止回复 / 朗读', action: 'chat-stop' },
       { label: '试听语音与气泡', action: 'chat-preview' },
       { label: '重载配置', action: 'reload' },

@@ -1,0 +1,33 @@
+{
+  "acceptedForIntegrationTrial": true,
+  "userVisualAcceptance": false,
+  "sourceVideoSha256": "aebdc3939573678e3ec98838d63ace1a3a3ed3d39e808ceb338e7893d635aecb",
+  "videoSha256": "5b6a3aca24683e91584194e947991bc69f4df32961b9210bb5597e0f41c3932c",
+  "evidence": {
+    "title": "揽镜自赏",
+    "frames": 354,
+    "sourceSha256": "aebdc3939573678e3ec98838d63ace1a3a3ed3d39e808ceb338e7893d635aecb",
+    "before": [
+      {
+        "silhouetteIou": 0.984,
+        "opaqueRgbMeanError": 16.45
+      },
+      {
+        "silhouetteIou": 0.984,
+        "opaqueRgbMeanError": 16.78
+      }
+    ],
+    "after": [
+      {
+        "silhouetteIou": 0.9997,
+        "opaqueRgbMeanError": 1.24
+      },
+      {
+        "silhouetteIou": 0.999,
+        "opaqueRgbMeanError": 2.16
+      }
+    ],
+    "alignedHorizontalCropDelta": 4,
+    "joinFramesPerSide": 10
+  }
+}

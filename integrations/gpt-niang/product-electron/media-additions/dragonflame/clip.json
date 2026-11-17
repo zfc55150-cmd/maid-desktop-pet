@@ -12,8 +12,8 @@
   "sourceVideoSha256": "b99e47f60bc2b9d2aa10bea39c2c485b2e17045ec7d006aa6f0ea04564858930",
   "videoFile": "dragonflame.webm",
   "maskFile": "dragonflame.bin",
-  "videoSha256": "10cba48171913aed4d4cd33ca39308c59cdbd813aab84f4b16227b5b979489d5",
-  "maskSha256": "c5c54dfecfd216f9bc93e77024674368e88c7fbfedfd067432ee8a2d0f3ada43",
+  "videoSha256": "a0581b208c20d99239a208935c5824e8f8571ca0f12ce933adce0f04bb4340f7",
+  "maskSha256": "93dcf0698672b58805fd22331c7b0f4dadbfeec5dd9001b222c0c808bb2a926a",
   "maskBytes": 6524928,
   "sourceCanvas": {
     "width": 640,
@@ -25,5 +25,47 @@
     "cropX": 132,
     "bottomPadding": 24,
     "scale": 1
+  },
+  "opacityRepair": {
+    "beforeVideoSha256": "10cba48171913aed4d4cd33ca39308c59cdbd813aab84f4b16227b5b979489d5",
+    "frames": 354,
+    "changedFrames": [
+      30,
+      175
+    ],
+    "peakFrame": 112,
+    "peakPixelsRestored": 7364,
+    "peakMeanWhiteLeakReduction": 46.839,
+    "peakMeanDarkCompositeRgbError": 1.713,
+    "hitMaskBitExact": true
+  },
+  "rekeyRepair": {
+    "previousVideoSha256": "b9894c3a97a37996d6ca1bbc72827ba52a7feda87d64c58f7c800de498f43aba",
+    "rawGreenScreenSha256": "543e69ca03ac752d401e770d43e8417a4e840fae645a77db6ff6c4dc5d478612",
+    "frames": 354,
+    "changedFrameRange": [
+      27,
+      177
+    ],
+    "nearTransparentPixelsRecovered": 41524,
+    "peakFrame112Recovered": 829,
+    "peakFrame112WhiteLeakReducedPixels": 3956,
+    "maxHitMaskPixelsAdded": 212,
+    "outsideRepairFramesBitExact": true
+  },
+  "effectSeparation": {
+    "previousVideoSha256": "d2599242aba6923f17bc0960148e59c57d11d630a12c75ce9db774f4790f062f",
+    "rawGreenScreenSha256": "543e69ca03ac752d401e770d43e8417a4e840fae645a77db6ff6c4dc5d478612",
+    "frames": 354,
+    "changedFrameRange": [
+      27,
+      177
+    ],
+    "worstHazeFrame": 106,
+    "worstExteriorHazePixelsBefore": 5564,
+    "worstExteriorHazePixelsAfter": 0,
+    "sourceSupportedUpperSilhouetteLowOpacityBefore": 22613,
+    "sourceSupportedUpperSilhouetteLowOpacityAfter": 1,
+    "outsideRepairFramesBitExact": true
   }
 }

@@ -1,0 +1,33 @@
+{
+  "acceptedForIntegrationTrial": true,
+  "userVisualAcceptance": false,
+  "sourceVideoSha256": "26c4fb0ecec60d8877ddb84e07440c493edd1918e586b7cf64b703cb34196a8c",
+  "videoSha256": "b1d08c1559acdf0718c113d133da394a6e634e29279d20965eba962aa526c367",
+  "evidence": {
+    "title": "执卷巧接",
+    "frames": 354,
+    "sourceSha256": "26c4fb0ecec60d8877ddb84e07440c493edd1918e586b7cf64b703cb34196a8c",
+    "before": [
+      {
+        "silhouetteIou": 0.984,
+        "opaqueRgbMeanError": 16.45
+      },
+      {
+        "silhouetteIou": 0.9839,
+        "opaqueRgbMeanError": 16.78
+      }
+    ],
+    "after": [
+      {
+        "silhouetteIou": 0.9997,
+        "opaqueRgbMeanError": 1.24
+      },
+      {
+        "silhouetteIou": 0.9991,
+        "opaqueRgbMeanError": 2.16
+      }
+    ],
+    "alignedHorizontalCropDelta": 4,
+    "joinFramesPerSide": 10
+  }
+}

@@ -88,12 +88,21 @@ class ChatConfigStore {
   try{
    this.fs.mkdirSync(temp);
    this.writeAtomic(path.join(temp,'owner.json'),JSON.stringify({pid:process.pid,token}));
-   if(this.fs.existsSync(lockPath))throw Object.assign(new Error('locked'),{code:'EEXIST'});
-   this.fs.renameSync(temp,lockPath);
+   this.renameRetry(temp,lockPath,()=>{if(this.fs.existsSync(lockPath))throw Object.assign(new Error('locked'),{code:'EEXIST'});});
    return {token};
   }finally{
    try{this.fs.unlinkSync(path.join(temp,'owner.json'));}catch{}
    try{this.fs.rmdirSync(temp);}catch{}
+  }
+ }
+ renameRetry(from,to,beforeRename=()=>{}) {
+  for(let i=0;;i++){
+   beforeRename();
+   try{this.fs.renameSync(from,to);return;}
+   catch(error){
+    if(i>=8||!['EPERM','EACCES'].includes(error.code))throw error;
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,5*(i+1));
+   }
   }
  }
  readLock(lockPath) {
@@ -112,7 +121,7 @@ class ChatConfigStore {
    descriptor=this.fs.openSync(temp,'wx',0o600);
    this.fs.writeFileSync(descriptor,raw,'utf8');this.fs.fsyncSync(descriptor);
    this.fs.closeSync(descriptor);descriptor=undefined;
-   beforeRename();this.fs.renameSync(temp,file);
+   this.renameRetry(temp,file,beforeRename);
   }finally{
    if(descriptor!==undefined){try{this.fs.closeSync(descriptor);}catch{}}
    try{this.fs.unlinkSync(temp);}catch{}

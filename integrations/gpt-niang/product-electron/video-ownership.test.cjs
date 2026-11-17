@@ -5,3 +5,26 @@ function fixture(){const videos=[new Video(),new Video()],guard={active:true,rea
 test('retaining a new press invalidates every queued monitor of the old generation',()=>{const {videos,guard,player}=fixture();guard.ready=true;player.retain();videos[0].frame();assert(guard.active);assert.equal(player.frames.length,0);player.dispose();});
 test('empty decoded surface keeps the visible guard and cannot certify a new silhouette',()=>{const {videos,guard,player}=fixture(),frames=[];player.onFrame=f=>frames.push(f);videos[0].frame();assert(guard.active);assert.equal(frames.at(-1).visible,false);guard.ready=true;videos[0].frame();assert(!guard.active);assert.equal(frames.at(-1).visible,true);player.dispose();});
 test('a completed held takeoff keeps its decoded final surface and rejects stale end callbacks',async()=>{const videos=[new Video(),new Video()];for(const v of videos)v.play=()=>Promise.resolve();const player=new Player(videos,x=>x,{opacity:()=>1}),ended=[];player.onEnd=f=>ended.push(f.clip);const pending=player.playSequence([{clip:'flutter',frames:180,fps:30,holdLast:true}],{requestId:1});videos[0].frame();await pending;const end=videos[0].onended;end();assert.equal(player.clip,'flutter');assert.equal(player.trace.filter(r=>r.event==='request').length,1);assert.equal(videos[0].style.opacity,'1');player.freeze();end();assert.deepEqual(ended,['flutter']);player.dispose();});
+
+test('a known return is decoded in standby and used without reloading at the seam',async()=>{
+ const videos=[new Video(),new Video()];
+ for(const video of videos){
+  video.play=()=>Promise.resolve();
+  video.currentTime=0;
+  video.loads=0;
+  video.load=function(){this.loads++;};
+ }
+ const player=new Player(videos,clip=>clip,{idleClip:'idle'});
+ const step=clip=>({clip,frames:180,fps:30});
+ const pending=player.playSequence([step('show'),step('return'),{...step('idle'),loop:true}]);
+ videos[0].frame();
+ assert(await pending);
+ assert.equal(videos[1].src,'return');
+ assert.equal(videos[1].loads,1);
+ videos[1].readyState=2;
+ videos[0].onended();
+ assert.equal(player.clip,'return');
+ assert.equal(videos[1].loads,1);
+ assert.equal(videos[0].src,'idle');
+ player.dispose();
+});
