@@ -1,7 +1,7 @@
 {
   "name": "dsh-pet-electron-helper",
-  "version": "1.2.3-release-notice.2",
-  "releaseTag": "v1.0.4",
+  "version": "1.2.3-release-notice.3",
+  "releaseTag": "v1.0.7",
   "private": true,
   "description": "dsh-pet desktop helper — Electron transparent overlay window",
   "main": "main.js"

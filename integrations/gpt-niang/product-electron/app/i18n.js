@@ -30,7 +30,7 @@
    env?.LC_ALL,
    env?.LC_MESSAGES,
    env?.LANG,
-   env?.LANGUAGE,
+   ...(typeof env?.LANGUAGE==='string'?env.LANGUAGE.split(':'):[]),
    systemLocale,
    ...(Array.isArray(navigatorObj?.languages)?navigatorObj.languages:[]),
    navigatorObj?.language
@@ -196,6 +196,9 @@
    'notice.preferencesChanged':'设置已在别处修改，输入已保留。请先重新读取再保存。',
    'notice.actionFailed':'操作未能完成，请重新读取并核对设置。',
    'notice.observersFailed':'任务观察暂不可用，人物与设置仍可使用。',
+   'notice.safeMode':'动画配置异常，已进入静态安全模式。请检查或重新加载配置。',
+   'notice.manifestFallback':'当前动画配置异常，已自动回退至上一次可用配置。',
+   'notice.configFallback':'未找到外部配置或配置不可读，已回退至默认设置。',
    'codex.noConfig':'缺少安装配置，暂时无法连接 Codex',
    'codex.noCli':'未找到本地 Codex 客户端或 CLI，请先安装 Codex 后重试。',
    'codex.loginFailed':'未能启动 Codex 登录窗口，请手动打开 Codex 登录后点击刷新。',
@@ -209,7 +212,7 @@
    'sizePanel.heading':'调整人物大小',
    'sizePanel.intro':'拖动滑块选择大小，保存后立即生效。',
    'sizePanel.label':'人物大小',
-   'sizePanel.minEnd':'小 · 45%',
+   'sizePanel.minEnd':'小 · 48%',
    'sizePanel.maxEnd':'大 · 175%',
    'sizePanel.height':'人物高度约 {px} 像素',
    'sizePanel.menuKeep':'菜单大小保持',
@@ -395,7 +398,8 @@
    'panel.notice.refreshFailed':'暂时无法从 Codex 读取额度，请确认已在 Codex 中登录 ChatGPT 账号。',
    'panel.notice.loginStarted':'已打开 Codex 登录流程，请在浏览器完成 ChatGPT 登录后点击“刷新额度”。',
    'panel.notice.initFailed':'本地界面未能读取状态，请关闭面板后重试。',
-   'panel.notice.languageChanged':'界面语言已更新。'
+   'panel.notice.languageChanged':'界面语言已更新。',
+   'panel.notice.readonly':'设置文件暂时无法写入，已转为只读保护；修复后可点击“重新读取”。'
   },
   'ja':{
    'desktop.title':'デスクトップペット',
@@ -418,6 +422,9 @@
    'notice.preferencesChanged':'他の画面で設定が変更されました（入力は保持されています）。先に「再読み込み」してから保存してください。',
    'notice.actionFailed':'操作を完了できませんでした。設定を再読み込みして確認してください。',
    'notice.observersFailed':'タスク監視を一時的に利用できません。キャラクターと設定は引き続き利用できます。',
+   'notice.safeMode':'アニメーション設定に異常が見つかったため、静的セーフモードで起動しました。設定を確認して再読み込みしてください。',
+   'notice.manifestFallback':'アニメーション設定に異常があるため、前回の正常な設定にフォールバックしました。',
+   'notice.configFallback':'外部設定ファイルが見つからないか読み込めないため、デフォルト設定で起動しました。',
    'codex.noConfig':'インストール設定が見つからないため、Codex に接続できません',
    'codex.noCli':'ローカルの Codex クライアントまたは CLI が見つかりません。Codex をインストールしてから再試行してください。',
    'codex.loginFailed':'Codex のログイン画面を起動できませんでした。手動で Codex にログインしてから「更新」を押してください。',
@@ -431,7 +438,7 @@
    'sizePanel.heading':'キャラクターサイズ調整',
    'sizePanel.intro':'スライダーで大きさを選び、保存するとすぐ反映されます。',
    'sizePanel.label':'サイズ',
-   'sizePanel.minEnd':'小 · 45%',
+   'sizePanel.minEnd':'小 · 48%',
    'sizePanel.maxEnd':'大 · 175%',
    'sizePanel.height':'高さ 約 {px} px',
    'sizePanel.menuKeep':'メニューサイズはそのまま',
@@ -617,7 +624,8 @@
    'panel.notice.refreshFailed':'Codex から使用量を取得できませんでした。Codex で ChatGPT アカウントにログインしているか確認してください。',
    'panel.notice.loginStarted':'Codex のログイン画面を開きました。ブラウザで ChatGPT にログインした後、「使用量を更新」を押してください。',
    'panel.notice.initFailed':'ローカル画面の状態を読み込めませんでした。パネルを閉じてやり直してください。',
-   'panel.notice.languageChanged':'表示言語を切り替えました。'
+   'panel.notice.languageChanged':'表示言語を切り替えました。',
+   'panel.notice.readonly':'設定ファイルを書き込めないため、読み取り専用保護に切り替えました。修復後に「再読み込み」をお試しください。'
   }
  });
 

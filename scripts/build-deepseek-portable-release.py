@@ -2,8 +2,10 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import zipfile
 
@@ -18,11 +20,26 @@ RESTRICTED_ASSETS = {
     HELPER + "deepseek-bust-release.mp3",
     HELPER + "deepseek-bust-NOTICE.txt",
 }
+RESTRICTED_FOLD = {item.casefold() for item in RESTRICTED_ASSETS}
 
 
-def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir: Path, formal: bool = False, release_name: bool = False) -> Path:
+def resolve_node() -> str:
+    """Locate Node.js from PATH or the local DeepSeek runtime."""
+    found = shutil.which("node")
+    if found:
+        return found
+    local_app = os.environ.get("LOCALAPPDATA")
+    if local_app:
+        bundled = Path(local_app) / "Programs/DeepSeekActionPet/node.exe"
+        if bundled.is_file():
+            return str(bundled)
+    return "node"
+
+
+def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir: Path, formal: bool = False, release_name: bool = False, force: bool = False) -> Path:
+    node_exe = resolve_node()
     if formal:
-        checked = subprocess.run(["node", str(ROOT / "scripts/tagged-release.cjs"), tag],
+        checked = subprocess.run([node_exe, str(ROOT / "scripts/tagged-release.cjs"), tag],
                                  cwd=ROOT, capture_output=True, text=True, check=True)
         if checked.stdout.strip() != tag:
             raise ValueError("Formal tag verification mismatch")
@@ -35,22 +52,26 @@ def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir:
     if not re.fullmatch(r"[a-f0-9]{64}", base_sha256.lower()) or base_builder.sha256(base_zip) != base_sha256.lower():
         raise ValueError("Base ZIP SHA-256 does not match")
 
-    subprocess.run(["node", str(ROOT / "scripts/sync-shared.cjs")], cwd=ROOT, check=True)
-    subprocess.run(["node", str(ROOT / "scripts/verify.cjs")], cwd=ROOT, check=True)
+    subprocess.run([node_exe, str(ROOT / "scripts/sync-shared.cjs")], cwd=ROOT, check=True)
+    subprocess.run([node_exe, str(ROOT / "scripts/verify.cjs")], cwd=ROOT, check=True)
 
     deployment = json.loads((ROOT / "deployment.json").read_text(encoding="utf-8"))
     pkg = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
     if deployment.get("version") != pkg.get("version"):
         raise ValueError("deployment.json and package.json version mismatch")
+    if (formal or release_name) and pkg.get("releaseTag") != tag:
+        raise ValueError("package.json releaseTag does not match release tag")
 
     archive_stem = f"DeepSeekActionPet-{tag}-win-x64" if (formal or release_name) else f"DeepSeekActionPet-candidate-{tag}-win-x64"
     output_dir.mkdir(parents=True, exist_ok=True)
     target = output_dir / (archive_stem + ".zip")
+    if force and target.exists():
+        target.unlink()
 
     changes = {}
     for item in deployment["files"]:
         target_rel = item["target"].replace("\\", "/")
-        if target_rel in RESTRICTED_ASSETS:
+        if target_rel.casefold() in RESTRICTED_FOLD:
             continue
         src_path = ROOT / item["source"]
         data = src_path.read_bytes()
@@ -60,8 +81,6 @@ def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir:
 
     changes["portable/first-run.cjs"] = (ROOT / "integrations/deepseek-portable/first-run.cjs").read_bytes()
     changes["portable/stop.ps1"] = (ROOT / "integrations/deepseek-portable/stop.ps1").read_bytes()
-    changes[HELPER + "release-notice.cjs"] = (ROOT / "integrations/gpt-niang/product-electron/services/release-notice.cjs").read_bytes()
-    changes[HELPER + "release-reminder.cjs"] = (ROOT / "integrations/deepseek-portable/release-reminder.cjs").read_bytes()
     changes[HELPER + "release-tag.json"] = (json.dumps({"tag": tag, "maintenanceVersion": deployment["version"]}) + "\n").encode("utf-8")
 
     with zipfile.ZipFile(base_zip) as source:
@@ -71,10 +90,19 @@ def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir:
         if not required.issubset(entries):
             raise ValueError("Missing required DeepSeek portable files in base ZIP")
 
+        base_entries = {rel: info for rel, info in entries.items() if rel.casefold() not in RESTRICTED_FOLD}
+
         main_bytes = changes.get(HELPER + "main.js", source.read(entries[HELPER + "main.js"]))
-        boot_bytes = base_builder.BOOT.encode("utf-8")
-        if b"release-reminder.cjs" not in main_bytes:
-            main_bytes = main_bytes + boot_bytes
+        main_text = main_bytes.decode("utf-8")
+        if not base_builder.REMINDER_START_RE.search(main_text):
+            changes[HELPER + "release-notice.cjs"] = (ROOT / "integrations/gpt-niang/product-electron/services/release-notice.cjs").read_bytes()
+            changes[HELPER + "release-reminder.cjs"] = (ROOT / "integrations/deepseek-portable/release-reminder.cjs").read_bytes()
+            separator = b"" if main_bytes.endswith((b"\n", b"\r", b";")) else b"\n;\n"
+            main_bytes = main_bytes + separator + base_builder.BOOT.encode("utf-8")
+        else:
+            stale_cjs = { (HELPER + "release-notice.cjs").casefold(), (HELPER + "release-reminder.cjs").casefold() }
+            if "release-reminder.js" in main_text:
+                base_entries = {rel: info for rel, info in base_entries.items() if rel.casefold() not in stale_cjs}
         if b"if (process.env.DSH_HOME) app.setPath('userData'" not in main_bytes:
             anchor = b"app.setName('dsh-pet-electron-helper');"
             if main_bytes.count(anchor) != 1:
@@ -95,20 +123,31 @@ def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir:
         readme = readme.replace(f"**{m[1][1:]}**", f"**{tag[1:]}**", 1)
         changes["PORTABLE-README.md"] = (readme.rstrip() + "\n\n" + base_builder.README).encode("utf-8")
 
-        expected_files = set(entries.keys()) | set(changes.keys())
+        if any(rel.casefold() in RESTRICTED_FOLD for rel in changes):
+            raise ValueError("Restricted asset staged for release output")
+        base_fold = {rel.casefold(): rel for rel in base_entries}
+        for rel in changes:
+            existing = base_fold.get(rel.casefold())
+            if existing and existing != rel:
+                raise ValueError("Case collision between base entry and change: " + rel)
+
+        expected_files = set(base_entries.keys()) | set(changes.keys())
         with target.open("xb") as stream:
             try:
                 with zipfile.ZipFile(stream, "w", zipfile.ZIP_DEFLATED, compresslevel=5) as dst:
-                    for rel, info in entries.items():
+                    for rel, info in base_entries.items():
                         if rel not in changes:
                             dst.writestr(archive_stem + "/" + rel, source.read(info))
                     for rel, data in changes.items():
                         dst.writestr(archive_stem + "/" + rel, data)
                 with zipfile.ZipFile(target) as result:
                     actual = base_builder.safe_entries(result, archive_stem)
+                    actual_main = result.read(actual[HELPER + "main.js"]).decode("utf-8")
                     if (result.testzip() is not None
                             or set(actual) != expected_files
                             or not set(changes).issubset(set(actual))
+                            or any(rel.casefold() in RESTRICTED_FOLD for rel in actual)
+                            or len(base_builder.REMINDER_START_RE.findall(actual_main)) != 1
                             or any(result.read(actual[rel]) != data for rel, data in changes.items())):
                         raise ValueError("Output DeepSeek release archive verification failed")
             except BaseException:
@@ -126,8 +165,9 @@ def main():
     parser.add_argument("--out", required=True, type=Path)
     parser.add_argument("--formal", action="store_true", help="Require clean git tree and matching HEAD tag")
     parser.add_argument("--release-name", action="store_true", help="Use release archive stem without requiring --formal tag check")
+    parser.add_argument("--force", action="store_true", help="Overwrite existing output archive if present")
     args = parser.parse_args()
-    out = build_formal_release(args.base, args.base_sha256, args.tag, args.out, formal=args.formal, release_name=args.release_name)
+    out = build_formal_release(args.base, args.base_sha256, args.tag, args.out, formal=args.formal, release_name=args.release_name, force=args.force)
     print(json.dumps({
         "archive": str(out.resolve()),
         "sha256": base_builder.sha256(out),

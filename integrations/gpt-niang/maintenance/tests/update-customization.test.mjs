@@ -8,9 +8,12 @@ import {createHash} from 'node:crypto';
 import {spawnSync} from 'node:child_process';
 
 const maintenance=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const installed=path.join(process.env.LOCALAPPDATA || path.join(os.homedir(),'AppData/Local'),'Programs/GPTNiangUsage/gpt-niang-usage');
-const hasInstalled=fs.existsSync(path.join(installed,'runtime/usage.mjs'))&&fs.existsSync(path.join(installed,'runtime/install-files.json'));
-const skipInstalled=!hasInstalled&&'Installed GPTNiangUsage baseline not present';
+const fixtureBaseline=path.resolve(maintenance,'tests/fixtures/installed-baseline');
+const systemInstalled=path.join(process.env.LOCALAPPDATA || path.join(os.homedir(),'AppData/Local'),'Programs/GPTNiangUsage/gpt-niang-usage');
+const hasBaseline=dir=>fs.existsSync(path.join(dir,'runtime/usage.mjs'))&&fs.existsSync(path.join(dir,'runtime/install-files.json'));
+const installed=process.env.GPT_NIANG_TEST_INSTALLED?path.resolve(process.env.GPT_NIANG_TEST_INSTALLED):(hasBaseline(fixtureBaseline)?fixtureBaseline:systemInstalled);
+const hasInstalled=hasBaseline(installed);
+const skipInstalled=!hasInstalled&&'GPTNiangUsage baseline not present';
 function fixture(){
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'gpt-update-guard-'));
  const app=path.join(root,'app','gpt-niang-usage'),dataDir=path.join(root,'state'),agentDir=path.join(root,'agent');

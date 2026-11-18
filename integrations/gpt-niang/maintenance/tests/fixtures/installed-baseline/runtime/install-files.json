@@ -1,0 +1,13 @@
+[
+  "Install.ps1",
+  "runtime/update.mjs",
+  "runtime/update-helper.ps1",
+  "runtime/update-agent.ps1",
+  "runtime/update-lock.ps1",
+  "runtime/install-preflight.ps1",
+  "runtime/update-common.ps1",
+  "runtime/usage.mjs",
+  "runtime/metadata.mjs",
+  "runtime/plan.mjs",
+  "runtime/install-files.json"
+]

@@ -19,8 +19,15 @@ const ANIMATION_EXT = ".webm";
 //#region src/shared/i18n.ts
 function resolveLanguage(pref, localeHint) {
 	if (pref === "zh-CN" || pref === "ja") return pref;
-	const hint = String(localeHint ?? (typeof navigator !== "undefined" ? navigator.language : "")).toLowerCase();
-	return hint.startsWith("ja") ? "ja" : "zh-CN";
+	const raw = String(localeHint ?? (typeof navigator !== "undefined" ? navigator.language : ""));
+	for (const part of raw.split(/[:,\s;]+/)) {
+		const tag = part.trim().toLowerCase().replace(/_/g, "-");
+		if (!tag || tag === "c" || tag === "posix") continue;
+		if (tag === "ja" || tag.startsWith("ja-")) return "ja";
+		// zh-TW / zh-HK fall back to zh-CN Simplified Chinese UI
+		if (tag === "zh" || tag.startsWith("zh-")) return "zh-CN";
+	}
+	return "zh-CN";
 }
 const MENU_GROUP_LABELS_JA = {
 	"待机": "待機",

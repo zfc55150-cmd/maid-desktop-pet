@@ -20,7 +20,7 @@ function fixture(t) {
   fs.mkdirSync(path.join(dir, 'app'));
   fs.writeFileSync(path.join(dir, 'app/code.js'), 'synthetic source');
   fs.writeFileSync(path.join(dir, 'package.json'), JSON.stringify({version: '1.0.0'}));
-  const manifest = {version: '1.0.0', files: [{source: 'app/code.js', target: 'code.js', sha256: crypto.createHash('sha256').update('synthetic source').digest('hex')}]};
+  const manifest = {version: '1.0.0', files: [{source: 'app/code.js', target: 'code.js', sha256: crypto.createHash('sha256').update('synthetic source').digest('hex'), previousSha256: null}]};
   const save = () => fs.writeFileSync(path.join(dir, 'deployment.json'), JSON.stringify(manifest));
   save();
   return {dir, manifest, save};
@@ -59,4 +59,18 @@ test('duplicate destination files cannot silently overwrite each other', t => {
 test('a manifest for a different release cannot pass the preflight', t => {
   const {dir, manifest, save} = fixture(t); manifest.version = '2.0.0'; save();
   assert.throws(() => verifyManifest({root: dir}), /version/);
+});
+
+test('missing previousSha256 and strictMetadata releaseTag mismatches are rejected', t => {
+  const {dir, manifest, save} = fixture(t);
+  delete manifest.files[0].previousSha256; save();
+  assert.throws(() => verifyManifest({root: dir}), /previousSha256/);
+  manifest.files[0].previousSha256 = null; save();
+  assert.throws(() => verifyManifest({root: dir, strictMetadata: true}), /releaseTag/);
+  fs.writeFileSync(path.join(dir, 'package.json'), JSON.stringify({version: '1.0.0', releaseTag: 'v1.0.7'}));
+  fs.mkdirSync(path.join(dir, 'app/electron-helper'), {recursive: true});
+  fs.writeFileSync(path.join(dir, 'app/electron-helper/package.json'), JSON.stringify({version: '1.0.0', releaseTag: 'v1.0.4'}));
+  assert.throws(() => verifyManifest({root: dir, strictMetadata: true}), /mismatch/);
+  fs.writeFileSync(path.join(dir, 'app/electron-helper/package.json'), JSON.stringify({version: '1.0.0', releaseTag: 'v1.0.7'}));
+  assert.equal(verifyManifest({root: dir, strictMetadata: true}).version, '1.0.0');
 });

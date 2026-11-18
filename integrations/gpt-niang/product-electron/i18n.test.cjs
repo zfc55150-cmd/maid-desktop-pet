@@ -54,6 +54,11 @@ test('performance catalog preserves clip IDs and Chinese defaults while providin
   assert.notEqual(jaQuote,zhQuote);
  }
  assert.equal(catalog.actionQuote('clip:frontidle','ja'),null);
+ catalog.setLanguage('ja');
+ assert(catalog.actions.some(a=>a.clip==='dragonflame'&&a.label==='竜炎うっかり暴走'&&a.group==='遊び'));
+ assert(catalog.selectable.some(a=>a.clip==='dragonflame'&&a.label==='竜炎うっかり暴走'&&a.group==='その他のアクション'));
+ catalog.setLanguage('zh-CN');
+ assert(catalog.actions.some(a=>a.clip==='dragonflame'&&a.label==='龙焰失控'&&a.group==='玩耍'));
 });
 
 test('appearance palettes match Japanese triggers, menuSize caps at 260, and releaseNotice localizes cleanly',()=>{
@@ -67,4 +72,6 @@ test('appearance palettes match Japanese triggers, menuSize caps at 260, and rel
  assert(jaStatus.includes('v1.2.0')&&(jaStatus.includes('最新リリース')||jaStatus.includes('新バージョン')));
  const zhStatus=releaseNotice.formatReleaseStatusText({phase:'available',latestTag:'v1.2.0'},'v1.0.0');
  assert(zhStatus.includes('本仓库新版本'));
+ assert.deepEqual(appearance.palette('ちょっと待って'),appearance.palette(''));
+ assert.deepEqual(appearance.palette('キャッチして'),appearance.palette(''));
 });

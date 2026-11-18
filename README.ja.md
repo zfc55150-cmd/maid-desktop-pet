@@ -2,7 +2,7 @@
 
 # 🚀 3ステップでかんたん導入＆起動ガイド（ポータブル版）
 
-**ポータブル版（ZIP）**は [GitHub Release v1.0.6](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.6) からダウンロードできます。Electron と Node.js を同梱しているため、事前の開発環境構築やインストール作業は不要です。
+**ポータブル版（ZIP）**は [GitHub Release v1.0.7](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.7) からダウンロードできます。Electron と Node.js を同梱しているため、事前の開発環境構築やインストール作業は不要です。
 
 両マスコットは**日本語／簡体字中国語の自動判定＆手動切り替え**に対応しており、Windows のシステム言語に合わせて初回から自然な日本語 UI で動作します。また、各パッケージはフォルダ内の `state\` にデータを完全隔離しており、既存環境や2体同時起動でも干渉しません。
 
@@ -12,8 +12,8 @@
 
 | マスコット | 特徴・主な機能 |
 |---|---|
-| **GPT娘**<br>*(ChatGPT ツンデレドラゴン娘 / `0.8.39-electron`)* | 独立 Electron 透過キャンバスによる滑らかな立ち絵・**59種類（10,948フレーム）**のアニメーション。Codex 連携＆プラン残量（利用枠）モニター、ドラッグ時の傾き演出・慣性飛行、クリック時のセリフ／残量カード、カスタム画像インポート、クラッシュ自動復旧に対応。 |
-| **DeepSeek娘**<br>*(シロナガスクジラメイド / `DeepSeekActionPet`)* | DeepSeek API を利用した AI チャット＆自動長期記憶を備えたデスクトップマスコット。**106種類**の透過アニメーション、ドラッグ＆投げ物理演出、パッケージ内初回起動初期化・個別停止、GitHub 新バージョン軽量通知に対応。 |
+| **GPT娘**<br>*(ChatGPT ツンデレドラゴン娘 / `0.8.40-electron`)* | 独立 Electron 透過キャンバスによる滑らかな立ち絵・**59種類（10,948フレーム）**のアニメーション。Codex 連携＆プラン残量（利用枠）モニター、ドラッグ時の傾き演出・慣性飛行、クリック時のセリフ／残量カード、カスタム画像インポート、セーフモード・クラッシュ自動復旧に対応。 |
+| **DeepSeek娘**<br>*(シロナガスクジラメイド / `DeepSeekActionPet`)* | DeepSeek API を利用した AI チャット＆自動長期記憶を備えたデスクトップマスコット。**106種類**の透過アニメーション、ドラッグ＆投げ物理演出、単一インスタンス起動保護、DPI 動的追従、GitHub 新バージョン軽量通知に対応。 |
 
 ---
 
@@ -26,14 +26,14 @@
 
 ## ステップ 1：ダウンロード / Download
 
-[Release v1.0.6 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.6) を開き、利用したいマスコットの ZIP をダウンロードします（両方ダウンロードして同時に動かすことも可能です）：
+[Release v1.0.7 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.7) を開き、利用したいマスコットの ZIP をダウンロードします（両方ダウンロードして同時に動かすことも可能です）：
 
 | ファイル名 | マスコット | サイズ | 主な内容 |
 |---|---|---|---|
-| [GPTNiang-v0.8.39-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/GPTNiang-v0.8.39-electron-win-x64.zip) | **GPT娘** | 429.2 MiB | `0.8.39-electron`：日中バイリンガル自動切替、59種のアニメ（10,948フレーム）、Codex 連携＆残量パネル、ドラッグ演出、メインループ保護・クラッシュ復旧 |
-| [DeepSeekActionPet-v1.0.6-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/DeepSeekActionPet-v1.0.6-win-x64.zip) | **DeepSeek娘** | 229.2 MiB | 日中バイリンガル自動切替（日本語メイド人格＆長期記憶）、106種の透過アニメ、パッケージ内初回起動＆プロファイル分離、例外保護・境界ガード、右クリック終了、新バージョン通知 |
+| [GPTNiang-v0.8.40-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.7/GPTNiang-v0.8.40-electron-win-x64.zip) | **GPT娘** | 429.2 MiB | `0.8.40-electron`：日中バイリンガル自動切替、59種のアニメ（10,948フレーム）、Codex 連携＆残量パネル、セーフモード保護、例外保護・ドラッグ修復 |
+| [DeepSeekActionPet-v1.0.7-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.7/DeepSeekActionPet-v1.0.7-win-x64.zip) | **DeepSeek娘** | 229.2 MiB | 日中バイリンガル自動切替（日本語メイド人格＆長期記憶）、106種の透過アニメ、単一インスタンス保護、Range/CORS ストリーミング、DPI 追従、新版通知 |
 
-> 💡 ダウンロード後は、同じリリースページにある `SHA256SUMS.txt` と比較してファイルが破損・改ざんされていないか確認できます（PowerShell 例：`Get-FileHash .\GPTNiang-v0.8.39-electron-win-x64.zip -Algorithm SHA256`）。
+> 💡 ダウンロード後は、同じリリースページにある `SHA256SUMS.txt` と比較してファイルが破損・改ざんされていないか確認できます（PowerShell 例：`Get-FileHash .\GPTNiang-v0.8.40-electron-win-x64.zip -Algorithm SHA256`）。
 
 ---
 
@@ -68,7 +68,7 @@
 - **Q. DeepSeek娘にローカル音声（TTS）機能が含まれていないのはなぜですか？**
   - 音声サブシステム一式が約 9.6 GB（Python 仮想環境 5.2 GB＋モデル重み 4.3 GB）と非常に大きく、さらに Python 仮想環境の `pyvenv.cfg` が絶対パス依存で他環境へそのまま持ち運べないため、ポータブル版では音声環境を除外しています。テキストチャット・長期記憶・アニメーションなど本体機能は問題なく利用できます。
 - **Q. すでにインストール版を使っていたり、同じマスコットを2つ同時に起動しても競合しませんか？**
-  - 競合しません。`v1.0.5` のポータブル版は設定・実行状態・Electron プロファイル・停止セッションのすべてを「解凍したフォルダ単位」で分離しているため、1台の PC で複数コピーを同時に動かしたり、片方だけを安全に終了したりできます。
+  - 競合しません。`v1.0.6` 以降のポータブル版は設定・実行状態・Electron プロファイル・停止セッションのすべてを「解凍したフォルダ単位」で分離しているため、1台の PC で複数コピーを同時に動かしたり、片方だけを安全に終了したりできます。
 - **Q. ポータブル版で制限されている機能はありますか？**
   - GPT娘ポータブル版では、本体アニメーション、クリック、ドラッグ、サイズ調整、セリフ吹き出し、キャラ図鑑（画像インポート）、設定パネル、およびローカルの Codex 連携／残量表示（本機に Codex が導入されている場合）がすべて利用可能です。ストア版互換レイヤーを持たないため、上流版の自己書き換え型自動アップデートと Windows スタートアップ登録は無効化されており、本リポジトリ（`zfc55150-cmd/maid-desktop-pet`）の軽量な更新通知（1日1回確認し、新バージョンがあれば通知とダウンロードページへのリンクのみを表示）のみ搭載しています。
 - **Q. アンインストール（削除）するにはどうすればいいですか？**
@@ -88,7 +88,7 @@ node\node.exe app\package-doctor.cjs "%CD%"
 ```
 
 正常時の出力例：
-`{"ok":true,"version":"0.8.38-electron","releaseTag":"v1.0.5","files":284,"clips":59,"frames":10948,...}`
+`{"ok":true,"version":"0.8.40-electron","releaseTag":"v1.0.7","files":285,"clips":59,"frames":10948,...}`
 
 ---
 

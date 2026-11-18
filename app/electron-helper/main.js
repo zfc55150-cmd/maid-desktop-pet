@@ -48,9 +48,11 @@ try {
 const { app, BrowserWindow, ipcMain, screen, shell, protocol } = electronApi;
 const path = require('node:path');
 const localControl = require('./local-control');
-const { execFileSync } = require('node:child_process');
-const { readFileSync, writeFileSync } = require('node:fs');
+const { execFile, execFileSync } = require('node:child_process');
+const { createReadStream, readFileSync, writeFileSync } = require('node:fs');
 const fsPromises = require('node:fs/promises');
+const { Readable } = require('node:stream');
+const { parseByteRange, corsHeaders } = require('./bridge-media.js');
 // 点击穿透兜底通道的纯判定（不依赖 Electron 的 forward 鼠标钩子；见文件头注释）
 const { decideWindowIgnore, pointerZone } = require('./pointer-target.js');
 // 交互时提升窗口；后台只修复丢失的置顶标记，避免与其它桌宠抢顺序。
@@ -60,6 +62,8 @@ const { HOST_POLL_MS, hostIsGone, isBrokenPipeError, parseHostPid } = require('.
 // 全局 DPI 线性化的纯判定与换算（含平台例外：macOS 的 DIP 已是「点」，无需补偿；见该文件头）
 const { shouldLinearize, resolveForcedScale, resolvePetScale } = require('./dpi-linearization.js');
 const { buildDeskGeometry } = require('./desktop-geometry.js');
+const { sanitizeBounds, createLogLimiter } = require('./bounds-guard.js');
+const shouldLogBounds = createLogLimiter(10_000);
 
 // 允许无用户手势直接播放（余额动画等）
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
@@ -73,6 +77,19 @@ app.setName('dsh-pet-electron-helper');
 const DPI_PROBE = process.env.DSH_PET_DPI_PROBE === '1';
 /** 探测进程的输出标记（父进程按它抓值） */
 const DPI_MARK = 'dsh-pet-primary-scale:';
+
+if (!DPI_PROBE && process.env.DSH_PET_SMOKE !== '1') {
+  if (!app.requestSingleInstanceLock()) {
+    app.exit(0);
+  } else {
+    app.on('second-instance', () => {
+      if (typeof windows === 'undefined') return;
+      for (const win of windows.values()) {
+        if (!win.isDestroyed()) win.showInactive();
+      }
+    });
+  }
+}
 
 // ---------- 宿主存活（issue #56）：管道断开 / 父进程消失 → 自己退出 ----------
 //
@@ -105,30 +122,23 @@ for (const stream of [process.stdout, process.stderr]) {
   });
 }
 
-// 捕获未处理异常与拒绝，防止 Electron 弹出系统错误模态框并变成僵死进程（A-H4）
+// 捕获未处理异常与拒绝，防止 Electron 弹出系统错误模态框并变成僵死进程（A-H4 / R2-H3）
 let fatalExiting = false;
-process.on('uncaughtException', (error) => {
-  if (isBrokenPipeError(error)) {
+function exitOnFatalError(label, err) {
+  if (isBrokenPipeError(err)) {
     exitForDeadHost();
     return;
   }
   try {
-    console.error('[dsh-pet-desktop-helper] uncaughtException:', error && error.stack ? error.stack : error);
+    console.error(`[dsh-pet-desktop-helper] ${label}:`, err && err.stack ? err.stack : err);
   } catch {}
   if (!fatalExiting) {
     fatalExiting = true;
     app.exit(1);
   }
-});
-process.on('unhandledRejection', (reason) => {
-  if (isBrokenPipeError(reason)) {
-    exitForDeadHost();
-    return;
-  }
-  try {
-    console.error('[dsh-pet-desktop-helper] unhandledRejection:', reason && reason.stack ? reason.stack : reason);
-  } catch {}
-});
+}
+process.on('uncaughtException', (error) => exitOnFatalError('uncaughtException', error));
+process.on('unhandledRejection', (reason) => exitOnFatalError('unhandledRejection', reason));
 
 // ② 宿主探测：DSH_PET_HOST_PID 由宿主 spawn 时注入；未注入/非法 → parseHostPid 给 0 → 不探测（不误退）。
 // DPI 探测实例是一次性短命进程（它的父进程是 helper 而不是宿主），不参与这套机制。
@@ -220,7 +230,7 @@ function parseProbeOutput(text) {
 function probePrimaryScale() {
   const opts = {
     env: { ...process.env, DSH_PET_DPI_PROBE: '1', DSH_PET_BRIDGE: '0', DSH_PET_SMOKE: '0' },
-    timeout: 20000,
+    timeout: 5000,
     encoding: 'utf8',
     windowsHide: true,
     stdio: ['ignore', 'pipe', 'pipe'],
@@ -253,6 +263,39 @@ function probePrimaryScale() {
 }
 
 /** 真实主屏 scaleFactor（探测所得；0 = 未知）。开启线性化后 screen API 只会报 1，只能靠它。 */
+function parsePrimaryScaleOutput(out) {
+  for (const line of String(out || '').split(/\r?\n/)) {
+    const idx = line.indexOf(DPI_MARK);
+    if (idx !== -1) {
+      const v = Number(line.slice(idx + DPI_MARK.length).trim());
+      if (v > 0) return v;
+    }
+  }
+  return 0;
+}
+
+function probePrimaryScaleAsync() {
+  return new Promise((resolve) => {
+    execFile(
+      process.execPath,
+      [__filename, '--dsh-pet-dpi-probe'],
+      {
+        env: { ...process.env, DSH_PET_DPI_PROBE: '1', DSH_PET_BRIDGE: '0', DSH_PET_SMOKE: '0' },
+        timeout: 5000,
+        encoding: 'utf8',
+        windowsHide: true,
+      },
+      (err, stdout) => {
+        if (err) return resolve(0);
+        const v = parsePrimaryScaleOutput(stdout);
+        if (v > 0) writeCachedPrimaryScale(v);
+        resolve(v);
+      },
+    );
+  });
+}
+
+const rendererCrashTimes = new Map();
 let PRIMARY_SCALE = 0;
 /** 实际生效的强制缩放（0 = 未启用，坐标系维持修复前的逐屏 DIP） */
 let FORCED_SCALE = 0;
@@ -469,7 +512,7 @@ function createPetWindows(initialLang = 'zh-CN') {
     // （见 DESIGN.md §3.5；跨进程交换仍走物理像素，由渲染端 toScreen/toLocal 收口）。
     // webPreferences.zoomFactor 对 show:false 的窗口不生效（实测），须在加载完成后设置。
     win.webContents.on('did-finish-load', () => {
-      win.webContents.setZoomFactor(scale);
+      win.webContents.setZoomFactor(petScale());
     });
     // 默认整窗点击穿透（renderer 在光标进/出身体命中区时经 IPC 翻转可交互）；
     // forward:true 保证穿透期间 mousemove 仍转发进渲染端做命中判定。
@@ -533,6 +576,19 @@ function createPetWindows(initialLang = 'zh-CN') {
       inputBusy.delete(win.id);
       inputRegions.delete(win.id);
       offBodyMs.delete(win.id);
+    });
+    win.webContents.on('render-process-gone', (_event, details) => {
+      if (hostGone || win.isDestroyed()) return;
+      const now = Date.now();
+      const history = (rendererCrashTimes.get(pet.id) || []).filter((ts) => now - ts < 60_000);
+      history.push(now);
+      rendererCrashTimes.set(pet.id, history);
+      console.error(`[dsh-pet-desktop-helper] renderer gone (${pet.id}): ${details?.reason || 'unknown'} (count=${history.length})`);
+      if (history.length <= 2) {
+        win.webContents.reloadIgnoringCache();
+        return;
+      }
+      exitOnFatalError('render-process-gone', new Error(`renderer crashed ${history.length} times (${details?.reason || 'unknown'})`));
     });
     win
       .loadFile(path.join(__dirname, 'index.html'), {
@@ -632,37 +688,62 @@ function startBridgeCallback() {
       res.end('dsh-pet: bad payload');
     });
   });
+  let resolveReady;
+  const ready = new Promise((resolve) => {
+    resolveReady = resolve;
+  });
   server.on('error', (e) => {
     console.error('[dsh-pet-desktop-helper] bridge callback server error:', String(e && e.message ? e.message : e));
+    resolveReady(false);
   });
   server.listen(0, '127.0.0.1', () => {
     const addr = server.address();
     bridgeCallbackUrl = 'http://127.0.0.1:' + (addr && typeof addr === 'object' ? addr.port : 0) + '/respond';
     console.error('[dsh-pet-desktop-helper] bridge callback: ' + bridgeCallbackUrl);
+    resolveReady(true);
   });
-  return server;
+  return { server, ready };
 }
 
 /** 处理一个渲染端请求：拼宿主请求行 → 等应答 → 组装 Response（素材读盘） */
 async function handleBridgeRequest(request) {
   const url = new URL(request.url); // dsh-pet-bridge://dsh-pet/dsh-pet-7340/...
   const method = request.method || 'GET';
+  if (!bridgeCallbackUrl) {
+    return new Response('dsh-pet: bridge not ready', {
+      status: 503,
+      headers: corsHeaders(request, 'text/plain'),
+    });
+  }
   let body;
   if (method === 'POST' || method === 'PUT') {
     body = await request.text();
   }
   const resp = await bridgeRequest(method, url.pathname + url.search, body);
-  const headers = { 'access-control-allow-origin': '*' }; // 渲染端页面是 file:// 源，scheme 跨源需 CORS
-  if (resp.contentType) headers['content-type'] = resp.contentType;
+  const headers = corsHeaders(request, resp.contentType); // 渲染端页面是 file:// 源，限制跨源只允许 file:// 或 null
   if (resp.file) {
-    // 素材：直接读盘返回（宿主已解析好绝对路径；先校验文件大小上限 64MB 防 OOM）
+    // 素材：流式读盘 + Byte Range 支持（先校验文件大小上限 64MB 防异常超大文件）
     try {
       const st = await fsPromises.stat(resp.file);
       if (!st.isFile() || st.size > 64 * 1024 * 1024) {
         return new Response('dsh-pet: asset too large or invalid', { status: 413, headers });
       }
-      const data = await fsPromises.readFile(resp.file);
-      return new Response(new Uint8Array(data), { status: resp.status || 200, headers });
+      const rangeHeader = typeof request.headers?.get === 'function' ? request.headers.get('range') : '';
+      const range = parseByteRange(rangeHeader, st.size);
+      headers['accept-ranges'] = 'bytes';
+      if (range.kind === 'unsatisfiable') {
+        headers['content-range'] = `bytes */${st.size}`;
+        return new Response(null, { status: 416, headers });
+      }
+      if (range.kind === 'partial') {
+        headers['content-range'] = range.contentRange;
+        headers['content-length'] = String(range.length);
+        const stream = Readable.toWeb(createReadStream(resp.file, { start: range.start, end: range.end }));
+        return new Response(stream, { status: 206, headers });
+      }
+      headers['content-length'] = String(st.size);
+      const stream = Readable.toWeb(createReadStream(resp.file));
+      return new Response(stream, { status: 200, headers });
     } catch (e) {
       console.error('[dsh-pet-desktop-helper] bridge file read failed:', resp.file, e);
       return new Response('dsh-pet: asset read failed', { status: 500, headers });
@@ -672,29 +753,23 @@ async function handleBridgeRequest(request) {
 }
 
 let chatControlsRef = null;
-function resolveInstalledLocalTag() {
-  try {
-    const tagObj = JSON.parse(readFileSync(path.join(__dirname, 'release-tag.json'), 'utf8'));
-    if (typeof tagObj?.tag === 'string' && /^v\d+\.\d+\.\d+$/.test(tagObj.tag)) return tagObj.tag;
-  } catch {}
-  try {
-    const pkg = JSON.parse(readFileSync(path.join(__dirname, '../../package.json'), 'utf8'));
-    if (typeof pkg?.releaseTag === 'string' && /^v\d+\.\d+\.\d+$/.test(pkg.releaseTag)) return pkg.releaseTag;
-  } catch {}
-  return 'v1.0.4';
-}
 // Installed distribution: check the public release without changing installed code.
 if (process.env.DSH_PET_DPI_PROBE !== '1' && process.env.DSH_PET_SMOKE !== '1' && process.env.DSH_HOME) {
-  app.whenReady().then(() => require('./release-reminder.js').start({
-    electron: electronApi,
-    localTag: resolveInstalledLocalTag(),
-    stateDir: process.env.DSH_HOME,
-    getPetWindow: () => [...windows.values()].find(pet => !pet.isDestroyed() && pet.isVisible()),
-    getLanguage: () => chatControlsRef?.getLanguage?.() || 'zh-CN'
-  })).catch(() => {});
+  app.whenReady().then(() => {
+    const reminder = require('./release-reminder.js');
+    const localTag = reminder.resolveLocalTag(__dirname);
+    if (!localTag) return;
+    reminder.start({
+      electron: electronApi,
+      localTag,
+      stateDir: process.env.DSH_HOME,
+      getPetWindow: () => [...windows.values()].find(pet => !pet.isDestroyed() && pet.isVisible()),
+      getLanguage: () => chatControlsRef?.getLanguage?.() || 'zh-CN'
+    });
+  }).catch(() => {});
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   // 探测子进程：此时没有 force-device-scale-factor，读到的是 Windows 的真实主屏缩放。
   // 退出推迟一拍——在 ready 回调里直接 app.exit() 会赶在 stdout 落盘前拆掉进程
   if (DPI_PROBE) {
@@ -713,6 +788,7 @@ app.whenReady().then(() => {
       petScale(),
   );
 
+  let bridgeReady = null;
   if (BRIDGE) {
     // 自定义 scheme 接住渲染端全部请求（配置/余额/碎碎念/广播/素材）
     protocol.handle('dsh-pet-bridge', (request) =>
@@ -720,11 +796,11 @@ app.whenReady().then(() => {
         console.error('[dsh-pet-desktop-helper] bridge handler error:', String(e && e.message ? e.message : e));
         return new Response('dsh-pet: bridge error', {
           status: 502,
-          headers: { 'access-control-allow-origin': '*' },
+          headers: corsHeaders(request, 'text/plain'),
         });
       }),
     );
-    startBridgeCallback(); // 宿主应答回调服务器（stdin 在 Electron 主进程不可用，改走本地 HTTP）
+    bridgeReady = startBridgeCallback(); // 宿主应答回调服务器（stdin 在 Electron 主进程不可用，改走本地 HTTP）
   }
 
   const chatControls=require('./simple-chat-main')(electronApi, windows);
@@ -756,6 +832,12 @@ app.whenReady().then(() => {
   }
 
   require('./pet-size-main')(electronApi, windows,{isBusy:()=>chatControls.isBusy(), getLanguage:()=>chatControls.getLanguage()});
+  if (bridgeReady) {
+    await Promise.race([
+      bridgeReady.ready,
+      new Promise((resolve) => setTimeout(resolve, 2000)),
+    ]);
+  }
   createPetWindows(chatControls.getLanguage());
 
   // 宠物窗口跟随：renderer 逐帧上报窗口内容区位置/尺寸
@@ -766,16 +848,23 @@ app.whenReady().then(() => {
     if (!trustedPet(event)) return;
     const win = BrowserWindow.fromWebContents(event.sender);
     if (!win || win.isDestroyed()) return;
-    const x = Number(bounds?.x);
-    const y = Number(bounds?.y);
-    const width = Number(bounds?.width);
-    const height = Number(bounds?.height);
-    if (![x, y, width, height].every(Number.isFinite)) return;
-    if (width < 64 || width > 4096 || height < 64 || height > 4096 || Math.abs(x) > 100000 || Math.abs(y) > 100000) return;
+    const checked = sanitizeBounds(bounds, screen.getAllDisplays().map(d => d.workArea));
+    if (!checked.ok) {
+      if (shouldLogBounds(checked.reason)) {
+        console.warn('[dsh-pet-desktop-helper] dropped pet:set-bounds:', checked.reason);
+      }
+      return;
+    }
+    for (const reason of checked.reasons) {
+      if (shouldLogBounds(reason)) {
+        console.warn('[dsh-pet-desktop-helper] clamped pet:set-bounds:', reason, JSON.stringify(checked.rect));
+      }
+    }
+    const { rect } = checked;
+    const { x, y } = rect;
     // 去重必须比较**我们上一次请求的值**，绝不能拿 win.getContentBounds() 回读值来比：
     // 跨缩放屏的 DIP↔物理 往返有 ScaleToEnclosingRect（向外取整）与 origin 舍入，
     // 读回值与设定值永远不相等，去重永远不生效，反而变成每帧强制重设窗口位置。
-    const rect = { x: Math.round(x), y: Math.round(y), width: Math.round(width), height: Math.round(height) };
     const key = rect.x + ',' + rect.y + ',' + rect.width + ',' + rect.height;
     if (lastRequestedBounds.get(win.id) !== key) {
       lastRequestedBounds.set(win.id, key);
@@ -947,16 +1036,30 @@ app.whenReady().then(() => {
     // 真实值只能靠探测子进程拿；不一致就刷新缓存，下次启动自动用上。
     if (FORCED_SCALE > 0) {
       setTimeout(() => {
-        const real = probePrimaryScale();
-        if (real > 0 && Math.abs(real - PRIMARY_SCALE) > 1e-6) {
-          console.error(
-            '[dsh-pet-desktop-helper] primary scaleFactor changed ' +
-              PRIMARY_SCALE +
-              ' -> ' +
-              real +
-              '; restart the desktop pet to resize',
-          );
-        }
+        probePrimaryScaleAsync()
+          .then((real) => {
+            if (real > 0 && Math.abs(real - PRIMARY_SCALE) > 1e-6) {
+              const prevScale = PRIMARY_SCALE;
+              PRIMARY_SCALE = real;
+              const nextScale = petScale();
+              const updatedGeo = { ...deskGeometry(), scale: nextScale };
+              for (const win of windows.values()) {
+                if (!win.isDestroyed()) {
+                  win.webContents.setZoomFactor(nextScale);
+                  win.webContents.send('pet:displays', updatedGeo);
+                }
+              }
+              console.error(
+                '[dsh-pet-desktop-helper] primary scaleFactor changed ' +
+                  prevScale +
+                  ' -> ' +
+                  real +
+                  '; updated petScale=' +
+                  nextScale,
+              );
+            }
+          })
+          .catch(() => {});
       }, 1000).unref?.();
     }
   };

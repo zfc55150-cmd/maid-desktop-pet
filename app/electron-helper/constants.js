@@ -82,6 +82,9 @@ function applyDeskGeometry(geo) {
   const hull = geo && geo.hull;
   const list = geo && Array.isArray(geo.areas) ? geo.areas.filter((a) => a && a.width > 0 && a.height > 0) : [];
   if (!hull || !(hull.width > 0) || !(hull.height > 0) || list.length === 0) return false;
+  if (Number.isFinite(geo.scale) && geo.scale > 0 && CONFIG.scale !== geo.scale) {
+    CONFIG.scale = geo.scale;
+  }
   // 主进程几何是物理像素：hull/areas 逐个 ÷scale 进 CSS 系（§3.5 收口约定——几何导入唯一入口）
   VIEW.x = toLocal(hull.x);
   VIEW.y = toLocal(hull.y);

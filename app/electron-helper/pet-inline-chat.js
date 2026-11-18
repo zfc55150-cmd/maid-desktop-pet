@@ -34,11 +34,11 @@ const INLINE_CHAT_MESSAGES = {
  }
 };
 class PetInlineChat {
- constructor(pet){this.pet=pet;this.state=null;this.draft='';this.sequence=0;this.pending=false;this.dialog=null;this.phase='idle';this.pagesTimer=null;this.replyText='';this.voiceStatus='off';this.voiceError='';this.ready=this.call('chatState').then(s=>{this.state=s;if(s?.resolvedLanguage)window.setAppLanguage?.(s.resolvedLanguage);return s;}).catch(()=>null);this.unsubscribe=window.petBridge.onChatEvent(m=>this.onEvent(m));}
+ constructor(pet){this.pet=pet;this.state=null;this.draft='';this.sequence=0;this.pending=false;this.dialog=null;this.phase='idle';this.pagesTimer=null;this.replyText='';this.voiceStatus='off';this.voiceError='';this.ready=this.call('chatState').then(s=>{this.state=s;if(s?.resolvedLanguage){window.setAppLanguage?.(s.resolvedLanguage);this.pet?.renderTip?.();}return s;}).catch(()=>null);this.unsubscribe=window.petBridge.onChatEvent(m=>this.onEvent(m));}
  lang(){return this.state?.resolvedLanguage||this.pet?.getLang?.()||window.CONFIG?.lang||'zh-CN';}
  msg(key){return (INLINE_CHAT_MESSAGES[this.lang()==='ja'?'ja':'zh-CN']||INLINE_CHAT_MESSAGES['zh-CN'])[key];}
  onEvent(m){
-   if(m.type==='language'){this.state=this.state||{};this.state.language=m.language;this.state.resolvedLanguage=m.resolvedLanguage;window.setAppLanguage?.(m.resolvedLanguage);return;}
+   if(m.type==='language'){this.state=this.state||{};this.state.language=m.language;this.state.resolvedLanguage=m.resolvedLanguage;window.setAppLanguage?.(m.resolvedLanguage);this.pet?.renderTip?.();return;}
    if(m.type==='reset'){++this.sequence;this.pending=false;this.replyText='';this.fullText='';this.draft='';this.closeInput();this.state=null;this.idle();this.hideBubble();return;}
   if(m.requestId!==this.sequence)return;
   if(m.type==='text'){

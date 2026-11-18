@@ -83,11 +83,15 @@
   draft.receive(next.prefs);
   el('save-preferences').disabled=saving||!next.settingsWritable;
   for(const section of form.querySelectorAll('fieldset'))section.disabled=saving||!next.settingsWritable;
+  if(!next.settingsWritable){
+   const base=tr('panel.notice.readonly');
+   el('notice').textContent=next.settingsLoadFailure?`${base} (${next.settingsLoadFailure})`:base;
+  }
   for(const button of document.querySelectorAll('[data-character-id]'))button.textContent=button.dataset.characterId===next.prefs.characterId?tr('panel.characters.inUse'):tr('panel.characters.use');
   for(const label of document.querySelectorAll('[data-default-character]'))label.textContent=tr('panel.characters.defaultName');
   const u=next.update||{};
-  el('release-version').textContent=tr('panel.update.releaseVersion',{tag:u.releaseTag||'v1.0.0'});
-  el('core-version').textContent=tr('panel.update.coreVersion',{version:u.appVersion||next.version||'0.8.38-electron'});
+  el('release-version').textContent=tr('panel.update.releaseVersion',{tag:u.releaseTag||'v1.0.7'});
+  el('core-version').textContent=tr('panel.update.coreVersion',{version:u.appVersion||next.version||'0.8.40-electron'});
   el('update-automatic').checked=u.automatic!==false;
   const updateFallback={
    checking:tr('panel.update.checking'),
@@ -158,6 +162,7 @@
  el('f-language').onchange=async()=>{
   const next=await command('language',{language:el('f-language').value});
   if(next){render(next);el('notice').textContent=tr('panel.notice.languageChanged');}
+  else{el('f-language').value=state?.prefs?.language||'auto';}
  };
  form.oninput=e=>{const c=e.target;if(c.name)draft.change(c.name,c.type==='checkbox'?c.checked:c.type==='range'||c.type==='number'?Number(c.value):c.value);dirty=draft.dirty;el('scale-value').textContent=Number(form.elements.scale.value).toFixed(1)+'×';el('bubble-value').textContent=Number(form.elements.bubbleScale.value).toFixed(1)+'×';};
  form.onsubmit=async e=>{e.preventDefault();if(saving)return;saving=true;el('save-preferences').disabled=true;for(const section of form.querySelectorAll('fieldset'))section.disabled=true;try{const result=await command('preferences',draft.payload());if(result){draft.reset(result.prefs);dirty=false;render(result);el('notice').textContent=tr('panel.notice.saved');}}finally{saving=false;if(state)render(state);}};

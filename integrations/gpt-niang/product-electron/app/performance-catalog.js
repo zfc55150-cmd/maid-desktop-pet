@@ -24,14 +24,15 @@
  const returnClip=clip=>manifest?.transitionClips?.[clip]||landingReturns[clip];
  const selectableClip=clip=>!!manifest?.states[clip]&&!manifest.states[clip].followUpOnly;
  const needsLanding=name=>Object.hasOwn(landingReturns,aliases[name]||String(name).replace(/^clip:/,''));
- function configure(value){
-  if(!value?.states?.frontidle||!value.transitionClips)throw Error('INVALID_CHARACTER_MANIFEST');
+ const configure=value=>{
+  if(!value?.states?.frontidle||!value.transitionClips||typeof value.transitionClips!=='object')throw Error('INVALID_CHARACTER_MANIFEST');
   for(const [from,to]of Object.entries(value.transitionClips)){if(!value.states[from]||!value.states[to])throw Error('INVALID_CHARACTER_MANIFEST:transitionClips.'+from+'->'+to);}
   for(const [from,to]of Object.entries(value.returnPoses||{})){if(!value.states[from]||!value.states[to])throw Error('INVALID_CHARACTER_MANIFEST:returnPoses.'+from+'->'+to);}
   for(const clip of value.idleInteractionPool||[]){if(!value.states[clip])throw Error('INVALID_CHARACTER_MANIFEST:idleInteractionPool.'+clip);}
   manifest=value;automaticCache=null;
   for(const clip of Object.keys(value.states)){if(selectableClip(clip)){for(const p of ['A','B','C'])plan('clip:'+clip,value.states,{fromPose:p});}}
- }
+ };
+ const reset=()=>{manifest=null;automaticCache=null;};
  function route(from,to,clips=manifest?.states){if(from===to)return [];const edges=[['A','B','poserelax'],['B','C','turnfront'],['C','B','turnside'],['B','A','btoabridge'],['A','C','atocbridge']],queue=[[from,[]]],seen=new Set([from]);while(queue.length){const [pose,list]=queue.shift();for(const [a,b,clip]of edges)if(a===pose&&!seen.has(b)&&clips?.[clip]){if(b===to)return [...list,clip];seen.add(b);queue.push([b,[...list,clip]]);}}return null;}
  function plan(name,clips,{fromPose='C'}={}){
   const step=(clip,extra={})=>{if(!clips[clip])throw Error('MISSING_CLIP:'+clip);return {...clips[clip],clip,loop:false,...extra};};
@@ -156,5 +157,5 @@
   return actionQuotes[clip]||null;
  };
  const airborne=f=>f?.clip===takeoff.clip&&Number.isInteger(f.frame)&&f.frame>=takeoff.airborneFrame&&f.visible===true;
- return {configure,plan,route,idlePose,needsLanding,isShowcase,actionQuote,airborne,takeoff,geometry,revision:'0.8.39-electron',setLanguage,getActions,getSelectable,isSelectable:name=>selectableClip(aliases[name]||name.replace(/^clip:/,'')),get actions(){return actions();},get selectable(){return getSelectable(currentLanguage);},get automatic(){return automatic();}};
+ return {configure,reset,plan,route,idlePose,needsLanding,isShowcase,actionQuote,airborne,takeoff,geometry,revision:'0.8.40-electron',setLanguage,getActions,getSelectable,isSelectable:name=>selectableClip(aliases[name]||name.replace(/^clip:/,'')),get actions(){return actions();},get selectable(){return getSelectable(currentLanguage);},get automatic(){return automatic();}};
 });

@@ -10,6 +10,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 TAG = r"v(?:0|[1-9]\d{0,8})\.(?:0|[1-9]\d{0,8})\.(?:0|[1-9]\d{0,8})"
 HELPER = "node_modules/dsh-pet/runtime/electron-helper/"
+REMINDER_START_RE = re.compile(r"require\(\s*['\"]\./release-reminder(?:\.c?js)?['\"]\s*\)")
 BOOT = """
 
 // Portable distribution only: the installed helper never loads this module.
@@ -18,7 +19,8 @@ if (process.env.DSH_PET_DPI_PROBE !== '1' && process.env.DSH_PET_SMOKE !== '1' &
     electron: electronApi,
     localTag: require('./release-tag.json').tag,
     stateDir: process.env.DSH_HOME,
-    getPetWindow: () => [...windows.values()].find(pet => !pet.isDestroyed() && pet.isVisible())
+    getPetWindow: () => [...windows.values()].find(pet => !pet.isDestroyed() && pet.isVisible()),
+    getLanguage: () => (typeof chatControlsRef !== 'undefined' && chatControlsRef?.getLanguage?.()) || 'zh-CN'
   })).catch(() => {});
 }
 """
@@ -103,7 +105,8 @@ def build(base, expected_sha, tag, output_dir):
             raise ValueError("Base reminder metadata is incomplete or inconsistent")
         main = source.read(entries[HELPER + "main.js"])
         boot = BOOT.encode("utf-8")
-        if (prior and not main.endswith(boot)) or (not prior and (b"release-reminder.cjs" in main or
+        has_reminder = bool(REMINDER_START_RE.search(main.decode("utf-8", errors="ignore")))
+        if (prior and not main.endswith(boot)) or (not prior and (has_reminder or
                 b"const windows = new Map" not in main or b"const { app, BrowserWindow" not in main)):
             raise ValueError("Base helper does not have the expected portable entry point")
         readme = source.read(entries["PORTABLE-README.md"]).decode("utf-8")

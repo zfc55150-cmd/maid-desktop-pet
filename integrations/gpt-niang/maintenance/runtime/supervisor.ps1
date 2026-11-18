@@ -80,7 +80,7 @@ function Get-WidgetSupervisorRunningGui([string]$DataDir,[string]$ExpectedAppDir
 }
 
 function New-WidgetSupervisorRecovery {
-  return [pscustomobject]@{Failures=0;PendingAt=-1.0;NextAt=0.0;StartupTimeoutMs=45000.0;MaximumFailures=3;HealthCode='idle'}
+  return [pscustomobject]@{Failures=0;PendingAt=-1.0;NextAt=0.0;StartupTimeoutMs=45000.0;MaximumFailures=3;HealthCode='idle';HadSuccess=$false}
 }
 function Register-WidgetSupervisorFailure($State,[double]$Now) {
   $State.Failures++;$State.PendingAt=-1.0
@@ -89,7 +89,7 @@ function Register-WidgetSupervisorFailure($State,[double]$Now) {
   $State.HealthCode=if($State.Failures-ge $State.MaximumFailures){'startup-retry-exhausted'}else{'startup-backoff'}
 }
 function Get-WidgetSupervisorLaunchDecision($State,[double]$Now,[bool]$Running,[bool]$Pending,[bool]$PendingExited,[bool]$Allowed) {
-  if($Running){$State.Failures=0;$State.NextAt=0.0;$State.PendingAt=-1.0;$State.HealthCode='running';return 'observe'}
+  if($Running){$State.Failures=0;$State.NextAt=0.0;$State.PendingAt=-1.0;$State.HealthCode='running';$State.HadSuccess=$true;return 'observe'}
   if(!$Allowed){$State.HealthCode='paused';return 'suppressed'}
   if($Pending){
     if($PendingExited){Register-WidgetSupervisorFailure $State $Now;return 'release'}
@@ -144,7 +144,7 @@ try{
       if($pause -and !$paused){Remove-Item -LiteralPath $pauseFile -ErrorAction SilentlyContinue}
       $visible=@($hosts|Where-Object{$_.visible})
       $visibleHostKey=(@($visible|Sort-Object handle|ForEach-Object{'{0}:{1}:{2}'-f $_.handle,$_.pid,$_.started}) -join '|')
-      if($visibleHostKey-ne $lastVisibleHostKey){$recovery.Failures=0;$recovery.NextAt=0.0;$lastVisibleHostKey=$visibleHostKey}
+      if($visibleHostKey-ne $lastVisibleHostKey){if($recovery.HadSuccess){$recovery.Failures=0;$recovery.NextAt=0.0};$lastVisibleHostKey=$visibleHostKey}
       $running=Get-WidgetSupervisorRunningGui $info.DataDir $info.AppDir
       # Retain the launch handle until startup finishes, so slow WPF startup
       # cannot create another GUI process before runtime.json is available.

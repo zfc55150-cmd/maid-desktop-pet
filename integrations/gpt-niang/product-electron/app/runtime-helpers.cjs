@@ -43,7 +43,7 @@ function loadProductConfig(argv = process.argv, appDir = __dirname, readJson = d
       }
       if (typeof cfg.dataDir === 'string') cfg.dataDir = path.resolve(r, cfg.dataDir);
       if (typeof cfg.compatRoot === 'string') cfg.compatRoot = path.resolve(r, cfg.compatRoot);
-      return {root: r, cfg, source: r === resolved.root ? resolved.source : 'default'};
+      return {root: r, cfg, source: r === resolved.root ? resolved.source : 'default', fallback: r !== resolved.root};
     }
   }
   throw new Error('PRODUCT_PACKAGE_REQUIRED: product.json not readable at ' + tried.join(', '));

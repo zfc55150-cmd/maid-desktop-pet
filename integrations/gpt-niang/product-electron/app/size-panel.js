@@ -13,7 +13,7 @@ function applyLanguage(lang){
 }
 function show(){const percent=Number($('size').value);$('value').textContent=percent+'%';$('height').textContent=tr('sizePanel.height',{px:Math.round(324*percent/100)});}
 function buttons(){for(const id of ['size','reset','save','reload-size'])$(id).disabled=busy||!loaded;$('reload-size').disabled=busy;}
-function sync(state){applyLanguage(state.resolvedLanguage);draft.receive(state.prefs);if(!dirty&&!busy){$('size').value=Math.max(45,Math.min(175,Math.round(state.prefs.scale/1.26*100)));show();}loaded=state.settingsWritable;buttons();if(!loaded)setStatus('sizePanel.status.readonly');else if(!dirty&&statusKey==='sizePanel.status.readonly')setStatus('sizePanel.status.loaded');}
+function sync(state){applyLanguage(state.resolvedLanguage);draft.receive(state.prefs);if(!dirty&&!busy){$('size').value=Math.max(48,Math.min(175,Math.round(state.prefs.scale/1.26*100)));show();}loaded=state.settingsWritable;buttons();if(!loaded)setStatus('sizePanel.status.readonly');else if(!dirty&&statusKey==='sizePanel.status.readonly')setStatus('sizePanel.status.loaded');}
 function change(){draft.change('scale',Math.max(0.6,Math.min(2.5,Number($('size').value)*1.26/100)));dirty=draft.dirty;show();setStatus('sizePanel.status.dirty');}
 $('size').oninput=change;
 $('reset').onclick=()=>{$('size').value='100';change();};

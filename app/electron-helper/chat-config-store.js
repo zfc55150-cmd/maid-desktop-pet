@@ -8,13 +8,21 @@ function resolveLanguage(pref, localeHint) {
  if (!hint) {
   try { hint = Intl.DateTimeFormat().resolvedOptions().locale; } catch { hint = ''; }
  }
- return String(hint || '').toLowerCase().startsWith('ja') ? 'ja' : 'zh-CN';
+ for (const part of String(hint || '').split(/[:,\s;]+/)) {
+  const tag = part.trim().toLowerCase().replace(/_/g, '-');
+  if (!tag || tag === 'c' || tag === 'posix') continue;
+  if (tag === 'ja' || tag.startsWith('ja-')) return 'ja';
+  // zh-TW / zh-HK fall back to zh-CN Simplified Chinese UI
+  if (tag === 'zh' || tag.startsWith('zh-')) return 'zh-CN';
+ }
+ return 'zh-CN';
 }
 
 const MESSAGES = {
  'zh-CN': {
   unavailable: '暂时无法读取已保存的聊天配置。请稍后重新打开“对话”或点“重新读取”，无需重新填写密钥。',
   corrupt: '聊天配置内容损坏，已停止保存以保护原文件和备份。请联系修复，不要重新填写覆盖。',
+  tooLarge: '聊天配置文件过大（超过 8 MB），已停止加载以保护内存，请清理或重置该文件。',
   saving: '聊天配置正在保存，请稍后重试。',
   savingKeep: '聊天配置正在保存，请稍后重试；原配置未被覆盖。',
   updated: '聊天配置已更新，本次未覆盖。请点“重新读取”后再试。',
@@ -24,6 +32,7 @@ const MESSAGES = {
  ja: {
   unavailable: '保存されたチャット設定を読み込めませんでした。後ほど「会話」を開き直すか「再読み込み」を押してください（APIキーの再入力は不要です）。',
   corrupt: 'チャット設定の内容が破損しているため、元ファイルとバックアップを保護するため保存を停止しました。修復するまで上書きしないでください。',
+  tooLarge: 'チャット設定ファイルが大きすぎる（8 MB 超）ため、メモリ保護のため読み込みを停止しました。ファイルを整理または初期化してください。',
   saving: 'チャット設定を保存中です。しばらくしてから再試行してください。',
   savingKeep: 'チャット設定を保存中です。元設定は上書きされていません。しばらくしてから再試行してください。',
   updated: 'チャット設定が他で更新されたため上書きしませんでした。「再読み込み」してからやり直してください。',
@@ -67,7 +76,7 @@ class ChatConfigStore {
    raw=this.fs.readFileSync(this.file,'utf8');
   }
   catch(error){
-   if(error.message==='too_large')throw new Error(this.msg('corrupt'));
+   if(error.message==='too_large')throw new Error(this.msg('tooLarge'));
    if(error.code==='ENOENT'&&!this.seenFile){
     if(this.allowFirstUse){
      try{this.fs.lstatSync(this.backup);}

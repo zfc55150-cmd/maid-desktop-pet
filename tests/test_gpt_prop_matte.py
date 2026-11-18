@@ -1,6 +1,7 @@
 """Regression for detached props in the existing green-screen import route."""
 from pathlib import Path
 import importlib.util
+import os
 import unittest
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -10,6 +11,8 @@ try:
     spec.loader.exec_module(keyer)
     np=keyer.np
 except Exception as _import_err:
+    if os.environ.get('CI') or os.environ.get('REQUIRE_PROP_MATTE')=='1':
+        raise
     keyer=None
     np=None
     _SKIP_REASON=str(_import_err)
@@ -17,7 +20,7 @@ else:
     _SKIP_REASON=''
 
 
-@unittest.skipIf(keyer is None, 'Optional cv2/numpy/PIL dependencies not installed')
+@unittest.skipIf(keyer is None, f'Optional cv2/numpy/PIL dependencies not installed ({_SKIP_REASON})')
 class PropMatteTests(unittest.TestCase):
     def setUp(self):
         self.rgb=np.zeros((160,160,3),np.uint8)

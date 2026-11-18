@@ -24,21 +24,69 @@ function childFile(root, relative) {
   return file;
 }
 
-function verifyManifest({root, installedRoot = null}) {
+const TAG_RE = /^v(?:0|[1-9]\d{0,8})\.(?:0|[1-9]\d{0,8})\.(?:0|[1-9]\d{0,8})$/;
+
+function loadPreviousManifest(root, ref) {
+  const result = spawnSync('git', ['show', `${ref}:deployment.json`], {
+    cwd: root,
+    encoding: 'utf8',
+    windowsHide: true
+  });
+  if (result.status !== 0) {
+    throw new Error('Unable to load previous manifest from git ref: ' + ref);
+  }
+  const parsed = JSON.parse(result.stdout);
+  if (!Array.isArray(parsed?.files)) {
+    throw new Error('Invalid previous manifest at git ref: ' + ref);
+  }
+  return new Map(parsed.files.map(entry => [String(entry.target || '').replaceAll('\\', '/').toLowerCase(), entry]));
+}
+
+function verifyManifest({root, installedRoot = null, previousRef = null, strictMetadata = false}) {
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'deployment.json'), 'utf8'));
-  const version = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8')).version;
+  const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+  const version = pkg.version;
   if (manifest.version !== version || !Array.isArray(manifest.files) || !manifest.files.length) {
     throw new Error('Deployment version or file list is invalid');
   }
+  if (strictMetadata) {
+    if (typeof pkg.releaseTag !== 'string' || !TAG_RE.test(pkg.releaseTag)) {
+      throw new Error('Root package.json releaseTag is missing or invalid');
+    }
+    const helperPkgPath = path.join(root, 'app/electron-helper/package.json');
+    if (!fs.existsSync(helperPkgPath)) throw new Error('Helper package.json is missing');
+    const helperPkg = JSON.parse(fs.readFileSync(helperPkgPath, 'utf8'));
+    if (helperPkg.version !== version || helperPkg.releaseTag !== pkg.releaseTag) {
+      throw new Error('Helper package.json version or releaseTag mismatch');
+    }
+    const gptPkgPath = path.join(root, 'integrations/gpt-niang/product-electron/package.json');
+    const catalogPath = path.join(root, 'integrations/gpt-niang/product-electron/app/performance-catalog.js');
+    if (fs.existsSync(gptPkgPath) && fs.existsSync(catalogPath)) {
+      const gptPkg = JSON.parse(fs.readFileSync(gptPkgPath, 'utf8'));
+      const catalogRevision = require(catalogPath).revision;
+      if (gptPkg.version !== catalogRevision) {
+        throw new Error('GPT product-electron package.json version and catalog revision mismatch');
+      }
+    }
+  }
+  const previousByTarget = previousRef ? loadPreviousManifest(root, previousRef) : null;
   const sources = new Set(), targets = new Set();
   const digest = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
   for (const entry of manifest.files) {
     if (typeof entry.sha256 !== 'string' || !/^[a-f0-9]{64}$/i.test(entry.sha256)) {
       throw new Error('Invalid deployment SHA-256');
     }
-    if (entry.previousSha256 !== null && entry.previousSha256 !== undefined &&
+    if (entry.previousSha256 !== null &&
         (typeof entry.previousSha256 !== 'string' || !/^[a-f0-9]{64}$/i.test(entry.previousSha256))) {
       throw new Error('Invalid deployment previousSha256: ' + entry.source);
+    }
+    if (previousByTarget) {
+      const key = String(entry.target || '').replaceAll('\\', '/').toLowerCase();
+      const expectedPrev = previousByTarget.get(key)?.sha256?.toLowerCase() ?? null;
+      const actualPrev = entry.previousSha256 === null ? null : entry.previousSha256.toLowerCase();
+      if (actualPrev !== expectedPrev) {
+        throw new Error('Deployment previousSha256 does not match ' + previousRef + ': ' + entry.target);
+      }
     }
     const source = childFile(root, entry.source);
     const sourceId = path.resolve(source).toLowerCase();
@@ -72,17 +120,19 @@ function writeResult(root, result) {
 }
 
 function main(args) {
-  let installed = false, explicitRoot = null;
+  let installed = false, explicitRoot = null, previousRef = null;
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--installed') installed = true;
     else if (args[i] === '--installed-root' && args[i + 1] && !args[i + 1].startsWith('--')) {
       explicitRoot = path.resolve(args[++i]); installed = true;
-    } else throw new Error('Usage: node scripts/verify.cjs [--installed] [--installed-root PATH]');
+    } else if (args[i] === '--previous-ref' && args[i + 1] && !args[i + 1].startsWith('--')) {
+      previousRef = args[++i];
+    } else throw new Error('Usage: node scripts/verify.cjs [--installed] [--installed-root PATH] [--previous-ref GIT_REF]');
   }
   const root = path.resolve(__dirname, '..');
   console.log('Shared files OK: ' + require('./sync-shared.cjs').syncShared());
   const installedRoot = installed ? (explicitRoot || path.join(process.env.LOCALAPPDATA || path.join(require('node:os').homedir(), 'AppData/Local'), 'Programs/DeepSeekActionPet')) : null;
-  const manifest = verifyManifest({root, installedRoot});
+  const manifest = verifyManifest({root, installedRoot, previousRef, strictMetadata: true});
   console.log('Manifest OK: ' + manifest.sourceFiles + ' source files' + (installedRoot ? ', ' + manifest.installedFiles + ' installed files' : ''));
   const tests = fs.readdirSync(path.join(root, 'tests')).filter(name => name.endsWith('.test.cjs')).sort().map(name => path.join(root, 'tests', name));
   if (!tests.length) throw new Error('No regression tests found');

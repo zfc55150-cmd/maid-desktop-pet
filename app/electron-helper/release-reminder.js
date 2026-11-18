@@ -83,7 +83,29 @@ async function showNotice({ BrowserWindow, screen, shell }, pet, tag, url, lang 
   }
 }
 
+const STARTED_KEY = '__dshReleaseReminderStarted';
+
+/**
+ * Resolve the installed/portable local release tag without falling back to a hardcoded tag.
+ */
+function resolveLocalTag(helperDir = __dirname) {
+  for (const [relativePath, field] of [
+    ['release-tag.json', 'tag'],
+    ['package.json', 'releaseTag'],
+    ['../../package.json', 'releaseTag']
+  ]) {
+    try {
+      const parsed = JSON.parse(fs.readFileSync(path.join(helperDir, relativePath), 'utf8'));
+      const candidate = parsed?.[field];
+      if (typeof candidate === 'string' && TAG.test(candidate)) return candidate;
+    } catch {}
+  }
+  return null;
+}
+
 function start({ electron, stateDir, getPetWindow, localTag, getLanguage }) {
+  if (!TAG.test(localTag) || globalThis[STARTED_KEY]) return false;
+  globalThis[STARTED_KEY] = true;
   const stateFile = path.join(stateDir, 'release-reminder.json');
   let busy = false, stopped = false;
   const run = async () => {
@@ -102,9 +124,11 @@ function start({ electron, stateDir, getPetWindow, localTag, getLanguage }) {
   repeat.unref();
   electron.app.once('will-quit', () => {
     stopped = true;
+    globalThis[STARTED_KEY] = false;
     clearTimeout(startup);
     clearInterval(repeat);
   });
+  return true;
 }
 
-module.exports = { start, checkOnce, showNotice };
+module.exports = { start, checkOnce, showNotice, resolveLocalTag };

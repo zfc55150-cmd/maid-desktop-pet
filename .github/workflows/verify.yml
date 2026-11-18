@@ -11,6 +11,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
@@ -38,5 +40,15 @@ jobs:
           $lab = Get-ChildItem integrations/gpt-niang/playback-lab/*.test.cjs | ForEach-Object { $_.FullName }
           node --test $lab
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Install Python test dependencies
+        run: python -m pip install -r tests/requirements-ci.txt
       - name: Run Python test suites
         run: python -B -m unittest discover -s tests -p "test_*.py" -v
+      - name: Check animated .gitignore does not hide new source files
+        shell: pwsh
+        run: |
+          $ignored = git ls-files --others --ignored --exclude-standard integrations/gpt-niang/animated | Where-Object { $_ -match '\.(cjs|mjs|ps1|py|json)$' }
+          if ($ignored) {
+            Write-Error ("Ignored code/json files found under animated/:`n" + ($ignored -join "`n"))
+            exit 1
+          }

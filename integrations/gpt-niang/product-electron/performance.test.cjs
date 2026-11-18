@@ -23,5 +23,30 @@ test('side actions stay in the side idle and start the next action from the disp
  assert.match(catalog.actionQuote('clip:tea'),/茶/);
  assert.equal(catalog.actionQuote('clip:frontidle'),null);
  assert.throws(()=>catalog.configure({states:{frontidle:{}},transitionClips:{frontidle:'nonexistent'}}),/INVALID_CHARACTER_MANIFEST/);
+ catalog.reset();
+ assert.deepEqual(catalog.actions,[]);
+ assert.deepEqual(catalog.selectable,[]);
+ assert.deepEqual(catalog.automatic,[]);
+ assert.equal(catalog.isSelectable('clip:happy'),false);
+ assert.throws(()=>catalog.plan('clip:happy',clips),/UNKNOWN_PERFORMANCE/);
  catalog.configure(manifest);
+});
+
+test('PerformanceDirector clears previous faultTimer and recovers after faultCount > 3', t => {
+ t.mock.timers.enable({ apis: ['setTimeout'] });
+ const cmds = [];
+ const d = new PerformanceDirector(c => cmds.push(c));
+ d.start();
+ const match = { ...d.current };
+ for (let i = 0; i < 4; i++) {
+  d.mediaError(match);
+  assert.equal(d.phase, 'fault');
+ }
+ assert.equal(d.faultCount, 4);
+ assert.ok(d.faultTimer);
+ t.mock.timers.tick(29999);
+ assert.equal(d.phase, 'fault');
+ t.mock.timers.tick(1);
+ assert.equal(d.phase, 'idle');
+ assert.equal(d.faultTimer, null);
 });

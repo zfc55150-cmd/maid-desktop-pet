@@ -1,6 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path'),{spawnSync}=require('node:child_process');
-test('real Windows settings store recovers backups and refuses unsafe ordinary writes',()=>{
+const skipWindows=process.platform!=='win32'&&'Windows-only PowerShell test';
+test('real Windows settings store recovers backups and refuses unsafe ordinary writes',{skip:skipWindows},()=>{
  const fixtureRoot=path.resolve(__dirname,'../../../../work/optimization-implementation-20261028-01/maintenance');fs.mkdirSync(fixtureRoot,{recursive:true});
  const temp=fs.mkdtempSync(path.join(fixtureRoot,'gpt-settings-store-'));
  try{

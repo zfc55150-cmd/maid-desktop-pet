@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { checkOnce } = require('../integrations/deepseek-portable/release-reminder.cjs');
-const { checkOnce: checkInstalledOnce } = require('../app/electron-helper/release-reminder.js');
+const { checkOnce: checkInstalledOnce, start: startInstalledReminder, resolveLocalTag } = require('../app/electron-helper/release-reminder.js');
 const { checkReleaseNotice } = require('../integrations/gpt-niang/product-electron/services/release-notice.cjs');
 
 const version = 'v1.0.3';
@@ -74,4 +74,30 @@ test('installed reminder ignores GPT-only releases and announces the DeepSeek pa
   assert.equal(await checkInstalledOnce({ ...next, show: () => { shown++; return true; } }), true);
   assert.equal(await checkInstalledOnce({ ...next, show: () => { shown++; return true; } }), false);
   assert.equal(shown, 1);
+});
+
+test('resolveLocalTag avoids hardcoded fallback and reads release-tag.json or helper package.json', t => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'deepseek-local-tag-'));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  assert.equal(resolveLocalTag(root), null);
+  fs.writeFileSync(path.join(root, 'package.json'), JSON.stringify({ releaseTag: 'v1.0.7' }));
+  assert.equal(resolveLocalTag(root), 'v1.0.7');
+  fs.writeFileSync(path.join(root, 'release-tag.json'), JSON.stringify({ tag: 'v1.0.8' }));
+  assert.equal(resolveLocalTag(root), 'v1.0.8');
+});
+
+test('reminder start enforces a process singleton until will-quit', t => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'deepseek-singleton-'));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  const listeners = new Map();
+  const electron = {
+    app: {
+      once(name, fn) { listeners.set(name, fn); }
+    }
+  };
+  assert.equal(startInstalledReminder({ electron, stateDir: root, getPetWindow: () => null, localTag: 'v1.0.7' }), true);
+  assert.equal(startInstalledReminder({ electron, stateDir: root, getPetWindow: () => null, localTag: 'v1.0.7' }), false);
+  listeners.get('will-quit')?.();
+  assert.equal(startInstalledReminder({ electron, stateDir: root, getPetWindow: () => null, localTag: 'v1.0.7' }), true);
+  listeners.get('will-quit')?.();
 });
