@@ -7,9 +7,9 @@
 > 💡 **詳しい日本語マニュアル・FAQ・ライセンス説明は 👉 [README.ja.md（日本語ガイド）](README.ja.md) をご覧ください。**
 > 両マスコットは **日本語 / 簡体字中国語の自動判定＆手動切り替え** に対応しており、日本語版 Windows 環境では初回起動時から自動的に **日本語 UI・日本語セリフ** で動作します（右クリック「設定」からいつでも言語を切り替え可能）。
 
-1. **ステップ 1：ダウンロード** — [Release v1.0.5 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.5) から ZIP をダウンロード（Electron・Node.js 同梱、インストール不要）：
-   - 🐉 **GPT娘（ツンデレ竜娘）**：[GPTNiang-v0.8.38-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.5/GPTNiang-v0.8.38-electron-win-x64.zip)（59種のアニメ、クリック反応＆日本語セリフ、Codex 残量パネル）
-   - 🐋 **DeepSeek娘（クジラメイド）**：[DeepSeekActionPet-v1.0.5-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.5/DeepSeekActionPet-v1.0.5-win-x64.zip)（106種のアニメ、日本語 AI チャット＆自動長期記憶）
+1. **ステップ 1：ダウンロード** — [Release v1.0.6 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.6) から ZIP をダウンロード（Electron・Node.js 同梱、インストール不要）：
+   - 🐉 **GPT娘（ツンデレ竜娘）**：[GPTNiang-v0.8.39-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/GPTNiang-v0.8.39-electron-win-x64.zip)（59種のアニメ、クリック反応＆日本語セリフ、Codex 残量パネル）
+   - 🐋 **DeepSeek娘（クジラメイド）**：[DeepSeekActionPet-v1.0.6-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/DeepSeekActionPet-v1.0.6-win-x64.zip)（106種のアニメ、日本語 AI チャット＆自動長期記憶）
 2. **ステップ 2：すべて解凍（展開）** — `C:\Program Files` 以外の**書き込み権限がある任意のフォルダ**（例：`D:\Pets\GPTNiang` やデスクトップ）に **すべて展開** してください（ZIP 内で直接実行しないでください）。
 3. **ステップ 3：起動・停止（文字化け防止の英数字 `.cmd` 推奨）**：
    - **GPT娘**：起動 `Start-GPT-Niang.cmd` ／ 停止 `Stop-GPT-Niang.cmd`
@@ -19,16 +19,16 @@
 
 # 🚀 新手 3 步快速下载与启动指南 / Quick start (3 steps)
 
-**便携版**可在 [Release v1.0.5](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.5) 下载，包内自带 Electron 与 Node.js。两款桌宠现已支持**中/日双语自动识别与切换**（自动适配系统语言，亦可随时在设置面板手动切换并保存）。两款包内的角色与动画素材均仅限非商业署名分享（`CC BY-NC-SA 4.0`，详见各包根目录 `ANIMATION-LICENSE.md`），且已完成包内 `state/` 隔离与双副本独立停止修复。详见[素材补证与双宠同步记录](docs/GPT娘素材补证与双宠同步-20261117.md)。
+**便携版**可在 [Release v1.0.6](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.6) 下载，包内自带 Electron 与 Node.js。两款桌宠现已支持**中/日双语自动识别与切换**（自动适配系统语言，亦可随时在设置面板手动切换并保存）。两款包内的角色与动画素材均仅限非商业署名分享（`CC BY-NC-SA 4.0`，详见各包根目录 `ANIMATION-LICENSE.md`），且已完成包内 `state/` 隔离与双副本独立停止修复。详见[素材补证与双宠同步记录](docs/GPT娘素材补证与双宠同步-20261117.md)。
 
 ## 第 1 步：下载 / Download
 
-打开 [Release v1.0.5 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.5)，选择需要的桌宠：
+打开 [Release v1.0.6 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.6)，选择需要的桌宠：
 
 | 附件 | 桌宠 | 大小 | 内容 |
 |---|---|---|---|
-| [GPTNiang-v0.8.38-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.5/GPTNiang-v0.8.38-electron-win-x64.zip) | **GPT娘** | 433.9 MiB | `0.8.38-electron`：中/日双语自动切换、59 段动画、10,948 帧，Codex 连接与用量面板、拖动微倾、崩溃自恢复 |
-| [DeepSeekActionPet-v1.0.5-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.5/DeepSeekActionPet-v1.0.5-win-x64.zip) | **DeepSeek娘** | 232.8 MiB | 中/日双语自动切换（含日语女仆人设与长期记忆）、106 段透明动画，包内首启与 Electron profile 隔离、右键退出与新版提醒 |
+| [GPTNiang-v0.8.39-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/GPTNiang-v0.8.39-electron-win-x64.zip) | **GPT娘** | 433.9 MiB | `0.8.39-electron`：中/日双语自动切换、59 段动画、10,948 帧，Codex 连接与用量面板、拖动微倾、崩溃自恢复与主循环防崩加固 |
+| [DeepSeekActionPet-v1.0.6-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/DeepSeekActionPet-v1.0.6-win-x64.zip) | **DeepSeek娘** | 232.8 MiB | 中/日双语自动切换（含日语女仆人设与长期记忆）、106 段透明动画，包内首启与 Electron profile 隔离、全局防崩与边界校验、右键退出与新版提醒 |
 
 两个包可同时下载运行；下载后可用同页 `SHA256SUMS.txt` 校验文件完整性。
 
@@ -71,7 +71,7 @@ cd /d "你的解压目录"
 node\node.exe app\package-doctor.cjs "%CD%"
 ```
 
-期望输出：`{"ok":true,"version":"0.8.38-electron","releaseTag":"v1.0.5","files":284,"clips":59,"frames":10948,...}`
+期望输出：`{"ok":true,"version":"0.8.39-electron","releaseTag":"v1.0.6","files":284,"clips":59,"frames":10948,...}`
 
 ## 隐私保证 / Privacy guarantee
 
@@ -86,7 +86,9 @@ node\node.exe app\package-doctor.cjs "%CD%"
 
 # 📜 版本记录 / Version log
 
-2026-11-18 当前正式版（v1.0.5）：GPT 娘 **0.8.38-electron** + DeepSeek 娘 **1.2.3-release-notice.2**，支持中/日双语自动识别与手动切换，补齐原生降级（native fallback）、16ms 主循环防护与 manifest 全量校验、便携包全量校验与完整回归测试。[仓库同步与便携版发布](docs/仓库同步与便携版发布.md)。
+2026-11-18 当前正式版（v1.0.6）：GPT 娘 **0.8.39-electron** + DeepSeek 娘 **1.2.3-release-notice.2**，在 v1.0.5 中/日双语基础上补齐全部审计高危稳定性修复（GPT 娘 16ms 主循环防崩、manifest 全量校验、native fallback 拖拽修复；DeepSeek 娘全局异常捕获、`pet:set-bounds` 尺寸限幅与更新提醒版本校验），并附带可复现便携构建脚本。[仓库同步与便携版发布](docs/仓库同步与便携版发布.md)。
+
+2026-11-18 历史正式版（v1.0.5）：GPT 娘 **0.8.38-electron** + DeepSeek 娘 **1.2.3-release-notice.2**，支持中/日双语自动识别与手动切换。[仓库同步与便携版发布](docs/仓库同步与便携版发布.md)。
 
 2026-11-17 历史正式版（v1.0.2–v1.0.4）：GPT 娘 **0.8.32-electron – 0.8.37-electron**，接入龙息凝星、揽镜自赏、执卷巧接等新动作（共 59 段 10,948 帧），支持本地 Codex 连接与额度面板、拖动微倾、渲染进程崩溃自恢复及双宠 GitHub Release 更新提醒。[素材补证与双宠同步](docs/GPT娘素材补证与双宠同步-20261117.md)。
 
