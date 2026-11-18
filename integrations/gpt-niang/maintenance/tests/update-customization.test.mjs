@@ -9,6 +9,8 @@ import {spawnSync} from 'node:child_process';
 
 const maintenance=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const installed=path.join(process.env.LOCALAPPDATA || path.join(os.homedir(),'AppData/Local'),'Programs/GPTNiangUsage/gpt-niang-usage');
+const hasInstalled=fs.existsSync(path.join(installed,'runtime/usage.mjs'))&&fs.existsSync(path.join(installed,'runtime/install-files.json'));
+const skipInstalled=!hasInstalled&&'Installed GPTNiangUsage baseline not present';
 function fixture(){
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'gpt-update-guard-'));
  const app=path.join(root,'app','gpt-niang-usage'),dataDir=path.join(root,'state'),agentDir=path.join(root,'agent');
@@ -47,7 +49,7 @@ function upstream(){
  return {release,bytes,sums,fetch(url,api){if(api)return Buffer.from(JSON.stringify(release));return url.endsWith('SHA256SUMS.txt')?sums:bytes;}};
 }
 
-for(const mode of ['automatic','manual'])test(mode+' custom install only checks release metadata and never downloads, waits or launches',async()=>{
+for(const mode of ['automatic','manual'])test(mode+' custom install only checks release metadata and never downloads, waits or launches',{skip:skipInstalled},async()=>{
  const f=fixture();try{
   mark(f);const r=await runtime(f),up=upstream(),calls=[];
   await r.runUpdate(f.config,{mode,agentDir:f.agentDir,fetchBytes:async(url,o)=>{calls.push(url);return up.fetch(url,o?.api);},waitIdle:()=>{throw Error('must not wait');},launch:()=>{throw Error('must not launch');}});
@@ -55,20 +57,20 @@ for(const mode of ['automatic','manual'])test(mode+' custom install only checks 
   assert.deepEqual(calls,[r.RELEASE_API]);assert.equal(fs.existsSync(path.join(f.agentDir,'update-transaction.json')),false);assert.equal(fs.existsSync(path.join(f.dataDir,'updates')),false);
  }finally{f.remove();}
 });
-test('existing dragon manifest protects even without an explicit policy marker',async()=>{
+test('existing dragon manifest protects even without an explicit policy marker',{skip:skipInstalled},async()=>{
  const f=fixture();try{mark(f,'runtime/dragon-animation/animation.json');const r=await runtime(f);assert.equal(r.customizationProtection(f.app).protected,true);}finally{f.remove();}
 });
-test('atlas directory presence also protects when manifest is absent or damaged',async()=>{
+test('atlas directory presence also protects when manifest is absent or damaged',{skip:skipInstalled},async()=>{
  const f=fixture();try{fs.mkdirSync(path.join(f.app,'assets/dragon-animation/motion-v1'),{recursive:true});const r=await runtime(f);assert.equal(r.customizationProtection(f.app).protected,true);}finally{f.remove();}
 });
-test('uncustomized install retains the existing validated download and launch path',async()=>{
+test('uncustomized install retains the existing validated download and launch path',{skip:skipInstalled},async()=>{
  const f=fixture();try{
   const r=await runtime(f),up=upstream();let launches=0;
   await r.runUpdate(f.config,{mode:'manual',agentDir:f.agentDir,fetchBytes:async(u,o)=>up.fetch(u,o?.api),waitIdle:async()=>true,launch:async j=>{assert.equal(j.version,'1.3.6');launches++;}});
   assert.equal(launches,1);assert.equal(read(path.join(f.dataDir,'update-status.json')).phase,'installing');assert.equal(r.customizationProtection(f.app).protected,false);
  }finally{f.remove();}
 });
-test('a customization installed while idle is rechecked before transaction or launch',async()=>{
+test('a customization installed while idle is rechecked before transaction or launch',{skip:skipInstalled},async()=>{
  const f=fixture();try{
   const r=await runtime(f),up=upstream();let launches=0;
   await r.runUpdate(f.config,{mode:'manual',agentDir:f.agentDir,fetchBytes:async(u,o)=>up.fetch(u,o?.api),waitIdle:async()=>{mark(f);return true;},launch:async()=>{launches++;}});
@@ -76,14 +78,14 @@ test('a customization installed while idle is rechecked before transaction or la
   assert.deepEqual(fs.readdirSync(path.join(f.dataDir,'updates')),[]);
  }finally{f.remove();}
 });
-test('customized cleanup is still allowed and does not turn cleanup into a release check',async()=>{
+test('customized cleanup is still allowed and does not turn cleanup into a release check',{skip:skipInstalled},async()=>{
  const f=fixture();try{
   mark(f);const r=await runtime(f);let cleanups=0;
   await r.runUpdate(f.config,{mode:'cleanup',agentDir:f.agentDir,cleanup:async()=>{cleanups++;},fetchBytes:async()=>{throw Error('must not check release');}});
   assert.equal(cleanups,1);assert.equal(fs.existsSync(path.join(f.dataDir,'update-installing.json')),false);
  }finally{f.remove();}
 });
-test('stable helper refuses a prepared customized transaction and rechecks after its idle wait',()=>{
+test('stable helper refuses a prepared customized transaction and rechecks after its idle wait',{skip:skipInstalled},()=>{
  const f=fixture();try{
   fs.copyFileSync(path.join(maintenance,'update-agent/update-helper.ps1'),path.join(f.agentDir,'update-helper.ps1'));
   for(const n of ['supervisor-task.ps1','update-common.ps1','install-preflight.ps1'])fs.writeFileSync(path.join(f.agentDir,n),'# test-only dependency stubs\n');

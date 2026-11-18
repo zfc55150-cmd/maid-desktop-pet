@@ -30,8 +30,8 @@
 
 | ファイル名 | マスコット | サイズ | 主な内容 |
 |---|---|---|---|
-| [GPTNiang-v0.8.39-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/GPTNiang-v0.8.39-electron-win-x64.zip) | **GPT娘** | 433.9 MiB | `0.8.39-electron`：日中バイリンガル自動切替、59種のアニメ（10,948フレーム）、Codex 連携＆残量パネル、ドラッグ演出、メインループ保護・クラッシュ復旧 |
-| [DeepSeekActionPet-v1.0.6-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/DeepSeekActionPet-v1.0.6-win-x64.zip) | **DeepSeek娘** | 232.8 MiB | 日中バイリンガル自動切替（日本語メイド人格＆長期記憶）、106種の透過アニメ、パッケージ内初回起動＆プロファイル分離、例外保護・境界ガード、右クリック終了、新バージョン通知 |
+| [GPTNiang-v0.8.39-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/GPTNiang-v0.8.39-electron-win-x64.zip) | **GPT娘** | 429.2 MiB | `0.8.39-electron`：日中バイリンガル自動切替、59種のアニメ（10,948フレーム）、Codex 連携＆残量パネル、ドラッグ演出、メインループ保護・クラッシュ復旧 |
+| [DeepSeekActionPet-v1.0.6-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/DeepSeekActionPet-v1.0.6-win-x64.zip) | **DeepSeek娘** | 229.2 MiB | 日中バイリンガル自動切替（日本語メイド人格＆長期記憶）、106種の透過アニメ、パッケージ内初回起動＆プロファイル分離、例外保護・境界ガード、右クリック終了、新バージョン通知 |
 
 > 💡 ダウンロード後は、同じリリースページにある `SHA256SUMS.txt` と比較してファイルが破損・改ざんされていないか確認できます（PowerShell 例：`Get-FileHash .\GPTNiang-v0.8.39-electron-win-x64.zip -Algorithm SHA256`）。
 

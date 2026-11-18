@@ -27,8 +27,8 @@
 
 | 附件 | 桌宠 | 大小 | 内容 |
 |---|---|---|---|
-| [GPTNiang-v0.8.39-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/GPTNiang-v0.8.39-electron-win-x64.zip) | **GPT娘** | 433.9 MiB | `0.8.39-electron`：中/日双语自动切换、59 段动画、10,948 帧，Codex 连接与用量面板、拖动微倾、崩溃自恢复与主循环防崩加固 |
-| [DeepSeekActionPet-v1.0.6-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/DeepSeekActionPet-v1.0.6-win-x64.zip) | **DeepSeek娘** | 232.8 MiB | 中/日双语自动切换（含日语女仆人设与长期记忆）、106 段透明动画，包内首启与 Electron profile 隔离、全局防崩与边界校验、右键退出与新版提醒 |
+| [GPTNiang-v0.8.39-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/GPTNiang-v0.8.39-electron-win-x64.zip) | **GPT娘** | 429.2 MiB | `0.8.39-electron`：中/日双语自动切换、59 段动画、10,948 帧，Codex 连接与用量面板、拖动微倾、崩溃自恢复与主循环防崩加固 |
+| [DeepSeekActionPet-v1.0.6-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.6/DeepSeekActionPet-v1.0.6-win-x64.zip) | **DeepSeek娘** | 229.2 MiB | 中/日双语自动切换（含日语女仆人设与长期记忆）、106 段透明动画，包内首启与 Electron profile 隔离、全局防崩与边界校验、右键退出与新版提醒 |
 
 两个包可同时下载运行；下载后可用同页 `SHA256SUMS.txt` 校验文件完整性。
 

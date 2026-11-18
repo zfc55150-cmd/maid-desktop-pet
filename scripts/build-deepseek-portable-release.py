@@ -20,7 +20,7 @@ RESTRICTED_ASSETS = {
 }
 
 
-def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir: Path, formal: bool = False) -> Path:
+def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir: Path, formal: bool = False, release_name: bool = False) -> Path:
     if formal:
         checked = subprocess.run(["node", str(ROOT / "scripts/tagged-release.cjs"), tag],
                                  cwd=ROOT, capture_output=True, text=True, check=True)
@@ -43,7 +43,7 @@ def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir:
     if deployment.get("version") != pkg.get("version"):
         raise ValueError("deployment.json and package.json version mismatch")
 
-    archive_stem = f"DeepSeekActionPet-{tag}-win-x64" if formal else f"DeepSeekActionPet-candidate-{tag}-win-x64"
+    archive_stem = f"DeepSeekActionPet-{tag}-win-x64" if (formal or release_name) else f"DeepSeekActionPet-candidate-{tag}-win-x64"
     output_dir.mkdir(parents=True, exist_ok=True)
     target = output_dir / (archive_stem + ".zip")
 
@@ -125,8 +125,9 @@ def main():
     parser.add_argument("--tag", required=True, help="Release tag vX.Y.Z")
     parser.add_argument("--out", required=True, type=Path)
     parser.add_argument("--formal", action="store_true", help="Require clean git tree and matching HEAD tag")
+    parser.add_argument("--release-name", action="store_true", help="Use release archive stem without requiring --formal tag check")
     args = parser.parse_args()
-    out = build_formal_release(args.base, args.base_sha256, args.tag, args.out, formal=args.formal)
+    out = build_formal_release(args.base, args.base_sha256, args.tag, args.out, formal=args.formal, release_name=args.release_name)
     print(json.dumps({
         "archive": str(out.resolve()),
         "sha256": base_builder.sha256(out),
