@@ -12,6 +12,12 @@ from importlib.machinery import SourceFileLoader
 ROOT = Path(__file__).resolve().parents[1]
 base_builder = SourceFileLoader("portable_builder", str(ROOT / "scripts/build-deepseek-portable-reminder.py")).load_module()
 HELPER = "node_modules/dsh-pet/runtime/electron-helper/"
+RESTRICTED_ASSETS = {
+    HELPER + "deepseek-bust.png",
+    HELPER + "deepseek-bust-press.mp3",
+    HELPER + "deepseek-bust-release.mp3",
+    HELPER + "deepseek-bust-NOTICE.txt",
+}
 
 
 def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir: Path, formal: bool = False) -> Path:
@@ -43,11 +49,14 @@ def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir:
 
     changes = {}
     for item in deployment["files"]:
+        target_rel = item["target"].replace("\\", "/")
+        if target_rel in RESTRICTED_ASSETS:
+            continue
         src_path = ROOT / item["source"]
         data = src_path.read_bytes()
         if hashlib.sha256(data).hexdigest().lower() != item["sha256"].lower():
             raise ValueError("Source SHA-256 mismatch: " + item["source"])
-        changes[item["target"].replace("\\", "/")] = data
+        changes[target_rel] = data
 
     changes["portable/first-run.cjs"] = (ROOT / "integrations/deepseek-portable/first-run.cjs").read_bytes()
     changes["portable/stop.ps1"] = (ROOT / "integrations/deepseek-portable/stop.ps1").read_bytes()
