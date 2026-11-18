@@ -27,6 +27,10 @@ integrations/gpt-niang/animated/*
 !integrations/gpt-niang/animated/activity-state.mjs
 !integrations/gpt-niang/animated/activity-watch.mjs
 !integrations/gpt-niang/animated/verify-installed.cjs
+!integrations/gpt-niang/animated/patch-widget.cjs
+!integrations/gpt-niang/animated/baseline/
+integrations/gpt-niang/animated/baseline/*
+!integrations/gpt-niang/animated/baseline/widget-1.3.5-patched.ps1
 !integrations/gpt-niang/animated/tests/
 integrations/gpt-niang/animated/tests/*
 !integrations/gpt-niang/animated/tests/approved-actions-runtime.ps1

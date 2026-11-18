@@ -1,0 +1,28 @@
+'use strict';
+const fs=require('node:fs'),crypto=require('node:crypto');
+const [input,output]=process.argv.slice(2);
+if(!input||!output)throw new Error('Usage: node patch-widget.cjs INPUT OUTPUT');
+const bytes=fs.readFileSync(input);
+const sha=crypto.createHash('sha256').update(bytes).digest('hex');
+if(sha!=='4230ff4392c53e40f06ec708de444cd9ca4f97ad6254bad9beea216eb15a32fd')throw new Error('Unknown GPT-Niang widget baseline; do not overwrite');
+let source=bytes.toString('utf8');const nl=source.includes('\r\n')?'\r\n':'\n';
+function replace(from,to){if(source.split(from).length!==2)throw new Error('Expected exactly one patch anchor: '+from);source=source.replace(from,to);}
+const dot=". (Join-Path $script:appDir 'runtime\\completion-notifications.ps1')";
+replace(dot,dot+nl+". ([ScriptBlock]::Create([IO.File]::ReadAllText((Join-Path $script:appDir 'runtime\\dragon-animation\\dragon-animation.ps1'),[Text.Encoding]::UTF8)))");
+replace('Initialize-CompletionNotificationState $settings','Initialize-CompletionNotificationState $settings'+nl+'Initialize-DragonAnimationSettings $settings');
+replace('taskCompletionBubble=$script:completionNotificationsEnabled}}','taskCompletionBubble=$script:completionNotificationsEnabled;dragonAnimationEnabled=$script:dragonAnimationEnabled;dragonCodexEnabled=$script:dragonCodexEnabled;dragonMotionVersion=$script:dragonMotionVersion;dragonTouchEnabled=$script:dragonTouchEnabled}}');
+replace('  try{Stop-WidgetMusic}catch{}','  try{Stop-DragonAnimation}catch{}'+nl+'  try{Stop-WidgetMusic}catch{}');
+replace('  Start-CompletionMonitor'+nl+'  Ensure-QuotaWorker','  Start-DragonAnimation'+nl+'  Start-CompletionMonitor'+nl+'  Ensure-QuotaWorker');
+replace('  if(!$moved){Click-Character}','  if(!$moved){Click-Character;$touch=$event.GetPosition($script:ui.Girl);$null=Invoke-DragonTouch ($touch.X/[Math]::Max(1.0,[double]$script:ui.Girl.ActualWidth)) ($touch.Y/[Math]::Max(1.0,[double]$script:ui.Girl.ActualHeight))}');
+replace(';sound=(Get-WidgetAudioStatus);followHost=',";dragonMotion=@{timerRunning=[bool]($script:dragonTimer -and $script:dragonTimer.IsEnabled);startupStage=$script:dragonStartupStage;error=$script:dragonLastError;phase=$script:dragonPhase;clip=$script:dragonClip;presentedFrames=[long]$script:dragonPresentedTotal;cachedPages=if($script:dragonPages){$script:dragonPages.Count}else{0};manifestVersion=$script:dragonManifest.version;sizeVersion=$script:dragonMotionVersion};sound=(Get-WidgetAudioStatus);followHost=");
+const interaction=require('../interaction/patch-widget.cjs');
+source=require('../forms/patch-widget.cjs').patch(interaction.patch(Buffer.from(source,'utf8'))).toString('utf8');
+replace(dot,dot+nl+". ([ScriptBlock]::Create([IO.File]::ReadAllText((Join-Path $script:appDir 'runtime\\settings-store.ps1'),[Text.Encoding]::UTF8)))");
+replace('$script:settingsLoadFailed=$false','$script:settingsStore=Open-WidgetSettingsStore $settingsFile'+nl+'$script:settingsLoadFailed=!$script:settingsStore.CanSave');
+replace('try{$settings=Get-Content -LiteralPath $settingsFile -Raw -Encoding UTF8 | ConvertFrom-Json','try{$settings=$script:settingsStore.Data');
+replace('function Save-Settings {Write-WidgetJson $settingsFile ','function Save-Settings {Save-WidgetSettingsStore $script:settingsStore ');
+replace('function Save-Settings {Save-WidgetSettingsStore $script:settingsStore ','function Save-Settings {if(!$script:settingsStore.CanSave){$script:settingsLoadFailed=$true;return};try{Save-WidgetSettingsStore $script:settingsStore ');
+replace('dragonTouchEnabled=$script:dragonTouchEnabled}}','dragonTouchEnabled=$script:dragonTouchEnabled}}catch{$script:settingsLoadFailed=$true}}');
+replace(';sound=(Get-WidgetAudioStatus);followHost=',';settingsStore=@{canSave=[bool]$script:settingsStore.CanSave;recovered=[bool]$script:settingsStore.Recovered;errorCode=$script:settingsStore.ErrorCode};sound=(Get-WidgetAudioStatus);followHost=');
+fs.mkdirSync(require('node:path').dirname(output),{recursive:true});fs.writeFileSync(output,source);
+console.log(JSON.stringify({previousSha256:sha,sha256:crypto.createHash('sha256').update(fs.readFileSync(output)).digest('hex')}));
