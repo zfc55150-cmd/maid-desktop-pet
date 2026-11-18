@@ -71,9 +71,29 @@ test('C1: save failures keep the real message and only conflicts use the conflic
   assert.deepEqual(conflict.errors, ['POSITION_SAVE_CONFLICT:SETTINGS_CHANGED']);
 });
 
-test('T2: close records step timings and arms a 10 s fallback exit', () => {
+test('T2: close records step timings, flushes writers, and arms a 10 s fallback exit', async () => {
   const main = fs.readFileSync(path.join(appDir, 'main.cjs'), 'utf8');
-  const close = main.slice(main.indexOf('async function close('), main.indexOf("app.on('before-quit'"));
+  const close = main.slice(main.indexOf('async function close('), main.indexOf("app.on('second-instance'") !== -1 ? main.indexOf("app.on('second-instance'") : main.indexOf("app.on('before-quit'"));
   for (const step of ["mark('windows')", "mark('product')", "mark('flush')"]) assert(close.includes(step), step);
   assert.match(close, /setTimeout\(\(\)=>\{stats\.closeTimedOut=true;[\s\S]*process\.exit\(exitCode\);\},10000\)/);
+  const stats = {errors: []}, exited = [], flushed = [];
+  const ctx = {
+    closing: false, quitReady: false, owned: true, testOnly: true, root: os.tmpdir(),
+    timer: null, speechTimer: null, stats, Date, JSON, Promise, setImmediate,
+    setTimeout: () => 1, clearInterval: () => {}, clearTimeout: () => {},
+    native: {detach() {}, release() { flushed.push('native-release'); }},
+    menuPopup: {close() {}}, panel: null, sizeWindow: null, speechWindow: null, win: {isDestroyed: () => true}, tray: null,
+    product: {async close() { flushed.push('product-close'); }},
+    presenceWriter: {async flush() { flushed.push('presence-flush'); }},
+    diagnosticWriter: {async flush() { flushed.push('diag-flush'); }},
+    fs: {writeFileSync() {}, unlinkSync() {}}, path, process: {pid: 1, exit(c) { exited.push(c); }},
+    appendCrashLog() {}, readJson: () => null
+  };
+  vm.createContext(ctx);
+  vm.runInContext(close, ctx);
+  await ctx.close('normal');
+  assert.deepEqual(exited, [0]);
+  assert.equal(ctx.quitReady, true);
+  assert.deepEqual([...stats.closeTimings.map(s => s.step)], ['windows', 'product', 'flush']);
+  assert(flushed.includes('product-close') && flushed.includes('diag-flush') && flushed.includes('native-release'));
 });

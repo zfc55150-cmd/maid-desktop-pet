@@ -36,6 +36,10 @@ function verifyManifest({root, installedRoot = null}) {
     if (typeof entry.sha256 !== 'string' || !/^[a-f0-9]{64}$/i.test(entry.sha256)) {
       throw new Error('Invalid deployment SHA-256');
     }
+    if (entry.previousSha256 !== null && entry.previousSha256 !== undefined &&
+        (typeof entry.previousSha256 !== 'string' || !/^[a-f0-9]{64}$/i.test(entry.previousSha256))) {
+      throw new Error('Invalid deployment previousSha256: ' + entry.source);
+    }
     const source = childFile(root, entry.source);
     const sourceId = path.resolve(source).toLowerCase();
     if (sources.has(sourceId)) throw new Error('Duplicate deployment source');

@@ -60,5 +60,7 @@ foreach($item in $manifest.files){
 if(!$NoRestart){
  & (Join-Path $appRoot 'node.exe') (Join-Path $appRoot 'launcher.mjs')
  if($LASTEXITCODE -ne 0){throw 'Restored code could not start'}
+ $h=Invoke-RestMethod -Uri 'http://127.0.0.1:3088/health' -TimeoutSec 5
+ if($h.plugin.root -ne (Join-Path $appRoot 'node_modules\dsh-pet')){throw 'Unexpected running instance after rollback'}
 }
 'Code restored. Personal chat data and model files were not rolled back.'

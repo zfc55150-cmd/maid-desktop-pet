@@ -1,0 +1,1054 @@
+{
+  "version": "0.7.3-continuity",
+  "application": "GPT-Niang",
+  "formsVersion": "forms-1.24-continuity",
+  "upstreamVersion": "1.3.5",
+  "targetRoot": "%LOCALAPPDATA%\\Programs\\GPTNiangUsage\\gpt-niang-usage",
+  "dataDir": "%LOCALAPPDATA%\\GPTNiangUsage\\state",
+  "hooksPath": "%USERPROFILE%\\.codex\\hooks.json",
+  "previousHooksSha256": null,
+  "hooksTemplateSha256": "cb0279268977ecc006c64febe92668adeeee9d4445ae13e69b4b00b4e6dda41c",
+  "files": [
+    {
+      "target": "widget.ps1",
+      "sha256": "7dcf4c69a5e429df8a6ddd538025dd2f97e4748b59360aa306ea36b39bee9893",
+      "previousSha256": "7dcf4c69a5e429df8a6ddd538025dd2f97e4748b59360aa306ea36b39bee9893"
+    },
+    {
+      "target": "runtime/dragon-animation/activity-state.mjs",
+      "sha256": "6f6b2c754a0d562be378f054c3b9cb9dec6eed1beb01eb605b5b6ed407e17a5d",
+      "previousSha256": "6f6b2c754a0d562be378f054c3b9cb9dec6eed1beb01eb605b5b6ed407e17a5d"
+    },
+    {
+      "target": "runtime/dragon-animation/codex-hook.mjs",
+      "sha256": "c7c122a1e4408d8244f218cfd2ad524b26928b14b0a22c300e9b2319eb7f70c1",
+      "previousSha256": "c7c122a1e4408d8244f218cfd2ad524b26928b14b0a22c300e9b2319eb7f70c1"
+    },
+    {
+      "target": "runtime/dragon-animation/activity-watch.mjs",
+      "sha256": "09d4ac934bdaefb8bb0aa97607236deebc789c15774b8288813efc21f45366fc",
+      "previousSha256": "09d4ac934bdaefb8bb0aa97607236deebc789c15774b8288813efc21f45366fc"
+    },
+    {
+      "target": "runtime/dragon-animation/dragon-animation.ps1",
+      "sha256": "a1401a5ea15d6b542a9b2641bf2b235a8fa9f94a14de3cf68faf667f30a43627",
+      "previousSha256": "a1401a5ea15d6b542a9b2641bf2b235a8fa9f94a14de3cf68faf667f30a43627"
+    },
+    {
+      "target": "runtime/dragon-animation/motion-runtime.ps1",
+      "sha256": "4ba0e1711ea341fca14b344703d7d2bf5c03b3035c6b10f064e4172efa1872ed",
+      "previousSha256": "b34afe54cb01b5dd83fa2184b145b61d22e524bc74cb69dda60292e8fcbfa685"
+    },
+    {
+      "target": "runtime/dragon-animation/motion-selection.ps1",
+      "sha256": "98b995cf04474f15c4978dafa23bea651563910fe18b039631470cb8212fe332",
+      "previousSha256": "dfaaa1996026f8edc1a8d7ce90ef104fbb299857ccc3d388adb1a05b2f9631e3"
+    },
+    {
+      "target": "runtime/dragon-animation/motion-decoder.cs",
+      "sha256": "396247204dfc632ee94735bf3a3f7f7858aad13de1b38c7dcf14808b68357bf7",
+      "previousSha256": "1af9b181c829a1401512b2ddb0f02ebac2e6b90026ea932c03a6cea829d54848"
+    },
+    {
+      "target": "runtime/desktop-interaction.ps1",
+      "sha256": "d1a4197f9420de68194e348087b5b9b33927d98d5a305ff3da90f477f9fd34b0",
+      "previousSha256": "d1a4197f9420de68194e348087b5b9b33927d98d5a305ff3da90f477f9fd34b0"
+    },
+    {
+      "target": "runtime/pet-forms.ps1",
+      "sha256": "3df1e46eb348934349a512c59055767e1a2e49d8ed1e24758152b145ec075a8e",
+      "previousSha256": "0d3417788af52b66f1e0d8eb516f02af5f3e917eca80295a8aef8a4c9318b0ba"
+    },
+    {
+      "target": "runtime/pet-presentation.ps1",
+      "sha256": "71db459ad674e8eb14c8727fd44785907b1ce5a28c2443cb9a7c260fa2913146",
+      "previousSha256": "71db459ad674e8eb14c8727fd44785907b1ce5a28c2443cb9a7c260fa2913146"
+    },
+    {
+      "target": "runtime/pet-throw.ps1",
+      "sha256": "c6d7c1227ab4cfc2721eead950cea3caad5414df7d3ec44b50958610ce0a8484",
+      "previousSha256": "c6d7c1227ab4cfc2721eead950cea3caad5414df7d3ec44b50958610ce0a8484"
+    },
+    {
+      "target": "runtime/native-motion.cs",
+      "sha256": "8f35c4020636e2c76e014051810b19e9589ec97160ae3caed62427bbdd0e16c5",
+      "previousSha256": "8f35c4020636e2c76e014051810b19e9589ec97160ae3caed62427bbdd0e16c5"
+    },
+    {
+      "target": "runtime/native-motion-adapter.ps1",
+      "sha256": "cdb2dd2dbc6183bd810962db0401a2cb03c6c2870093e36068015a65a4043802",
+      "previousSha256": "cdb2dd2dbc6183bd810962db0401a2cb03c6c2870093e36068015a65a4043802"
+    },
+    {
+      "target": "runtime/catch-feedback.cs",
+      "sha256": "782f5e11d936504a67f0beeb139ea7e80e55778474a66d2926a3f988a5b7bbac",
+      "previousSha256": "782f5e11d936504a67f0beeb139ea7e80e55778474a66d2926a3f988a5b7bbac"
+    },
+    {
+      "target": "assets/pet-forms/font-reference.json",
+      "sha256": "d1a6efca39c62c51ed6709cd9d7b0b18bfcefc2338d47584bd4014658eb03710",
+      "previousSha256": "d1a6efca39c62c51ed6709cd9d7b0b18bfcefc2338d47584bd4014658eb03710"
+    },
+    {
+      "target": "assets/pet-forms/soft-candy.ttf",
+      "sha256": "5f5099a065b5eb3ba55e9bd293af7707fdbd7858bf99d9381b7c6319445c2e62",
+      "previousSha256": "5f5099a065b5eb3ba55e9bd293af7707fdbd7858bf99d9381b7c6319445c2e62"
+    },
+    {
+      "target": "assets/pet-forms/FONT-NOTICE.txt",
+      "sha256": "665bd4c0b6c6ccf4bab28abfeb6e48c213847526fe26381f0f684a528564bcba",
+      "previousSha256": "665bd4c0b6c6ccf4bab28abfeb6e48c213847526fe26381f0f684a528564bcba"
+    },
+    {
+      "target": "assets/pet-forms/frost-glass-cheek.png",
+      "sha256": "63fa79d524ce3dbecafc623804c9bb4c835b67e019783200051adea12c187f36",
+      "previousSha256": "63fa79d524ce3dbecafc623804c9bb4c835b67e019783200051adea12c187f36"
+    },
+    {
+      "target": "assets/pet-forms/NOTICE.txt",
+      "sha256": "52e729a6861f56db770c03fe4b3f32e717ad33a707eb2c178bd41ed9d51ba701",
+      "previousSha256": "52e729a6861f56db770c03fe4b3f32e717ad33a707eb2c178bd41ed9d51ba701"
+    },
+    {
+      "target": "runtime/dragon-animation/animation.json",
+      "sha256": "7a5c27d7fdc0740e253d677651c40f500ba8bfb10a39170535eb6a25b989a24e",
+      "previousSha256": "15c79e74d29d07bfcc7f2b0a02c8eb44e3358de758602c05229573fc61064195"
+    },
+    {
+      "target": "runtime/update.mjs",
+      "sha256": "b2b31b30d84fa9ed729cab9220e7ac81db8d9b85be84a4284ecb94fb3386b15c",
+      "previousSha256": "b2b31b30d84fa9ed729cab9220e7ac81db8d9b85be84a4284ecb94fb3386b15c"
+    },
+    {
+      "target": "runtime/update-ui.ps1",
+      "sha256": "2ec713151be6db1f4e5bfd6bfc0eded2983668194f196e64664b4c3fe6d58bbb",
+      "previousSha256": "2ec713151be6db1f4e5bfd6bfc0eded2983668194f196e64664b4c3fe6d58bbb"
+    },
+    {
+      "target": "runtime/completion-monitor.mjs",
+      "sha256": "0f1c41f9fe0fae7e53581d75072f884dc49c2f7df8c7e4101f868a20a6708877",
+      "previousSha256": "0f1c41f9fe0fae7e53581d75072f884dc49c2f7df8c7e4101f868a20a6708877"
+    },
+    {
+      "target": "runtime/completion-notifications.ps1",
+      "sha256": "9365f08306a6c772984942e265952c2aaa4a43b00d0f8e6d262f41b2751924b3",
+      "previousSha256": "9365f08306a6c772984942e265952c2aaa4a43b00d0f8e6d262f41b2751924b3"
+    },
+    {
+      "target": "runtime/settings-store.ps1",
+      "sha256": "7e372a1d3ba262df6067a9282f5edc1b47d1e1a59ed0f696bb9c7c8633d9ac93",
+      "previousSha256": "7e372a1d3ba262df6067a9282f5edc1b47d1e1a59ed0f696bb9c7c8633d9ac93"
+    },
+    {
+      "target": "runtime/supervisor.ps1",
+      "sha256": "73d9c76e69937e5e49ddf855a0a8885721e75bd82e068cc36838b465d343da94",
+      "previousSha256": "73d9c76e69937e5e49ddf855a0a8885721e75bd82e068cc36838b465d343da94"
+    },
+    {
+      "target": "runtime/experience-controls.ps1",
+      "sha256": "416677864540fc84dd0e84ab6c3389a29c469cddaa25844947792ef60cec14ec",
+      "previousSha256": "d1e3aa5d4d2f6e6cdea822752b9d7b0e4ff3036311c7f4b4e3cb94480e594625"
+    },
+    {
+      "target": "runtime/observer-discovery.mjs",
+      "sha256": "1532c943638d87b23e84135e379d2a71a7196dfb6f7ead6740b24b6f50d92e94",
+      "previousSha256": "1532c943638d87b23e84135e379d2a71a7196dfb6f7ead6740b24b6f50d92e94"
+    },
+    {
+      "target": "runtime/dragon-animation/observer-discovery.mjs",
+      "sha256": "1532c943638d87b23e84135e379d2a71a7196dfb6f7ead6740b24b6f50d92e94",
+      "previousSha256": "1532c943638d87b23e84135e379d2a71a7196dfb6f7ead6740b24b6f50d92e94"
+    },
+    {
+      "target": "runtime/update-helper.ps1",
+      "sha256": "e993ab6cc527902838c582c8034625d353c2fb5221f1c1b7657fd899fbd7d251",
+      "previousSha256": "e993ab6cc527902838c582c8034625d353c2fb5221f1c1b7657fd899fbd7d251"
+    },
+    {
+      "target": "runtime/customization-update-policy.json",
+      "sha256": "bc365b17c6b54418473321348dff0e20086a6ee25b16e78c7bcc482b6b23aefc",
+      "previousSha256": "bc365b17c6b54418473321348dff0e20086a6ee25b16e78c7bcc482b6b23aefc"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/idle-0.png",
+      "sha256": "5ef3ab1c3733a299e0459f28d247bd05b88a8623efcda704cfb37f163f4da50c",
+      "previousSha256": "5ef3ab1c3733a299e0459f28d247bd05b88a8623efcda704cfb37f163f4da50c"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/idle-1.png",
+      "sha256": "9aa3d3cc03b58b5f336995c1e12d464b599e4abeb3f8118dc2cf39296763ae41",
+      "previousSha256": "9aa3d3cc03b58b5f336995c1e12d464b599e4abeb3f8118dc2cf39296763ae41"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/idle-2.png",
+      "sha256": "04daa072c923806d9634588b1e11b62bee8fbb443de7014b0bbb1332f87e892b",
+      "previousSha256": "04daa072c923806d9634588b1e11b62bee8fbb443de7014b0bbb1332f87e892b"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/idle-3.png",
+      "sha256": "970c31ac2ae0f92f87533f9a730d8af004c25f8e4ab3dc5dbd80cf273a00c3d4",
+      "previousSha256": "970c31ac2ae0f92f87533f9a730d8af004c25f8e4ab3dc5dbd80cf273a00c3d4"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/idlesway-0.png",
+      "sha256": "e33c049a52275fb5979d1e912a9dceed8c2f2460ee9c5b7c804fc7238de486af",
+      "previousSha256": "e33c049a52275fb5979d1e912a9dceed8c2f2460ee9c5b7c804fc7238de486af"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/idlesway-1.png",
+      "sha256": "59c7f39c27fe6ed5065189a9b023cc377d9ecfeeeafab37f2d4c44a32f641c61",
+      "previousSha256": "59c7f39c27fe6ed5065189a9b023cc377d9ecfeeeafab37f2d4c44a32f641c61"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/idlesway-2.png",
+      "sha256": "563a1e84deb03e9c2d12764b8d1a6854bbc019aab17b654eaa22a3ef9e89c4a0",
+      "previousSha256": "563a1e84deb03e9c2d12764b8d1a6854bbc019aab17b654eaa22a3ef9e89c4a0"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/poserelax-0.png",
+      "sha256": "53eafe1d5e0704c63253f0430d5441e29590774a4ef5c632a4d2ab0e4866bd8c",
+      "previousSha256": "53eafe1d5e0704c63253f0430d5441e29590774a4ef5c632a4d2ab0e4866bd8c"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/poserelax-1.png",
+      "sha256": "984899f7c499385fe738294cba0340d9f32fba7dd3092c4006de5a99f18dca5e",
+      "previousSha256": "984899f7c499385fe738294cba0340d9f32fba7dd3092c4006de5a99f18dca5e"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/poserelax-2.png",
+      "sha256": "1ec657a42fbd26a15811a3a29313cfddcad736c30cecb82b28cc967131179cb6",
+      "previousSha256": "1ec657a42fbd26a15811a3a29313cfddcad736c30cecb82b28cc967131179cb6"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/weightshift-0.png",
+      "sha256": "5ee6afbfc0d5494cd42251f96f8fbbcfd4af617d05f0c3a5b5294f49cb556e89",
+      "previousSha256": "5ee6afbfc0d5494cd42251f96f8fbbcfd4af617d05f0c3a5b5294f49cb556e89"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/weightshift-1.png",
+      "sha256": "d427390aa2cb241df1a4853446ebe91f2f32a05d23d6361b792638b1ac868cdf",
+      "previousSha256": "d427390aa2cb241df1a4853446ebe91f2f32a05d23d6361b792638b1ac868cdf"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/weightshift-2.png",
+      "sha256": "69d86b4a122818b27c06b7e4ba274fb62c5850070e807010e548f765d36401bc",
+      "previousSha256": "69d86b4a122818b27c06b7e4ba274fb62c5850070e807010e548f765d36401bc"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/brelaxed-0.png",
+      "sha256": "22a300453d0d9bff7e74af429bd78783bc500a0f303777cd9dfd90de6a2c53aa",
+      "previousSha256": "22a300453d0d9bff7e74af429bd78783bc500a0f303777cd9dfd90de6a2c53aa"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/brelaxed-1.png",
+      "sha256": "fed052298365107de22cafb2e9782b9b401beb158759ea3a273604774feaad25",
+      "previousSha256": "fed052298365107de22cafb2e9782b9b401beb158759ea3a273604774feaad25"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/brelaxed-2.png",
+      "sha256": "8140b0055a37f4edbc9633623d6640c0b810b355cf31638c84866c9e649be18d",
+      "previousSha256": "8140b0055a37f4edbc9633623d6640c0b810b355cf31638c84866c9e649be18d"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/turnfront-0.png",
+      "sha256": "236d183edac8419f53950af2043f04bbe855e34169fa136b6ef0f44da37c9aa9",
+      "previousSha256": "236d183edac8419f53950af2043f04bbe855e34169fa136b6ef0f44da37c9aa9"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/turnfront-1.png",
+      "sha256": "f61b2943f44dd49077c6a5529db10a63bdd1febebaa5ec7f53fed6791aa32733",
+      "previousSha256": "f61b2943f44dd49077c6a5529db10a63bdd1febebaa5ec7f53fed6791aa32733"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/turnfront-2.png",
+      "sha256": "9017ace1958eaab8afca6fb9db6f492f558711608f48e354f6f93798657ecc98",
+      "previousSha256": "9017ace1958eaab8afca6fb9db6f492f558711608f48e354f6f93798657ecc98"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/frontidle-0.png",
+      "sha256": "5ff6a8c2959aa5d9843d6a2da1af53307f28746fc2b206a4e8a70134d49d32a9",
+      "previousSha256": "5ff6a8c2959aa5d9843d6a2da1af53307f28746fc2b206a4e8a70134d49d32a9"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/frontidle-1.png",
+      "sha256": "cd3b68f97c75040d32b56e519ae781e95999381b97265c4acd78ec0d36b4ad71",
+      "previousSha256": "cd3b68f97c75040d32b56e519ae781e95999381b97265c4acd78ec0d36b4ad71"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/frontidle-2.png",
+      "sha256": "b3d14444318a67e78c23fed95790c853fd05ccf52d3d7a3ba7e06d3fd8cf03d8",
+      "previousSha256": "b3d14444318a67e78c23fed95790c853fd05ccf52d3d7a3ba7e06d3fd8cf03d8"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/turnside-0.png",
+      "sha256": "6599eaf5aa3b474949f6480fe85217f8b32edebe8f2d8b7fb691ef5bd0233b30",
+      "previousSha256": "6599eaf5aa3b474949f6480fe85217f8b32edebe8f2d8b7fb691ef5bd0233b30"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/turnside-1.png",
+      "sha256": "579773ddbb9433553c9e2f3f970f817114b44e689d03e310f4dfbf89e4c334b7",
+      "previousSha256": "579773ddbb9433553c9e2f3f970f817114b44e689d03e310f4dfbf89e4c334b7"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/turnside-2.png",
+      "sha256": "a9edc4d6b903485c74b9dcc0306db9cbd2a3fc896eaf0ee7b2e0bdda2a0dd66b",
+      "previousSha256": "a9edc4d6b903485c74b9dcc0306db9cbd2a3fc896eaf0ee7b2e0bdda2a0dd66b"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/footrelax-0.png",
+      "sha256": "68d54c3eae6ce7236cfdcdcfd12a08497657be3ac0869bc8acc9b73c2ea380d9",
+      "previousSha256": "68d54c3eae6ce7236cfdcdcfd12a08497657be3ac0869bc8acc9b73c2ea380d9"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/footrelax-1.png",
+      "sha256": "7d6c8a163789cd951cbe1eb9fe6301ee1a5b10a58fd5334bc1ebb77bfaa95373",
+      "previousSha256": "7d6c8a163789cd951cbe1eb9fe6301ee1a5b10a58fd5334bc1ebb77bfaa95373"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/footrelax-2.png",
+      "sha256": "7e518a4d99ff2a12c84057e45c51ad6450021e834b6fb75a688e6cb5f21a13ae",
+      "previousSha256": "7e518a4d99ff2a12c84057e45c51ad6450021e834b6fb75a688e6cb5f21a13ae"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedresponse-0.png",
+      "sha256": "bca5f093b971a8384c55118a5312d4817d69a0f2239399b38155137a8c91e998",
+      "previousSha256": "bca5f093b971a8384c55118a5312d4817d69a0f2239399b38155137a8c91e998"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedresponse-1.png",
+      "sha256": "9ab792847328e0b29973e5be637a4bf6e13c0f0b87fbde0bf685494ce4977fa1",
+      "previousSha256": "9ab792847328e0b29973e5be637a4bf6e13c0f0b87fbde0bf685494ce4977fa1"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedresponse-2.png",
+      "sha256": "2dedd7973931dabe415d6709608b1d99256a598ae90463614bef6876d3159a34",
+      "previousSha256": "2dedd7973931dabe415d6709608b1d99256a598ae90463614bef6876d3159a34"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedhappy-0.png",
+      "sha256": "7d6504fb9284645d4815ec568d6dac184e3b2579f527a9c21bff3e766eae0c55",
+      "previousSha256": "7d6504fb9284645d4815ec568d6dac184e3b2579f527a9c21bff3e766eae0c55"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedhappy-1.png",
+      "sha256": "68a49f1d3e6949cce15533d19b75303c64ef7e4b7431bff6748a1766ea179a4b",
+      "previousSha256": "68a49f1d3e6949cce15533d19b75303c64ef7e4b7431bff6748a1766ea179a4b"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedhappy-2.png",
+      "sha256": "fe6b1c1a2617314c530660123c466d3c5a5379dcc8d9aef581dff90145fd1a84",
+      "previousSha256": "fe6b1c1a2617314c530660123c466d3c5a5379dcc8d9aef581dff90145fd1a84"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedconfused-0.png",
+      "sha256": "d9c2773212b427688fde37fa5dd71c0ca4b88bba3a463da9f53338a9facb9fba",
+      "previousSha256": "d9c2773212b427688fde37fa5dd71c0ca4b88bba3a463da9f53338a9facb9fba"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedconfused-1.png",
+      "sha256": "402a0e9e61e585cb33b52f110cad7fcc6604b0648a2440fcfe929957bbeb748e",
+      "previousSha256": "402a0e9e61e585cb33b52f110cad7fcc6604b0648a2440fcfe929957bbeb748e"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedwave-0.png",
+      "sha256": "779bdbf538f16f7931dc18be31cdd62bc709962eb8e514e0db636d72302c1e0f",
+      "previousSha256": "779bdbf538f16f7931dc18be31cdd62bc709962eb8e514e0db636d72302c1e0f"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedwave-1.png",
+      "sha256": "d631eb7ca18e4abb0add3461bb01685af9b4294fa733a2436b1181536d4c28f6",
+      "previousSha256": "d631eb7ca18e4abb0add3461bb01685af9b4294fa733a2436b1181536d4c28f6"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedwave-2.png",
+      "sha256": "f02c9b30111f4b9eefa9fcf5449ecfa9016b69958015fc08bccb865da92cbbb8",
+      "previousSha256": "f02c9b30111f4b9eefa9fcf5449ecfa9016b69958015fc08bccb865da92cbbb8"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedstretching-0.png",
+      "sha256": "f5d0a99df7e41e99f5d73eb01025528b854b8ed482a8f6bebe6348591c540ad8",
+      "previousSha256": "f5d0a99df7e41e99f5d73eb01025528b854b8ed482a8f6bebe6348591c540ad8"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedstretching-1.png",
+      "sha256": "69e9ccab4e56cc5117da5ac596d8414f1c437e68a026359d0436a17fe2f9a9dd",
+      "previousSha256": "69e9ccab4e56cc5117da5ac596d8414f1c437e68a026359d0436a17fe2f9a9dd"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedstretching-2.png",
+      "sha256": "ee32430c7ec5f466a901d6e07a347ba04aeeda77e7bc15741d8a9788ba986134",
+      "previousSha256": "ee32430c7ec5f466a901d6e07a347ba04aeeda77e7bc15741d8a9788ba986134"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedthinking-0.png",
+      "sha256": "786bf51536ce8d6ab653f21d8563ddb7c933c8cae9ee4ab53689a77e667451e3",
+      "previousSha256": "786bf51536ce8d6ab653f21d8563ddb7c933c8cae9ee4ab53689a77e667451e3"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedthinking-1.png",
+      "sha256": "174c342f289949595a5c41c1ccd151e5dbaedae17f1c339095093eae3d58ba03",
+      "previousSha256": "174c342f289949595a5c41c1ccd151e5dbaedae17f1c339095093eae3d58ba03"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedthinking-2.png",
+      "sha256": "17aad3b7efbdb90279c9707cd4f6cfb91c1265e82133d5b36bdd5becd44490e5",
+      "previousSha256": "17aad3b7efbdb90279c9707cd4f6cfb91c1265e82133d5b36bdd5becd44490e5"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedlookaround-0.png",
+      "sha256": "949c7a185df54c1e12526fae8526dfcc8ba0f0bac911edbd3cb4b2c588cc9836",
+      "previousSha256": "949c7a185df54c1e12526fae8526dfcc8ba0f0bac911edbd3cb4b2c588cc9836"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedlookaround-1.png",
+      "sha256": "3aa4d7581596074cfc3acaebfde433c21b154778f2db4d2482fd00f03a237217",
+      "previousSha256": "3aa4d7581596074cfc3acaebfde433c21b154778f2db4d2482fd00f03a237217"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedlookaround-2.png",
+      "sha256": "bc58bbe0545558dcde2dcee7ca8802242818841006933328bf11061ddeec8541",
+      "previousSha256": "bc58bbe0545558dcde2dcee7ca8802242818841006933328bf11061ddeec8541"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedsleeping-0.png",
+      "sha256": "25f65dc13e42057d27dad19241ffdfbab8d8a04b7030282845a6f1debfdbf673",
+      "previousSha256": "25f65dc13e42057d27dad19241ffdfbab8d8a04b7030282845a6f1debfdbf673"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedsleeping-1.png",
+      "sha256": "45df17a9b254b65ff60dacfffa86744f05408b119179e4e0c088dc73ab5608b1",
+      "previousSha256": "45df17a9b254b65ff60dacfffa86744f05408b119179e4e0c088dc73ab5608b1"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedsleeping-2.png",
+      "sha256": "a1fe0be1843fcdb2fc7c6662415071607ea6ae2373a1e8b7b5bde002a58727da",
+      "previousSha256": "a1fe0be1843fcdb2fc7c6662415071607ea6ae2373a1e8b7b5bde002a58727da"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedtea-0.png",
+      "sha256": "7667412310556c0508bcfbd7dc3f32f3923a594306a820e0c24473df61501ca0",
+      "previousSha256": "7667412310556c0508bcfbd7dc3f32f3923a594306a820e0c24473df61501ca0"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedtea-1.png",
+      "sha256": "5cfea57ba33d715a90accb091b4d1ea343457fafb5653bb605fe0ff68e1ab4d6",
+      "previousSha256": "5cfea57ba33d715a90accb091b4d1ea343457fafb5653bb605fe0ff68e1ab4d6"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedtea-2.png",
+      "sha256": "59404b878824a33a914565bfd9ee86510f0ded3befdbdf739d625b686fb95f13",
+      "previousSha256": "59404b878824a33a914565bfd9ee86510f0ded3befdbdf739d625b686fb95f13"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedwalking-0.png",
+      "sha256": "7bdbcad51f11a5efe562b23f2713bdcd3f12072077071855d9d62d04ac4b1954",
+      "previousSha256": "7bdbcad51f11a5efe562b23f2713bdcd3f12072077071855d9d62d04ac4b1954"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedwalking-1.png",
+      "sha256": "c3db44b5da8a144a4028ec3eb78ab3633ad27922bd2d5eb50485cead1b138a73",
+      "previousSha256": "c3db44b5da8a144a4028ec3eb78ab3633ad27922bd2d5eb50485cead1b138a73"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedwalking-2.png",
+      "sha256": "fba5aa2754699b818f49a32b48547ba142177e819e4fdaae18f6fd7a31d12bfe",
+      "previousSha256": "fba5aa2754699b818f49a32b48547ba142177e819e4fdaae18f6fd7a31d12bfe"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedflutter-0.png",
+      "sha256": "0d6a1c1942acfdbcc8db2e3e8bea2f223cdca2967589ebb6e780f80a9df8ef29",
+      "previousSha256": "0d6a1c1942acfdbcc8db2e3e8bea2f223cdca2967589ebb6e780f80a9df8ef29"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedflutter-1.png",
+      "sha256": "51c117e197cd7377755404c332fdfa8ec4454069d152594e12527feaa16161d3",
+      "previousSha256": "51c117e197cd7377755404c332fdfa8ec4454069d152594e12527feaa16161d3"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedflutter-2.png",
+      "sha256": "82ebbcb31baf370657039d07c2bc343bc7ab2d6a12e7b246f0fbe25d1202ee40",
+      "previousSha256": "82ebbcb31baf370657039d07c2bc343bc7ab2d6a12e7b246f0fbe25d1202ee40"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedflutterplay-0.png",
+      "sha256": "81806e81c4abc76e8689aa1dfc9baf6caca82e98441ef0efaa66572c74ae97bc",
+      "previousSha256": "81806e81c4abc76e8689aa1dfc9baf6caca82e98441ef0efaa66572c74ae97bc"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedflutterplay-1.png",
+      "sha256": "b48019731633025a9f11c9466aa6005be36a4f87688e604fbcf2f8c6b60b8c22",
+      "previousSha256": "b48019731633025a9f11c9466aa6005be36a4f87688e604fbcf2f8c6b60b8c22"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedflutterplay-2.png",
+      "sha256": "8aced4cf96788f11931db0d6d47374165150d7f3a043903cfce2cb7d7c74c094",
+      "previousSha256": "8aced4cf96788f11931db0d6d47374165150d7f3a043903cfce2cb7d7c74c094"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedbodybalance-0.png",
+      "sha256": "1b37499a5453dc701755adb8c90b378d6194cf78bc518a9adc2f5c37402e1387",
+      "previousSha256": "1b37499a5453dc701755adb8c90b378d6194cf78bc518a9adc2f5c37402e1387"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedbodybalance-1.png",
+      "sha256": "4c04ecf92269b40c58293ac37bb1e52e8c5c5aa5fec3bdb5b6e4b6085974ad9d",
+      "previousSha256": "4c04ecf92269b40c58293ac37bb1e52e8c5c5aa5fec3bdb5b6e4b6085974ad9d"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedbodybalance-2.png",
+      "sha256": "83800c59ecd39a6e1afca65ad14e922665376a46e0ad850fc825573a631fe8c8",
+      "previousSha256": "83800c59ecd39a6e1afca65ad14e922665376a46e0ad850fc825573a631fe8c8"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedconfusedquiet-0.png",
+      "sha256": "df8584e3ded97edcbf94f2cf092795287bec766fd3df26ac188db03e0a702419",
+      "previousSha256": "df8584e3ded97edcbf94f2cf092795287bec766fd3df26ac188db03e0a702419"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedconfusedquiet-1.png",
+      "sha256": "ce81e845c92e7d0fdb4b6b14a0d01af368159750a1b5d492a59b1ff1d9b96a1b",
+      "previousSha256": "ce81e845c92e7d0fdb4b6b14a0d01af368159750a1b5d492a59b1ff1d9b96a1b"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedconfusedquiet-2.png",
+      "sha256": "e12f397499cab08e70f44e7f40c36344bb65762b2b1b7dd1f00cfaef7ed53229",
+      "previousSha256": "e12f397499cab08e70f44e7f40c36344bb65762b2b1b7dd1f00cfaef7ed53229"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedbow-0.png",
+      "sha256": "b3f89779cf5f8631c23c0d9c37fbf6d9099e4a93748640e647de6d8be6fc2400",
+      "previousSha256": "b3f89779cf5f8631c23c0d9c37fbf6d9099e4a93748640e647de6d8be6fc2400"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedbow-1.png",
+      "sha256": "25f5dec3763082f06daf9cbf4c7f1d50a8236d286e183623986b710f9c079754",
+      "previousSha256": "25f5dec3763082f06daf9cbf4c7f1d50a8236d286e183623986b710f9c079754"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedfrontpose-0.png",
+      "sha256": "57ff6b0c75556f65ed21c3f24f1d394cbc3b90d9783322bbc36b21cedcef8bd7",
+      "previousSha256": "57ff6b0c75556f65ed21c3f24f1d394cbc3b90d9783322bbc36b21cedcef8bd7"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedfrontpose-1.png",
+      "sha256": "f40470a868749c6368c3860dd8a7020013bd97fd373e2309124630d6d9037b77",
+      "previousSha256": "f40470a868749c6368c3860dd8a7020013bd97fd373e2309124630d6d9037b77"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedfrontpose-2.png",
+      "sha256": "49e1fdcd4c012c2a460e46a810ba0e5019dcb0b4b24c4388595a815a2043db18",
+      "previousSha256": "49e1fdcd4c012c2a460e46a810ba0e5019dcb0b4b24c4388595a815a2043db18"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedcomplimentavert-0.png",
+      "sha256": "88446a67e68006de23592539295e5dba2600d970e88b8e4cfcd69b16fc20458f",
+      "previousSha256": "88446a67e68006de23592539295e5dba2600d970e88b8e4cfcd69b16fc20458f"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedcomplimentavert-1.png",
+      "sha256": "f888947cd998e26e7b6657dbec5ab90388b9cbe4245ce6fc40108cb37a52ee71",
+      "previousSha256": "f888947cd998e26e7b6657dbec5ab90388b9cbe4245ce6fc40108cb37a52ee71"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedcomplimentavert-2.png",
+      "sha256": "99471a2b0bd829b7d982aab678a557102709668f4f45dac54ba98f30c85b1be1",
+      "previousSha256": "99471a2b0bd829b7d982aab678a557102709668f4f45dac54ba98f30c85b1be1"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedcomplimentavert-3.png",
+      "sha256": "5b2f4ff9a0933b7c18f67ef91104359c623a74e01c3d2e77c1b3b10125d669a7",
+      "previousSha256": "5b2f4ff9a0933b7c18f67ef91104359c623a74e01c3d2e77c1b3b10125d669a7"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedcomplimentavert-4.png",
+      "sha256": "c470139dc7dd52927803f3ee96bb7273de394b52a7879ec4deb21fbb03fb5b80",
+      "previousSha256": "c470139dc7dd52927803f3ee96bb7273de394b52a7879ec4deb21fbb03fb5b80"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedcomplimentavert-5.png",
+      "sha256": "281a96fcc7100012ed3a5556201f87b46f91c071bdde3c245a6221281a425096",
+      "previousSha256": "281a96fcc7100012ed3a5556201f87b46f91c071bdde3c245a6221281a425096"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedproudarms-0.png",
+      "sha256": "bd7ca08a20034b91f785125f784c0f960700a75fa8eb41a910bcaf5e0124dabf",
+      "previousSha256": "bd7ca08a20034b91f785125f784c0f960700a75fa8eb41a910bcaf5e0124dabf"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedproudarms-1.png",
+      "sha256": "ae1497bc3294aceca91a4c1e65020ca75451177246ebae20512210f52b78166d",
+      "previousSha256": "ae1497bc3294aceca91a4c1e65020ca75451177246ebae20512210f52b78166d"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedproudarms-2.png",
+      "sha256": "9ccf7b656692e27fa227188b42f456f1d92ad84d4fa4c51f726351d3a31c3c39",
+      "previousSha256": "9ccf7b656692e27fa227188b42f456f1d92ad84d4fa4c51f726351d3a31c3c39"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedgentlereminder-0.png",
+      "sha256": "f1d9823293f31d2b77e3c935c0c82cd8ae47aa42562dc8f70115a1f74ff5a2e9",
+      "previousSha256": "f1d9823293f31d2b77e3c935c0c82cd8ae47aa42562dc8f70115a1f74ff5a2e9"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedgentlereminder-1.png",
+      "sha256": "8fc88ee4d7994324b98af4e76933c96ab2f7391d009eaf0d7305d8534daa7d8e",
+      "previousSha256": "8fc88ee4d7994324b98af4e76933c96ab2f7391d009eaf0d7305d8534daa7d8e"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedgentlereminder-2.png",
+      "sha256": "7359c79ffd54a73e296145d1a5d4036b3b70ac8dfcdd128f4d18ac33e396f27a",
+      "previousSha256": "7359c79ffd54a73e296145d1a5d4036b3b70ac8dfcdd128f4d18ac33e396f27a"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedproudarmsreturn-0.png",
+      "sha256": "1677ba7ed3ff7a082c117a521f53d3d5c45bc342cd00be2493abf3843bbea52f",
+      "previousSha256": "1677ba7ed3ff7a082c117a521f53d3d5c45bc342cd00be2493abf3843bbea52f"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedproudarmsreturn-1.png",
+      "sha256": "fed653d7a2b3feb3bc663fe95498a34177b13ac189dba971bec15d70bcc85d9d",
+      "previousSha256": "fed653d7a2b3feb3bc663fe95498a34177b13ac189dba971bec15d70bcc85d9d"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedproudarmsreturn-2.png",
+      "sha256": "423979c42efe67ff23a5634088713185746a8541e0e732b51394d8e917f96b64",
+      "previousSha256": "423979c42efe67ff23a5634088713185746a8541e0e732b51394d8e917f96b64"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedchallengeaccept-0.png",
+      "sha256": "bcb9f8d21ba70372b84fdc8438186ba6d67f5f355a859d91e041c1cab2674e96",
+      "previousSha256": "bcb9f8d21ba70372b84fdc8438186ba6d67f5f355a859d91e041c1cab2674e96"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedchallengeaccept-1.png",
+      "sha256": "ebca56d5a83d59e33e2c23a349401e3293be525f8b3ed6d80944daf9fb493429",
+      "previousSha256": "ebca56d5a83d59e33e2c23a349401e3293be525f8b3ed6d80944daf9fb493429"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedchallengeaccept-2.png",
+      "sha256": "0beaca0f94f206c0c7474aac9c68c38b3d2f2efa0d6f12c37b7eca6b01e240c1",
+      "previousSha256": "0beaca0f94f206c0c7474aac9c68c38b3d2f2efa0d6f12c37b7eca6b01e240c1"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approveddraglanding-0.png",
+      "sha256": "184c5c09d6a2f7f20b9cc25806a2e14af561e45bb9c2f5dfc384c4a6d4deab82",
+      "previousSha256": "184c5c09d6a2f7f20b9cc25806a2e14af561e45bb9c2f5dfc384c4a6d4deab82"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approveddraglanding-1.png",
+      "sha256": "f26a5b52e6c955a486edcc57dc841e8a6c4ecf7297392bdadaa7dda7b2f775c8",
+      "previousSha256": "f26a5b52e6c955a486edcc57dc841e8a6c4ecf7297392bdadaa7dda7b2f775c8"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approveddraglanding-2.png",
+      "sha256": "27f6711422ba3c016a19d2a1b854d507ff89cf1ae8ce6a3d8de236b0fc12c7a7",
+      "previousSha256": "27f6711422ba3c016a19d2a1b854d507ff89cf1ae8ce6a3d8de236b0fc12c7a7"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedsleeveside-0.png",
+      "sha256": "f07ab08eedc03c726b34f79ff612a26f2646b0a696df1d855257d769167fcbbc",
+      "previousSha256": "f07ab08eedc03c726b34f79ff612a26f2646b0a696df1d855257d769167fcbbc"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedsleeveside-1.png",
+      "sha256": "6a8a37110618d1d8f112ad3a6169a718d12c13423a9fc0f648a12ab4ed4a5cec",
+      "previousSha256": "6a8a37110618d1d8f112ad3a6169a718d12c13423a9fc0f648a12ab4ed4a5cec"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedsleeveside-2.png",
+      "sha256": "7e4d9d210dc9d4e7d3b06303d22d466735a290d977328cdb5434fbd69f64bccf",
+      "previousSha256": "7e4d9d210dc9d4e7d3b06303d22d466735a290d977328cdb5434fbd69f64bccf"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedskirtbeat-0.png",
+      "sha256": "07f899e976418ef33544238cd9b6869f50c3b926d6db1ed0c35bcc2adccffd53",
+      "previousSha256": "07f899e976418ef33544238cd9b6869f50c3b926d6db1ed0c35bcc2adccffd53"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedskirtbeat-1.png",
+      "sha256": "4ffae43da62932619e238803d374652fb7f30e5c06a2e134a4ee76cf140cc8e6",
+      "previousSha256": "4ffae43da62932619e238803d374652fb7f30e5c06a2e134a4ee76cf140cc8e6"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedskirtbeat-2.png",
+      "sha256": "9393e516e25646fb9005c0228cd67e9456b75bde61d5f4a8a252b7fb55c46aed",
+      "previousSha256": "9393e516e25646fb9005c0228cd67e9456b75bde61d5f4a8a252b7fb55c46aed"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedcheekpuff-0.png",
+      "sha256": "3b062d8283db6bef317c1275f045a1c344c1d9e4180ede48258349d38e00027b",
+      "previousSha256": "3b062d8283db6bef317c1275f045a1c344c1d9e4180ede48258349d38e00027b"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedcheekpuff-1.png",
+      "sha256": "30a4f1d737916af880e8a3b7fffe97f247217e12b324c242f8bbfca7c34517c5",
+      "previousSha256": "30a4f1d737916af880e8a3b7fffe97f247217e12b324c242f8bbfca7c34517c5"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedcheekpuff-2.png",
+      "sha256": "ce06bedcf79638ce4038a4d347588d3c934c0813d94b9a9a28f49e1b1302b29a",
+      "previousSha256": "ce06bedcf79638ce4038a4d347588d3c934c0813d94b9a9a28f49e1b1302b29a"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedtickledodge-0.png",
+      "sha256": "5e920ad9d76b574f4e4844e5349de66d175c74175d8e5b2266a71bcc774c8436",
+      "previousSha256": "5e920ad9d76b574f4e4844e5349de66d175c74175d8e5b2266a71bcc774c8436"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedtickledodge-1.png",
+      "sha256": "e98e293d33f2ca79c726d71e597e19589772a713bb18739480235844e0b73e11",
+      "previousSha256": "e98e293d33f2ca79c726d71e597e19589772a713bb18739480235844e0b73e11"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedtickledodge-2.png",
+      "sha256": "3736a195eaf8ad5302806b88d60f1f713bba09536dc3262602b524f250ce97e7",
+      "previousSha256": "3736a195eaf8ad5302806b88d60f1f713bba09536dc3262602b524f250ce97e7"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedfanmishap-0.png",
+      "sha256": "17948f0a6f1b1644fca2c98ce01af1be4f368d28db02723a2009907c0ba926a8",
+      "previousSha256": "17948f0a6f1b1644fca2c98ce01af1be4f368d28db02723a2009907c0ba926a8"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedfanmishap-1.png",
+      "sha256": "a2e7eb44e8eb22b1d7f11dd075953adcd911045e20e9798b864a04468e01e0ca",
+      "previousSha256": "a2e7eb44e8eb22b1d7f11dd075953adcd911045e20e9798b864a04468e01e0ca"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedfanmishap-2.png",
+      "sha256": "df7ed8f1c04466da2cccecff81a3557680ab7d7ba8bdd45d83df22686ce0bab9",
+      "previousSha256": "df7ed8f1c04466da2cccecff81a3557680ab7d7ba8bdd45d83df22686ce0bab9"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedlanterninvite-0.png",
+      "sha256": "52cca4e7a275e040b77fa6980f2129816b45fcb45bd947efc7fbf92f44644b46",
+      "previousSha256": "52cca4e7a275e040b77fa6980f2129816b45fcb45bd947efc7fbf92f44644b46"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedlanterninvite-1.png",
+      "sha256": "9aa859c6c21c3a78f505038b6f183ce4ee2c0bb3087e157a14f3ea8cd7041892",
+      "previousSha256": "9aa859c6c21c3a78f505038b6f183ce4ee2c0bb3087e157a14f3ea8cd7041892"
+    },
+    {
+      "target": "assets/dragon-animation/motion-v1/approvedlanterninvite-2.png",
+      "sha256": "af38c59c9638bcc89d518502d5052ea47ff34288d843e6a9d33faf1832c8ca27",
+      "previousSha256": "af38c59c9638bcc89d518502d5052ea47ff34288d843e6a9d33faf1832c8ca27"
+    },
+    {
+      "target": "assets/dragon-animation/CHARACTER-NOTICE.txt",
+      "sha256": "cf3efa5dd79c0f21479f4789de6c6f5aeed2ba1a47c7cf3d357916e75123d2a7",
+      "previousSha256": "cf3efa5dd79c0f21479f4789de6c6f5aeed2ba1a47c7cf3d357916e75123d2a7"
+    },
+    {
+      "target": "assets/dragon-animation/FULLBODY-NOTICE.txt",
+      "sha256": "d895e6c8821ae15e40b6e61adf8eda81a70bb097d1c684f88639c84c7ddbc328",
+      "previousSha256": "d895e6c8821ae15e40b6e61adf8eda81a70bb097d1c684f88639c84c7ddbc328"
+    }
+  ],
+  "stableAgent": {
+    "targetRoot": "%LOCALAPPDATA%\\GPTNiangUsage\\update-agent",
+    "files": [
+      {
+        "target": "update-helper.ps1",
+        "sha256": "e993ab6cc527902838c582c8034625d353c2fb5221f1c1b7657fd899fbd7d251",
+        "previousSha256": "e993ab6cc527902838c582c8034625d353c2fb5221f1c1b7657fd899fbd7d251"
+      }
+    ]
+  },
+  "hostFiles": [
+    {
+      "target": "Detect-Plan.ps1",
+      "sha256": "f72db56955352be63e09a9a33a19e70361ffb23288be204bc34a63015fcaf80d"
+    },
+    {
+      "target": "Install.ps1",
+      "sha256": "88732e22123198d32ecd988fe8874e2ba5e15baa290cb5eb826e5a0425e07817"
+    },
+    {
+      "target": "launch.vbs",
+      "sha256": "cb5a2b2bb0e9153abae553565e4e67e77fbaaac3deeb11204a36277622a0f1d9"
+    },
+    {
+      "target": "runtime/agent-launch.vbs",
+      "sha256": "e749252e211af46f5955aed0a8a21323711ec5c764c2477d32bd5f39bec34aa9"
+    },
+    {
+      "target": "runtime/agent-supervisor.vbs",
+      "sha256": "aa561fe76fc71f87e1a1895d022c09a5392f1790f5926bf578cc766b35e17da6"
+    },
+    {
+      "target": "runtime/audio-import.mjs",
+      "sha256": "258bb14c0ff37472f2d9acfdfea71b9cab22f52f583cf3797bcad0c356984202"
+    },
+    {
+      "target": "runtime/audio.ps1",
+      "sha256": "7fb61f9b31dbda910ebf7b651013e32b3f0c880b59678c46b8a36e30560dd359"
+    },
+    {
+      "target": "runtime/catch-feedback.cs",
+      "sha256": "782f5e11d936504a67f0beeb139ea7e80e55778474a66d2926a3f988a5b7bbac"
+    },
+    {
+      "target": "runtime/character-gallery.ps1",
+      "sha256": "ed465f4296f3251f1e2a28fe7b21ea9b869280066ba10e07cc7489d4e9a0c070"
+    },
+    {
+      "target": "runtime/characters.ps1",
+      "sha256": "1e3767c2ac80b9145fdebf0f4df157bd6c68c2e6ba4e70f76550bc0782a09338"
+    },
+    {
+      "target": "runtime/color-theme.ps1",
+      "sha256": "62980c6bb77ac2c107e506ba89e85649b244838fb92abaa5edf935c372ee5990"
+    },
+    {
+      "target": "runtime/completion-monitor.mjs",
+      "sha256": "0f1c41f9fe0fae7e53581d75072f884dc49c2f7df8c7e4101f868a20a6708877"
+    },
+    {
+      "target": "runtime/completion-notifications.ps1",
+      "sha256": "9365f08306a6c772984942e265952c2aaa4a43b00d0f8e6d262f41b2751924b3"
+    },
+    {
+      "target": "runtime/control.mjs",
+      "sha256": "c40dd274c29e78a09ce4af76a7aa284e3a640946ecea7a716eb131ec9a9bf9d7"
+    },
+    {
+      "target": "runtime/desktop-interaction.ps1",
+      "sha256": "d1a4197f9420de68194e348087b5b9b33927d98d5a305ff3da90f477f9fd34b0"
+    },
+    {
+      "target": "runtime/detect-plan.mjs",
+      "sha256": "5d84fa9c1998422c61e12559e6c9aa6afc7345c8d4db81896bd2401f8fb947f9"
+    },
+    {
+      "target": "runtime/dragon-animation/activity-state.mjs",
+      "sha256": "6f6b2c754a0d562be378f054c3b9cb9dec6eed1beb01eb605b5b6ed407e17a5d"
+    },
+    {
+      "target": "runtime/dragon-animation/activity-watch.mjs",
+      "sha256": "09d4ac934bdaefb8bb0aa97607236deebc789c15774b8288813efc21f45366fc"
+    },
+    {
+      "target": "runtime/dragon-animation/codex-hook.mjs",
+      "sha256": "c7c122a1e4408d8244f218cfd2ad524b26928b14b0a22c300e9b2319eb7f70c1"
+    },
+    {
+      "target": "runtime/dragon-animation/dragon-animation.ps1",
+      "sha256": "a1401a5ea15d6b542a9b2641bf2b235a8fa9f94a14de3cf68faf667f30a43627"
+    },
+    {
+      "target": "runtime/dragon-animation/motion-decoder.cs",
+      "sha256": "396247204dfc632ee94735bf3a3f7f7858aad13de1b38c7dcf14808b68357bf7"
+    },
+    {
+      "target": "runtime/dragon-animation/motion-runtime.ps1",
+      "sha256": "4ba0e1711ea341fca14b344703d7d2bf5c03b3035c6b10f064e4172efa1872ed"
+    },
+    {
+      "target": "runtime/dragon-animation/motion-selection.ps1",
+      "sha256": "98b995cf04474f15c4978dafa23bea651563910fe18b039631470cb8212fe332"
+    },
+    {
+      "target": "runtime/host-follow.ps1",
+      "sha256": "801fd760cee7af0d77ec3347c2d3c3d5ef5f13fdda528bc1c2087bc999f2b978"
+    },
+    {
+      "target": "runtime/host-layer.ps1",
+      "sha256": "71842dba1d442b541cadd8b02dd1e9c4b701b6e061d1fc1a0f02013d526da015"
+    },
+    {
+      "target": "runtime/host-occlusion.ps1",
+      "sha256": "8c2bdc0a87f892cd0409dc3aedc000c133e33aa370c2d4e530e2399a222d6a6b"
+    },
+    {
+      "target": "runtime/host-ready.ps1",
+      "sha256": "15aa81953e08e457d595b7ee81a574dcc6df324c1046f0c15b00fdaeeb5789c9"
+    },
+    {
+      "target": "runtime/install-preflight.ps1",
+      "sha256": "195aa7db061966a5bc651ee3d8c64b53ae10091fbf283d0dc8afe5ce4e4d1994"
+    },
+    {
+      "target": "runtime/mcp.mjs",
+      "sha256": "29eace8ab0633751fab0e778dd928f4b249ca1ae8f215c13d5e4caf50a4b6dda"
+    },
+    {
+      "target": "runtime/metadata.mjs",
+      "sha256": "f2afa04268f57f5713ad68281bee7c0dcee7d822dd7fb807e0cc45e8095f8871"
+    },
+    {
+      "target": "runtime/music-audio.cs",
+      "sha256": "95f9801333d912f176414c5170524ae6b74010c7fd7c592ef2435d9b94cea16a"
+    },
+    {
+      "target": "runtime/music-visual.cs",
+      "sha256": "82a5a3d3337acc6e25936ac55f4da5de3f746adcbfb4e90ddd242b0d28bc6e86"
+    },
+    {
+      "target": "runtime/music.ps1",
+      "sha256": "8f71cb85f5274bdb6216422af01f7205acb00e4e0e4cc0d8345705d943b3d8f4"
+    },
+    {
+      "target": "runtime/native-motion-adapter.ps1",
+      "sha256": "cdb2dd2dbc6183bd810962db0401a2cb03c6c2870093e36068015a65a4043802"
+    },
+    {
+      "target": "runtime/native-motion.cs",
+      "sha256": "8f35c4020636e2c76e014051810b19e9589ec97160ae3caed62427bbdd0e16c5"
+    },
+    {
+      "target": "runtime/pet-forms.ps1",
+      "sha256": "3df1e46eb348934349a512c59055767e1a2e49d8ed1e24758152b145ec075a8e"
+    },
+    {
+      "target": "runtime/pet-presentation.ps1",
+      "sha256": "71db459ad674e8eb14c8727fd44785907b1ce5a28c2443cb9a7c260fa2913146"
+    },
+    {
+      "target": "runtime/pet-throw.ps1",
+      "sha256": "c6d7c1227ab4cfc2721eead950cea3caad5414df7d3ec44b50958610ce0a8484"
+    },
+    {
+      "target": "runtime/plan.mjs",
+      "sha256": "23293e1d54dcaf395baa6ee81a19a53322b46952c3f0920ecb418e619306474d"
+    },
+    {
+      "target": "runtime/quote-layout.ps1",
+      "sha256": "9d31a7a3d3b3cb49a7cc3958d849344735a67e17b6e785558c5352993563995c"
+    },
+    {
+      "target": "runtime/quotes.ps1",
+      "sha256": "7de4be5c26592316693bb622df1ba5daddc13b829d5c86ee6d8f294f42512428"
+    },
+    {
+      "target": "runtime/refresh-client.mjs",
+      "sha256": "edd68766ebeac9095e9ecacc078bb5d4f56b3e838ac37acdd0a1f6b39d6f9cc2"
+    },
+    {
+      "target": "runtime/refresh-queue.mjs",
+      "sha256": "165f8aee05586e5e4443bc40d7cc4220c867408a972ab5b86a1e35dfee9baf76"
+    },
+    {
+      "target": "runtime/start-supervisor.ps1",
+      "sha256": "0b56fb639f6a077346e5d5807d43cfa5e72c7a868256c6175e831d762c705150"
+    },
+    {
+      "target": "runtime/start-widget.ps1",
+      "sha256": "e7152847df930a8d85e576d961b6563a3e63555dc8c6288594762eb62b8dfdcb"
+    },
+    {
+      "target": "runtime/supervisor-task.ps1",
+      "sha256": "b026079e4c68a430236f59841b838264e4939c87af5f05e805289fc64af28641"
+    },
+    {
+      "target": "runtime/supervisor.ps1",
+      "sha256": "73d9c76e69937e5e49ddf855a0a8885721e75bd82e068cc36838b465d343da94"
+    },
+    {
+      "target": "runtime/thread-speed.mjs",
+      "sha256": "3e4e0a010a1fad8cdd36fdd2fa4abe38eb1b7e0f3ffa12dc7dae2e662324d0a6"
+    },
+    {
+      "target": "runtime/ui-settings.ps1",
+      "sha256": "4ae2ee2023e6652162336d3a965e8e02f8e57939240dbd817747258af3e25dee"
+    },
+    {
+      "target": "runtime/update-agent.ps1",
+      "sha256": "af3211bbfe2869ac06e0a6fa010857418b0f65f36d7a5c6c6305e61d65fc54dc"
+    },
+    {
+      "target": "runtime/update-common.ps1",
+      "sha256": "cd29aa77084943e992bf4f30d3c8512b54713f0eb16aabc677c3ee8c932c2929"
+    },
+    {
+      "target": "runtime/update-helper.ps1",
+      "sha256": "e993ab6cc527902838c582c8034625d353c2fb5221f1c1b7657fd899fbd7d251"
+    },
+    {
+      "target": "runtime/update-lock.ps1",
+      "sha256": "b0b7533d80cadcd84a0e031e940ae3643f2a2e81c3d280c219824a57dd6d8c38"
+    },
+    {
+      "target": "runtime/update-ui.ps1",
+      "sha256": "2ec713151be6db1f4e5bfd6bfc0eded2983668194f196e64664b4c3fe6d58bbb"
+    },
+    {
+      "target": "runtime/update.mjs",
+      "sha256": "b2b31b30d84fa9ed729cab9220e7ac81db8d9b85be84a4284ecb94fb3386b15c"
+    },
+    {
+      "target": "runtime/usage.mjs",
+      "sha256": "c6fa10f842ee457777698804612ddfa744a3e7a4b3b2d79b98e664be9dbc266f"
+    },
+    {
+      "target": "runtime/watch.mjs",
+      "sha256": "b309a563c0e68a8eda86f7edb97a0aff523b2001b76c49aedc275d3872721a88"
+    },
+    {
+      "target": "runtime/worker-ipc.mjs",
+      "sha256": "23d49b3ecd17f67339b7f8a2fb73e7245d688f63858313fe5ee8be069c1945d5"
+    },
+    {
+      "target": "runtime/worker-state.mjs",
+      "sha256": "cd1f567c9319882db259623f300633dd3cef11b1182e7dd2ee96130661ebfb4c"
+    },
+    {
+      "target": "supervisor.vbs",
+      "sha256": "695708612c7efa44e455e6c2cb2bc739d9ddf2a0a78300821e8bf38d045018d6"
+    },
+    {
+      "target": "Uninstall.ps1",
+      "sha256": "6b27aaa16e6dc2e64c66ca414d8f3f49922e116b355a28fde390ecb5009beeac"
+    },
+    {
+      "target": "widget.ps1",
+      "sha256": "7dcf4c69a5e429df8a6ddd538025dd2f97e4748b59360aa306ea36b39bee9893"
+    },
+    {
+      "target": "widget.xaml",
+      "sha256": "887ced11f2727aad8b4983202cc8bd1313692f51a523104e4a44a5274a1e16a5"
+    },
+    {
+      "target": "runtime/install-files.json",
+      "sha256": "55dff5ed7042dcb77c8365d159390d75d5c58572aca3cddd6c3c088ebe191367"
+    },
+    {
+      "target": ".codex-plugin/plugin.json",
+      "sha256": "8a64b3654da2fa4ffc738ffae4206f04f0ba5d748b3b516749484083c76160f7"
+    }
+  ],
+  "stableHostFiles": [
+    {
+      "target": "agent-launch.vbs",
+      "sha256": "e749252e211af46f5955aed0a8a21323711ec5c764c2477d32bd5f39bec34aa9"
+    },
+    {
+      "target": "agent-supervisor.vbs",
+      "sha256": "aa561fe76fc71f87e1a1895d022c09a5392f1790f5926bf578cc766b35e17da6"
+    },
+    {
+      "target": "install-preflight.ps1",
+      "sha256": "195aa7db061966a5bc651ee3d8c64b53ae10091fbf283d0dc8afe5ce4e4d1994"
+    },
+    {
+      "target": "supervisor-task.ps1",
+      "sha256": "b026079e4c68a430236f59841b838264e4939c87af5f05e805289fc64af28641"
+    },
+    {
+      "target": "update-agent.ps1",
+      "sha256": "af3211bbfe2869ac06e0a6fa010857418b0f65f36d7a5c6c6305e61d65fc54dc"
+    },
+    {
+      "target": "update-common.ps1",
+      "sha256": "cd29aa77084943e992bf4f30d3c8512b54713f0eb16aabc677c3ee8c932c2929"
+    },
+    {
+      "target": "update-helper.ps1",
+      "sha256": "e993ab6cc527902838c582c8034625d353c2fb5221f1c1b7657fd899fbd7d251"
+    },
+    {
+      "target": "update-lock.ps1",
+      "sha256": "b0b7533d80cadcd84a0e031e940ae3643f2a2e81c3d280c219824a57dd6d8c38"
+    }
+  ]
+}

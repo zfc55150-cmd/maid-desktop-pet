@@ -22,4 +22,6 @@ test('side actions stay in the side idle and start the next action from the disp
  assert.equal(new TouchResponses({}).choose({x:0.5,y:0.5}),null);
  assert.match(catalog.actionQuote('clip:tea'),/茶/);
  assert.equal(catalog.actionQuote('clip:frontidle'),null);
+ assert.throws(()=>catalog.configure({states:{frontidle:{}},transitionClips:{frontidle:'nonexistent'}}),/INVALID_CHARACTER_MANIFEST/);
+ catalog.configure(manifest);
 });

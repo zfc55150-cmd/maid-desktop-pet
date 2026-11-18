@@ -13,6 +13,8 @@ def fetch(url):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--parts',required=True)
+    parser.add_argument('--repo',default='zfc55150-cmd/maid-desktop-pet')
+    parser.add_argument('--tag',default='v1.0.4')
     args=parser.parse_args()
     root=Path(args.parts)
     manifest=json.loads((root/'parts-manifest.json').read_text(encoding='utf-8'))
@@ -21,8 +23,8 @@ def main():
                  'split-validation.json','download-share.ps1','Download-All.cmd']:
         data=(root/name).read_bytes()
         expected[name]={'size':len(data),'digest':'sha256:'+hashlib.sha256(data).hexdigest()}
-    release=fetch('https://api.github.com/repos/zfc55150-cmd/DeepSeekActionPet-Share/releases/tags/v1.2.1')
-    if release['draft'] or release['tag_name']!='v1.2.1':raise ValueError('Release is not public v1.2.1')
+    release=fetch(f'https://api.github.com/repos/{args.repo}/releases/tags/{args.tag}')
+    if release['draft'] or release['tag_name']!=args.tag:raise ValueError(f'Release is not public {args.tag}')
     assets=fetch(release['assets_url']+'?per_page=100')
     actual={a['name']:a for a in assets}
     if len(actual)!=len(assets) or set(actual)!=set(expected):raise ValueError('Release asset names differ from local set')

@@ -112,3 +112,21 @@ test('launcher does not report stopped while authenticated host remains alive',a
  const fetchImpl=async url=>url.endsWith('/shutdown')?{ok:true}:{ok:true,json:async()=>({name:'dsh-pet-standalone',pid:123,plugin:{root:path.join(appRoot,'node_modules/dsh-pet')}})};
  await assert.rejects(runLauncher({appRoot,home:dir,stop:true,fetchImpl,delay:async()=>{}}),/still shutting down/);
 });
+test('dpi linearization, host liveness, and empty-display geometry guards',()=>{
+ const dpi=require(helper+'/dpi-linearization');
+ assert.equal(dpi.shouldLinearize({platform:'win32',dpiProbe:false,forceDsf:''}),true);
+ assert.equal(dpi.shouldLinearize({platform:'darwin',dpiProbe:false,forceDsf:''}),false);
+ assert.equal(dpi.shouldLinearize({platform:'win32',dpiProbe:true,forceDsf:''}),false);
+ assert.equal(dpi.shouldLinearize({platform:'win32',dpiProbe:false,forceDsf:'0'}),false);
+ assert.equal(dpi.resolveForcedScale({forceDsf:'',primaryScale:1.5}),1);
+ assert.equal(dpi.resolveForcedScale({forceDsf:'',primaryScale:0}),0);
+ assert.equal(Math.abs(dpi.resolvePetScale({baseScale:'1.2',primaryScale:1.5,forcedScale:1})-1.8)<1e-9,true);
+ assert.equal(dpi.resolvePetScale({baseScale:'-2',primaryScale:1.5,forcedScale:1}),1.5);
+ assert.equal(dpi.resolvePetScale({baseScale:'Infinity',primaryScale:1.5,forcedScale:1}),1.5);
+ const live=require(helper+'/host-liveness');
+ assert.equal(live.parseHostPid('12345'),12345);
+ assert.equal(live.parseHostPid('123x'),0);
+ assert.equal(live.parseHostPid('-5'),0);
+ const geo=require(helper+'/desktop-geometry').buildDeskGeometry([],0,'win32');
+ assert.equal(Number.isFinite(geo.hull.x)&&Number.isFinite(geo.hull.width)&&geo.hull.width>0,true);
+});

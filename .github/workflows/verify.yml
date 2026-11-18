@@ -14,6 +14,9 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - name: Check JavaScript syntax
         shell: pwsh
         run: |
@@ -26,3 +29,14 @@ jobs:
       - run: node scripts/verify.cjs
       - name: Run GPT product tests and package doctor fixture
         run: npm --prefix integrations/gpt-niang/product-electron test
+      - name: Run GPT maintenance and playback-lab tests
+        shell: pwsh
+        run: |
+          $maint = Get-ChildItem integrations/gpt-niang/maintenance/tests/*.test.* | ForEach-Object { $_.FullName }
+          node --test $maint
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $lab = Get-ChildItem integrations/gpt-niang/playback-lab/*.test.cjs | ForEach-Object { $_.FullName }
+          node --test $lab
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Run Python test suites
+        run: python -B -m unittest discover -s tests -p "test_*.py" -v

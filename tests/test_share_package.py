@@ -4,6 +4,7 @@ import importlib.util
 import json
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -47,6 +48,7 @@ class SharePackageTests(unittest.TestCase):
         (program/'recovery-manifest.json').write_text(json.dumps(manifest), encoding='utf-8')
         return program
 
+    @unittest.skipUnless(sys.platform == 'win32', 'PowerShell installer tests require Windows')
     def test_verify_only_and_tampered_payload(self):
         program = self.fixture()
         checked = self.invoke('-VerifyOnly')
@@ -54,6 +56,7 @@ class SharePackageTests(unittest.TestCase):
         (program/'node.exe').write_bytes(b'corruption')
         self.assertNotEqual(self.invoke('-VerifyOnly').returncode, 0)
 
+    @unittest.skipUnless(sys.platform == 'win32', 'PowerShell installer tests require Windows')
     def test_existing_destination_is_not_overwritten(self):
         self.fixture()
         destination = self.root/'DeepSeekActionPet'

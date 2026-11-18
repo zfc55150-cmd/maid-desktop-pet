@@ -25,7 +25,7 @@ def payload(root):
         folders[:] = sorted(f for f in folders if f not in SKIP_DIR and (parent != root or f in TOP))
         for name in folders + files:
             item = parent / name
-            if item.is_symlink() or item.stat().st_file_attributes & 0x400:
+            if item.is_symlink() or (getattr(item.stat(), 'st_file_attributes', 0) & 0x400):
                 raise ValueError('Reparse point refused: ' + str(item))
         for name in sorted(files):
             if parent == root and name not in TOP:

@@ -3,12 +3,14 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 
 ROOT=Path(__file__).resolve().parent.parent
 
 class DownloadHelperTests(unittest.TestCase):
+    @unittest.skipUnless(sys.platform == 'win32', 'PowerShell download helper requires Windows')
     def test_download_resume_and_corrupt_existing_file(self):
         with tempfile.TemporaryDirectory(dir=ROOT/'work',prefix='download-test-') as temp:
             root=Path(temp);assets=root/'server';client=root/'client'
