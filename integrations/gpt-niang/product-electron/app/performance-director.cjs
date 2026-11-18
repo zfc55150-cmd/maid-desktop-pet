@@ -1,12 +1,13 @@
 'use strict';
 const catalog=require('./performance-catalog.js');
 class PerformanceDirector{
- constructor(send){this.send=send;this.requestId=0;this.serial=0;this.gesture=null;this.phase='idle';this.current=null;this.evidence=null;this.airborneAtRelease=false;this.events=[];this.pose='C';}
+ constructor(send){this.send=send;this.requestId=0;this.serial=0;this.gesture=null;this.phase='idle';this.current=null;this.evidence=null;this.airborneAtRelease=false;this.events=[];this.pose='C';this.faultCount=0;this.faultTimer=null;}
  record(type,detail={}){if(this.events.length===512)this.events.shift();this.events.push({type,phase:this.phase,serial:this.serial,requestId:this.requestId,...detail});}
- request(name,extra={}){this.evidence=null;this.current={name,requestId:++this.requestId,serial:this.serial,gesture:this.gesture,fromPose:this.pose,...extra};this.record('request',{name,origin:this.current.origin});this.send(this.current);return this.current;}
- start(){this.request('idle',{origin:'idle'});}
+ request(name,extra={}){clearTimeout(this.faultTimer);this.faultTimer=null;this.evidence=null;this.current={name,requestId:++this.requestId,serial:this.serial,gesture:this.gesture,fromPose:this.pose,...extra};this.record('request',{name,origin:this.current.origin});this.send(this.current);return this.current;}
+ start(){this.faultCount=0;this.request('idle',{origin:'idle'});}
  matches(data){return !!data&&data.requestId===this.current?.requestId&&data.serial===this.serial&&data.gesture===this.gesture;}
  present(data){if(!this.matches(data)||data.visible!==true||!Number.isInteger(data.frame))return false;
+  this.faultCount=0;
   if(['held','preparing','airborne'].includes(this.phase)){this.evidence=this.current.name==='takeoff'&&catalog.airborne(data)?{...data}:null;if(this.evidence)this.phase='airborne';else if(data.clip==='frontidle')this.phase='held';}
   else if(this.phase!=='coasting'){
    const pose=catalog.idlePose(data.clip)||(data.clip==='static'?'C':null);
@@ -22,6 +23,6 @@ class PerformanceDirector{
   if(type==='rested'&&this.phase==='coasting'){const landing=this.airborneAtRelease;this.airborneAtRelease=false;this.phase=landing?'landing':'idle';this.record('rested',{landing});if(landing)this.request('landing',{origin:'interaction'});}
  }
  manual(name,{origin='manual'}={}){if(name!=='idle'&&!catalog.isSelectable(name)||['held','preparing','airborne','coasting'].includes(this.phase))return false;if(origin==='task'&&this.phase==='performing'&&(!['task','automatic'].includes(this.current?.origin)||catalog.needsLanding(this.current?.name)||catalog.isShowcase(this.current?.name)||this.current?.poseChange))return false;const target=catalog.idlePose(name.replace(/^clip:/,'')),poseChange=origin==='automatic'&&!!target&&target!==this.pose;this.phase=name==='idle'?'idle':'performing';this.airborneAtRelease=false;this.request(name,{origin,poseChange});return true;}
- mediaError(data){if(!this.matches(data))return false;this.record('media-error',{code:data.code||'MEDIA_ERROR'});this.evidence=null;this.airborneAtRelease=false;if(['idle','recover','hold'].includes(this.current.name)){this.phase='fault';return false;}this.request('recover',{origin:'recovery'});return true;}
+ mediaError(data){if(!this.matches(data))return false;this.record('media-error',{code:data.code||'MEDIA_ERROR'});this.evidence=null;this.airborneAtRelease=false;if(['idle','recover','hold'].includes(this.current.name)){this.phase='fault';this.faultCount=(this.faultCount||0)+1;if(this.faultCount<=3){const delay=Math.min(5000,1000*this.faultCount);this.faultTimer=setTimeout(()=>{this.faultTimer=null;if(this.phase==='fault'){this.phase='idle';this.pose='C';this.request('idle',{origin:'auto-recovery'});}},delay);this.faultTimer.unref?.();}return false;}this.request('recover',{origin:'recovery'});return true;}
 }
 module.exports={PerformanceDirector};

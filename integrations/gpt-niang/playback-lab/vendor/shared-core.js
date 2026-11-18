@@ -16,6 +16,181 @@ const PET_REF_WIDTH = 462;
 const ANIMATION_EXT = ".webm";
 
 //#endregion
+//#region src/shared/i18n.ts
+function resolveLanguage(pref, localeHint) {
+	if (pref === "zh-CN" || pref === "ja") return pref;
+	const hint = String(localeHint ?? (typeof navigator !== "undefined" ? navigator.language : "")).toLowerCase();
+	return hint.startsWith("ja") ? "ja" : "zh-CN";
+}
+const MENU_GROUP_LABELS_JA = {
+	"待机": "待機",
+	"转向": "方向転換",
+	"拖拽": "ドラッグ",
+	"点击回应": "タッチ反応",
+	"移动": "移動",
+	"动作": "アクション"
+};
+const CATEGORY_LABELS_JA = {
+	"小动作": "しぐさ",
+	"玩耍": "あそび",
+	"吃什么": "ごはん・おやつ",
+	"时节": "季節・イベント",
+	"文字": "セリフ演出",
+	"日常": "日常",
+	"表情": "表情",
+	"走动": "歩行",
+	"表演": "パフォーマンス",
+	"待机姿势": "待機ポーズ"
+};
+const ANIM_LABELS_JA = {
+	"待机呼吸休闲": "待機・ゆったり呼吸",
+	"东张西望": "きょろきょろ",
+	"被鼠标拖拽悬空反馈": "つまみ上げられ中",
+	"点击回应-开心跃动": "タッチ・うれしくジャンプ",
+	"点击回应-害羞惊讶": "タッチ・照れ驚き",
+	"点击回应-傲娇生气": "タッチ・ツンとおこ",
+	"点击回应-挠痒咯咯笑": "タッチ・くすぐったい",
+	"点击回应-元气挥手": "タッチ・元気に手を振る",
+	"螃蟹走路": "カニ歩き",
+	"原地漂浮踏步": "ぷかぷか足踏み",
+	"原地左转奔跑": "くるっと駆け足",
+	"悠闲哼歌": "のんびり鼻歌",
+	"超大伸懒腰": "大きく背伸び",
+	"原地敲击桌面互动": "デスクをとんとん",
+	"原地重力下蹲压缩": "ぺたんとしゃがむ",
+	"哈欠连天": "ふあぁとあくび",
+	"原地小憩沉眠": "すやすや居眠り",
+	"女仆屈膝礼仪": "メイドのお辞儀",
+	"被吓一跳": "びくっと驚く",
+	"小幅度原地360度旋转展示": "くるっと一回転",
+	"偷吃零食被抓住": "おやつ盗み食いバレる",
+	"用鲸鱼尾巴拍打地面": "しっぽで地面ぺちぺち",
+	"打瞌睡被惊醒": "うとうとからハッと起きる",
+	"照镜子": "鏡チェック",
+	"整体换装试色": "お着替えカラーチェンジ",
+	"轻快记录": "るんるんメモ書き",
+	"写代码": "コーディング中",
+	"摇扇纳凉": "うちわでパタパタ",
+	"晨间刷牙": "朝の歯みがき",
+	"原地专心玩魔方": "ルービックキューブ集中",
+	"原地蹲下玩玩具汽车": "ミニカーあそび",
+	"鲸鱼吐泡泡特效": "クジラ泡ぷくぷく",
+	"原地跳跃抓碎头顶物品": "ジャンプでアイテム割り",
+	"玩游戏气急败坏": "ゲームでぷんぷん",
+	"玩水枪": "水鉄砲あそび",
+	"小提琴演奏": "バイオリン演奏",
+	"蓝鲸现世": "ブルークジラ召喚",
+	"优雅女仆舞": "優雅なメイドダンス",
+	"轻快摇摆舞": "軽やかスイングダンス",
+	"可爱宅舞": "キュートなヲタ芸ダンス",
+	"吹气球": "風船ふくらまし",
+	"动物环绕": "動物さんといっしょ",
+	"放风筝": "凧あげ",
+	"拆礼物": "プレゼント開封",
+	"变鸽子": "ハト出しマジック",
+	"扑克魔术": "トランプマジック",
+	"抽陀螺": "コマ回し",
+	"吹笛子": "笛ふき",
+	"蝴蝶蜜蜂环绕头顶开花": "ちょうちょとお花",
+	"撸猫": "ねこちゃんもふもふ",
+	"凭空生花": "お花を咲かせる",
+	"骑木马": "木馬ゆらゆら",
+	"三球抛接": "ジャグリング",
+	"踢毽子": "羽根蹴り",
+	"下五子棋": "五目並べ",
+	"荡秋千": "ブランコゆらゆら",
+	"吃白饭": "白ごはんもぐもぐ",
+	"大口吃零食": "お菓子をほおばる",
+	"吃Token": "トークンもぐもぐ",
+	"吃早餐": "朝ごはん",
+	"吃午餐": "お昼ごはん",
+	"吃晚餐": "晩ごはん",
+	"吃冰淇淋融化": "アイスがとろ〜り",
+	"吃大闸蟹": "上海ガニ堪能",
+	"吃糖葫芦": "サンザシ飴ぱくり",
+	"吃长寿面": "長寿麺つるつる",
+	"吃西瓜": "スイカもぐもぐ",
+	"涮火锅": "しゃぶしゃぶ鍋",
+	"被落叶淹没": "落ち葉にうもれる",
+	"中秋赏月吃月饼": "お月見と月餅",
+	"堆雪人": "雪だるま作り",
+	"放烟花": "花火打ち上げ",
+	"吃粽子": "ちまきもぐもぐ",
+	"吃年糕": "お餅もぐもぐ",
+	"吃青团": "草餅もぐもぐ",
+	"吃腊八粥": "腊八粥をいただく",
+	"吃重阳糕": "重陽菓子をいただく",
+	"收红包": "お年玉ゲット",
+	"写福字": "「福」の書き初め",
+	"穿针乞巧": "七夕の針通し",
+	"舞狮头": "獅子舞",
+	"讨糖南瓜灯": "ハロウィンかぼちゃ",
+	"插茱萸赏菊": "菊見と厄除け",
+	"放河灯": "灯籠流し",
+	"萌化小幽灵": "ゆるかわおばけ",
+	"装点圣诞树": "クリスマスツリー飾り付け",
+	"放孔明灯": "スカイランタン",
+	"吃汤圆": "白玉団子もぐもぐ",
+	"吃饺子": "餃子もぐもぐ",
+	"是啊，吃什么": "そうだね、何食べる？",
+	"深度思考碎碎念": "ディープシンクぶつぶつ",
+	"余额-钱袋满溢": "残高・お財布パンパン",
+	"余额-金袋叮当": "残高・小判チャリン",
+	"余额-钱袋如常": "残高・まだまだ余裕",
+	"余额-数金皱眉": "残高・ちょっと心配",
+	"余额-袋空如洗": "残高・ピンチです",
+	"余额-分文不剩": "残高・すっからかん",
+	"碎碎念-擦桌碎碎念": "ひとりごと・お掃除中",
+	"碎碎念-发呆碎碎念": "ひとりごと・ぼーっと",
+	"碎碎念-对屏碎碎念": "ひとりごと・画面越し",
+	"工作状态-思考冒泡": "作業・考えごとぽこぽこ",
+	"工作状态-忙碌点按": "作業・てきぱき操作中",
+	"工作状态-清点归档": "作業・整理ファイリング",
+	"工作状态-原地踱步张望": "作業・うろうろ待機",
+	"工作状态-雀跃庆祝": "作業・やったー完了！",
+	"工作状态-垂头叹气冒汗": "作業・しょんぼりエラー"
+};
+const PET_NAME_JA = {
+	"蓝毛小女仆": "ブルークジラメイド",
+	"蓝鲸女仆": "ブルークジラメイド",
+	"白发紫眼龙娘": "銀髪紫瞳のドラゴン娘"
+};
+const WORK_STATUS_TEXT_JA = {
+	"正在认真想下一步呢": "次の一手をじっくり考えていますよ",
+	"让我整理一下思路~": "考えをまとめさせてね～",
+	"正在梳理接下来要做什么": "次にやることを整理しています",
+	"正在处理任务呢": "タスクを処理していますよ",
+	"这一步正在进行中哦": "このステップを進行中です",
+	"正在继续干活呢，别打扰我~": "ただいま作業中ですよ、お邪魔しないでね～",
+	"这一步处理好啦，接着看下一步": "このステップは完了！次を見てみましょう",
+	"搞定一步，继续看看哦~": "ひとつ片付いたよ、続けて進めるね～",
+	"需要你确认一下呢": "ご主人の確認が必要です",
+	"这里要等你看一下哦": "ここ、ちょっと確認してもらえる？",
+	"轮到你来决定啦，等你~": "決めるのはご主人の番だよ、待ってるね～",
+	"这一轮搞定啦，真棒！": "このターンは完了！バッチリだね！",
+	"任务完成咯，可以摸鱼啦~": "お仕事完了！ひと休みしよう～",
+	"这一步好像没跑通呢": "このステップ、うまくいかなかったみたい",
+	"刚才的操作遇到点问题哦": "さっきの操作で少し問題が起きたみたい",
+	"这里卡了一下，再等等你呢": "ここで少し引っかかっちゃった、待ってるね"
+};
+function translateCategory(name, lang = "zh-CN") {
+	if (resolveLanguage(lang) !== "ja") return name;
+	return MENU_GROUP_LABELS_JA[name] ?? CATEGORY_LABELS_JA[name] ?? name;
+}
+function translateAnimation(name, lang = "zh-CN") {
+	if (resolveLanguage(lang) !== "ja") return name;
+	return ANIM_LABELS_JA[name] ?? name;
+}
+function translatePetName(name, lang = "zh-CN") {
+	if (resolveLanguage(lang) !== "ja") return name;
+	return PET_NAME_JA[name] ?? name;
+}
+function translateWorkStatusText(text, lang = "zh-CN") {
+	if (!text || resolveLanguage(lang) !== "ja") return text;
+	return WORK_STATUS_TEXT_JA[text] ?? text;
+}
+
+//#endregion
 //#region src/shared/pickers.ts
 const pick = (pool, exclude) => {
 	const entries = exclude ? pool.filter((n) => n !== exclude) : pool;
@@ -299,11 +474,15 @@ const WINDOW_LABELS = {
 	weekly: "周",
 	monthly: "月"
 };
+const WINDOW_LABELS_JA = {
+	weekly: "週",
+	monthly: "月"
+};
 const DEFAULT_ROLLING_LABEL = "5h";
 /** 窗口展示名：滚动窗取服务商自报值（缺省 5h），周/月走固定表 */
-function windowLabel(v, w) {
+function windowLabel(v, w, lang = "zh-CN") {
 	if (w === "rolling") return v.rollingLabel ?? DEFAULT_ROLLING_LABEL;
-	return WINDOW_LABELS[w];
+	return (resolveLanguage(lang) === "ja" ? WINDOW_LABELS_JA : WINDOW_LABELS)[w];
 }
 /** 各窗口的满额度（USD）：全部来自数据（展示层不写死任何服务商的额度） */
 function windowQuotas(v) {
@@ -313,7 +492,7 @@ function windowQuotas(v) {
 		monthly: v.monthlyCapUsd
 	};
 }
-function urgentWindow(v) {
+function urgentWindow(v, lang = "zh-CN") {
 	if (v.shape === "money") return void 0;
 	const quotas = windowQuotas(v);
 	const resets = {
@@ -336,7 +515,7 @@ function urgentWindow(v) {
 		const percent = v[w] ?? 0;
 		const quota = quotas[w];
 		const cand = {
-			label: windowLabel(v, w),
+			label: windowLabel(v, w, lang),
 			percent,
 			quotaUsd: quota,
 			remainingUsd: allQuotas && quota !== void 0 ? quota * (100 - percent) / 100 : void 0,
@@ -351,78 +530,81 @@ function urgentWindow(v) {
 	}
 	return best;
 }
-function resetInText(iso) {
+function resetInText(iso, lang = "zh-CN") {
 	if (!iso) return "";
 	const t = new Date(iso).getTime();
 	if (!Number.isFinite(t)) return "";
+	const ja = resolveLanguage(lang) === "ja";
 	const delta = t - Date.now();
-	if (delta <= 0) return "已重置";
+	if (delta <= 0) return ja ? "リセット済み" : "已重置";
 	const hoursF = delta / 36e5;
-	if (hoursF >= 96) return (Math.round(hoursF / 24 * 10) / 10).toFixed(1) + " 天";
-	return Math.max(.1, Math.round(hoursF * 10) / 10).toFixed(1) + " 小时";
+	if (hoursF >= 96) return (Math.round(hoursF / 24 * 10) / 10).toFixed(1) + (ja ? " 日" : " 天");
+	return Math.max(.1, Math.round(hoursF * 10) / 10).toFixed(1) + (ja ? " 時間" : " 小时");
 }
 /** 不可用状态的气泡行（显式说明原因，绝不伪造数字）：
 *  - unsupported：服务商未登记查询接口（配置事实，不是故障）→ 报出 provider id，便于自查"当前到底是谁"
 *  - credential-missing：缺凭证 → 次要行放 host 报的凭证名（不含 message 时不留空行）
 *  - fetch-error：抓取失败 → 次要行放底层错误
 * 次要行为空的会被剔除：空 div 在气泡里会白占一行高度。 */
-function unavailableRows(state) {
+function unavailableRows(state, lang = "zh-CN") {
+	const ja = resolveLanguage(lang) === "ja";
 	const rows = state.reason === "unsupported" ? [{
 		role: "error",
-		text: "当前服务商暂不支持余额查询"
+		text: ja ? "現在のプロバイダーは残高照会に未対応です" : "当前服务商暂不支持余额查询"
 	}, {
 		role: "sub",
-		text: "当前服务商：" + state.provider
+		text: (ja ? "プロバイダー：" : "当前服务商：") + state.provider
 	}] : state.reason === "credential-missing" ? [{
 		role: "error",
-		text: "缺少余额查询凭证"
+		text: ja ? "残高照会用の認証情報が不足しています" : "缺少余额查询凭证"
 	}, {
 		role: "sub",
 		text: state.message ?? ""
 	}] : [{
 		role: "error",
-		text: "余额查询失败"
+		text: ja ? "残高の取得に失敗しました" : "余额查询失败"
 	}, {
 		role: "sub",
 		text: state.message ?? ""
 	}];
 	return rows.filter((r) => r.text !== "");
 }
-function balanceBubbleView(state) {
+function balanceBubbleView(state, lang = "zh-CN") {
+	const ja = resolveLanguage(lang) === "ja";
 	if (state.ok) {
 		if (state.shape !== "money") {
-			const w = urgentWindow(state);
+			const w = urgentWindow(state, lang);
 			if (w) {
-				const reset = resetInText(w.resetsAt);
+				const reset = resetInText(w.resetsAt, lang);
 				const rows = [{
 					role: "label",
-					text: w.label + "额度已用 " + Math.round(w.percent) + "%"
+					text: ja ? w.label + "利用枠 " + Math.round(w.percent) + "% 使用" : w.label + "额度已用 " + Math.round(w.percent) + "%"
 				}, {
 					role: "sub",
-					text: reset ? reset + "重置" : "已重置"
+					text: ja ? (reset && reset !== "リセット済み" ? reset + "後にリセット" : "リセット済み") : (reset ? reset + "重置" : "已重置")
 				}];
 				return rows;
 			}
 			return [{
 				role: "label",
-				text: "额度数据不可用"
+				text: ja ? "利用枠データを取得できません" : "额度数据不可用"
 			}];
 		}
 		const symbol = state.currency === "USD" ? "$" : "¥";
 		const amount = symbol + (state.total ?? "-");
 		if (!state.tier) return [{
 			role: "label",
-			text: "余额 " + amount
+			text: (ja ? "残高 " : "余额 ") + amount
 		}];
 		return [
 			{
 				role: "label",
-				text: "余额（"
+				text: ja ? "残高（" : "余额（"
 			},
 			{
 				role: "tier",
 				tier: state.tier,
-				text: state.tier === "peak" ? "峰" : "谷"
+				text: ja ? (state.tier === "peak" ? "通常" : "割引") : (state.tier === "peak" ? "峰" : "谷")
 			},
 			{
 				role: "label",
@@ -430,7 +612,7 @@ function balanceBubbleView(state) {
 			}
 		];
 	}
-	return unavailableRows(state);
+	return unavailableRows(state, lang);
 }
 function decideBalanceNotice(state, lastKey, explicit) {
 	if (state.ok) return {
@@ -446,12 +628,15 @@ function decideBalanceNotice(state, lastKey, explicit) {
 
 //#endregion
 //#region src/shared/whisper.ts
-function whisperBubbleView(state) {
+function whisperBubbleView(state, lang = "zh-CN") {
 	if (state.ok) return [{
 		role: "label",
 		text: state.text
 	}];
-	const msg = state.reason === "provider-missing" ? "当前对话未配置模型，碎碎念不可用" : "碎碎念生成失败" + (state.message ? "：" + state.message : "");
+	const ja = resolveLanguage(lang) === "ja";
+	const msg = state.reason === "provider-missing"
+		? (ja ? "モデルが未設定のため、ひとりごとは利用できません" : "当前对话未配置模型，碎碎念不可用")
+		: (ja ? "ひとりごとの生成に失敗しました" : "碎碎念生成失败") + (state.message ? (ja ? "：" : "：") + state.message : "");
 	return [{
 		role: "label",
 		text: msg
@@ -539,25 +724,26 @@ const MAX_BODY = 80;
 function truncate(text) {
 	return text.length > MAX_BODY ? text.slice(0, MAX_BODY) + "…" : text;
 }
-function frameToToast(frame) {
+function frameToToast(frame, lang = "zh-CN") {
+	const ja = resolveLanguage(lang) === "ja";
 	switch (frame.type) {
 		case "session/event": {
 			const ev = frame.event ?? {};
 			if (ev.type !== "turn/end") return null;
 			const kind = ev.data?.reason?.kind;
 			if (kind === "completed") return {
-				title: "对话完成",
+				title: ja ? "会話完了" : "对话完成",
 				body: "",
 				icon: NOTIFY_ICONS.done
 			};
 			if (kind === "error") return {
-				title: "生成失败",
+				title: ja ? "生成エラー" : "生成失败",
 				body: ev.data?.reason?.error?.message ?? "",
 				icon: NOTIFY_ICONS.error
 			};
 			if (kind === "max-tokens") return {
-				title: "输出被截断",
-				body: "已达到输出 token 上限",
+				title: ja ? "出力が途中で終了" : "输出被截断",
+				body: ja ? "出力トークンの上限に達しました" : "已达到输出 token 上限",
 				icon: NOTIFY_ICONS.truncated
 			};
 			return null;
@@ -566,21 +752,21 @@ function frameToToast(frame) {
 			const toolName = typeof frame.toolName === "string" ? frame.toolName : "";
 			const reason = typeof frame.reason === "string" && frame.reason ? frame.reason : "";
 			return {
-				title: "正在申请权限",
-				body: (toolName ? "工具「" + toolName + "」" : "") + (reason ? "：" + reason : ""),
+				title: ja ? "承認リクエスト" : "正在申请权限",
+				body: (toolName ? (ja ? "ツール「" : "工具「") + toolName + "」" : "") + (reason ? "：" + reason : ""),
 				icon: NOTIFY_ICONS.approval
 			};
 		}
 		case "question/requested": {
 			const q = Array.isArray(frame.questions) && frame.questions[0]?.question || "";
 			return {
-				title: "模型在等你回答",
+				title: ja ? "回答待ちです" : "模型在等你回答",
 				body: q,
 				icon: NOTIFY_ICONS.question
 			};
 		}
 		case "host/agent-error": return {
-			title: "生成失败",
+			title: ja ? "生成エラー" : "生成失败",
 			body: typeof frame.message === "string" ? frame.message : "",
 			icon: NOTIFY_ICONS.error
 		};
@@ -596,27 +782,34 @@ const EVENT_LABELS = {
 	whisper: "碎碎念",
 	workStatus: "工作状态"
 };
-const leaf = (anim) => ({
-	label: anim,
+const EVENT_LABELS_JA = {
+	balance: "残高連動",
+	whisper: "ひとりごと",
+	workStatus: "作業状態"
+};
+const leaf = (anim, lang = "zh-CN") => ({
+	label: translateAnimation(anim, lang),
 	anim
 });
-function buildMenuTree(animations) {
+function buildMenuTree(animations, lang = "zh-CN") {
+	const ja = resolveLanguage(lang) === "ja";
+	const evLabels = ja ? EVENT_LABELS_JA : EVENT_LABELS;
 	const groups = [];
 	const pools = [
-		["待机", animations.idle],
-		["转向", animations.turn],
-		["拖拽", animations.drag],
-		["点击回应", animations.clicks],
-		["移动", animations.moves.actions.map((m) => m.name)]
+		[ja ? MENU_GROUP_LABELS_JA["待机"] : "待机", animations.idle],
+		[ja ? MENU_GROUP_LABELS_JA["转向"] : "转向", animations.turn],
+		[ja ? MENU_GROUP_LABELS_JA["拖拽"] : "拖拽", animations.drag],
+		[ja ? MENU_GROUP_LABELS_JA["点击回应"] : "点击回应", animations.clicks],
+		[ja ? MENU_GROUP_LABELS_JA["移动"] : "移动", animations.moves.actions.map((m) => m.name)]
 	];
 	for (const [label, pool] of pools) if (pool.length) groups.push({
 		label,
-		children: pool.map(leaf)
+		children: pool.map((anim) => leaf(anim, lang))
 	});
 	const cats = (animations.categories ?? []).filter((c) => c.actions.length > 0);
 	for (const c of cats) groups.push({
-		label: c.id,
-		children: c.actions.map(leaf)
+		label: translateCategory(c.id, lang),
+		children: c.actions.map((anim) => leaf(anim, lang))
 	});
 	const events = animations.events ?? {};
 	for (const key of Object.keys(events)) {
@@ -625,13 +818,13 @@ function buildMenuTree(animations) {
 		for (const slot of pool) if (typeof slot === "string") names.push(slot);
 		else names.push(...slot);
 		if (names.length) groups.push({
-			label: EVENT_LABELS[key] ?? key,
-			children: names.map(leaf)
+			label: evLabels[key] ?? key,
+			children: names.map((anim) => leaf(anim, lang))
 		});
 	}
 	if (!groups.length) return [];
 	return [{
-		label: "动作",
+		label: ja ? MENU_GROUP_LABELS_JA["动作"] : "动作",
 		children: groups
 	}];
 }
@@ -640,7 +833,8 @@ function isNoMirrorAnimation(categories, anim) {
 }
 const MENU_CSS = [
 	".dsh-pet-menu{position:fixed;left:0;top:0;z-index:2147483000;color:#2b2b2b;font-size:13px;line-height:1.5;",
-	"font-family:'Microsoft YaHei UI','Segoe UI','PingFang SC',sans-serif;user-select:none;pointer-events:auto}",
+	"font-family:'Microsoft YaHei UI','Yu Gothic UI','Meiryo','BIZ UDPGothic','Segoe UI','PingFang SC',sans-serif;user-select:none;pointer-events:auto}",
+	".dsh-pet-menu:lang(ja){font-family:'Yu Gothic UI','Meiryo','BIZ UDPGothic','Segoe UI',sans-serif}",
 	".dsh-pet-menu,.dsh-pet-menu *{box-sizing:border-box}",
 	".dsh-pet-menu-column{position:absolute;min-width:150px;max-width:240px;padding:4px;",
 	"background:rgba(255,255,255,.98);border:1px solid rgba(0,0,0,.12);border-radius:8px;",
@@ -797,7 +991,7 @@ function mountContextMenu(opts) {
 //#endregion
 //#region src/shared/chat.ts
 const SEND_TIMEOUT_MS = 6e4;
-async function sendChat(baseUrl, text) {
+async function sendChat(baseUrl, text, lang = "zh-CN") {
 	const res = await fetch(baseUrl, {
 		method: "POST",
 		headers: { "content-type": "application/json" },
@@ -805,7 +999,7 @@ async function sendChat(baseUrl, text) {
 		signal: AbortSignal.timeout(SEND_TIMEOUT_MS)
 	});
 	const raw = await res.json().catch(() => null);
-	if (!raw || typeof raw !== "object") throw new Error("dsh-pet: 对话响应非法");
+	if (!raw || typeof raw !== "object") throw new Error(resolveLanguage(lang) === "ja" ? "dsh-pet: 不正な会話レスポンスです" : "dsh-pet: 对话响应非法");
 	const o = raw;
 	if (o.ok !== true) return {
 		ok: false,
@@ -818,8 +1012,9 @@ const CHAT_CSS = [
 	".dsh-pet-chat{position:fixed;z-index:2147483001;width:160px;max-width:80vw;",
 	"background:rgba(255,255,255,.98);border:1px solid rgba(0,0,0,.12);border-radius:10px;",
 	"box-shadow:0 10px 32px rgba(0,0,0,.22);color:#2b2b2b;font-size:14px;line-height:1.5;",
-	"font-family:'ShangshouSoftCandy','Yuanti SC','YouYuan','幼圆','Comic Sans MS','PingFang SC','Microsoft YaHei',sans-serif;",
+	"font-family:'ShangshouSoftCandy','Yuanti SC','YouYuan','幼圆','Comic Sans MS','PingFang SC','Microsoft YaHei','Yu Gothic UI','Meiryo','BIZ UDPGothic',sans-serif;",
 	"user-select:none}",
+	".dsh-pet-chat:lang(ja){font-family:'Yu Gothic UI','Meiryo','BIZ UDPGothic','ShangshouSoftCandy',sans-serif}",
 	".dsh-pet-chat *{box-sizing:border-box}",
 	".dsh-pet-chat-input{display:block;width:100%;border:none;outline:none;background:transparent;",
 	"padding:8px 11px 9px;font-size:14px;line-height:1.45;color:#2b2b2b;font-family:inherit;",
@@ -845,6 +1040,7 @@ function injectChatCss() {
 function mountChatDialog(opts) {
 	injectChatCss();
 	const { petId, x, y, onSent, onClose, clamp } = opts;
+	const ja = resolveLanguage(opts.lang) === "ja";
 	const baseUrl = opts.baseUrl ?? "/dsh-pet-7340/chat";
 	const withPet = baseUrl + "?pet=" + encodeURIComponent(petId);
 	const c = clamp && Number.isFinite(clamp.x + clamp.y + clamp.w + clamp.h) ? clamp : {
@@ -857,7 +1053,7 @@ function mountChatDialog(opts) {
 	root.className = "dsh-pet-chat";
 	const input = document.createElement("textarea");
 	input.className = "dsh-pet-chat-input";
-	input.placeholder = "说点什么…";
+	input.placeholder = ja ? "何か話してみて…" : "说点什么…";
 	input.maxLength = 6000;
 	input.value = typeof opts.initialText === 'string' ? opts.initialText : '';
 	input.addEventListener('input', () => opts.onDraft?.(input.value));
@@ -915,18 +1111,18 @@ function mountChatDialog(opts) {
 		sending = true;
 		input.disabled = true;
 		if (opts.closeOnSend) close();
-		Promise.resolve().then(() => opts.sendText ? opts.sendText(text) : sendChat(withPet, text)).then((state) => {
+		Promise.resolve().then(() => opts.sendText ? opts.sendText(text) : sendChat(withPet, text, opts.lang)).then((state) => {
 			if (state.ok) {
 				close();
 				if (onSent) onSent(state);
 			} else {
 				if (opts.onError) opts.onError(state.message ?? state.reason);
-				err.textContent = "对话失败：" + (state.message ?? state.reason);
+				err.textContent = (ja ? "会話エラー：" : "对话失败：") + (state.message ?? state.reason);
 				err.style.display = "block";
 			}
 		}).catch((e) => {
 			if (opts.onError) opts.onError(String(e && e.message ? e.message : e));
-			err.textContent = "对话异常：" + String(e && e.message ? e.message : e);
+			err.textContent = (ja ? "通信エラー：" : "对话异常：") + String(e && e.message ? e.message : e);
 			err.style.display = "block";
 		}).finally(() => {
 			sending = false;
@@ -1253,7 +1449,8 @@ const SCORE_POPUP_CSS = [
 	".dsh-pet-score{position:fixed;z-index:2147483002;min-width:120px;text-align:center;",
 	"background:rgba(255,255,255,.97);border:1px solid rgba(255,179,0,.35);border-radius:12px;",
 	"box-shadow:0 10px 32px rgba(0,0,0,.22);padding:8px 16px 9px;user-select:none;pointer-events:auto;",
-	"font-family:'ShangshouSoftCandy','Yuanti SC','YouYuan','幼圆','Comic Sans MS','PingFang SC','Microsoft YaHei',sans-serif;}",
+	"font-family:'ShangshouSoftCandy','Yuanti SC','YouYuan','幼圆','Comic Sans MS','PingFang SC','Microsoft YaHei','Yu Gothic UI','Meiryo','BIZ UDPGothic',sans-serif;}",
+	".dsh-pet-score:lang(ja){font-family:'Yu Gothic UI','Meiryo','BIZ UDPGothic','ShangshouSoftCandy',sans-serif}",
 	".dsh-pet-score.is-in{animation:dshPetScorePop .28s ease}",
 	".dsh-pet-score-val{font-size:22px;line-height:1.25;font-weight:700;color:#ff8f00;font-variant-numeric:tabular-nums}",
 	".dsh-pet-score-sub{font-size:11px;line-height:1.4;color:rgba(43,43,43,.6);margin-top:2px;white-space:nowrap}",
@@ -1349,7 +1546,7 @@ function mountScorePopup(opts) {
 	val.textContent = "+" + opts.score;
 	const sub = document.createElement("div");
 	sub.className = "dsh-pet-score-sub";
-	sub.textContent = "速度 " + Math.round(opts.speed) + " · 大小 " + Math.round(opts.size);
+	sub.textContent = resolveLanguage(opts.lang) === "ja" ? "スピード " + Math.round(opts.speed) + " · サイズ " + Math.round(opts.size) : "速度 " + Math.round(opts.speed) + " · 大小 " + Math.round(opts.size);
 	root.appendChild(val);
 	root.appendChild(sub);
 	document.body.appendChild(root);
@@ -1558,13 +1755,23 @@ const TOOLTIP_CSS = [
 	"border-radius:calc(var(--dsh-pet-size,var(--pet-size,462px))*0.016);",
 	"background:rgba(255,255,255,.96);color:#1f1f1f;",
 	"border:1px solid rgba(0,0,0,.12);",
-	"font-family:\"ShangshouSoftCandy\",\"Yuanti SC\",\"YouYuan\",\"幼圆\",\"Comic Sans MS\",\"PingFang SC\",\"Microsoft YaHei\",sans-serif;",
+	"font-family:\"ShangshouSoftCandy\",\"Yuanti SC\",\"YouYuan\",\"幼圆\",\"Comic Sans MS\",\"PingFang SC\",\"Microsoft YaHei\",\"Yu Gothic UI\",\"Meiryo\",\"BIZ UDPGothic\",sans-serif;",
 	"font-size:calc(var(--dsh-pet-size,var(--pet-size,462px))*0.026);line-height:1.4;",
 	"white-space:nowrap;overflow:hidden;text-overflow:ellipsis;",
 	"box-shadow:0 calc(var(--dsh-pet-size,var(--pet-size,462px))*0.004) calc(var(--dsh-pet-size,var(--pet-size,462px))*0.013) rgba(0,0,0,.18);",
 	"opacity:0;transition:opacity .12s ease;pointer-events:none;z-index:2}",
+	".pet-tooltip:lang(ja){font-family:\"Yu Gothic UI\",\"Meiryo\",\"BIZ UDPGothic\",\"ShangshouSoftCandy\",sans-serif}",
 	".pet-tooltip.is-on{opacity:1}"
 ].join("");
+
+//#endregion
+exports.ANIM_LABELS_JA = ANIM_LABELS_JA
+exports.CATEGORY_LABELS_JA = CATEGORY_LABELS_JA
+exports.resolveLanguage = resolveLanguage
+exports.translateAnimation = translateAnimation
+exports.translateCategory = translateCategory
+exports.translatePetName = translatePetName
+exports.translateWorkStatusText = translateWorkStatusText
 
 //#endregion
 exports.ACCEL_GAIN_MAX = ACCEL_GAIN_MAX

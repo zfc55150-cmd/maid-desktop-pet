@@ -12,7 +12,7 @@
         color: #2b2b2b;
         font-family:
           'ShangshouSoftCandy', 'Yuanti SC', 'YouYuan', '幼圆', 'Comic Sans MS', 'PingFang SC', 'Microsoft YaHei',
-          sans-serif;
+          'Yu Gothic UI', 'Meiryo', 'BIZ UDPGothic', sans-serif;
         font-size: calc(var(--pet-size, 462px) * 0.0455);
         line-height: 1.6;
         z-index: 3;
@@ -23,6 +23,9 @@
         opacity: 0;
         transition: opacity 0.25s ease;
         white-space: nowrap;
+      }
+      .pet-bubble:lang(ja) {
+        font-family: 'Yu Gothic UI', 'Meiryo', 'BIZ UDPGothic', 'ShangshouSoftCandy', sans-serif;
       }
       .pet-bubble::after {
         content: '';

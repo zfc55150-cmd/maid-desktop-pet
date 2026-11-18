@@ -70,9 +70,12 @@ function resolveForcedScale(o = {}) {
  * @returns {number}
  */
 function resolvePetScale(o = {}) {
-  const base = Number(o.baseScale ?? '1') || 1;
-  const forced = Number(o.forcedScale) || 0;
-  const primary = Number(o.primaryScale) || 0;
+  const rawBase = Number(o.baseScale ?? '1');
+  const base = Number.isFinite(rawBase) && rawBase > 0 ? rawBase : 1;
+  const rawForced = Number(o.forcedScale);
+  const forced = Number.isFinite(rawForced) && rawForced > 0 ? rawForced : 0;
+  const rawPrimary = Number(o.primaryScale);
+  const primary = Number.isFinite(rawPrimary) && rawPrimary > 0 ? rawPrimary : 0;
   return forced > 0 && primary > 0 ? base * (primary / forced) : base;
 }
 

@@ -28,7 +28,7 @@
 function showError(message) {
   console.error('[dsh-pet] ' + message);
   window.__dshPetDebug.configOk = false;
-  errorEl.textContent = 'dsh-pet 配置错误：' + message;
+  errorEl.textContent = (CONFIG.lang === 'ja' ? 'dsh-pet 設定エラー：' : 'dsh-pet 配置错误：') + message;
   errorEl.classList.add('visible');
 }
 function hideError() {
@@ -46,7 +46,7 @@ function scheduleReboot() {
 async function loadConfig() {
   // 唯一配置入口：宿主 /config 的成品聚合（host readAllConfig 已合并并保证绝对正确），
   // 一步拉取 → 拍平成渲染列表，零校验零兜底
-  const res = await fetch(BASE + '/config', { cache: 'no-store' });
+  const res = await fetch(BASE + '/config', { cache: 'no-store', signal: AbortSignal.timeout(15000) });
   if (!res.ok) throw new Error(`config http ${res.status}`);
   const merged = await res.json();
   return {
@@ -66,14 +66,14 @@ async function boot() {
     hideError();
     const pets = cfg.pets.filter((p) => S.isDesktopVisible(p.display));
     if (pets.length === 0) {
-      showError('配置中没有 display 为 desktop/both 的宠物，桌面模式不显示宠物');
+      showError(CONFIG.lang === 'ja' ? 'display が desktop/both のペットが設定されていないため、デスクトップモードでは表示されません' : '配置中没有 display 为 desktop/both 的宠物，桌面模式不显示宠物');
       scheduleReboot();
       return;
     }
     // 本窗口只承载一只宠物：petIndex 由主进程按 DSH_PET_PETS 顺序注入
     const pet = pets[CONFIG.petIndex];
     if (!pet) {
-      showError('petIndex=' + CONFIG.petIndex + ' 超出桌面宠物列表（共 ' + pets.length + ' 只），本窗口不创建宠物');
+      showError(CONFIG.lang === 'ja' ? 'petIndex=' + CONFIG.petIndex + ' がデスクトップペット一覧の範囲外です（合計 ' + pets.length + ' 体）' : 'petIndex=' + CONFIG.petIndex + ' 超出桌面宠物列表（共 ' + pets.length + ' 只），本窗口不创建宠物');
       scheduleReboot();
       return;
     }
@@ -84,7 +84,7 @@ async function boot() {
     for (const s of sprites) s.playIdle();
     startLoops();
   } catch (e) {
-    showError('配置加载失败：' + (e && e.message ? String(e.message) : String(e)));
+    showError((CONFIG.lang === 'ja' ? '設定の読み込みに失敗しました：' : '配置加载失败：') + (e && e.message ? String(e.message) : String(e)));
     scheduleReboot();
   }
 }

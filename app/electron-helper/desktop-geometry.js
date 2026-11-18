@@ -4,8 +4,11 @@
 const { HIT_BOX, STAGE_W, CANVAS_H, FEET_Y } = require('./pointer-target.js');
 
 function buildDeskGeometry(displays, primaryId, platform) {
-  const workAreas = displays.map((d) => ({ ...d.workArea }));
-  const panels = displays.map((d) => ({ ...d.bounds }));
+  const safeDisplays = Array.isArray(displays) && displays.length > 0
+    ? displays
+    : [{ id: primaryId ?? 0, workArea: { x: 0, y: 0, width: 1920, height: 1080 }, bounds: { x: 0, y: 0, width: 1920, height: 1080 } }];
+  const workAreas = safeDisplays.map((d) => ({ ...d.workArea }));
+  const panels = safeDisplays.map((d) => ({ ...d.bounds }));
   const areas = workAreas.map((a, i) => {
     if (platform !== 'darwin') return { ...a };
     // Keep the Dock exclusion at the bottom/sides, but let the visible head reach the panel top.
@@ -25,7 +28,7 @@ function buildDeskGeometry(displays, primaryId, platform) {
     panels,
     primaryIndex: Math.max(
       0,
-      displays.findIndex((d) => d.id === primaryId),
+      safeDisplays.findIndex((d) => d.id === primaryId),
     ),
     topInsetRatio: platform === 'darwin' ? (HIT_BOX.y0 + CANVAS_H - FEET_Y) / STAGE_W : 0,
   };

@@ -44,10 +44,13 @@ def restore_name(name):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--base', required=True, type=Path)
+    parser.add_argument('--base-sha256', default=EXPECTED, help='Expected SHA-256 of the base ZIP (defaults to v1.0.2 baseline)')
     parser.add_argument('--out', required=True, type=Path)
     args = parser.parse_args()
-    if args.base.name != 'DeepSeekActionPet-v1.0.2-win-x64.zip' or base_builder.sha256(args.base) != EXPECTED:
-        raise ValueError('Base ZIP does not match the checked v1.0.2 candidate')
+    expected_sha = args.base_sha256.lower()
+    is_legacy_v102 = args.base.name == 'DeepSeekActionPet-v1.0.2-win-x64.zip' and expected_sha == EXPECTED
+    if not base_builder.re.fullmatch(rf"DeepSeekActionPet-({base_builder.TAG})-win-x64\.zip", args.base.name) or base_builder.sha256(args.base) != expected_sha:
+        raise ValueError('Base ZIP does not match the expected release name or SHA-256')
     subprocess.run(["node", str(ROOT / "scripts/sync-shared.cjs")], cwd=ROOT, check=True)
     args.out.mkdir(parents=True, exist_ok=True)
     target = args.out / (NAME + '.zip')
@@ -56,9 +59,10 @@ def main():
         names = {old: restore_name(old) for old in entries}
         if len(set(n.casefold() for n in names.values())) != len(names):
             raise ValueError('Filename collision after encoding repair')
-        if sum(a != b for a, b in names.items()) != 133:
+        renamed_count = sum(a != b for a, b in names.items())
+        if is_legacy_v102 and renamed_count != 133:
             raise ValueError('Unexpected filename encoding baseline')
-        if not REMOVED_ASSETS.issubset(names.values()):
+        if is_legacy_v102 and not REMOVED_ASSETS.issubset(names.values()):
             raise ValueError('Expected rights-restricted asset paths were not found')
         removed_hashes = {hashlib.sha256(src.read(entries[old])).digest()
                           for old, name in names.items() if name in REMOVED_ASSETS}
@@ -87,16 +91,24 @@ if (process.env.DSH_HOME) app.setPath('userData', require('node:path').join(proc
         renderer = renderer[:font_start] + renderer[cursor_start:]
         stop = (ROOT / 'integrations/deepseek-portable/stop.ps1').read_bytes()
         first = (ROOT / 'integrations/deepseek-portable/first-run.cjs').read_bytes()
-        readme = """# DeepSeek 娘便携版候选
+        readme = """# DeepSeek 娘便携版候选 / DeepSeek-Niang Portable
 
+## 简体中文说明
 本包为首启修复验证候选，剩余素材仍需逐项核对再分发许可。
 本候选使用系统字体和全身形态，移除了未获再分发许可的半身图和按压音效。
-完整解压到可写目录，运行 Start-DeepSeek-Niang.cmd；停止运行 Stop-DeepSeek-Niang.cmd。
-首次启动从包内默认配置创建 state/dsh-pet/main-config.jsonc；已有配置和恢复副本不会被替换。
-状态和 Electron 配置位于包内 state；默认端口 3089，可通过 DSH_PET_PORT 调整。
-聊天请求会发送到 DeepSeek；自动长期记忆可能产生额外请求。需自行配置 API Key。
-本包未包含离线语音环境。删除 state 会清除该便携副本的本地数据。
-若退出失败，请查看提示，程序不会强制结束其他进程。
+- 完整解压到可写目录（勿放入 `C:\\Program Files`），运行 `Start-DeepSeek-Niang.cmd`（或 `启动DeepSeek娘 (Start DeepSeek-Niang).cmd`）；停止运行 `Stop-DeepSeek-Niang.cmd`。
+- 首次启动从包内默认配置创建 `state/dsh-pet/main-config.jsonc`；已有配置和恢复副本不会被替换。
+- 状态和 Electron 配置位于包内 `state/`；默认端口 `3089`，可通过环境变量 `DSH_PET_PORT` 调整。
+- 现已支持中/日双语自动识别与切换（自动适配系统语言，亦可在设置面板手动切换）。
+- 聊天请求会发送到 DeepSeek；自动长期记忆可能产生额外请求。需自行配置 API Key。
+- 本包未包含离线语音环境。删除 `state/` 会清除该便携副本的本地数据。
+- 若退出失败，请查看提示，程序不会强制结束其他进程。
+
+## 日本語クイックガイド / Japanese Quick Guide
+- **解凍と起動**：書き込み可能な任意のフォルダ（`C:\\Program Files` 以外）へ**すべて展開**したうえで、`Start-DeepSeek-Niang.cmd` をダブルクリックして起動してください（日本語版 Windows での文字化けを防ぐため、英数字の `.cmd` を推奨します）。終了時は `Stop-DeepSeek-Niang.cmd` を実行してください。
+- **完全ポータブル＆初期設定**：初回起動時に `state/dsh-pet/main-config.jsonc` が自動作成され、設定や Electron プロファイルはすべてパッケージ内の `state/` に保存されます（デフォルトポート `3089`、`DSH_PET_PORT` で変更可能）。
+- **日中バイリンガル対応**：OS の言語設定を自動判定し、日本語環境では日本語 UI で起動します。設定画面から「日本語 / 简体中文」の手動切り替えも可能です。
+- **ご利用上の注意**：チャット機能および自動長期記憶の利用には、ご自身の DeepSeek API Key の設定が必要です（チャット内容は DeepSeek へ送信されます）。オフライン音声（TTS）環境は同梱されていません。`state/` フォルダを削除すると、このコピーのローカルデータが初期化されます。
 """
         stop_cmd = b'''@echo off\r
 setlocal\r
@@ -114,11 +126,13 @@ exit /b 0\r
                    HELPER+'release-notice.cjs': (ROOT / 'app/electron-helper/release-notice.js').read_bytes(),
                    HELPER+'release-reminder.cjs': (ROOT / 'integrations/deepseek-portable/release-reminder.cjs').read_bytes(),
                    HELPER+'release-tag.json': b'{"tag":null}\n',
-                   'PORTABLE-README.md': readme.encode(),
+                   'PORTABLE-README.md': readme.encode('utf-8'),
                    'Stop-DeepSeek-Niang.cmd': stop_cmd,
                    '停止DeepSeek娘 (Stop DeepSeek-Niang).cmd': stop_cmd}
         stream = target.open('xb')
         try:
+            existing_names = set(names.values()) - REMOVED_ASSETS
+            expected_files = existing_names | set(changes.keys())
             with stream:
                 with zipfile.ZipFile(stream, 'w', zipfile.ZIP_DEFLATED, compresslevel=5) as dst:
                     for old, info in entries.items():
@@ -129,10 +143,12 @@ exit /b 0\r
                         if hashlib.sha256(data).digest() in removed_hashes:
                             raise ValueError('Restricted asset duplicated elsewhere: ' + name)
                         dst.writestr(NAME + '/' + name, data)
-                    dst.writestr(NAME + '/portable/first-run.cjs', first)
+                    for name, data in changes.items():
+                        if name not in existing_names:
+                            dst.writestr(NAME + '/' + name, data)
             with zipfile.ZipFile(target) as result:
                 actual = base_builder.safe_entries(result, NAME)
-                if result.testzip() is not None or set(actual) != (set(names.values()) - REMOVED_ASSETS) | {'portable/first-run.cjs'}:
+                if result.testzip() is not None or set(actual) != expected_files or not set(changes).issubset(set(actual)):
                     raise ValueError('Output archive verification failed')
                 for old, info in entries.items():
                     name = names[old]
@@ -141,12 +157,15 @@ exit /b 0\r
                     expected = changes.get(name, src.read(info))
                     if result.read(actual[name]) != expected:
                         raise ValueError('Output content mismatch: ' + name)
+                for name, expected in changes.items():
+                    if result.read(actual[name]) != expected:
+                        raise ValueError('Output content mismatch for new/changed entry: ' + name)
         except BaseException:
             stream.close()
             target.unlink(missing_ok=True)
             raise
     print(json.dumps({'candidate': str(target.resolve()), 'sha256': base_builder.sha256(target),
-                      'bytes': target.stat().st_size, 'renamed': 133, 'publishable': False}, ensure_ascii=False))
+                      'bytes': target.stat().st_size, 'renamed': renamed_count, 'publishable': False}, ensure_ascii=False))
 
 if __name__ == '__main__':
     main()

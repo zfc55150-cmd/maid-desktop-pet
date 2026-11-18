@@ -72,7 +72,9 @@ PetSprite.prototype.onWorkTick = function onWorkTick(snapshot, tick) {
     Array.isArray(textGroup) && textGroup.length > 0
       ? textGroup[Math.floor(Math.random() * textGroup.length)]
       : undefined;
-  this.workText = (snapshot && snapshot.task) || configuredText || null;
+  const rawText = (snapshot && snapshot.task) || configuredText || null;
+  const lang = this.getLang ? this.getLang() : (typeof CONFIG !== 'undefined' ? CONFIG.lang : 'zh-CN');
+  this.workText = (snapshot && snapshot.task) ? rawText : (S.translateWorkStatusText ? S.translateWorkStatusText(rawText, lang) : rawText);
   const terminal = state === 'success' || state === 'error';
   // 气泡点亮/收起只在状态变化时动作：同状态后续 tick（todo 文案更新、其它会话事件搅动 ts）
   // 不重新点亮**已自动收起的终态气泡**——否则"任务完成"的气泡会被后续 ts 变化反复弹回（Bug 2，
@@ -111,7 +113,7 @@ PetSprite.prototype.showBalanceNotice = function showBalanceNotice(state) {
   if (!state || state.ok) return;
   this.bubbleOn = true;
   this.balanceWrap = true; // 文字说明可能多行：renderBubble 据此套用换行变体（默认 nowrap 会顶出宠物宽度）
-  this.balanceView = S.balanceBubbleView(state);
+  this.balanceView = S.balanceBubbleView(state, this.getLang ? this.getLang() : CONFIG.lang);
   this.renderBubble();
   if (this.bubbleTimer !== null) window.clearTimeout(this.bubbleTimer);
   this.bubbleTimer = window.setTimeout(() => {
@@ -149,7 +151,7 @@ PetSprite.prototype.showWhisper = function showWhisper(text, image) {
   );
   this.stopMove();
   this.whisperOn = true;
-  this.whisperView = S.whisperBubbleView({ ok: true, text, ts: 0 });
+  this.whisperView = S.whisperBubbleView({ ok: true, text, ts: 0 }, this.getLang ? this.getLang() : CONFIG.lang);
   this.whisperImage = typeof image === 'string' ? image : '';
   this.renderBubble();
   // 气泡 10s 定时消失（与动画解耦，与余额同一语义；重复触发先清旧定时器）
@@ -181,7 +183,7 @@ PetSprite.prototype.showBalanceNow = function showBalanceNow(state) {
   this.stopMove();
   this.bubbleOn = true;
   this.balanceWrap = false; // 正常余额气泡是单行（nowrap），别继承上一次文字说明的换行变体
-  this.balanceView = S.balanceBubbleView(state);
+  this.balanceView = S.balanceBubbleView(state, this.getLang ? this.getLang() : CONFIG.lang);
   this.renderBubble();
   // 气泡 10s 定时消失（与动画解耦：即使动画被点击/拖拽打断，气泡也按时收起；重复触发先清旧定时器）
   if (this.bubbleTimer !== null) window.clearTimeout(this.bubbleTimer);

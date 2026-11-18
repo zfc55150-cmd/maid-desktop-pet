@@ -91,12 +91,59 @@ function computeResetTimeMs(headers, nowMs) {
   return nowMs + 3600000;
 }
 
-function formatClock(ms) {
-  if (!Number.isFinite(ms) || ms <= 0) return '稍后';
+const NOTICE_MESSAGES = {
+  'zh-CN': {
+    later: '稍后',
+    checking: '本仓库新版本：正在检查 GitHub Release…',
+    available: tag => `本仓库新版本：发现新版本 ${tag}`,
+    current: tag => `本仓库新版本：已是最新版本（${tag}）`,
+    noAsset: '本仓库新版本：近期发布中未找到本桌宠的下载包',
+    rateLimitedDefault: time => `GitHub 访问限流，请于 ${time} 后重试`,
+    rateLimitedStatus: msg => `本仓库新版本：${msg}`,
+    failedDefault: '网络不可用，无法连接 GitHub Release',
+    failedStatus: msg => `本仓库新版本：${msg}`,
+    idle: '本仓库新版本：仅检查与提醒，不自动下载或改写程序',
+    fetchUnavailable: '当前运行环境不支持网络请求（fetch 不可用）',
+    timeout: '连接 GitHub 超时（10秒），请检查网络后重试',
+    offline: detail => `网络不可用，无法连接 GitHub（${detail}）`,
+    unknownError: '连接失败',
+    rateLimitedHttp: (status, time) => `GitHub 访问受限（HTTP ${status || 403}），限流至 ${time}`,
+    httpError: status => `GitHub 服务返回异常状态（HTTP ${status || '未知'}）`,
+    parseError: 'GitHub Release 响应解析失败',
+    invalidLocalTag: '本地发布版本号格式无效',
+    bubble: tag => `主人，有新版本 ${tag} 啦，去设置里看看～`
+  },
+  ja: {
+    later: '後ほど',
+    checking: '新バージョン：GitHub Release を確認中…',
+    available: tag => `新バージョン：${tag} が公開されています`,
+    current: tag => `新バージョン：最新バージョンです（${tag}）`,
+    noAsset: '新バージョン：最近のリリースにこのペット用のパッケージが見つかりませんでした',
+    rateLimitedDefault: time => `GitHub のレート制限に達しました。${time} 以降に再試行してください`,
+    rateLimitedStatus: msg => `新バージョン：${msg}`,
+    failedDefault: 'ネットワークが利用できないため、GitHub Release に接続できません',
+    failedStatus: msg => `新バージョン：${msg}`,
+    idle: '新バージョン：確認とお知らせのみ行い、自動ダウンロードや書き換えは行いません',
+    fetchUnavailable: '現在の実行環境はネットワークリクエスト（fetch）に対応していません',
+    timeout: 'GitHub への接続がタイムアウトしました（10秒）。ネットワークを確認して再試行してください',
+    offline: detail => `ネットワークが利用できないため、GitHub に接続できません（${detail}）`,
+    unknownError: '接続失敗',
+    rateLimitedHttp: (status, time) => `GitHub アクセス制限（HTTP ${status || 403}）。${time} まで待機してください`,
+    httpError: status => `GitHub から異常なステータスが返されました（HTTP ${status || '不明'}）`,
+    parseError: 'GitHub Release の応答を解析できませんでした',
+    invalidLocalTag: 'ローカルのバージョン表記が無効です',
+    bubble: tag => `ご主人、新しいバージョン ${tag} が出ていますよ。設定から確認してみてね～`
+  }
+};
+const noticeMsg = (lang = 'zh-CN') => NOTICE_MESSAGES[lang === 'ja' ? 'ja' : 'zh-CN'];
+
+function formatClock(ms, lang = 'zh-CN') {
+  const m = noticeMsg(lang);
+  if (!Number.isFinite(ms) || ms <= 0) return m.later;
   try {
-    return new Date(ms).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+    return new Date(ms).toLocaleTimeString(lang === 'ja' ? 'ja-JP' : 'zh-CN', { hour: '2-digit', minute: '2-digit' });
   } catch {
-    return '稍后';
+    return m.later;
   }
 }
 
@@ -122,23 +169,24 @@ function normalizeReleaseState(raw = {}, localTag = 'v1.0.0') {
   };
 }
 
-function formatReleaseStatusText(state, localTag = 'v1.0.0') {
+function formatReleaseStatusText(state, localTag = 'v1.0.0', lang = 'zh-CN') {
   const s = normalizeReleaseState(state, localTag);
+  const m = noticeMsg(lang);
   switch (s.phase) {
     case 'checking':
-      return '本仓库新版本：正在检查 GitHub Release…';
+      return m.checking;
     case 'available':
-      return `本仓库新版本：发现新版本 ${s.latestTag}`;
+      return m.available(s.latestTag);
     case 'current':
-      return `本仓库新版本：已是最新版本（${s.latestTag || localTag}）`;
+      return m.current(s.latestTag || localTag);
     case 'no-asset':
-      return '本仓库新版本：近期发布中未找到本桌宠的下载包';
+      return m.noAsset;
     case 'rate-limited':
-      return `本仓库新版本：${s.errorReason || `GitHub 访问限流，请于 ${formatClock(s.retryAfterAt)} 后重试`}`;
+      return m.rateLimitedStatus(s.errorReason || m.rateLimitedDefault(formatClock(s.retryAfterAt, lang)));
     case 'failed':
-      return `本仓库新版本：${s.errorReason || '网络不可用，无法连接 GitHub Release'}`;
+      return m.failedStatus(s.errorReason || m.failedDefault);
     default:
-      return '本仓库新版本：仅检查与提醒，不自动下载或改写程序';
+      return m.idle;
   }
 }
 
@@ -164,14 +212,16 @@ async function checkReleaseNotice({
   now = Date.now,
   timeoutMs = REQUEST_TIMEOUT_MS,
   onNotify = null,
-  assetKind = null
+  assetKind = null,
+  lang = 'zh-CN'
 } = {}) {
+  const m = noticeMsg(lang);
   const nowMs = typeof now === 'function' ? now() : Number(now);
   const saved = readStore(store);
   const current = normalizeReleaseState(saved, localTag);
 
   if (current.retryAfterAt && nowMs < current.retryAfterAt) {
-    const reason = current.errorReason || `GitHub 访问限流，请于 ${formatClock(current.retryAfterAt)} 后重试`;
+    const reason = current.errorReason || m.rateLimitedDefault(formatClock(current.retryAfterAt, lang));
     const blocked = {
       latestTag: current.latestTag,
       url: current.url,
@@ -200,7 +250,7 @@ async function checkReleaseNotice({
       phase: 'failed',
       lastNotifiedTag: current.lastNotifiedTag,
       retryAfterAt: null,
-      errorReason: '当前运行环境不支持网络请求（fetch 不可用）'
+      errorReason: m.fetchUnavailable
     };
     writeStore(store, failed);
     return { ok: false, notified: false, state: normalizeReleaseState(failed, localTag) };
@@ -222,7 +272,7 @@ async function checkReleaseNotice({
   } catch (err) {
     clearTimeout(timer);
     const isTimeout = err?.name === 'AbortError' || err?.message === 'TIMEOUT' || String(err?.cause?.code || err?.code || '').includes('TIMEOUT');
-    const detail = isTimeout ? '连接 GitHub 超时（10秒），请检查网络后重试' : `网络不可用，无法连接 GitHub（${err?.code || err?.message || '连接失败'}）`;
+    const detail = isTimeout ? m.timeout : m.offline(err?.code || err?.message || m.unknownError);
     const failed = {
       latestTag: current.latestTag,
       url: current.url,
@@ -241,7 +291,7 @@ async function checkReleaseNotice({
   if (status === 403 || status === 429 || (remaining !== null && remaining.trim() === '0')) {
     clearTimeout(timer);
     const retryAfterAt = computeResetTimeMs(response?.headers, nowMs);
-    const reason = `GitHub 访问受限（HTTP ${status || 403}），限流至 ${formatClock(retryAfterAt)}`;
+    const reason = m.rateLimitedHttp(status, formatClock(retryAfterAt, lang));
     const rateLimited = {
       latestTag: current.latestTag,
       url: current.url,
@@ -266,7 +316,7 @@ async function checkReleaseNotice({
       phase: 'failed',
       lastNotifiedTag: current.lastNotifiedTag,
       retryAfterAt: null,
-      errorReason: `GitHub 服务返回异常状态（HTTP ${status || '未知'}）`
+      errorReason: m.httpError(status)
     };
     writeStore(store, failed);
     return { ok: false, notified: false, state: normalizeReleaseState(failed, localTag) };
@@ -287,7 +337,7 @@ async function checkReleaseNotice({
       phase: 'failed',
       lastNotifiedTag: current.lastNotifiedTag,
       retryAfterAt: null,
-      errorReason: 'GitHub Release 响应解析失败'
+      errorReason: m.parseError
     };
     writeStore(store, failed);
     return { ok: false, notified: false, state: normalizeReleaseState(failed, localTag) };
@@ -314,7 +364,7 @@ async function checkReleaseNotice({
       phase: 'failed',
       lastNotifiedTag: current.lastNotifiedTag,
       retryAfterAt: null,
-      errorReason: '本地发布版本号格式无效'
+      errorReason: m.invalidLocalTag
     };
     writeStore(store, failed);
     return { ok: false, notified: false, state: normalizeReleaseState(failed, localTag) };
@@ -337,7 +387,7 @@ async function checkReleaseNotice({
     };
     writeStore(store, nextState);
     if (shouldNotify && typeof onNotify === 'function') {
-      const bubbleText = `主人，有新版本 ${rawTag} 啦，去设置里看看～`;
+      const bubbleText = m.bubble(rawTag);
       onNotify({ latestTag: rawTag, url: safeUrl, text: bubbleText });
     }
     return { ok: true, notified: shouldNotify, state: normalizeReleaseState(nextState, localTag) };

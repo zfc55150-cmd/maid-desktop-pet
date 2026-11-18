@@ -38,6 +38,9 @@ function loadProductConfig(argv = process.argv, appDir = __dirname, readJson = d
   for (const r of candidates) {
     const cfg = readJson(path.join(r, 'product.json'));
     if (cfg) {
+      if (r !== resolved.root) {
+        try { process.stderr.write(`[gpt-niang] warning: product.json missing or unreadable at ${path.join(resolved.root, 'product.json')}; falling back to ${path.join(r, 'product.json')}\n`); } catch {}
+      }
       if (typeof cfg.dataDir === 'string') cfg.dataDir = path.resolve(r, cfg.dataDir);
       if (typeof cfg.compatRoot === 'string') cfg.compatRoot = path.resolve(r, cfg.compatRoot);
       return {root: r, cfg, source: r === resolved.root ? resolved.source : 'default'};

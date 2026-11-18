@@ -14,7 +14,19 @@ const CONFIG = {
   scale: Number(params.get('scale') || '1'),
   petIndex: Number(params.get('petIndex') || '0'),
   topInsetRatio: Number(params.get('topInsetRatio') || '0'),
+  lang: S.resolveLanguage ? S.resolveLanguage(params.get('lang') || 'auto') : 'zh-CN',
 };
+function setAppLanguage(lang) {
+  const resolved = S.resolveLanguage ? S.resolveLanguage(lang) : (lang === 'ja' ? 'ja' : 'zh-CN');
+  CONFIG.lang = resolved;
+  if (typeof document !== 'undefined') {
+    document.documentElement.lang = resolved;
+    document.title = resolved === 'ja' ? 'dsh-pet デスクトップペット' : 'dsh-pet 桌宠（桌面模式）';
+  }
+  return resolved;
+}
+setAppLanguage(CONFIG.lang);
+window.setAppLanguage = setAppLanguage;
 
 // ---------- 渲染端坐标系统一约定（DESIGN.md §3.5） ----------
 // main 进程对窗口做页面级缩放 setZoomFactor(CONFIG.scale) 后，本窗口的 DOM 度量、事件坐标、

@@ -105,6 +105,31 @@ for (const stream of [process.stdout, process.stderr]) {
   });
 }
 
+// 捕获未处理异常与拒绝，防止 Electron 弹出系统错误模态框并变成僵死进程（A-H4）
+let fatalExiting = false;
+process.on('uncaughtException', (error) => {
+  if (isBrokenPipeError(error)) {
+    exitForDeadHost();
+    return;
+  }
+  try {
+    console.error('[dsh-pet-desktop-helper] uncaughtException:', error && error.stack ? error.stack : error);
+  } catch {}
+  if (!fatalExiting) {
+    fatalExiting = true;
+    app.exit(1);
+  }
+});
+process.on('unhandledRejection', (reason) => {
+  if (isBrokenPipeError(reason)) {
+    exitForDeadHost();
+    return;
+  }
+  try {
+    console.error('[dsh-pet-desktop-helper] unhandledRejection:', reason && reason.stack ? reason.stack : reason);
+  } catch {}
+});
+
 // ② 宿主探测：DSH_PET_HOST_PID 由宿主 spawn 时注入；未注入/非法 → parseHostPid 给 0 → 不探测（不误退）。
 // DPI 探测实例是一次性短命进程（它的父进程是 helper 而不是宿主），不参与这套机制。
 const HOST_PID = parseHostPid(process.env.DSH_PET_HOST_PID);
@@ -392,7 +417,7 @@ function deskGeometry() {
   return buildDeskGeometry(screen.getAllDisplays(), screen.getPrimaryDisplay().id, process.platform);
 }
 
-function createPetWindows() {
+function createPetWindows(initialLang = 'zh-CN') {
   const geo = deskGeometry();
   const area = geo.hull;
   const configUrl = process.env.DSH_PET_CONFIG_URL || 'http://127.0.0.1:3080/dsh-pet-7340/config';
@@ -500,6 +525,9 @@ function createPetWindows() {
       clearInterval(pointerTimer);
       clearInterval(topmostTimer);
       windows.delete(pet.id);
+      if (petStates.delete(pet.id) && windows.size > 0) {
+        broadcastPetStates();
+      }
       lastRequestedBounds.delete(win.id);
       windowIgnore.delete(win.id);
       inputBusy.delete(win.id);
@@ -507,7 +535,7 @@ function createPetWindows() {
       offBodyMs.delete(win.id);
     });
     win
-      .loadFile('index.html', {
+      .loadFile(path.join(__dirname, 'index.html'), {
         query: {
           configUrl,
           bridge: BRIDGE ? '1' : '0',
@@ -527,6 +555,7 @@ function createPetWindows() {
           // 逐屏完整面板（含任务栏区）：抛掷越界侧探测用（任务栏条带不当墙，见 shared/physics.ts）
           panels: JSON.stringify(geo.panels),
           primaryIndex: String(geo.primaryIndex),
+          lang: initialLang,
         },
       })
       .catch((error) => {
@@ -626,8 +655,12 @@ async function handleBridgeRequest(request) {
   const headers = { 'access-control-allow-origin': '*' }; // 渲染端页面是 file:// 源，scheme 跨源需 CORS
   if (resp.contentType) headers['content-type'] = resp.contentType;
   if (resp.file) {
-    // 素材：直接读盘返回（宿主已解析好绝对路径；带 range 让视频能拖动进度条）
+    // 素材：直接读盘返回（宿主已解析好绝对路径；先校验文件大小上限 64MB 防 OOM）
     try {
+      const st = await fsPromises.stat(resp.file);
+      if (!st.isFile() || st.size > 64 * 1024 * 1024) {
+        return new Response('dsh-pet: asset too large or invalid', { status: 413, headers });
+      }
       const data = await fsPromises.readFile(resp.file);
       return new Response(new Uint8Array(data), { status: resp.status || 200, headers });
     } catch (e) {
@@ -638,13 +671,26 @@ async function handleBridgeRequest(request) {
   return new Response(resp.body ?? '', { status: resp.status || 200, headers });
 }
 
+let chatControlsRef = null;
+function resolveInstalledLocalTag() {
+  try {
+    const tagObj = JSON.parse(readFileSync(path.join(__dirname, 'release-tag.json'), 'utf8'));
+    if (typeof tagObj?.tag === 'string' && /^v\d+\.\d+\.\d+$/.test(tagObj.tag)) return tagObj.tag;
+  } catch {}
+  try {
+    const pkg = JSON.parse(readFileSync(path.join(__dirname, '../../package.json'), 'utf8'));
+    if (typeof pkg?.releaseTag === 'string' && /^v\d+\.\d+\.\d+$/.test(pkg.releaseTag)) return pkg.releaseTag;
+  } catch {}
+  return 'v1.0.4';
+}
 // Installed distribution: check the public release without changing installed code.
 if (process.env.DSH_PET_DPI_PROBE !== '1' && process.env.DSH_PET_SMOKE !== '1' && process.env.DSH_HOME) {
   app.whenReady().then(() => require('./release-reminder.js').start({
     electron: electronApi,
-    localTag: 'v1.0.1',
+    localTag: resolveInstalledLocalTag(),
     stateDir: process.env.DSH_HOME,
-    getPetWindow: () => [...windows.values()].find(pet => !pet.isDestroyed() && pet.isVisible())
+    getPetWindow: () => [...windows.values()].find(pet => !pet.isDestroyed() && pet.isVisible()),
+    getLanguage: () => chatControlsRef?.getLanguage?.() || 'zh-CN'
   })).catch(() => {});
 }
 
@@ -682,24 +728,26 @@ app.whenReady().then(() => {
   }
 
   const chatControls=require('./simple-chat-main')(electronApi, windows);
+  chatControlsRef = chatControls;
+  const mainMsg = (zh, ja) => (chatControls.getLanguage() === 'ja' ? ja : zh);
   ipcMain.handle('pet:reload', async event => {
-    if (!trustedReload(event)) return {ok:false,error:'无效的窗口请求。'};
-    if (chatControls.isBusy()) return {ok:false,error:'请先停止回复或朗读，再重新加载。'};
+    if (!trustedReload(event)) return {ok:false,error:mainMsg('无效的窗口请求。','無効なウィンドウリクエストです。')};
+    if (chatControls.isBusy()) return {ok:false,error:mainMsg('请先停止回复或朗读，再重新加载。','返信または読み上げを停止してから再読み込みしてください。')};
     try {
-      const url=require('./pet-size-main').reloadURL(process.env.DSH_PET_CONFIG_URL);
+      const url=require('./pet-size-main').reloadURL(process.env.DSH_PET_CONFIG_URL, chatControls.getLanguage());
       const response=await fetch(url,{method:'POST',headers:localControl.headers(),redirect:'error',signal:AbortSignal.timeout(5000)});
       if(!response.ok)throw new Error('reload');return {ok:true};
-    } catch {return {ok:false,error:'暂时无法重新加载，请稍后再试。'};}
+    } catch {return {ok:false,error:mainMsg('暂时无法重新加载，请稍后再试。','現在再読み込みできません。しばらくしてからもう一度お試しください。')};}
   });
   ipcMain.handle('pet:quit', async event => {
-    if (!trustedReload(event)) return {ok:false,error:'无效的窗口请求。'};
-    if (chatControls.isBusy()) return {ok:false,error:'请先停止回复或朗读，再退出桌宠。'};
+    if (!trustedReload(event)) return {ok:false,error:mainMsg('无效的窗口请求。','無効なウィンドウリクエストです。')};
+    if (chatControls.isBusy()) return {ok:false,error:mainMsg('请先停止回复或朗读，再退出桌宠。','返信または読み上げを停止してから終了してください。')};
     try {
       const url=localControl.shutdownURL(process.env.DSH_PET_CONFIG_URL);
       const response=await fetch(url,{method:'POST',headers:localControl.headers(),redirect:'error',signal:AbortSignal.timeout(5000)});
       if(!response.ok)throw new Error('shutdown');
       return {ok:true};
-    } catch {return {ok:false,error:'暂时无法退出桌宠，请稍后再试。'};}
+    } catch {return {ok:false,error:mainMsg('暂时无法退出桌宠，请稍后再试。','現在終了できません。しばらくしてからもう一度お試しください。')};}
   });
   function trustedReload(event) {
     return event.senderFrame && event.senderFrame === event.sender.mainFrame &&
@@ -707,8 +755,8 @@ app.whenReady().then(() => {
       [...windows.values()].some(win => !win.isDestroyed() && win.webContents.id === event.sender.id);
   }
 
-  require('./pet-size-main')(electronApi, windows,{isBusy:()=>chatControls.isBusy()});
-  createPetWindows();
+  require('./pet-size-main')(electronApi, windows,{isBusy:()=>chatControls.isBusy(), getLanguage:()=>chatControls.getLanguage()});
+  createPetWindows(chatControls.getLanguage());
 
   // 宠物窗口跟随：renderer 逐帧上报窗口内容区位置/尺寸
   const trustedPet = event => event.senderFrame && event.senderFrame === event.sender.mainFrame &&
@@ -723,6 +771,7 @@ app.whenReady().then(() => {
     const width = Number(bounds?.width);
     const height = Number(bounds?.height);
     if (![x, y, width, height].every(Number.isFinite)) return;
+    if (width < 64 || width > 4096 || height < 64 || height > 4096 || Math.abs(x) > 100000 || Math.abs(y) > 100000) return;
     // 去重必须比较**我们上一次请求的值**，绝不能拿 win.getContentBounds() 回读值来比：
     // 跨缩放屏的 DIP↔物理 往返有 ScaleToEnclosingRect（向外取整）与 origin 舍入，
     // 读回值与设定值永远不相等，去重永远不生效，反而变成每帧强制重设窗口位置。
@@ -853,10 +902,25 @@ app.whenReady().then(() => {
   //     比 spawn 宿主 exe 干净——不必处理 ELECTRON_RUN_AS_NODE（spawn 继承它就成了 node 模式，起不了界面）
   //     与安装路径探测。
   //   site（dsh web / 独立模式）→ 原行为：系统默认浏览器打开站点。
+  function isAllowedSiteUrl(rawUrl) {
+    try {
+      const parsed = new URL(rawUrl);
+      if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return false;
+      const allowedOrigins = new Set(['http://127.0.0.1', 'http://localhost', 'https://127.0.0.1', 'https://localhost']);
+      for (const envUrl of [process.env.DSH_PET_SITE_URL, process.env.DSH_PET_CONFIG_URL]) {
+        if (envUrl && /^https?:[/][/]/.test(envUrl)) {
+          try { allowedOrigins.add(new URL(envUrl).origin); } catch {}
+        }
+      }
+      return allowedOrigins.has(parsed.origin) || parsed.hostname === '127.0.0.1' || parsed.hostname === 'localhost';
+    } catch {
+      return false;
+    }
+  }
   ipcMain.on('pet:open-site', (event, payload) => {
     if (!trustedPet(event)) return;
     const url = payload && typeof payload === 'object' ? String(payload.url || '') : '';
-    if (!/^https?:[/][/]/.test(url)) return;
+    if (!isAllowedSiteUrl(url)) return;
     if (OPEN_TARGET === 'desktop') {
       // 协议未注册（绿色版 / 注册表被清）时回落成打开站点，至少不是"点了没反应"
       shell.openExternal('dsh://open').catch((error) => {

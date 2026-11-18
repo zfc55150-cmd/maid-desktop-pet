@@ -1216,6 +1216,7 @@ class PetSprite {
           score: S.clickScore(grabSpeed, this.size),
           speed: grabSpeed,
           size: this.pet.size,
+          lang: this.getLang(),
         });
       }
     }
@@ -1477,8 +1478,14 @@ class PetSprite {
    * 为什么要存视口坐标而不是窗口坐标：宠物自己走动/被抛出时窗口会移动，存视口坐标就只需
    * 在这里按当前窗口原点重算一次，贴光标不会漂（sendBounds 每帧会调本函数）。
    */
+  getLang() {
+    const lang = this.inlineChat?.state?.resolvedLanguage || (typeof CONFIG !== 'undefined' ? CONFIG.lang : '') || 'zh-CN';
+    return lang === 'ja' ? 'ja' : 'zh-CN';
+  }
+
   renderTip() {
-    if (this.tip.textContent !== this.pet.name) this.tip.textContent = this.pet.name;
+    const displayName = S.translatePetName ? S.translatePetName(this.pet.name, this.getLang()) : this.pet.name;
+    if (this.tip.textContent !== displayName) this.tip.textContent = displayName;
     const cursor = this.tipCursor;
     if (cursor) {
       const winX = this.pos.x - this.margin.l;
@@ -1648,19 +1655,20 @@ class PetSprite {
     // 桌面专属工具根项（打开网站 / 查看余额 / 碎碎念 / 对话 / 重载配置）+ 共享菜单树（动作→分类→具体动画）
     // 碎碎念/对话项无条件显示：手动触发不受 whisperEnabled 限制（该字段只影响自动周期轮询）
     // 首项文案随宿主形态变（OPEN_TARGET）：宿主是 DSH 桌面应用时点是"唤起桌面应用窗口"，仍叫「打开网站」会误导
+    const ja = this.getLang ? this.getLang() === 'ja' : false;
     const tools = [
-      { label: '对话', action: 'chat' },
-      { label: this.inlineChat.state?.voiceEnabled ? '语音：开启（点此静音）' : '语音：静音（点此开启）', action: 'chat-voice' },
-      { label: '设置与聊天记录', action: 'chat-settings' },
-      ...(this.inlineChat?.state?.messages?.at(-1)?.incomplete ? [{label:'继续未完成的回复',action:'chat-continue'}] : []),
-      { label: '调整大小', action: 'pet-size' },
-      ...(this.forms?.supported !== false ? [{ label: '切换形态', action: 'form-toggle' }] : []),
-      { label: '停止回复 / 朗读', action: 'chat-stop' },
-      { label: '试听语音与气泡', action: 'chat-preview' },
-      { label: '重载配置', action: 'reload' },
-      { label: '退出', action: 'quit' },
+      { label: ja ? '会話' : '对话', action: 'chat' },
+      { label: this.inlineChat.state?.voiceEnabled ? (ja ? '音声：オン（クリックでミュート）' : '语音：开启（点此静音）') : (ja ? '音声：ミュート（クリックでオン）' : '语音：静音（点此开启）'), action: 'chat-voice' },
+      { label: ja ? '設定と履歴' : '设置与聊天记录', action: 'chat-settings' },
+      ...(this.inlineChat?.state?.messages?.at(-1)?.incomplete ? [{label: ja ? '続きを生成' : '继续未完成的回复',action:'chat-continue'}] : []),
+      { label: ja ? 'サイズ調整' : '调整大小', action: 'pet-size' },
+      ...(this.forms?.supported !== false ? [{ label: ja ? 'フォーム切替' : '切换形态', action: 'form-toggle' }] : []),
+      { label: ja ? '返信・読み上げを停止' : '停止回复 / 朗读', action: 'chat-stop' },
+      { label: ja ? '音声と吹き出しを試聴' : '试听语音与气泡', action: 'chat-preview' },
+      { label: ja ? '設定を再読み込み' : '重载配置', action: 'reload' },
+      { label: ja ? '終了' : '退出', action: 'quit' },
     ];
-    const tree = tools.concat(this.forms.mode === 'full' ? S.buildMenuTree(this.animations) : []);
+    const tree = tools.concat(this.forms.mode === 'full' ? S.buildMenuTree(this.animations, ja ? 'ja' : 'zh-CN') : []);
     if (!tree.length) return;
     this.menuOpen = true;
     this.setInteractive(true); // 菜单是窗口内 DOM：悬停期间整窗保持可交互，关闭后恢复命中区穿透
@@ -1692,7 +1700,7 @@ class PetSprite {
     if (leaf.action === 'form-full' || leaf.action === 'form-bust') { void this.forms.set(leaf.action === 'form-bust' ? 'bust' : 'full'); return; }
     if (leaf.action === 'chat-voice') { this.forms.stopSound(); this.inlineChat.toggleVoice(); return; }
     if (leaf.action === 'chat-settings') { this.inlineChat.openSettings(); return; }
-    if (leaf.action === 'pet-size') { window.petBridge.openSizeSettings().then(r=>{if(!r.ok)this.inlineChat.bubble(r.error);}).catch(()=>this.inlineChat.bubble('大小设置暂时无法打开，请重试。')); return; }
+    if (leaf.action === 'pet-size') { window.petBridge.openSizeSettings().then(r=>{if(!r.ok)this.inlineChat.bubble(r.error);}).catch(()=>this.inlineChat.bubble(this.getLang()==='ja'?'サイズ設定を開けませんでした。もう一度お試しください。':'大小设置暂时无法打开，请重试。')); return; }
     if (leaf.action === 'chat-stop') { this.inlineChat.stop(); return; }
     if (leaf.action === 'chat-preview') { this.inlineChat.preview(); return; }
     if (leaf.action === 'open-site') {
@@ -1711,7 +1719,7 @@ class PetSprite {
       this.showChatFromMenu(); // 打开对话弹窗（记忆经 host /chat 读写，浏览器/桌面同一实例共享）
       return;
     }
-    if (leaf.action === 'chat-continue') { if(!this.inlineChat.pending) void this.inlineChat.send('请接着上一条未完成的回复继续，不要重复已经说过的内容。'); return; }
+    if (leaf.action === 'chat-continue') { if(!this.inlineChat.pending) void this.inlineChat.send(this.getLang()==='ja'?'前回の途中の返答の続きを、すでに話した内容を繰り返さずに続けてください。':'请接着上一条未完成的回复继续，不要重复已经说过的内容。'); return; }
     if (leaf.action === 'reload') {
       this.reloadDesktop(); // 请宿主重启桌面 Helper：全部桌面宠物窗口按最新配置重建
       return;
@@ -1719,7 +1727,7 @@ class PetSprite {
     if (leaf.action === 'quit') {
       window.petBridge.quitPet().then(result => {
         if (!result.ok) this.inlineChat.bubble(result.error);
-      }).catch(() => this.inlineChat.bubble('暂时无法退出桌宠，请稍后再试。'));
+      }).catch(() => this.inlineChat.bubble(this.getLang()==='ja'?'現在終了できません。しばらくしてからもう一度お試しください。':'暂时无法退出桌宠，请稍后再试。'));
       return;
     }
     if (!leaf.anim) return;
@@ -1826,7 +1834,7 @@ class PetSprite {
   reloadDesktop() {
     window.petBridge.reloadConfig().then(result => {
       if (!result.ok) this.inlineChat.bubble(result.error);
-    }).catch(() => this.inlineChat.bubble('暂时无法重新加载，请稍后再试。'));
+    }).catch(() => this.inlineChat.bubble(this.getLang()==='ja'?'現在再読み込みできません。しばらくしてからもう一度お試しください。':'暂时无法重新加载，请稍后再试。'));
   }
 
   renderBubble() {

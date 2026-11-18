@@ -25,22 +25,22 @@ function saveState(file, state) {
   } finally { fs.rmSync(temp, { force: true }); }
 }
 
-async function checkOnce({ stateFile, localTag, show, fetchImpl = globalThis.fetch, now = Date.now,
+async function checkOnce({ stateFile, localTag, show, fetchImpl = globalThis.fetch, now = Date.now, lang = 'zh-CN',
   checkRelease = require('./release-notice.js').checkReleaseNotice }) {
   if (!TAG.test(localTag)) return false;
   const state = readState(stateFile);
   if (state.enabled === false) return false;
-  const result = await checkRelease({ store: state, localTag, now, fetchImpl, assetKind: 'deepseek' });
+  const result = await checkRelease({ store: state, localTag, now, fetchImpl, assetKind: 'deepseek', lang });
   if (result.skipped !== 'throttled' && result.skipped !== 'rate-limited') saveState(stateFile, state);
   const { latestTag } = result.state;
   if (!result.ok || !result.state.hasUpdate || !TAG.test(latestTag) ||
       latestTag !== state.lastNotifiedTag || latestTag === state.lastShownTag) return false;
-  if (!await show(latestTag, releaseUrl(latestTag))) return false;
+  if (!await show(latestTag, releaseUrl(latestTag), lang)) return false;
   saveState(stateFile, { ...state, lastShownTag: latestTag });
   return true;
 }
 
-async function showNotice({ BrowserWindow, screen, shell }, pet, tag, url) {
+async function showNotice({ BrowserWindow, screen, shell }, pet, tag, url, lang = 'zh-CN') {
   if (!TAG.test(tag) || url !== releaseUrl(tag) || !pet || pet.isDestroyed() || !pet.isVisible()) return false;
   const area = screen.getDisplayMatching(pet.getBounds()).workArea;
   const width = Math.min(350, area.width);
@@ -61,7 +61,12 @@ async function showNotice({ BrowserWindow, screen, shell }, pet, tag, url) {
   });
   try {
     // The only dynamic HTML is a strictly validated numeric release tag.
-    const html = `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'"><title>DeepSeek 娘更新提醒</title>
+    const ja = lang === 'ja';
+    const html = ja
+      ? `<!doctype html><html lang="ja"><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'"><title>DeepSeekちゃん 更新のお知らせ</title>
+<style>body{font:14px "Yu Gothic UI","Meiryo","BIZ UDPGothic","Segoe UI",sans-serif;margin:16px;color:#233047}h1{font-size:17px;margin:0 0 8px}p{margin:0 0 14px}a{display:inline-block;padding:6px 12px;margin-right:8px;border:1px solid #b8c5db;border-radius:7px;color:#233047;text-decoration:none}a:first-of-type{background:#2458ab;color:white}</style>
+<h1>DeepSeekちゃん 新バージョン ${tag}</h1><p>GitHub で新しいポータブル版を確認できます。</p><a href="${action}download">ダウンロードへ</a><a href="${action}dismiss">閉じる</a></html>`
+      : `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'"><title>DeepSeek 娘更新提醒</title>
 <style>body{font:14px "Segoe UI","Microsoft YaHei",sans-serif;margin:16px;color:#233047}h1{font-size:18px;margin:0 0 8px}p{margin:0 0 14px}a{display:inline-block;padding:6px 12px;margin-right:8px;border:1px solid #b8c5db;border-radius:7px;color:#233047;text-decoration:none}a:first-of-type{background:#2458ab;color:white}</style>
 <h1>DeepSeek 娘有新版本 ${tag}</h1><p>可以前往 GitHub 查看新版便携包。</p><a href="${action}download">前往下载</a><a href="${action}dismiss">知道了</a></html>`;
     await win.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(html));
@@ -78,15 +83,16 @@ async function showNotice({ BrowserWindow, screen, shell }, pet, tag, url) {
   }
 }
 
-function start({ electron, stateDir, getPetWindow, localTag }) {
+function start({ electron, stateDir, getPetWindow, localTag, getLanguage }) {
   const stateFile = path.join(stateDir, 'release-reminder.json');
   let busy = false, stopped = false;
   const run = async () => {
     if (busy || stopped || !getPetWindow()) return;
     busy = true;
+    const lang = typeof getLanguage === 'function' ? getLanguage() : 'zh-CN';
     try {
-      await checkOnce({ stateFile, localTag, show: (tag, url) =>
-        !stopped && showNotice(electron, getPetWindow(), tag, url) });
+      await checkOnce({ stateFile, localTag, lang, show: (tag, url, currentLang) =>
+        !stopped && showNotice(electron, getPetWindow(), tag, url, currentLang) });
     } catch { /* An unavailable check must not affect pet startup or interaction. */ }
     finally { busy = false; }
   };

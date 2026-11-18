@@ -22,12 +22,19 @@ if (process.env.DSH_PET_DPI_PROBE !== '1' && process.env.DSH_PET_SMOKE !== '1' &
   })).catch(() => {});
 }
 """
-README = """## 新版本提醒 / Release reminders
+LEGACY_README = """## 新版本提醒 / Release reminders
 
 便携版启动后约 30 秒检查 GitHub，持续运行时也会检查，正常情况下每 24 小时最多查询一次。
 只有发布了新版 DeepSeek 娘 ZIP 才会提示；同一个版本只提醒一次。点「前往下载」打开对应发布页。
 程序不会自动下载安装。离线时照常使用。若想关闭提醒，退出后在包内
 `state/release-reminder.json` 写入 `{"enabled": false}`；删掉该设置可重新开启。
+
+"""
+
+README = """## 新版本提醒 / Release reminders / アップデート通知
+
+- **简体中文**：便携版启动后约 30 秒检查 GitHub，持续运行时也会检查，正常情况下每 24 小时最多查询一次。只有发布了新版 DeepSeek 娘 ZIP 才会提示；同一个版本只提醒一次。点「前往下载」打开对应发布页。程序不会自动下载安装，离线时照常使用。若想关闭提醒，退出后在包内 `state/release-reminder.json` 写入 `{"enabled": false}`；删掉该设置可重新开启。
+- **日本語**：ポータブル版は起動約 30 秒後および稼働中に GitHub Release を確認します（通常は 24 時間に最大 1 回）。新しい DeepSeek 娘 ZIP が公開された場合のみ一度だけ通知され、「ダウンロードページへ」から公式リリースページを開けます（自動ダウンロードや自動上書きは行いません）。オフライン時も通常通り利用できます。通知を無効にする場合は、終了後にパッケージ内の `state/release-reminder.json` へ `{"enabled": false}` を保存してください（設定を削除すると再有効化されます）。
 
 """
 
@@ -101,10 +108,14 @@ def build(base, expected_sha, tag, output_dir):
             raise ValueError("Base helper does not have the expected portable entry point")
         readme = source.read(entries["PORTABLE-README.md"]).decode("utf-8")
         if prior:
-            if README not in readme:
+            if README in readme:
+                readme = readme.replace(README, "", 1)
+            elif LEGACY_README in readme:
+                readme = readme.replace(LEGACY_README, "", 1)
+            else:
                 raise ValueError("Base README is missing the reminder instructions")
-            readme = readme.replace(README, "", 1)
-        readme = readme.replace(m[1], tag).replace(f"**{m[1][1:]}**", f"**{tag[1:]}**")
+        readme = re.sub(rf"(?<![\w.-]){re.escape(m[1])}(?![\w.-])", tag, readme, count=1)
+        readme = readme.replace(f"**{m[1][1:]}**", f"**{tag[1:]}**", 1)
         changed = {HELPER + "main.js": main if prior else main + boot,
                    "PORTABLE-README.md": (readme.rstrip() + "\n\n" + README).encode("utf-8")}
         expected_crcs = {rel: info.CRC for rel, info in entries.items() if rel not in changed and rel not in added}

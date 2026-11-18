@@ -2,16 +2,51 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 
-const unavailable = () => new Error('暂时无法读取已保存的聊天配置。请稍后重新打开“对话”或点“重新读取”，无需重新填写密钥。');
+function resolveLanguage(pref, localeHint) {
+ if (pref === 'zh-CN' || pref === 'ja') return pref;
+ let hint = localeHint;
+ if (!hint) {
+  try { hint = Intl.DateTimeFormat().resolvedOptions().locale; } catch { hint = ''; }
+ }
+ return String(hint || '').toLowerCase().startsWith('ja') ? 'ja' : 'zh-CN';
+}
+
+const MESSAGES = {
+ 'zh-CN': {
+  unavailable: '暂时无法读取已保存的聊天配置。请稍后重新打开“对话”或点“重新读取”，无需重新填写密钥。',
+  corrupt: '聊天配置内容损坏，已停止保存以保护原文件和备份。请联系修复，不要重新填写覆盖。',
+  saving: '聊天配置正在保存，请稍后重试。',
+  savingKeep: '聊天配置正在保存，请稍后重试；原配置未被覆盖。',
+  updated: '聊天配置已更新，本次未覆盖。请点“重新读取”后再试。',
+  writeFailed: '聊天配置未能保存，原文件和备份已保留。请检查磁盘空间及目录权限后重试。',
+  lockInvalid: '聊天配置保存保护路径异常，已停止写入。'
+ },
+ ja: {
+  unavailable: '保存されたチャット設定を読み込めませんでした。後ほど「会話」を開き直すか「再読み込み」を押してください（APIキーの再入力は不要です）。',
+  corrupt: 'チャット設定の内容が破損しているため、元ファイルとバックアップを保護するため保存を停止しました。修復するまで上書きしないでください。',
+  saving: 'チャット設定を保存中です。しばらくしてから再試行してください。',
+  savingKeep: 'チャット設定を保存中です。元設定は上書きされていません。しばらくしてから再試行してください。',
+  updated: 'チャット設定が他で更新されたため上書きしませんでした。「再読み込み」してからやり直してください。',
+  writeFailed: 'チャット設定を保存できませんでした。元ファイルとバックアップは保持されています。空き容量と権限を確認してください。',
+  lockInvalid: 'チャット設定の保存保護パスが異常なため書き込みを停止しました。'
+ }
+};
+
 class ChatConfigStore {
- constructor({dir, fsImpl=fs, requireExisting=false, allowFirstUse=false}) {
+ constructor({dir, fsImpl=fs, requireExisting=false, allowFirstUse=false, getLang=null}) {
   this.fs=fsImpl;this.dir=dir;this.file=path.join(dir,'chat.json');
   this.backup=this.file+'.bak';this.requireExisting=requireExisting;this.allowFirstUse=allowFirstUse;this.seenFile=false;
+  this.getLang=typeof getLang==='function'?getLang:()=>'zh-CN';
+ }
+ msg(key) {
+  const lang = this.getLang() === 'ja' ? 'ja' : 'zh-CN';
+  return MESSAGES[lang][key] || MESSAGES['zh-CN'][key];
  }
  validate(data) {
   if(!data||typeof data!=='object'||Array.isArray(data))throw new Error('invalid');
   if(this.requireExisting&&(typeof data.prompt!=='string'||!Array.isArray(data.messages)))throw new Error('invalid');
   if(data.key!==undefined&&(typeof data.key!=='string'||data.key.length>4096))throw new Error('invalid');
+  if(data.language!==undefined&&!['auto','zh-CN','ja'].includes(data.language))throw new Error('invalid');
   if(data.prompt!==undefined&&(typeof data.prompt!=='string'||data.prompt.length>4000))throw new Error('invalid');
    if(data.memory!==undefined&&(typeof data.memory!=='string'||data.memory.length>6000))throw new Error('invalid');
   if(data.autoMemoryEnabled!==undefined&&typeof data.autoMemoryEnabled!=='boolean')throw new Error('invalid');
@@ -24,19 +59,26 @@ class ChatConfigStore {
  }
  read() {
   let raw;
-  try{raw=this.fs.readFileSync(this.file,'utf8');}
+  try{
+   if(typeof this.fs.statSync==='function'){
+    const st=this.fs.statSync(this.file);
+    if(st.size>8*1024*1024)throw new Error('too_large');
+   }
+   raw=this.fs.readFileSync(this.file,'utf8');
+  }
   catch(error){
+   if(error.message==='too_large')throw new Error(this.msg('corrupt'));
    if(error.code==='ENOENT'&&!this.seenFile){
     if(this.allowFirstUse){
      try{this.fs.lstatSync(this.backup);}
      catch(backupError){if(backupError.code==='ENOENT')return {data:{},raw:null,revision:null};}
     }else if(!this.requireExisting)return {data:{},raw:null,revision:null};
    }
-   throw unavailable();
+   throw new Error(this.msg('unavailable'));
   }
   let data;
   try{data=this.validate(JSON.parse(raw));}
-  catch{throw new Error('聊天配置内容损坏，已停止保存以保护原文件和备份。请联系修复，不要重新填写覆盖。');}
+  catch{throw new Error(this.msg('corrupt'));}
   this.seenFile=true;
   return {data,raw,revision:crypto.createHash('sha256').update(raw).digest('hex')};
  }
@@ -55,18 +97,18 @@ class ChatConfigStore {
     if(Number.isInteger(owner)&&owner>0){
      try{process.kill(owner,0);}catch(probe){
       if(probe.code==='ESRCH'){
-       if(this.readLock(lockPath).raw!==observed.raw)throw new Error('聊天配置正在保存，请稍后重试。');
+       if(this.readLock(lockPath).raw!==observed.raw)throw new Error(this.msg('saving'));
        this.removeLock(lockPath,observed);lock=this.createLock(lockPath);
       }
      }
     }
-    if(lock===undefined)throw new Error('聊天配置正在保存，请稍后重试；原配置未被覆盖。');
+    if(lock===undefined)throw new Error(this.msg('savingKeep'));
    }
    const before=this.read();
    const next=this.validate(change(before.data,before.revision));
    const raw=JSON.stringify(next,null,2);
    // Refuse to replace a file changed by another writer after we read it.
-   const check=()=>{if(this.read().revision!==before.revision)throw new Error('聊天配置已更新，本次未覆盖。请点“重新读取”后再试。');};
+   const check=()=>{if(this.read().revision!==before.revision)throw new Error(this.msg('updated'));};
    check();
    // Explicit privacy clearing also sanitizes the backup before the main file.
    if(before.raw!==null)this.writeAtomic(this.backup,sanitizeBackup ? JSON.stringify(this.validate(sanitizeBackup(before.data)),null,2) : before.raw);
@@ -74,7 +116,7 @@ class ChatConfigStore {
    this.writeAtomic(this.file,raw,check);
    return this.read();
   } catch(error) {
-   if(error.code)throw new Error('聊天配置未能保存，原文件和备份已保留。请检查磁盘空间及目录权限后重试。');
+   if(error.code)throw new Error(this.msg('writeFailed'));
    throw error;
   } finally {
    if(lock!==undefined){try{const current=this.readLock(lockPath);if(JSON.parse(current.raw).token===lock.token)this.removeLock(lockPath,current);}catch{}}
@@ -107,7 +149,7 @@ class ChatConfigStore {
  }
  readLock(lockPath) {
   const item=this.fs.lstatSync(lockPath);
-  if(item.isSymbolicLink())throw new Error('聊天配置保存保护路径异常，已停止写入。');
+  if(item.isSymbolicLink())throw new Error(this.msg('lockInvalid'));
   const directory=item.isDirectory();
   return {directory,raw:this.fs.readFileSync(directory?path.join(lockPath,'owner.json'):lockPath,'utf8')};
  }
@@ -128,4 +170,4 @@ class ChatConfigStore {
   }
  }
 }
-module.exports={ChatConfigStore};
+module.exports={ChatConfigStore,resolveLanguage};

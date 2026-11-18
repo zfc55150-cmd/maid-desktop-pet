@@ -1,25 +1,26 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'"><title>蓝鲸女仆 · 设置与记录</title><link rel="stylesheet" href="pet-settings.css"></head><body>
-<h2>设置与聊天记录</h2>
-<label>DeepSeek API Key<input id="key" type="password" autocomplete="off" placeholder="留空保留已有密钥"></label>
-<label>聊天人设<textarea id="prompt" rows="4" maxlength="4000"></textarea></label>
-<label class="check"><input type="checkbox" id="autoMemory">让她自动整理长期记忆</label>
+<h2 data-i18n="heading">设置与聊天记录</h2>
+<label><span data-i18n="languageLabel">语言 / 言語</span><select id="language"><option value="auto" data-i18n="langAuto">跟随系统</option><option value="zh-CN">简体中文</option><option value="ja">日本語</option></select></label>
+<label><span data-i18n="apiKeyLabel">DeepSeek API Key</span><input id="key" type="password" autocomplete="off" placeholder="留空保留已有密钥"></label>
+<label><span data-i18n="promptLabel">聊天人设</span><textarea id="prompt" rows="4" maxlength="4000"></textarea></label>
+<label class="check"><input type="checkbox" id="autoMemory"><span data-i18n="autoMemoryLabel">让她自动整理长期记忆</span></label>
 <p id="memoryStatus" role="status" aria-live="polite"></p>
-<label>长期记忆<textarea id="memory" rows="4" maxlength="6000" placeholder="她会从你之后的聊天里记住稳定的称呼、偏好和约定；你也可以在这里修改。"></textarea></label>
-<p>开启后通常每 4 轮或空闲 2 分钟后台整理；说“记住”“忘掉”“别记这个”会优先处理。整理会额外调用 DeepSeek 并产生费用；记忆也会随聊天发送。密码、验证码等不自动记录，仍可能误记，请随时纠正。</p>
-<p>本页打开时暂停后台整理，关闭后继续。修改或删除后保存，旧的待处理聊天不会再把它恢复；需要清理最近对话和备份时使用下面的清空选项。</p>
+<label><span data-i18n="memoryLabel">长期记忆</span><textarea id="memory" rows="4" maxlength="6000" placeholder="她会从你之后的聊天里记住稳定的称呼、偏好和约定；你也可以在这里修改。"></textarea></label>
+<p data-i18n="memoryDesc1">开启后通常每 4 轮或空闲 2 分钟后台整理；说“记住”“忘掉”“别记这个”会优先处理。整理会额外调用 DeepSeek 并产生费用；记忆也会随聊天发送。密码、验证码等不自动记录，仍可能误记，请随时纠正。</p>
+<p data-i18n="memoryDesc2">本页打开时暂停后台整理，关闭后继续。修改或删除后保存，旧的待处理聊天不会再把它恢复；需要清理最近对话和备份时使用下面的清空选项。</p>
 <div class="buttons"><button id="save" disabled>保存设置与记忆</button><button id="reload">重新读取</button></div>
 <p id="status" role="status" aria-live="polite"></p>
-<details><summary>最近聊天记录 <span id="historyCount"></span></summary>
+<details><summary><span data-i18n="historyTitle">最近聊天记录</span> <span id="historyCount"></span></summary>
 <textarea id="history" rows="12" readonly aria-label="最近聊天记录"></textarea>
-<button id="copyHistory" disabled>复制聊天记录</button><p>最多保留最近 80 条消息。重新读取可刷新记录；记录不会包含 API 密钥。</p>
+<button id="copyHistory" disabled>复制聊天记录</button><p data-i18n="historyNote">最多保留最近 80 条消息。重新读取可刷新记录；记录不会包含 API 密钥。</p>
 </details>
-<details><summary>清空记录</summary>
-<p>清空近期记录会重置后续对话上下文，并丢弃旧的待整理内容。默认保留上一版本备份，便于恢复。</p>
-<label class="check"><input type="checkbox" id="includeBackup">同时清空上一版本备份中的聊天记录</label>
-<label class="check"><input type="checkbox" id="clearMemory">同时清空长期记忆</label>
-<p>此操作只处理当前配置及勾选的上一版本备份，不会删除你另外导出的文件。</p>
+<details><summary data-i18n="clearSummary">清空记录</summary>
+<p data-i18n="clearDesc">清空近期记录会重置后续对话上下文，并丢弃旧的待整理内容。默认保留上一版本备份，便于恢复。</p>
+<label class="check"><input type="checkbox" id="includeBackup"><span data-i18n="includeBackupLabel">同时清空上一版本备份中的聊天记录</span></label>
+<label class="check"><input type="checkbox" id="clearMemory"><span data-i18n="clearMemoryLabel">同时清空长期记忆</span></label>
+<p data-i18n="clearScopeNote">此操作只处理当前配置及勾选的上一版本备份，不会删除你另外导出的文件。</p>
 <button id="clear" disabled>清空聊天记录</button>
 </details>
-<details><summary>本地声音</summary><p>当前音色：原版 B · 温柔甜糯（本地 Base）。声音开关在人物右键菜单。</p>
+<details><summary data-i18n="voiceSummary">本地声音</summary><p data-i18n="voiceDesc">当前音色：原版 B · 温柔甜糯（本地 Base）。声音开关在人物右键菜单。</p>
 <button id="voicePreview">试听当前音色</button><p id="voiceStatus" role="status"></p></details>
-<script src="pet-settings.js"></script></body></html>
+<script src="shared-core.js"></script><script src="pet-settings.js"></script></body></html>

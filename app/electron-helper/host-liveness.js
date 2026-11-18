@@ -26,8 +26,10 @@ const HOST_POLL_MS = 2000;
  * 环境变量把用户正开着的桌宠退掉。
  */
 function parseHostPid(raw) {
-  const pid = Number.parseInt(String(raw ?? ''), 10);
-  return Number.isFinite(pid) && pid > 0 ? pid : 0;
+  const text = String(raw ?? '').trim();
+  if (!/^[1-9]\d*$/.test(text)) return 0;
+  const pid = Number(text);
+  return Number.isSafeInteger(pid) && pid > 0 && pid <= 2147483647 ? pid : 0;
 }
 
 /**

@@ -1,6 +1,18 @@
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.LabPerformanceCatalog=api;})(globalThis,()=>{
  'use strict';
- let manifest=null;
+ let manifest=null,automaticCache=null;
+ let currentLanguage='zh-CN';
+ const getI18n=()=>{
+  if(typeof globalThis.GptNiangI18n==='object'&&globalThis.GptNiangI18n)return globalThis.GptNiangI18n;
+  if(typeof require==='function'){try{return require('./i18n.js');}catch{}}
+  return null;
+ };
+ const normalizeLang=lang=>{
+  if(lang==='ja'||lang==='zh-CN')return lang;
+  const i18n=getI18n();
+  return i18n?i18n.resolveLanguage(lang):'zh-CN';
+ };
+ const setLanguage=lang=>{currentLanguage=normalizeLang(lang);};
  const takeoff=Object.freeze({clip:'flutter',airborneFrame:66,preparationMs:1200,airSpeed:1.25});
  const geometry=Object.freeze({sourceSize:384,idleBodyHeight:335,feetY:360,targetBodyHeight:300});
  const aliases={proud:'proudarms',walking:'walking',fan:'fanmishap',lantern:'lanterninvite'};
@@ -12,7 +24,14 @@
  const returnClip=clip=>manifest?.transitionClips?.[clip]||landingReturns[clip];
  const selectableClip=clip=>!!manifest?.states[clip]&&!manifest.states[clip].followUpOnly;
  const needsLanding=name=>Object.hasOwn(landingReturns,aliases[name]||String(name).replace(/^clip:/,''));
- function configure(value){if(!value?.states?.frontidle||!value.transitionClips)throw Error('INVALID_CHARACTER_MANIFEST');manifest=value;}
+ function configure(value){
+  if(!value?.states?.frontidle||!value.transitionClips)throw Error('INVALID_CHARACTER_MANIFEST');
+  for(const [from,to]of Object.entries(value.transitionClips)){if(!value.states[from]||!value.states[to])throw Error('INVALID_CHARACTER_MANIFEST:transitionClips.'+from+'->'+to);}
+  for(const [from,to]of Object.entries(value.returnPoses||{})){if(!value.states[from]||!value.states[to])throw Error('INVALID_CHARACTER_MANIFEST:returnPoses.'+from+'->'+to);}
+  for(const clip of value.idleInteractionPool||[]){if(!value.states[clip])throw Error('INVALID_CHARACTER_MANIFEST:idleInteractionPool.'+clip);}
+  manifest=value;automaticCache=null;
+  for(const clip of Object.keys(value.states)){if(selectableClip(clip)){for(const p of ['A','B','C'])plan('clip:'+clip,value.states,{fromPose:p});}}
+ }
  function route(from,to,clips=manifest?.states){if(from===to)return [];const edges=[['A','B','poserelax'],['B','C','turnfront'],['C','B','turnside'],['B','A','btoabridge'],['A','C','atocbridge']],queue=[[from,[]]],seen=new Set([from]);while(queue.length){const [pose,list]=queue.shift();for(const [a,b,clip]of edges)if(a===pose&&!seen.has(b)&&clips?.[clip]){if(b===to)return [...list,clip];seen.add(b);queue.push([b,[...list,clip]]);}}return null;}
  function plan(name,clips,{fromPose='C'}={}){
   const step=(clip,extra={})=>{if(!clips[clip])throw Error('MISSING_CLIP:'+clip);return {...clips[clip],clip,loop:false,...extra};};
@@ -42,12 +61,21 @@
   tickledodge:40000,bodybalance:50000,fanmishap:75000,lanterninvite:75000,dragonflame:100000
  };
  const propsWithReturn=new Set(['fanmishap','lanterninvite']);
- const automatic=()=>[...new Set([...(manifest?.idleInteractionPool||[]),...Object.keys(extraAutomatic)])].filter(clip=>
-  selectableClip(clip)&&(!propsWithReturn.has(clip)||manifest.states[manifest.transitionClips[clip]]))
- .map(clip=>{
-  const name='clip:'+clip,entryPose=manifest.clipEntryPoses?.[clip]||'C',steps=plan(name,manifest.states,{fromPose:entryPose});
-  return {name,clip,entryPose,clips:[...new Set(steps.map(s=>s.clip))],idlePose:idlePose(steps.at(-1).clip),cooldownMs:manifest.states[clip].idleCooldownMs||extraAutomatic[clip]||manifest.idleInteractionCooldownMs||22000};
- });
+ const automatic=()=>{
+  if(automaticCache)return automaticCache;
+  if(!manifest?.states)return [];
+  try{
+   automaticCache=[...new Set([...(manifest.idleInteractionPool||[]),...Object.keys(extraAutomatic)])].filter(clip=>
+    selectableClip(clip)&&(!propsWithReturn.has(clip)||manifest.states[manifest.transitionClips[clip]]))
+   .flatMap(clip=>{
+    try{
+     const name='clip:'+clip,entryPose=manifest.clipEntryPoses?.[clip]||'C',steps=plan(name,manifest.states,{fromPose:entryPose});
+     return [{name,clip,entryPose,clips:[...new Set(steps.map(s=>s.clip))],idlePose:idlePose(steps.at(-1).clip),cooldownMs:manifest.states[clip].idleCooldownMs||extraAutomatic[clip]||manifest.idleInteractionCooldownMs||22000}];
+    }catch{return [];}
+   });
+   return automaticCache;
+  }catch{return [];}
+ };
  const actionGroups=[
   ['待机',{frontidle:'正面站姿',brelaxed:'侧身站姿',idle:'长裙站姿',idlesway:'放松换重心'}],
   ['转向',{turnfront:'转为正面',turnside:'正面转侧身',poserelax:'长裙转侧身'}],
@@ -59,7 +87,30 @@
   ['吃什么',{tea:'提杯小饮'}],
   ['工作状态',{thinking:'托腮思考',confused:'歪头摊掌',gentlereminder:'温柔提醒',challengeaccept:'接下挑战'}]
  ];
- const actions=()=>actionGroups.flatMap(([group,rows])=>Object.entries(rows).filter(([clip])=>selectableClip(clip)).map(([clip,label])=>({name:'clip:'+clip,clip,label,group})));
+ const getActions=(lang=currentLanguage)=>{
+  const resolved=normalizeLang(lang),i18n=getI18n();
+  return actionGroups.flatMap(([group,rows])=>Object.entries(rows).filter(([clip])=>selectableClip(clip)).map(([clip,label])=>({
+   name:'clip:'+clip,
+   clip,
+   label:resolved==='ja'?(i18n?.translateActionLabel(clip,label,'ja')||label):label,
+   group:resolved==='ja'?(i18n?.translateActionGroup(group,'ja')||group):group,
+   groupKey:group
+  })));
+ };
+ const getSelectable=(lang=currentLanguage)=>{
+  const resolved=normalizeLang(lang),i18n=getI18n();
+  return Object.keys(manifest?.states||{}).filter(selectableClip).map(clip=>{
+   const rawLabel=manifest.states[clip].label;
+   const rawGroup=manifest.menuGroups?.[clip]||'其他动作';
+   return {
+    name:'clip:'+clip,
+    clip,
+    label:resolved==='ja'?(i18n?.translateActionLabel(clip,rawLabel,'ja')||rawLabel):rawLabel,
+    group:resolved==='ja'?(i18n?.translateActionGroup(rawGroup,'ja')||rawGroup):rawGroup
+   };
+  });
+ };
+ const actions=()=>getActions(currentLanguage);
  const showcase=new Set(['fanmishap','lanterninvite','dragonflame']);
  const isShowcase=name=>showcase.has(String(name).replace(/^clip:/,''));
  const actionQuotes=Object.freeze({
@@ -96,7 +147,14 @@
   gentlereminder:'喂，已经忙了好一阵子了，稍微歇口气，别累坏自己。',
   challengeaccept:'放马过来吧！这点挑战本龙娘接下了！'
  });
- const actionQuote=name=>actionQuotes[aliases[name]||String(name||'').replace(/^clip:/,'')]||null;
+ const actionQuote=(name,lang=currentLanguage)=>{
+  const clip=aliases[name]||String(name||'').replace(/^clip:/,'');
+  if(normalizeLang(lang)==='ja'){
+   const ja=getI18n()?.actionQuoteJa(clip);
+   if(ja)return ja;
+  }
+  return actionQuotes[clip]||null;
+ };
  const airborne=f=>f?.clip===takeoff.clip&&Number.isInteger(f.frame)&&f.frame>=takeoff.airborneFrame&&f.visible===true;
- return {configure,plan,route,idlePose,needsLanding,isShowcase,actionQuote,airborne,takeoff,geometry,revision:'0.8.38-electron',isSelectable:name=>selectableClip(aliases[name]||name.replace(/^clip:/,'')),get actions(){return actions();},get selectable(){return Object.keys(manifest?.states||{}).filter(selectableClip).map(clip=>({name:'clip:'+clip,clip,label:manifest.states[clip].label,group:manifest.menuGroups?.[clip]||'其他动作'}));},get automatic(){return automatic();}};
+ return {configure,plan,route,idlePose,needsLanding,isShowcase,actionQuote,airborne,takeoff,geometry,revision:'0.8.38-electron',setLanguage,getActions,getSelectable,isSelectable:name=>selectableClip(aliases[name]||name.replace(/^clip:/,'')),get actions(){return actions();},get selectable(){return getSelectable(currentLanguage);},get automatic(){return automatic();}};
 });

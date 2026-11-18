@@ -3,11 +3,40 @@ const fs=require('node:fs');
 const DEFAULT_INSTRUCT='中文普通话，年轻女性，温柔甜糯的二次元陪伴角色声线。嗓音柔软、甜润、圆润，轻声亲近地聊天，带自然微笑和一点害羞，轻柔撒娇但不夸张。音高适中，咬字清楚柔和，停顿自然，句尾轻轻放柔。不要尖细刺耳、用力夹嗓、元气喊叫、播音腔或气声耳语。';
 const {spawn}=require('node:child_process');
 const readline=require('node:readline');
+const SPEECH_MESSAGES={
+ 'zh-CN':{
+  busySwitch:'请先等待语音结束，或点击停止，再切换音色。',
+  invalidSettings:'请选择音色，声音描述请填写 1–2000 字。',
+  modelMissing:'这个语音模型尚未安装完整。',
+  gpuBusy:'显存暂时不足，语音暂停，文字回复正常。',
+  noGpu:'暂时无法使用显卡语音，文字回复正常。',
+  unavailable:'本地语音暂时不可用，文字回复正常。',
+  spawnError:'本地语音启动失败，文字回复正常。',
+  exited:'本地语音进程已退出，文字回复正常。',
+  pipeError:'本地语音连接中断，文字回复正常。',
+  warmupTimeout:'语音准备超时，文字聊天仍可使用。',
+  beginTimeout:'语音等待超时。'
+ },
+ ja:{
+  busySwitch:'読み上げが終わるまで待つか、停止してから音色を切り替えてください。',
+  invalidSettings:'音色を選択し、声の説明は 1〜2000 文字で入力してください。',
+  modelMissing:'この音声モデルは完全にインストールされていません。',
+  gpuBusy:'VRAM が一時的に不足しているため音声を一時停止しました（テキスト返信は正常です）。',
+  noGpu:'GPU 音声を一時的に使用できません（テキスト返信は正常です）。',
+  unavailable:'ローカル音声が一時的に利用できません（テキスト返信は正常です）。',
+  spawnError:'ローカル音声の起動に失敗しました（テキスト返信は正常です）。',
+  exited:'ローカル音声プロセスが終了しました（テキスト返信は正常です）。',
+  pipeError:'ローカル音声との接続が切れました（テキスト返信は正常です）。',
+  warmupTimeout:'音声の準備がタイムアウトしました。テキストチャットは引き続き利用できます。',
+  beginTimeout:'音声の待機がタイムアウトしました。'
+ }
+};
 class PetSpeech {
  constructor(spawnImpl=spawn,options={}){
   this.spawn=spawnImpl;this.root=options.root||path.resolve(__dirname,'../../../../voice-runtime');
   this.workerPath=options.workerPath||path.join(this.root,'voice_worker.py');
   this.settingsPath=options.settingsPath||path.join(this.root,'voice-settings.json');
+  this.getLang=typeof options.getLang==='function'?options.getLang:()=>'zh-CN';
   let saved={};try{saved=JSON.parse(fs.readFileSync(this.settingsPath,'utf8'));}catch{}
   this.voiceModel=saved.voiceModel==='design'?'design':'base';
   this.voiceInstruct=typeof saved.voiceInstruct==='string'&&saved.voiceInstruct.trim()?saved.voiceInstruct:DEFAULT_INSTRUCT;
@@ -15,12 +44,13 @@ class PetSpeech {
   this.log=options.log||require('./voice-log').createVoiceLogger(process.env.DSH_HOME);
    this.worker=null;this.ready=false;this.serial=0;this.current=null;this.warm=null;this.pin=false;
  }
+ msg(key){const lang=this.getLang()==='ja'?'ja':'zh-CN';return SPEECH_MESSAGES[lang][key];}
  voiceSettings(){return {voiceModel:this.voiceModel,voiceInstruct:this.voiceInstruct};}
  setVoiceSettings(value){
-  if(this.current)throw new Error('请先等待语音结束，或点击停止，再切换音色。');
-  if(!value||!['base','design'].includes(value.voiceModel)||typeof value.voiceInstruct!=='string'||!value.voiceInstruct.trim()||value.voiceInstruct.length>2000)throw new Error('请选择音色，声音描述请填写 1–2000 字。');
+  if(this.current)throw new Error(this.msg('busySwitch'));
+  if(!value||!['base','design'].includes(value.voiceModel)||typeof value.voiceInstruct!=='string'||!value.voiceInstruct.trim()||value.voiceInstruct.length>2000)throw new Error(this.msg('invalidSettings'));
   const modelDir=value.voiceModel==='design'?'model-design':'model';
-  if(!fs.existsSync(path.join(this.root,modelDir,'config.json')))throw new Error('这个语音模型尚未安装完整。');
+  if(!fs.existsSync(path.join(this.root,modelDir,'config.json')))throw new Error(this.msg('modelMissing'));
   const next={voiceModel:value.voiceModel,voiceInstruct:value.voiceInstruct.trim()};
   fs.writeFileSync(this.settingsPath+'.tmp',JSON.stringify(next,null,2));fs.renameSync(this.settingsPath+'.tmp',this.settingsPath);
   this.dispose();this.voiceModel=next.voiceModel;this.voiceInstruct=next.voiceInstruct;return this.voiceSettings();
@@ -41,7 +71,7 @@ class PetSpeech {
    this.log(m.event,m.code);
    if(m.event==='ready'){this.ready=true;this.warm?.resolve({ready:true});this.warm=null;this.current?.notify({event:'ready'});this.schedule();}
    if(m.event==='error'){
-    const message=m.code==='GPU_BUSY'?'显存暂时不足，语音暂停，文字回复正常。':m.code==='NO_GPU'?'暂时无法使用显卡语音，文字回复正常。':'本地语音暂时不可用，文字回复正常。';
+    const message=m.code==='GPU_BUSY'?this.msg('gpuBusy'):m.code==='NO_GPU'?this.msg('noGpu'):this.msg('unavailable');
     if(m.id==null){fail(message);return;}
     if(this.current?.id===m.id)this.finish(null,new Error(message));
    }
@@ -50,22 +80,22 @@ class PetSpeech {
    if(m.event==='caption'&&typeof m.text==='string')this.current.notify({event:'caption',text:m.text});
    if(m.event==='done')this.finish({stopped:false});
   });
-  child.once('error',()=>{this.log('spawn-error');fail('本地语音启动失败，文字回复正常。');});
-  child.once('exit',()=>{this.log('exit');lines.close();fail('本地语音进程已退出，文字回复正常。');});
-  child.stdin.on('error',()=>{this.log('pipe-error');fail('本地语音连接中断，文字回复正常。');});
+  child.once('error',()=>{this.log('spawn-error');fail(this.msg('spawnError'));});
+  child.once('exit',()=>{this.log('exit');lines.close();fail(this.msg('exited'));});
+  child.stdin.on('error',()=>{this.log('pipe-error');fail(this.msg('pipeError'));});
  }
  warmup(){
   this.ensureWorker();if(this.ready){this.schedule();return Promise.resolve({ready:true});}
   if(this.warm)return this.warm.promise;
   let resolve,reject;const promise=new Promise((a,b)=>{resolve=a;reject=b;});
-  const timer=setTimeout(()=>{this.log('timeout');this.dispose(new Error('语音准备超时，文字聊天仍可使用。'));},this.timeoutMs);
+  const timer=setTimeout(()=>{this.log('timeout');this.dispose(new Error(this.msg('warmupTimeout')));},this.timeoutMs);
   this.warm={promise,resolve:v=>{clearTimeout(timer);resolve(v);},reject:e=>{clearTimeout(timer);reject(e);}};
   this.write({type:'warmup'});return promise;
  }
  begin(notify=()=>{}){
   this.stop();this.ensureWorker();const id=++this.serial;
   let resolve,reject;const done=new Promise((a,b)=>{resolve=a;reject=b;});
-  const timer=setTimeout(()=>{this.log('timeout');try{this.write({type:'cancel',id});}catch{}this.finish(null,new Error('语音等待超时。'));},this.timeoutMs);
+  const timer=setTimeout(()=>{this.log('timeout');try{this.write({type:'cancel',id});}catch{}this.finish(null,new Error(this.msg('beginTimeout')));},this.timeoutMs);
   this.current={id,notify,resolve,reject,timer};
   this.write({type:'begin',id});
   return {id,done,append:(text,caption)=>{if(this.current?.id===id&&text.trim())this.write({type:'append',id,text:text.slice(0,12000),caption});},
