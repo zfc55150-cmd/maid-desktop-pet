@@ -26,6 +26,8 @@ integrations/gpt-niang/animated/*
 !integrations/gpt-niang/animated/dragon-animation.ps1
 !integrations/gpt-niang/animated/activity-state.mjs
 !integrations/gpt-niang/animated/activity-watch.mjs
+!integrations/gpt-niang/animated/codex-hook.mjs
+!integrations/gpt-niang/animated/observer-discovery.mjs
 !integrations/gpt-niang/animated/verify-installed.cjs
 !integrations/gpt-niang/animated/patch-widget.cjs
 !integrations/gpt-niang/animated/baseline/
