@@ -88,7 +88,8 @@ test('customized cleanup is still allowed and does not turn cleanup into a relea
   assert.equal(cleanups,1);assert.equal(fs.existsSync(path.join(f.dataDir,'update-installing.json')),false);
  }finally{f.remove();}
 });
-test('stable helper refuses a prepared customized transaction and rechecks after its idle wait',{skip:skipInstalled},()=>{
+const skipWindows=process.platform!=='win32'&&'Windows-only PowerShell test';
+test('stable helper refuses a prepared customized transaction and rechecks after its idle wait',{skip:skipInstalled||skipWindows},()=>{
  const f=fixture();try{
   fs.copyFileSync(path.join(maintenance,'update-agent/update-helper.ps1'),path.join(f.agentDir,'update-helper.ps1'));
   for(const n of ['supervisor-task.ps1','update-common.ps1','install-preflight.ps1'])fs.writeFileSync(path.join(f.agentDir,n),'# test-only dependency stubs\n');

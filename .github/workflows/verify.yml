@@ -28,7 +28,15 @@ jobs:
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           }
           Write-Output "Syntax OK ($($files.Count) files)"
-      - run: node scripts/verify.cjs
+      - name: Verify manifest, hashes, and root regression tests
+        shell: pwsh
+        run: |
+          $prevRef = (Get-Content deployment.json -Raw | ConvertFrom-Json).previousRef
+          if ($prevRef) {
+            node scripts/verify.cjs --previous-ref $prevRef
+          } else {
+            node scripts/verify.cjs
+          }
       - name: Run GPT product tests and package doctor fixture
         run: npm --prefix integrations/gpt-niang/product-electron test
       - name: Run GPT maintenance and playback-lab tests
@@ -47,8 +55,8 @@ jobs:
       - name: Check animated .gitignore does not hide new source files
         shell: pwsh
         run: |
-          $ignored = git ls-files --others --ignored --exclude-standard integrations/gpt-niang/animated | Where-Object { $_ -match '\.(cjs|mjs|ps1|py|json)$' }
+          $ignored = git -c core.quotePath=false ls-files --others --ignored --exclude-standard integrations/gpt-niang/animated | Where-Object { $_ -match '\.(cjs|mjs|js|ts|cs|ps1|py|cmd|bat|json|md)$' -or $_ -match '/$' }
           if ($ignored) {
-            Write-Error ("Ignored code/json files found under animated/:`n" + ($ignored -join "`n"))
+            Write-Error ("Ignored source/doc files or directories found under animated/:`n" + ($ignored -join "`n"))
             exit 1
           }

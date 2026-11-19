@@ -12,7 +12,7 @@
    // window events and the main process's physical-button watchdog still own it.
    try{this.stage.setPointerCapture(e.pointerId);}catch{this.counts.captureFailures++;}return true;
   }
-  move(e){if(this.held&&e.pointerId===this.pointerId)this.send(this.sample('move',e));}
+  move(e){if(!this.held||e.pointerId!==this.pointerId)return;if(typeof e.buttons==='number'&&(e.buttons&1)===0){this.end(false,e);return;}this.send(this.sample('move',e));}
   end(cancel,e){if(!this.held||e&&e.pointerId!==this.pointerId)return false;const data=this.sample(cancel?'cancel':'end',e);data.presentation=this.presentation();if(e)data.point={x:e.clientX/this.stage.clientWidth,y:e.clientY/this.stage.clientHeight};this.clear();this.send(data);try{this.release(cancel,e);}catch{this.counts.visualFailures++;}this.cancelGuard();const gesture=this.gesture;this.guard=this.setTimer(()=>{this.guard=null;this.send({kind:'recovery-timeout',gesture});},1000);return true;}
   lost(e){if(this.held&&e.pointerId===this.pointerId)this.counts.lostCaptures++;}
   ack(data){if(data.gesture!==this.gesture||data.accepted||!this.held)return;this.counts.rejections++;this.cancelGuard();this.clear();try{this.release(true);}catch{this.counts.visualFailures++;}}

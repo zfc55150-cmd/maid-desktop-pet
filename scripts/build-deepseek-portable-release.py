@@ -21,6 +21,32 @@ RESTRICTED_ASSETS = {
     HELPER + "deepseek-bust-NOTICE.txt",
 }
 RESTRICTED_FOLD = {item.casefold() for item in RESTRICTED_ASSETS}
+REMINDER_JS_RE = re.compile(r"require\(\s*['\"]\./release-reminder\.js['\"]\s*\)")
+REMINDER_CJS_RE = re.compile(r"require\(\s*['\"]\./release-reminder\.cjs['\"]\s*\)")
+
+
+def wire_reminder(main_bytes: bytes, base_entries: dict, changes: dict) -> tuple[bytes, dict, dict, str]:
+    """Ensure exactly one release reminder hook is wired and clean stale .cjs copies when .js is active."""
+    main_text = main_bytes.decode("utf-8")
+    updated_base = dict(base_entries)
+    updated_changes = dict(changes)
+    if not base_builder.REMINDER_START_RE.search(main_text):
+        updated_changes[HELPER + "release-notice.cjs"] = (
+            ROOT / "integrations/gpt-niang/product-electron/services/release-notice.cjs"
+        ).read_bytes()
+        updated_changes[HELPER + "release-reminder.cjs"] = (
+            ROOT / "integrations/deepseek-portable/release-reminder.cjs"
+        ).read_bytes()
+        separator = b"" if main_bytes.endswith((b"\n", b"\r", b";")) else b"\n;\n"
+        main_bytes = main_bytes + separator + base_builder.BOOT.encode("utf-8")
+        return main_bytes, updated_base, updated_changes, "cjs"
+
+    if REMINDER_JS_RE.search(main_text) and not REMINDER_CJS_RE.search(main_text):
+        stale_cjs = {(HELPER + "release-notice.cjs").casefold(), (HELPER + "release-reminder.cjs").casefold()}
+        updated_base = {rel: info for rel, info in updated_base.items() if rel.casefold() not in stale_cjs}
+        return main_bytes, updated_base, updated_changes, "js"
+
+    return main_bytes, updated_base, updated_changes, "cjs"
 
 
 def resolve_node() -> str:
@@ -36,7 +62,7 @@ def resolve_node() -> str:
     return "node"
 
 
-def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir: Path, formal: bool = False, release_name: bool = False, force: bool = False) -> Path:
+def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir: Path, formal: bool = False, release_name: bool = False, force: bool = False, run_prechecks: bool = True) -> Path:
     node_exe = resolve_node()
     if formal:
         checked = subprocess.run([node_exe, str(ROOT / "scripts/tagged-release.cjs"), tag],
@@ -52,8 +78,9 @@ def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir:
     if not re.fullmatch(r"[a-f0-9]{64}", base_sha256.lower()) or base_builder.sha256(base_zip) != base_sha256.lower():
         raise ValueError("Base ZIP SHA-256 does not match")
 
-    subprocess.run([node_exe, str(ROOT / "scripts/sync-shared.cjs")], cwd=ROOT, check=True)
-    subprocess.run([node_exe, str(ROOT / "scripts/verify.cjs")], cwd=ROOT, check=True)
+    if run_prechecks:
+        subprocess.run([node_exe, str(ROOT / "scripts/sync-shared.cjs")], cwd=ROOT, check=True)
+        subprocess.run([node_exe, str(ROOT / "scripts/verify.cjs")], cwd=ROOT, check=True)
 
     deployment = json.loads((ROOT / "deployment.json").read_text(encoding="utf-8"))
     pkg = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
@@ -92,17 +119,9 @@ def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir:
 
         base_entries = {rel: info for rel, info in entries.items() if rel.casefold() not in RESTRICTED_FOLD}
 
+        # Note: deployment.json includes app/electron-helper/main.js, which overrides base_zip's main.js.
         main_bytes = changes.get(HELPER + "main.js", source.read(entries[HELPER + "main.js"]))
-        main_text = main_bytes.decode("utf-8")
-        if not base_builder.REMINDER_START_RE.search(main_text):
-            changes[HELPER + "release-notice.cjs"] = (ROOT / "integrations/gpt-niang/product-electron/services/release-notice.cjs").read_bytes()
-            changes[HELPER + "release-reminder.cjs"] = (ROOT / "integrations/deepseek-portable/release-reminder.cjs").read_bytes()
-            separator = b"" if main_bytes.endswith((b"\n", b"\r", b";")) else b"\n;\n"
-            main_bytes = main_bytes + separator + base_builder.BOOT.encode("utf-8")
-        else:
-            stale_cjs = { (HELPER + "release-notice.cjs").casefold(), (HELPER + "release-reminder.cjs").casefold() }
-            if "release-reminder.js" in main_text:
-                base_entries = {rel: info for rel, info in base_entries.items() if rel.casefold() not in stale_cjs}
+        main_bytes, base_entries, changes, reminder_ext = wire_reminder(main_bytes, base_entries, changes)
         if b"if (process.env.DSH_HOME) app.setPath('userData'" not in main_bytes:
             anchor = b"app.setName('dsh-pet-electron-helper');"
             if main_bytes.count(anchor) != 1:
@@ -143,9 +162,14 @@ def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir:
                 with zipfile.ZipFile(target) as result:
                     actual = base_builder.safe_entries(result, archive_stem)
                     actual_main = result.read(actual[HELPER + "main.js"]).decode("utf-8")
+                    required_reminder = {
+                        HELPER + f"release-reminder.{reminder_ext}",
+                        HELPER + f"release-notice.{reminder_ext}",
+                    }
                     if (result.testzip() is not None
                             or set(actual) != expected_files
                             or not set(changes).issubset(set(actual))
+                            or not required_reminder.issubset(set(actual))
                             or any(rel.casefold() in RESTRICTED_FOLD for rel in actual)
                             or len(base_builder.REMINDER_START_RE.findall(actual_main)) != 1
                             or any(result.read(actual[rel]) != data for rel, data in changes.items())):

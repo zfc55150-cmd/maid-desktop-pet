@@ -1,6 +1,7 @@
 {
   "version": "1.2.3-release-notice.3",
   "base": "dsh-pet@0.3.7",
+  "previousRef": "v1.0.4",
   "files": [
     {
       "source": "app/launcher.mjs",
@@ -23,7 +24,7 @@
     {
       "source": "app/electron-helper/chat-config-store.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/chat-config-store.js",
-      "sha256": "bab671f949ebae78b40bd236e134e95041ca1bc15e8f15ff6d975d58f1326d3e",
+      "sha256": "47c2d47a0d6383289b97e36776486ae785c7418a8e7c956ebbd5b8f47826770e",
       "previousSha256": "248c8e1a39352af61978524d36aeee0c45f54a14e92fe8a34ee470870cdc9a1d"
     },
     {
@@ -95,7 +96,7 @@
     {
       "source": "app/electron-helper/main.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/main.js",
-      "sha256": "cf99caac15e2828106dcfb868586feca3bbdf178fda04a6c20e513612bf9c72d",
+      "sha256": "e1d78be3107479e571360e69acde3f54e9580ca89574e7d1b898593307d384ef",
       "previousSha256": "4d5f75418e129f869029a72281b3e6df75d29fd51ec394226a7c8918a1bcfa20"
     },
     {
@@ -215,7 +216,7 @@
     {
       "source": "app/electron-helper/shared-core.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/shared-core.js",
-      "sha256": "69881028a4a3c14e1bf4e3c6dea69cd3f07d7131f9c58baab0caa31337dd6164",
+      "sha256": "7d2a11d15ee4f2c5daca4bea6290a220c968bc9f329ef79b8dfb5b33a9e4dc18",
       "previousSha256": "054c1c0304432a314dd3ead55258447320330d6e150a2a655cde26e6af2f40f6"
     },
     {
@@ -263,7 +264,7 @@
     {
       "source": "app/electron-helper/sprite.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/sprite.js",
-      "sha256": "d7b1aec60bffccefb6b5b8fc30b183c6057b196b37603cc65040d451dc875a13",
+      "sha256": "7ea37cc8a0ab07dcd089e6c3c76966163083a4a438a19b217a2ab7df89d61d67",
       "previousSha256": "51f1ada185259c4f5a9a49547518456c089c28f23c9891e89ecade20b39783bb"
     },
     {
@@ -335,7 +336,7 @@
     {
       "source": "app/electron-helper/bridge-media.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/bridge-media.js",
-      "sha256": "de69b6938d67fa0cb9c03b4319eddd8d45bf1a7c7a79f33dbe3781e73eef6e6c",
+      "sha256": "ce0f5358d1b9a74cd0a12156835138b61393f2988b96aab43b9393b29b13311e",
       "previousSha256": null
     }
   ]

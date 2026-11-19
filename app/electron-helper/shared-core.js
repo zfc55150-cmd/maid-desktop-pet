@@ -18,7 +18,11 @@ const ANIMATION_EXT = ".webm";
 //#endregion
 //#region src/shared/i18n.ts
 function resolveLanguage(pref, localeHint) {
-	if (pref === "zh-CN" || pref === "ja") return pref;
+	if (typeof pref === "string") {
+		const norm = pref.trim().toLowerCase().replace(/_/g, "-");
+		if (norm === "ja" || norm.startsWith("ja-")) return "ja";
+		if (norm === "zh" || norm.startsWith("zh-")) return "zh-CN";
+	}
 	const raw = String(localeHint ?? (typeof navigator !== "undefined" ? navigator.language : ""));
 	for (const part of raw.split(/[:,\s;]+/)) {
 		const tag = part.trim().toLowerCase().replace(/_/g, "-");

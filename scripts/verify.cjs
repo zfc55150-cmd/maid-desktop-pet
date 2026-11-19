@@ -42,7 +42,23 @@ function loadPreviousManifest(root, ref) {
   return new Map(parsed.files.map(entry => [String(entry.target || '').replaceAll('\\', '/').toLowerCase(), entry]));
 }
 
-function verifyManifest({root, installedRoot = null, previousRef = null, strictMetadata = false}) {
+function listAppFiles(root) {
+  const appRoot = path.join(root, 'app');
+  if (!fs.existsSync(appRoot)) return [];
+  const results = [];
+  const walk = dir => {
+    for (const entry of fs.readdirSync(dir, {withFileTypes: true})) {
+      const full = path.join(dir, entry.name);
+      if (entry.isSymbolicLink()) throw new Error('Refusing deployment reparse point: ' + path.relative(root, full));
+      if (entry.isDirectory()) walk(full);
+      else if (entry.isFile()) results.push(full);
+    }
+  };
+  walk(appRoot);
+  return results;
+}
+
+function verifyManifest({root, installedRoot = null, previousRef = null, strictMetadata = false, checkAppCompleteness = false}) {
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'deployment.json'), 'utf8'));
   const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
   const version = pkg.version;
@@ -69,7 +85,8 @@ function verifyManifest({root, installedRoot = null, previousRef = null, strictM
       }
     }
   }
-  const previousByTarget = previousRef ? loadPreviousManifest(root, previousRef) : null;
+  const effectivePreviousRef = previousRef || (strictMetadata && typeof manifest.previousRef === 'string' && manifest.previousRef.trim() ? manifest.previousRef.trim() : null);
+  const previousByTarget = effectivePreviousRef ? loadPreviousManifest(root, effectivePreviousRef) : null;
   const sources = new Set(), targets = new Set();
   const digest = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
   for (const entry of manifest.files) {
@@ -85,7 +102,7 @@ function verifyManifest({root, installedRoot = null, previousRef = null, strictM
       const expectedPrev = previousByTarget.get(key)?.sha256?.toLowerCase() ?? null;
       const actualPrev = entry.previousSha256 === null ? null : entry.previousSha256.toLowerCase();
       if (actualPrev !== expectedPrev) {
-        throw new Error('Deployment previousSha256 does not match ' + previousRef + ': ' + entry.target);
+        throw new Error('Deployment previousSha256 does not match ' + effectivePreviousRef + ': ' + entry.target);
       }
     }
     const source = childFile(root, entry.source);
@@ -108,7 +125,14 @@ function verifyManifest({root, installedRoot = null, previousRef = null, strictM
       throw new Error('Installed hash mismatch: ' + entry.target);
     }
   }
-  return {version, sourceFiles: sources.size, installedFiles: installedRoot ? targets.size : null};
+  if (checkAppCompleteness) {
+    for (const file of listAppFiles(root)) {
+      if (!sources.has(path.resolve(file).toLowerCase())) {
+        throw new Error('Unregistered app file missing from deployment.json: ' + path.relative(root, file).replaceAll('\\', '/'));
+      }
+    }
+  }
+  return {version, sourceFiles: sources.size, installedFiles: installedRoot ? targets.size : null, previousRef: effectivePreviousRef};
 }
 
 function writeResult(root, result) {
@@ -132,8 +156,8 @@ function main(args) {
   const root = path.resolve(__dirname, '..');
   console.log('Shared files OK: ' + require('./sync-shared.cjs').syncShared());
   const installedRoot = installed ? (explicitRoot || path.join(process.env.LOCALAPPDATA || path.join(require('node:os').homedir(), 'AppData/Local'), 'Programs/DeepSeekActionPet')) : null;
-  const manifest = verifyManifest({root, installedRoot, previousRef, strictMetadata: true});
-  console.log('Manifest OK: ' + manifest.sourceFiles + ' source files' + (installedRoot ? ', ' + manifest.installedFiles + ' installed files' : ''));
+  const manifest = verifyManifest({root, installedRoot, previousRef, strictMetadata: true, checkAppCompleteness: true});
+  console.log('Manifest OK: ' + manifest.sourceFiles + ' source files' + (installedRoot ? ', ' + manifest.installedFiles + ' installed files' : '') + (manifest.previousRef ? ' (previousRef=' + manifest.previousRef + ')' : ''));
   const tests = fs.readdirSync(path.join(root, 'tests')).filter(name => name.endsWith('.test.cjs')).sort().map(name => path.join(root, 'tests', name));
   if (!tests.length) throw new Error('No regression tests found');
   for (const command of [[path.join(root, 'scripts/check.cjs')], ['--test', ...tests]]) {

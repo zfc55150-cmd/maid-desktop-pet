@@ -1,5 +1,6 @@
 'use strict';
 (async()=>{
+ if(!window.desktop||typeof window.desktop.config!=='function')return;
  const config=await window.desktop.config();if(!config.safeMode){try{LabPerformanceCatalog.configure(config.animation);}catch{window.desktop.status({ok:false,error:'RENDERER_MANIFEST_FAILED'});}}
  const stage=document.querySelector('main'),figure=document.querySelector('.figure'),staticImage=document.getElementById('static');
  const guard=new LabFrameGuard.FrameGuard(document.getElementById('guard')),player=new LabVideoPlayer.Player([...document.querySelectorAll('video')],name=>config.clips[name].url,{guard,idleClip:'frontidle'});
@@ -63,4 +64,4 @@
  stage.addEventListener('contextmenu',e=>{e.preventDefault();pointer.end(true);player.freeze();window.desktop.input({kind:'menu'});});window.addEventListener('blur',()=>pointer.end(true));
  const inputHealth=setInterval(()=>window.desktop.status({input:pointer.status()}),1000);
  window.addEventListener('beforeunload',()=>{clearInterval(inputHealth);clearDragTilt();stopFlightFrames();pointer.dispose();if(geometryFrame!==null)cancelAnimationFrame(geometryFrame);stopSound();player.dispose();});window.desktop.ready();
-})().catch(()=>window.desktop.status({ok:false,error:'RENDERER_INIT_FAILED'}));
+})().catch(()=>window.desktop?.status?.({ok:false,error:'RENDERER_INIT_FAILED'}));

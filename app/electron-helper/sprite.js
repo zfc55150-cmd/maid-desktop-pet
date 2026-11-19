@@ -1479,7 +1479,11 @@ class PetSprite {
    * 在这里按当前窗口原点重算一次，贴光标不会漂（sendBounds 每帧会调本函数）。
    */
   getLang() {
-    const lang = this.inlineChat?.state?.resolvedLanguage || (typeof CONFIG !== 'undefined' ? CONFIG.lang : '') || 'zh-CN';
+    const lang =
+      this.inlineChat?.state?.resolvedLanguage ||
+      (typeof document !== 'undefined' && document.documentElement?.lang) ||
+      (typeof CONFIG !== 'undefined' ? CONFIG.lang : '') ||
+      'zh-CN';
     return lang === 'ja' ? 'ja' : 'zh-CN';
   }
 

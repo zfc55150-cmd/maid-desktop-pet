@@ -57,3 +57,16 @@ test('last-good manifest saves once per content hash and validates version and c
   assert.equal(loadLastGoodManifest(file, { version: '0.8.41-electron', clips: { frontidle: {} } }), null);
   assert.equal(loadLastGoodManifest(file, { version: '0.8.40-electron', clips: {} }), null);
 });
+
+test('main.cjs records startup attempts before ProductHost init and isolates saveLastGoodManifest errors', () => {
+  const src = fs.readFileSync(path.join(__dirname, 'app/main.cjs'), 'utf8');
+  const recordIdx = src.indexOf('startupGuard.recordAttempt(');
+  const hostIdx = src.indexOf('new ProductHost(');
+  assert.ok(recordIdx > 0 && hostIdx > 0 && recordIdx < hostIdx, 'recordAttempt must precede new ProductHost');
+  const configureIdx = src.indexOf('catalog.configure(animation)');
+  const catchIdx = src.indexOf('catch(manifestErr)', configureIdx);
+  const saveIdx = src.indexOf('startupGuard.saveLastGoodManifest(', configureIdx);
+  assert.ok(configureIdx > 0 && catchIdx > configureIdx && saveIdx > catchIdx, 'saveLastGoodManifest must be outside catalog.configure try block');
+  assert.match(src, /LAST_GOOD_SAVE_FAILED/);
+  assert.match(src, /pauseForSafeMode/);
+});

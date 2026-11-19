@@ -19,7 +19,7 @@ let lastIgnoreApply=0,speechCssHeight=null,speechLayout=null,lastUiDpi=96,panelR
 function desktopDpi(){const value=native?.hostFrame?.().dpi||(win&&!win.isDestroyed()?Math.round(screen.getDisplayMatching(win.getBounds()).scaleFactor*96):0);if(value)lastUiDpi=value;return lastUiDpi;}
 let hoverPoint=null,speechCssWidth=null;
 let win,panel,sizeWindow,menuPopup,speechWindow,tray,native,product,director,scheduler,motion,input,cache,frameAdmission,hitState,dragHit,scenes,animation,timer,speech=null,speechTimer=null,closing=false,quitReady=false,owned=false,ignore=null,expected=344,menuOpen=false,staticMask=null,standingBody=null,display=null,lastRequested=null,lastStateKey=null,rendererReady=false,frames=0,lastFollow=0,lastProduct=0,lastPresence=0,lastDisplayRequest=null,lastAutoQuote=0,presenceWriter=null,touch=null,appearance={scope:'none',palette:appearanceRules.palette('')},appearanceKey='';
-let captureActive=false,lastCaptureSeen=-Infinity,resizeCheckPending=false,cachedCharacters=null,cachedCharactersAt=0,consecutiveTickErrors=0,safeMode=null,manifestFallbackNotice=false,healthyMarked=false,fatalExiting=false,lastDragMoveAt=0,attemptsFile=null;
+let captureActive=false,lastCaptureSeen=-Infinity,resizeCheckPending=false,cachedCharacters=null,cachedCharactersAt=0,consecutiveTickErrors=0,safeMode=null,manifestFallbackNotice=false,healthyMarked=false,fatalExiting=false,lastDragMoveAt=0,attemptsFile=null,startupGuardResult=null,activeDataDir=null;
 const stats={version:catalog.revision,at:Date.now(),configFallback,errors:[],input:{accepted:0,rejected:0,watchdogReleases:0,freshPressRecoveries:0,lastReject:null},moves:0,frameUpdates:0,source:'product-electron',screenPresentationVerified:false,events:[]};
 const diagnosticWriter=snapshotWriter(path.join(root,testOnly?'test-diagnostics.json':'diagnostics.json'));
 const rendererRecoveries=[];
@@ -155,6 +155,7 @@ function menuTemplate(){
 function reloadConfiguration(){
  if(closing)return;
  if(attemptsFile)startupGuard.resetAttempts(attemptsFile);
+ if(!testOnly&&activeDataDir){try{fs.rmSync(path.join(activeDataDir,'supervisor-pause.json'),{force:true});}catch{}}
  // Installed copies are restarted by the supervisor after the old native lease is released.
  if(!testOnly&&product.isPortable)app.relaunch();
  void close('reload').catch(()=>app.exit(1));
@@ -209,7 +210,7 @@ async function close(reason='normal'){if(closing)return;closing=true;const exitC
  // Last-resort exit: a stalled close step must not leave a smoke or user process running.
  setTimeout(()=>{stats.closeTimedOut=true;mark('fallback-exit');appendCrashLog({code:'CLOSE_FALLBACK_EXIT',reason,errors:stats.errors.slice(-6)});try{fs.writeFileSync(path.join(root,testOnly?'product-test-status.json':'last-exit.json'),JSON.stringify({...stats,reason,at:Date.now()},null,2));}catch{}process.exit(exitCode);},10000);
  try{
-  await new Promise(setImmediate);clearInterval(timer);clearTimeout(speechTimer);native?.detach?.();menuPopup?.close();for(const w of [panel,sizeWindow,speechWindow,win])if(w&&!w.isDestroyed())w.destroy();tray?.destroy();mark('windows');if(product)await product.close().catch(()=>{});mark('product');await Promise.race([Promise.allSettled([presenceWriter?.flush(),diagnosticWriter.flush()]),new Promise(r=>setTimeout(r,1500))]);mark('flush');if(!testOnly&&product){for(const name of ['presence.json','runtime.json']){const file=path.join(product.dataDir,name);if(readJson(file)?.pid===process.pid){try{fs.unlinkSync(file);}catch{}}}}if(owned)native.release();try{fs.writeFileSync(path.join(root,testOnly?'product-test-status.json':'last-exit.json'),JSON.stringify({...stats,reason,at:Date.now()},null,2));if(!testOnly&&product){if(reason==='user'||safeMode&&reason==='failure')fs.writeFileSync(path.join(product.dataDir,'supervisor-pause.json'),JSON.stringify({desktop:true,safeMode:!!safeMode,at:new Date().toISOString()}));}}catch{}
+  await new Promise(setImmediate);clearInterval(timer);clearTimeout(speechTimer);native?.detach?.();menuPopup?.close();for(const w of [panel,sizeWindow,speechWindow,win])if(w&&!w.isDestroyed())w.destroy();tray?.destroy();mark('windows');if(product)await product.close().catch(()=>{});mark('product');await Promise.race([Promise.allSettled([presenceWriter?.flush(),diagnosticWriter.flush()]),new Promise(r=>setTimeout(r,1500))]);mark('flush');if(!testOnly&&product){for(const name of ['presence.json','runtime.json']){const file=path.join(product.dataDir,name);if(readJson(file)?.pid===process.pid){try{fs.unlinkSync(file);}catch{}}}}if(owned)native.release();try{fs.writeFileSync(path.join(root,testOnly?'product-test-status.json':'last-exit.json'),JSON.stringify({...stats,reason,at:Date.now()},null,2));const pauseDir=product?.dataDir||activeDataDir,pauseForSafeMode=!!(safeMode||startupGuardResult?.safeMode);if(!testOnly&&pauseDir){if(reason==='user'||pauseForSafeMode&&reason==='failure'){fs.mkdirSync(pauseDir,{recursive:true});fs.writeFileSync(path.join(pauseDir,'supervisor-pause.json'),JSON.stringify({desktop:true,safeMode:pauseForSafeMode,reason:safeMode?.reason||(startupGuardResult?.safeMode?'REPEATED_STARTUP_FAILURE':reason),recoveryHint:'Repair installation/config or remove supervisor-pause.json, then launch the desktop pet manually.',at:new Date().toISOString()}));}}}catch{}
  }catch{}finally{quitReady=true;process.exit(exitCode);}
 }
 app.on('second-instance',()=>{if(!closing&&win&&!win.isDestroyed()){if(!smoke&&!win.isVisible())win.showInactive();showSpeech('quote');}});
@@ -217,11 +218,9 @@ app.on('before-quit',e=>{if(!quitReady){e.preventDefault();close('normal');}});
 app.whenReady().then(async()=>{
  try{const build=readJson(path.join(root,cfg.nativeRoot||'native-product','build.json')),binary=path.join(root,cfg.nativeRoot||'native-product','native-lease.node');if(!build||sha(binary)!==build.binarySha256)throw Error('NATIVE_HASH');native=require(binary);}catch(e){stats.nativeFallback=String(e?.message||e).slice(0,160);native={tryAcquire:()=>testOnly||app.requestSingleInstanceLock(),release:()=>{if(!testOnly)try{app.releaseSingleInstanceLock();}catch{}},leftDown:()=>null,detach:()=>{},captureActive:()=>false,cursorOver:()=>true};}
  const rawCompat=path.resolve(cfg.compatRoot||root),canonical=(()=>{try{return fs.realpathSync.native(rawCompat);}catch{return path.win32.normalize(rawCompat);}})().toLowerCase(),key=testOnly?'Local\\GPTNiangProductTest_'+crypto.randomUUID():'Local\\GPTNiangUsage_'+Buffer.from(canonical).toString('base64').replaceAll('/','_').replaceAll('+','-');try{owned=native.tryAcquire(key);}catch{owned=testOnly||app.requestSingleInstanceLock({key});}if(!owned){quitReady=true;app.quit();return;}
- const dataDir=testOnly?path.join(root,'test-state'):cfg.dataDir;fs.mkdirSync(dataDir,{recursive:true});if(testOnly)runtimeHelpers.ensureTestStateSeed(dataDir);const systemLocale=app.getPreferredSystemLanguages?.()?.[0]||app.getLocale?.();product=new ProductHost({root,dataDir,serviceRoot:path.join(root,cfg.serviceRoot),configPath:path.join(root,'installation.json'),compatRoot:cfg.compatRoot,testOnly,systemLocale,onCompletion:()=>{showSpeech('completion');},onReleaseNotice:info=>{showSpeech('release',info.text);}});presenceWriter=snapshotWriter(path.join(dataDir,'presence.json'));
+ const dataDir=testOnly?path.join(root,'test-state'):cfg.dataDir;activeDataDir=dataDir;attemptsFile=path.join(dataDir,'startup-attempts.json');const lastGoodFile=path.join(dataDir,'manifest-last-good.json');const guard=startupGuardResult=smoke?{safeMode:false,failures:0}:startupGuard.recordAttempt(attemptsFile,{version:catalog.revision});
+ fs.mkdirSync(dataDir,{recursive:true});if(testOnly)runtimeHelpers.ensureTestStateSeed(dataDir);const systemLocale=app.getPreferredSystemLanguages?.()?.[0]||app.getLocale?.();product=new ProductHost({root,dataDir,serviceRoot:path.join(root,cfg.serviceRoot),configPath:path.join(root,'installation.json'),compatRoot:cfg.compatRoot,testOnly,systemLocale,onCompletion:()=>{showSpeech('completion');},onReleaseNotice:info=>{showSpeech('release',info.text);}});presenceWriter=snapshotWriter(path.join(dataDir,'presence.json'));
  catalog.setLanguage(lang());
- attemptsFile=path.join(dataDir,'startup-attempts.json');
- const lastGoodFile=path.join(dataDir,'manifest-last-good.json');
- const guard=smoke?{safeMode:false}:startupGuard.recordAttempt(attemptsFile,{version:catalog.revision});
  scenes=readJson(path.join(root,'scenes.json'));if(!scenes?.clips)scenes={clips:{}};for(const c of Object.values(scenes.clips))c.url=fileUrl(path.join(root,c.file));
  animation=readJson(path.join(root,'animation.json'));
  if(guard.safeMode){
@@ -229,9 +228,10 @@ app.whenReady().then(async()=>{
   error('SAFE_MODE:REPEATED_STARTUP_FAILURE');
   appendCrashLog({code:'SAFE_MODE',reason:'REPEATED_STARTUP_FAILURE',failures:guard.failures});
  }else{
+  let configured=false;
   try{
    catalog.configure(animation);
-   if(!smoke)startupGuard.saveLastGoodManifest(lastGoodFile,{version:catalog.revision,manifest:animation});
+   configured=true;
   }catch(manifestErr){
    const code=String(manifestErr?.message||'INVALID_CHARACTER_MANIFEST').slice(0,80);
    error('MANIFEST_INVALID:'+code);
@@ -246,6 +246,9 @@ app.whenReady().then(async()=>{
     error('SAFE_MODE:'+code);
     appendCrashLog({code:'SAFE_MODE',reason:code});
    }
+  }
+  if(configured&&!smoke){
+   try{startupGuard.saveLastGoodManifest(lastGoodFile,{version:catalog.revision,manifest:animation});}catch(saveErr){error('LAST_GOOD_SAVE_FAILED:'+String(saveErr?.message||saveErr).slice(0,80));}
   }
  }
  touch=new TouchResponses(safeMode?{}:animation);cache=new HitCache(root,readJson(path.join(root,'hit-masks.json')).entries);hitState=new PresentationHit();dragHit=new DragHit({mask:name=>name==='static'?staticMask:cache.get(name)});display=desiredDisplay();if(display.mode==='static')staticMask=imageMask(require('node:url').fileURLToPath(display.url),display.layout);standingBody=safeMode?visibleFootprint(staticMask,0,1,null):visibleFootprint(await cache.load('frontidle'),0);
@@ -281,7 +284,7 @@ app.whenReady().then(async()=>{
   if(!fromCharacter(e)||motion.phase!=='flight'||serial!==motion.serial)return;
   if(flightPacing.pulse(performance.now()))stats.flightPacing.paintSteps++;
  });
- win.once('ready-to-show',()=>{stats.windowReady=true;showWhenReady();});function showWhenReady(){if(!healthyMarked&&stats.windowReady&&(stats.staticReady||frames>=3)){healthyMarked=true;if(!smoke&&attemptsFile)startupGuard.markHealthy(attemptsFile,{version:catalog.revision});if(safeMode)showSpeech('quote',i18n.t(lang(),'notice.safeMode'));else if(manifestFallbackNotice)showSpeech('quote',i18n.t(lang(),'notice.manifestFallback'));else if(configFallback)showSpeech('quote',i18n.t(lang(),'notice.configFallback'));}if(smoke||closing||captureActive||!stats.windowReady||!stats.staticReady&&frames<3||win.isVisible())return;win.showInactive();event('shown');}
+ win.once('ready-to-show',()=>{stats.windowReady=true;showWhenReady();});function showWhenReady(){if(!healthyMarked&&!closing&&!captureActive&&stats.windowReady&&(stats.staticReady||frames>=3)){healthyMarked=true;if(!smoke&&attemptsFile)startupGuard.markHealthy(attemptsFile,{version:catalog.revision});if(!testOnly&&!safeMode&&activeDataDir){try{fs.rmSync(path.join(activeDataDir,'supervisor-pause.json'),{force:true});}catch{}}if(safeMode)showSpeech('quote',i18n.t(lang(),'notice.safeMode'));else if(manifestFallbackNotice)showSpeech('quote',i18n.t(lang(),'notice.manifestFallback'));else if(configFallback)showSpeech('quote',i18n.t(lang(),'notice.configFallback'));}if(smoke||closing||captureActive||!stats.windowReady||!stats.staticReady&&frames<3||win.isVisible())return;win.showInactive();event('shown');}
  if(!smoke){try{tray=new Tray(nativeImage.createFromPath(path.join(root,'assets/gpt-dragon-niang-bust.png')).resize({width:24,height:24}));tray.setToolTip(i18n.t(lang(),'desktop.trayTooltip'));tray.on('click',popup);tray.on('right-click',popup);}catch{error('TRAY_INIT_FAILED');}}
  product.start().catch(()=>{product.note('OBSERVERS_START_FAILED');notice(i18n.t(lang(),'notice.observersFailed'));});loadWindow(win,'desktop.html');const started=Date.now();
  if(testOnly&&process.argv.includes('--test-main-error'))setImmediate(()=>{throw Error('TEST_MAIN_FAILURE');});
@@ -305,7 +308,7 @@ app.whenReady().then(async()=>{
     }else showWhenReady();
    }
   }
-  const ld=!smoke&&native?.leftDown?.();if(motion.phase==='drag'){if(typeof ld==='boolean')input.recover(screen.getCursorScreenPoint(),ld,now);else if(stats.rendererInput?.held===false&&now-lastDragMoveAt>=600)input.recover(screen.getCursorScreenPoint(),false,now);}
+  const ld=!smoke&&native?.leftDown?.();if(motion.phase==='drag'){if(typeof ld==='boolean')input.recover(screen.getCursorScreenPoint(),ld,now);else if(stats.rendererInput?.held===false&&(stats.rendererInput.gesture>=input.active&&now-lastDragMoveAt>=80||now-lastDragMoveAt>=600))input.recover(screen.getCursorScreenPoint(),false,now);}
   const pointer=screen.getCursorScreenPoint(),inside=refreshPointerGate(pointer);
   if(!smoke&&!captureActive)updateHover(pointer,inside&&!ignore&&native.cursorOver?.(Number(win.getNativeWindowHandle().readBigUInt64LE()))!==false);
   if(now-lastSchedule>=100&&schedulerState){lastSchedule=now;const selection=scheduler.tick(schedulerState,{blocked:!!safeMode||captureActive||menuOpen||motion.phase!=='idle'||panel?.isVisible()||sizeWindow?.isVisible()||!rendererReady,clips:scenes.clips});if(selection){stats.companion={...selection,at:now};event('companion-selection',selection);}}

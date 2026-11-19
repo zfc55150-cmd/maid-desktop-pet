@@ -69,12 +69,19 @@ test('ChatService switches default prompt and release notice text in Japanese mo
 
 test('resolveLanguage matches shared-core, chat-config-store, and gpt-niang i18n across locales', () => {
   const gptI18n = require('../integrations/gpt-niang/product-electron/app/i18n.js');
-  for (const hint of ['ja', 'ja-JP', 'ja_JP.UTF-8', 'en_US:ja_JP', 'zh-CN', 'zh-TW', 'zh_CN:ja', 'en-US', 'C']) {
+  for (const hint of ['ja', 'ja-JP', 'ja_JP.UTF-8', 'en_US:ja_JP', 'zh-CN', 'zh-TW', 'zh-HK', 'zh_Hant', 'zh_CN:ja', 'en_US:zh_HK:ja_JP', 'en-US', 'C']) {
     const a = PetShared.resolveLanguage('auto', hint);
     const b = resolveLanguage('auto', hint);
     const c = gptI18n.resolveLanguage('auto', { env: { LANGUAGE: hint }, systemLocale: hint, navigatorObj: null });
     assert.equal(a, b, `chat-config-store mismatch for ${hint}`);
     assert.equal(a, c, `gpt-niang i18n mismatch for ${hint}`);
+  }
+  for (const pref of ['ja', 'ja-JP', 'zh-CN', 'zh-TW', 'zh-HK']) {
+    const a = PetShared.resolveLanguage(pref, 'en-US');
+    const b = resolveLanguage(pref, 'en-US');
+    const c = gptI18n.resolveLanguage(pref, { env: {}, systemLocale: 'en-US', navigatorObj: null });
+    assert.equal(a, b, `chat-config-store pref mismatch for ${pref}`);
+    assert.equal(a, c, `gpt-niang i18n pref mismatch for ${pref}`);
   }
 });
 

@@ -2,7 +2,9 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { parseByteRange, corsHeaders } = require('../app/electron-helper/bridge-media.js');
+const fs = require('node:fs');
+const path = require('node:path');
+const { parseByteRange, corsHeaders, isAllowedOrigin, readOrigin } = require('../app/electron-helper/bridge-media.js');
 
 test('parseByteRange handles full, partial, suffix, and unsatisfiable ranges', () => {
   assert.deepEqual(parseByteRange(null, 100), { kind: 'full', start: 0, end: 99, size: 100 });
@@ -47,4 +49,19 @@ test('corsHeaders restricts Access-Control-Allow-Origin to local/null origins', 
   const evilHeaders = corsHeaders({ headers: { origin: 'https://evil.example' } }, 'application/json');
   assert.equal(evilHeaders['access-control-allow-origin'], undefined);
   assert.equal(evilHeaders['content-type'], 'application/json');
+  assert.equal(readOrigin({ headers: { Origin: ' https://evil.example ' } }), 'https://evil.example');
+  assert.equal(isAllowedOrigin('https://evil.example'), false);
+  assert.equal(isAllowedOrigin('file://'), true);
+});
+
+test('electron-helper main.js enforces bridge origin 403, async DPI probe, cached workAreas, and safe windows init', () => {
+  const mainSrc = fs.readFileSync(path.join(__dirname, '../app/electron-helper/main.js'), 'utf8');
+  assert.equal(mainSrc.includes('execFileSync'), false, 'startup must not synchronously spawn DPI probe');
+  assert.equal(mainSrc.includes("typeof windows === 'undefined'"), false, 'avoid TDZ dead guard on const windows');
+  const winDecl = mainSrc.indexOf('const windows = new Map()');
+  const secondInst = mainSrc.indexOf("app.on('second-instance'");
+  assert.ok(winDecl > 0 && secondInst > winDecl, 'windows Map must be declared before second-instance handler');
+  assert.match(mainSrc, /status:\s*403/);
+  assert.match(mainSrc, /sanitizeBounds\(bounds,\s*cachedWorkAreas/);
+  assert.match(mainSrc, /release reminder disabled: unable to resolve local release tag/);
 });

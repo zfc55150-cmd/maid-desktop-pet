@@ -48,11 +48,11 @@ try {
 const { app, BrowserWindow, ipcMain, screen, shell, protocol } = electronApi;
 const path = require('node:path');
 const localControl = require('./local-control');
-const { execFile, execFileSync } = require('node:child_process');
+const { execFile } = require('node:child_process');
 const { createReadStream, readFileSync, writeFileSync } = require('node:fs');
 const fsPromises = require('node:fs/promises');
 const { Readable } = require('node:stream');
-const { parseByteRange, corsHeaders } = require('./bridge-media.js');
+const { parseByteRange, corsHeaders, isAllowedOrigin, readOrigin } = require('./bridge-media.js');
 // 点击穿透兜底通道的纯判定（不依赖 Electron 的 forward 鼠标钩子；见文件头注释）
 const { decideWindowIgnore, pointerZone } = require('./pointer-target.js');
 // 交互时提升窗口；后台只修复丢失的置顶标记，避免与其它桌宠抢顺序。
@@ -78,12 +78,14 @@ const DPI_PROBE = process.env.DSH_PET_DPI_PROBE === '1';
 /** 探测进程的输出标记（父进程按它抓值） */
 const DPI_MARK = 'dsh-pet-primary-scale:';
 
+/** 窗口表：petId -> BrowserWindow */
+const windows = new Map();
+
 if (!DPI_PROBE && process.env.DSH_PET_SMOKE !== '1') {
   if (!app.requestSingleInstanceLock()) {
     app.exit(0);
   } else {
     app.on('second-instance', () => {
-      if (typeof windows === 'undefined') return;
       for (const win of windows.values()) {
         if (!win.isDestroyed()) win.showInactive();
       }
@@ -226,54 +228,7 @@ function parseProbeOutput(text) {
   return Number.isFinite(v) && v > 0 ? v : 0;
 }
 
-/** 拉起探测子进程读主屏 scaleFactor（同一个 electron + 同一个 main.js，走 DPI_PROBE 分支） */
-function probePrimaryScale() {
-  const opts = {
-    env: { ...process.env, DSH_PET_DPI_PROBE: '1', DSH_PET_BRIDGE: '0', DSH_PET_SMOKE: '0' },
-    timeout: 5000,
-    encoding: 'utf8',
-    windowsHide: true,
-    stdio: ['ignore', 'pipe', 'pipe'],
-  };
-  let out = '';
-  try {
-    out = execFileSync(process.execPath, [__filename, '--dsh-pet-dpi-probe'], opts);
-  } catch (e) {
-    // 只认 stdout，不认退出码：一个不开窗口的 Electron 进程调 app.exit() 在 Windows 上
-    // 偶发 0xC0000005（退出期访问违例），但那时值早就写出来了，丢掉它纯属浪费一次冷启动。
-    out = e && e.stdout ? String(e.stdout) : '';
-    if (!parseProbeOutput(out)) {
-      const detail = [
-        e && e.status !== undefined ? 'status=' + e.status : '',
-        e && e.stderr ? 'stderr=' + String(e.stderr).trim().slice(0, 300) : '',
-      ]
-        .filter(Boolean)
-        .join(' ');
-      console.error(
-        '[dsh-pet-desktop-helper] dpi probe failed:',
-        String(e && e.message ? e.message : e).split('\n')[0],
-        detail,
-      );
-      return 0; // 探测失败：不加 switch，退回修复前行为（多屏异构 DPI 会闪，但不影响可用性）
-    }
-  }
-  const v = parseProbeOutput(out);
-  if (v > 0) writeCachedPrimaryScale(v);
-  return v;
-}
-
-/** 真实主屏 scaleFactor（探测所得；0 = 未知）。开启线性化后 screen API 只会报 1，只能靠它。 */
-function parsePrimaryScaleOutput(out) {
-  for (const line of String(out || '').split(/\r?\n/)) {
-    const idx = line.indexOf(DPI_MARK);
-    if (idx !== -1) {
-      const v = Number(line.slice(idx + DPI_MARK.length).trim());
-      if (v > 0) return v;
-    }
-  }
-  return 0;
-}
-
+/** 异步拉起探测子进程读主屏 scaleFactor（不阻塞主线程；容忍 Windows 无窗退出期 0xC0000005） */
 function probePrimaryScaleAsync() {
   return new Promise((resolve) => {
     execFile(
@@ -286,10 +241,18 @@ function probePrimaryScaleAsync() {
         windowsHide: true,
       },
       (err, stdout) => {
-        if (err) return resolve(0);
-        const v = parsePrimaryScaleOutput(stdout);
-        if (v > 0) writeCachedPrimaryScale(v);
-        resolve(v);
+        const v = parseProbeOutput(stdout);
+        if (v > 0) {
+          writeCachedPrimaryScale(v);
+          return resolve(v);
+        }
+        if (err) {
+          console.error(
+            '[dsh-pet-desktop-helper] async dpi probe failed:',
+            String(err && err.message ? err.message : err).split('\n')[0],
+          );
+        }
+        resolve(0);
       },
     );
   });
@@ -300,8 +263,9 @@ let PRIMARY_SCALE = 0;
 /** 实际生效的强制缩放（0 = 未启用，坐标系维持修复前的逐屏 DIP） */
 let FORCED_SCALE = 0;
 const FORCE_DSF = process.env.DSH_PET_FORCE_DSF;
-if (shouldLinearize({ platform: process.platform, dpiProbe: DPI_PROBE, forceDsf: FORCE_DSF })) {
-  PRIMARY_SCALE = readCachedPrimaryScale() || probePrimaryScale();
+const LINEARIZE_ENABLED = shouldLinearize({ platform: process.platform, dpiProbe: DPI_PROBE, forceDsf: FORCE_DSF });
+if (LINEARIZE_ENABLED) {
+  PRIMARY_SCALE = readCachedPrimaryScale();
   const forced = resolveForcedScale({ forceDsf: FORCE_DSF, primaryScale: PRIMARY_SCALE });
   if (forced > 0) {
     app.commandLine.appendSwitch('force-device-scale-factor', String(forced));
@@ -348,9 +312,6 @@ if (BRIDGE) {
     },
   ]);
 }
-
-/** 窗口表：petId -> BrowserWindow */
-const windows = new Map();
 
 /** win.id -> 上一次**请求**的内容区矩形（"x,y,w,h"）：pet:set-bounds 的去重基准，见那里的注释 */
 const lastRequestedBounds = new Map();
@@ -709,6 +670,13 @@ function startBridgeCallback() {
 async function handleBridgeRequest(request) {
   const url = new URL(request.url); // dsh-pet-bridge://dsh-pet/dsh-pet-7340/...
   const method = request.method || 'GET';
+  const origin = readOrigin(request);
+  if (origin && !isAllowedOrigin(origin)) {
+    return new Response('dsh-pet: forbidden origin', {
+      status: 403,
+      headers: corsHeaders(request, 'text/plain'),
+    });
+  }
   if (!bridgeCallbackUrl) {
     return new Response('dsh-pet: bridge not ready', {
       status: 503,
@@ -758,7 +726,10 @@ if (process.env.DSH_PET_DPI_PROBE !== '1' && process.env.DSH_PET_SMOKE !== '1' &
   app.whenReady().then(() => {
     const reminder = require('./release-reminder.js');
     const localTag = reminder.resolveLocalTag(__dirname);
-    if (!localTag) return;
+    if (!localTag) {
+      console.warn('[dsh-pet-desktop-helper] release reminder disabled: unable to resolve local release tag');
+      return;
+    }
     reminder.start({
       electron: electronApi,
       localTag,
@@ -777,6 +748,19 @@ app.whenReady().then(async () => {
     setTimeout(() => app.exit(0), 0);
     return;
   }
+  if (LINEARIZE_ENABLED && FORCED_SCALE === 0) {
+    const detected = Number(screen.getPrimaryDisplay()?.scaleFactor);
+    if (Number.isFinite(detected) && detected > 0) {
+      PRIMARY_SCALE = detected;
+      writeCachedPrimaryScale(detected);
+    }
+  }
+  let cachedWorkAreas = null;
+  const refreshWorkAreas = () => {
+    cachedWorkAreas = screen.getAllDisplays().map(d => d.workArea);
+    return cachedWorkAreas;
+  };
+  refreshWorkAreas();
   console.error(
     '[dsh-pet-desktop-helper] displays: ' +
       JSON.stringify(deskGeometry()) +
@@ -848,7 +832,7 @@ app.whenReady().then(async () => {
     if (!trustedPet(event)) return;
     const win = BrowserWindow.fromWebContents(event.sender);
     if (!win || win.isDestroyed()) return;
-    const checked = sanitizeBounds(bounds, screen.getAllDisplays().map(d => d.workArea));
+    const checked = sanitizeBounds(bounds, cachedWorkAreas || refreshWorkAreas());
     if (!checked.ok) {
       if (shouldLogBounds(checked.reason)) {
         console.warn('[dsh-pet-desktop-helper] dropped pet:set-bounds:', checked.reason);
@@ -1025,7 +1009,38 @@ app.whenReady().then(async () => {
   // createPetWindows() 算一次并经 URL query 注入，渲染端 VIEW 是模块顶层常量，运行期永不更新——
   // 表现为「改了分辨率后可移动范围还是旧的」。这里重算并推给所有窗口，渲染端就地重挂。
   let displaysTimer = null;
+  const refreshPrimaryScaleAsync = () => {
+    if (FORCED_SCALE <= 0) return;
+    probePrimaryScaleAsync()
+      .then((real) => {
+        if (real > 0 && Math.abs(real - PRIMARY_SCALE) > 1e-6) {
+          const prevScale = PRIMARY_SCALE;
+          PRIMARY_SCALE = real;
+          const nextScale = petScale();
+          const updatedGeo = { ...deskGeometry(), scale: nextScale };
+          for (const win of windows.values()) {
+            if (!win.isDestroyed()) {
+              win.webContents.setZoomFactor(nextScale);
+              win.webContents.send('pet:displays', updatedGeo);
+            }
+          }
+          console.error(
+            '[dsh-pet-desktop-helper] primary scaleFactor changed ' +
+              prevScale +
+              ' -> ' +
+              real +
+              '; updated petScale=' +
+              nextScale,
+          );
+        }
+      })
+      .catch(() => {});
+  };
+  if (FORCED_SCALE > 0 && process.env.DSH_PET_SMOKE !== '1') {
+    setTimeout(refreshPrimaryScaleAsync, 1000).unref?.();
+  }
   const pushDisplays = () => {
+    refreshWorkAreas();
     const geo = deskGeometry();
     lastRequestedBounds.clear(); // 坐标系变了，去重缓存作废，下一帧必须真的重设一次
     for (const win of windows.values()) {
@@ -1035,36 +1050,12 @@ app.whenReady().then(async () => {
     // 主屏缩放可能一起变了（它决定宠物的尺寸补偿）。线性化生效期间 screen API 只报被强制的值，
     // 真实值只能靠探测子进程拿；不一致就刷新缓存，下次启动自动用上。
     if (FORCED_SCALE > 0) {
-      setTimeout(() => {
-        probePrimaryScaleAsync()
-          .then((real) => {
-            if (real > 0 && Math.abs(real - PRIMARY_SCALE) > 1e-6) {
-              const prevScale = PRIMARY_SCALE;
-              PRIMARY_SCALE = real;
-              const nextScale = petScale();
-              const updatedGeo = { ...deskGeometry(), scale: nextScale };
-              for (const win of windows.values()) {
-                if (!win.isDestroyed()) {
-                  win.webContents.setZoomFactor(nextScale);
-                  win.webContents.send('pet:displays', updatedGeo);
-                }
-              }
-              console.error(
-                '[dsh-pet-desktop-helper] primary scaleFactor changed ' +
-                  prevScale +
-                  ' -> ' +
-                  real +
-                  '; updated petScale=' +
-                  nextScale,
-              );
-            }
-          })
-          .catch(() => {});
-      }, 1000).unref?.();
+      setTimeout(refreshPrimaryScaleAsync, 1000).unref?.();
     }
   };
   /** 显示器事件会连发（一次改动能来好几条），去抖后只重算一次 */
   const scheduleDisplays = () => {
+    refreshWorkAreas();
     if (displaysTimer) clearTimeout(displaysTimer);
     displaysTimer = setTimeout(() => {
       displaysTimer = null;

@@ -80,4 +80,5 @@ module.exports = {
   parseByteRange,
   corsHeaders,
   isAllowedOrigin,
+  readOrigin,
 };

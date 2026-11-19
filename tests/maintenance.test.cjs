@@ -73,4 +73,11 @@ test('missing previousSha256 and strictMetadata releaseTag mismatches are reject
   assert.throws(() => verifyManifest({root: dir, strictMetadata: true}), /mismatch/);
   fs.writeFileSync(path.join(dir, 'app/electron-helper/package.json'), JSON.stringify({version: '1.0.0', releaseTag: 'v1.0.7'}));
   assert.equal(verifyManifest({root: dir, strictMetadata: true}).version, '1.0.0');
+  assert.throws(() => verifyManifest({root: dir, strictMetadata: true, checkAppCompleteness: true}), /Unregistered app file/);
+});
+
+test('repository deployment.json satisfies app completeness and previousRef hash chain', () => {
+  const result = verifyManifest({root, strictMetadata: true, checkAppCompleteness: true});
+  assert.ok(result.sourceFiles >= 56);
+  assert.ok(result.previousRef, 'deployment.json must declare previousRef for value verification');
 });

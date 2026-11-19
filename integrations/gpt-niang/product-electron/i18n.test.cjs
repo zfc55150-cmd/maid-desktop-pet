@@ -64,7 +64,7 @@ test('performance catalog preserves clip IDs and Chinese defaults while providin
 test('appearance palettes match Japanese triggers, menuSize caps at 260, and releaseNotice localizes cleanly',()=>{
  assert.deepEqual(appearance.palette('クロードに記憶圧縮された'),appearance.palette('克劳德压缩'));
  assert.deepEqual(appearance.palette('ジェミニのライバルに浮気？'),appearance.palette('Gemini吃醋'));
- assert.deepEqual(appearance.palette('ディープシークのクジラにご飯'),appearance.palette('DeepSeek鲸白饭'));
+ assert.deepEqual(appearance.palette('ディープシークのクジラに白米'),appearance.palette('DeepSeek鲸白饭'));
  assert.deepEqual(appearance.palette('トークン残高と課金'),appearance.palette('token额度充值'));
  assert.equal(menuSize([{label:'1234567890'}],{width:1280,height:800},1).width,192);
  assert.equal(menuSize([{label:'12345678901234567890'}],{width:1280,height:800},1).width,260);
@@ -74,4 +74,6 @@ test('appearance palettes match Japanese triggers, menuSize caps at 260, and rel
  assert(zhStatus.includes('本仓库新版本'));
  assert.deepEqual(appearance.palette('ちょっと待って'),appearance.palette(''));
  assert.deepEqual(appearance.palette('キャッチして'),appearance.palette(''));
+ assert.deepEqual(appearance.palette('楽しい記憶'),appearance.palette(''));
+ assert.deepEqual(appearance.palette('今日のご飯はおいしい'),appearance.palette(''));
 });

@@ -3,7 +3,11 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 
 function resolveLanguage(pref, localeHint) {
- if (pref === 'zh-CN' || pref === 'ja') return pref;
+ if (typeof pref === 'string') {
+  const norm = pref.trim().toLowerCase().replace(/_/g, '-');
+  if (norm === 'ja' || norm.startsWith('ja-')) return 'ja';
+  if (norm === 'zh' || norm.startsWith('zh-')) return 'zh-CN';
+ }
  let hint = localeHint;
  if (!hint) {
   try { hint = Intl.DateTimeFormat().resolvedOptions().locale; } catch { hint = ''; }
