@@ -11,7 +11,7 @@ test('package doctor reports both versions and detects metadata and file drift',
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'gpt-package-doctor-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const write = (file, data) => fs.writeFileSync(path.join(root, file), JSON.stringify(data));
-  const version = '0.8.40-electron', releaseTag = 'v1.0.7';
+  const version = '0.8.41-electron', releaseTag = 'v1.0.8';
   write('product.json', { version, releaseTag, compatRoot: root });
   write('package.json', { version, releaseTag });
   fs.writeFileSync(path.join(root, 'idle.webm'), 'synthetic video bytes');

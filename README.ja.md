@@ -2,7 +2,7 @@
 
 # 🚀 3ステップでかんたん導入＆起動ガイド（ポータブル版）
 
-**ポータブル版（ZIP）**は [GitHub Release v1.0.7](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.7) からダウンロードできます。Electron と Node.js を同梱しているため、事前の開発環境構築やインストール作業は不要です。
+**ポータブル版（ZIP）**は [GitHub Release v1.0.8](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.8) からダウンロードできます。Electron と Node.js を同梱しているため、事前の開発環境構築やインストール作業は不要です。
 
 両マスコットは**日本語／簡体字中国語の自動判定＆手動切り替え**に対応しており、Windows のシステム言語に合わせて初回から自然な日本語 UI で動作します。また、各パッケージはフォルダ内の `state\` にデータを完全隔離しており、既存環境や2体同時起動でも干渉しません。
 
@@ -12,7 +12,7 @@
 
 | マスコット | 特徴・主な機能 |
 |---|---|
-| **GPT娘**<br>*(ChatGPT ツンデレドラゴン娘 / `0.8.40-electron`)* | 独立 Electron 透過キャンバスによる滑らかな立ち絵・**59種類（10,948フレーム）**のアニメーション。Codex 連携＆プラン残量（利用枠）モニター、ドラッグ時の傾き演出・慣性飛行、クリック時のセリフ／残量カード、カスタム画像インポート、セーフモード・クラッシュ自動復旧に対応。 |
+| **GPT娘**<br>*(ChatGPT ツンデレドラゴン娘 / `0.8.41-electron`)* | 独立 Electron 透過キャンバスによる滑らかな立ち絵・**59種類（10,948フレーム）**のアニメーション。Codex 連携＆プラン残量（利用枠）モニター、ドラッグ時の傾き演出・慣性飛行、クリック時のセリフ／残量カード、カスタム画像インポート、セーフモード・クラッシュ自動復旧に対応。 |
 | **DeepSeek娘**<br>*(シロナガスクジラメイド / `DeepSeekActionPet`)* | DeepSeek API を利用した AI チャット＆自動長期記憶を備えたデスクトップマスコット。**106種類**の透過アニメーション、ドラッグ＆投げ物理演出、単一インスタンス起動保護、DPI 動的追従、GitHub 新バージョン軽量通知に対応。 |
 
 ---
@@ -26,14 +26,14 @@
 
 ## ステップ 1：ダウンロード / Download
 
-[Release v1.0.7 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.7) を開き、利用したいマスコットの ZIP をダウンロードします（両方ダウンロードして同時に動かすことも可能です）：
+[Release v1.0.8 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.8) を開き、利用したいマスコットの ZIP をダウンロードします（両方ダウンロードして同時に動かすことも可能です）：
 
 | ファイル名 | マスコット | サイズ | 主な内容 |
 |---|---|---|---|
-| [GPTNiang-v0.8.40-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.7/GPTNiang-v0.8.40-electron-win-x64.zip) | **GPT娘** | 429.2 MiB | `0.8.40-electron`：日中バイリンガル自動切替、59種のアニメ（10,948フレーム）、Codex 連携＆残量パネル、セーフモード保護、例外保護・ドラッグ修復 |
-| [DeepSeekActionPet-v1.0.7-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.7/DeepSeekActionPet-v1.0.7-win-x64.zip) | **DeepSeek娘** | 229.2 MiB | 日中バイリンガル自動切替（日本語メイド人格＆長期記憶）、106種の透過アニメ、単一インスタンス保護、Range/CORS ストリーミング、DPI 追従、新版通知 |
+| [GPTNiang-v0.8.41-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.8/GPTNiang-v0.8.41-electron-win-x64.zip) | **GPT娘** | 429.2 MiB | `0.8.41-electron`：日中バイリンガル自動切替、59種のアニメ（10,948フレーム）、Codex 連携＆残量パネル、起動初期クラッシュ保護・セーフモード復帰、ドラッグ即時解放 |
+| [DeepSeekActionPet-v1.0.8-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.8/DeepSeekActionPet-v1.0.8-win-x64.zip) | **DeepSeek娘** | 229.2 MiB | 日中バイリンガル自動切替（日本語メイド人格＆長期記憶）、106種の透過アニメ、非同期 DPI 最適化、ディスプレイ領域キャッシュ、ブリッジ 403 検証、新版通知 |
 
-> 💡 ダウンロード後は、同じリリースページにある `SHA256SUMS.txt` と比較してファイルが破損・改ざんされていないか確認できます（PowerShell 例：`Get-FileHash .\GPTNiang-v0.8.40-electron-win-x64.zip -Algorithm SHA256`）。
+> 💡 ダウンロード後は、同じリリースページにある `SHA256SUMS.txt` と比較してファイルが破損・改ざんされていないか確認できます（PowerShell 例：`Get-FileHash .\GPTNiang-v0.8.41-electron-win-x64.zip -Algorithm SHA256`）。
 
 ---
 
@@ -80,7 +80,7 @@
 
 ## 🔍 整合性セルフチェック / Integrity self-check
 
-GPT娘ポータブル版には、パッケージ内の **SHA-256 保護対象ファイル 284件** と **動画クリップ 59本** の破損・改ざんを検査する公式セルフチェックツールが同梱されています。コマンドプロンプトで解凍先フォルダへ移動して実行してください：
+GPT娘ポータブル版には、パッケージ内の **SHA-256 保護対象ファイル 285件** と **動画クリップ 59本** の破損・改ざんを検査する公式セルフチェックツールが同梱されています。コマンドプロンプトで解凍先フォルダへ移動して実行してください：
 
 ```bat
 cd /d "D:\Pets\GPTNiang"
@@ -88,7 +88,7 @@ node\node.exe app\package-doctor.cjs "%CD%"
 ```
 
 正常時の出力例：
-`{"ok":true,"version":"0.8.40-electron","releaseTag":"v1.0.7","files":285,"clips":59,"frames":10948,...}`
+`{"ok":true,"version":"0.8.41-electron","releaseTag":"v1.0.8","files":285,"clips":59,"frames":10948,...}`
 
 ---
 

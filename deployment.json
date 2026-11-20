@@ -1,5 +1,5 @@
 {
-  "version": "1.2.3-release-notice.3",
+  "version": "1.2.3-release-notice.4",
   "base": "dsh-pet@0.3.7",
   "previousRef": "v1.0.4",
   "files": [
@@ -102,7 +102,7 @@
     {
       "source": "app/electron-helper/package.json",
       "target": "node_modules/dsh-pet/runtime/electron-helper/package.json",
-      "sha256": "24bfa7d13129d80f67f14e844c8266e66156226e23c42ccb5822521e6bb577c3",
+      "sha256": "660163e90d1c05de831a638c17ccd4f94d459e0f1fd5a0bf41cc1876a480cc8a",
       "previousSha256": "8cf1275c9a520d92c4e997b7e28074de9881c6394522c6ca15d0fc84cd8c7ca1"
     },
     {
