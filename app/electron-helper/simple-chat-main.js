@@ -18,7 +18,8 @@ const MAIN_MESSAGES = {
   userLabel: '我',
   petLabel: '蓝鲸女仆',
   incompleteSuffix: '\n（回复未完整结束）',
-  previewPhrase: '你好，我在这里陪你。'
+  previewPhrase: '你好，我在这里陪你。',
+  unknownError: '操作未能完成，请稍后重试。'
  },
  ja: {
   settingsTitle: 'ブルークジラメイド · 設定と履歴',
@@ -32,7 +33,8 @@ const MAIN_MESSAGES = {
   userLabel: '私',
   petLabel: 'ブルークジラメイド',
   incompleteSuffix: '\n（返答が途中で終了しました）',
-  previewPhrase: 'こんにちは、そばにいますよ。'
+  previewPhrase: 'こんにちは、そばにいますよ。',
+  unknownError: '操作を完了できませんでした。しばらくしてから再試行してください。'
  }
 };
 
@@ -52,10 +54,17 @@ module.exports = function installSimpleChat(electron, petWindows, options={}) {
  const sameFrame=e=>e.senderFrame && e.senderFrame.routingId===e.sender.mainFrame.routingId && e.senderFrame.processId===e.sender.mainFrame.processId;
  const trusted=e=>sameFrame(e)&&e.senderFrame.url.split('?')[0]===indexURL&&[...petWindows.values()].some(w=>!w.isDestroyed()&&w.webContents.id===e.sender.id);
  const trustedSettings=e=>sameFrame(e)&&settingsWindow&&!settingsWindow.isDestroyed()&&e.sender.id===settingsWindow.webContents.id&&e.senderFrame.url===settingsURL;
+ const safeError=(error,fallbackKey='unknownError')=>{
+  if(error instanceof SyntaxError)return msg('corruptRead');
+  if(error?.code)return msg('diskSaveFailed');
+  if(error instanceof TypeError||error instanceof ReferenceError||error instanceof RangeError){console.error('[simple-chat]',error);return msg(fallbackKey);}
+  const text=typeof error?.message==='string'?error.message.trim():'';
+  return text||msg(fallbackKey);
+ };
  const bind=(name,fn)=>ipcMain.handle('simple-chat:'+name,async(e,arg)=>{
   if(!trusted(e)&&!(['state','save','clear','copyHistory','voiceSettings','previewVoice'].includes(name)&&trustedSettings(e)))return {ok:false,error:msg('invalidRequest')};
   try{return {ok:true,data:await fn(name==='openSettings'?null:getService(),arg,e)};}
-  catch(error){return {ok:false,error:error instanceof SyntaxError?msg('corruptRead'):error.code?msg('diskSaveFailed'):error.message};}
+  catch(error){return {ok:false,error:safeError(error)};}
  });
  const invalidate=()=>{if(activeReply)activeReply.cancelled=true;activeReply=null;speech.stop();};
  const resetPets=()=>{for(const w of petWindows.values())if(!w.isDestroyed())w.webContents.send('simple-chat:event',{type:'reset'});};
@@ -92,7 +101,7 @@ module.exports = function installSimpleChat(electron, petWindows, options={}) {
     try {
      reply.sync=true;
      reply.job=speech.begin(m=>{if(m.event==='caption'){if(reply.sync&&!reply.error)notify({type:'caption',text:m.text});}else notify({type:'voice',status:m.event});});
-     voiceDone=reply.job.done.catch(error=>{reply.error=error.message;notify({type:'voice',status:'error',message:error.message});});
+     voiceDone=reply.job.done.catch(error=>{const m=safeError(error,'localVoiceFailed');reply.error=m;notify({type:'voice',status:'error',message:m});});
     } catch(error) { reply.sync=false;reply.error=msg('localVoiceFailed');notify({type:'voice',status:'error',message:reply.error}); }
    }
    const state=await s.send(text,(delta,content)=>{

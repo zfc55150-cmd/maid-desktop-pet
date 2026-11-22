@@ -46,3 +46,12 @@ test('rollback preflight rejects unfamiliar installed code before any stop or ov
  fs.writeFileSync(path.join(f.stageRoot,entry.target),'concurrent-change');assert.throws(()=>rollbackPreflight({backupRoot:backup,installedRoot:f.stageRoot}),/refuses modified/);
  assert.equal(fs.readFileSync(path.join(f.stageRoot,entry.target),'utf8'),'concurrent-change');
 });
+
+test('install.ps1 and rollback.ps1 wrap process Path enumeration in try/catch and preserve health check',()=>{
+ const installPs1=fs.readFileSync(path.join(root,'scripts/install.ps1'),'utf8');
+ const rollbackPs1=fs.readFileSync(path.join(root,'scripts/rollback.ps1'),'utf8');
+ assert.match(installPs1,/Get-Process -ErrorAction SilentlyContinue \| Where-Object \{try\{\$_\.Path -like \(\$appRoot\+'\\\*'\)\}catch\{\$false\}\}/);
+ assert.match(rollbackPs1,/Get-Process -ErrorAction SilentlyContinue \| Where-Object \{try\{\$_\.Path -like \(\$appRoot\+'\\\*'\)\}catch\{\$false\}\}/);
+ assert.match(installPs1,/http:\/\/127\.0\.0\.1:3088\/health/);
+ assert.match(rollbackPs1,/http:\/\/127\.0\.0\.1:3088\/health/);
+});

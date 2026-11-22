@@ -87,7 +87,7 @@ class ProductHost {
   this.appVersion=prod?.version||pkg?.version||require('./performance-catalog.js').revision||'0.8.17-electron';
   this.isPortable=Boolean(prod?.portable||fs.existsSync(path.join(this.root,'portable')));
   this.releaseNotice=loadReleaseNotice(this.serviceRoot);
-  this.settings=new SettingsStore(path.join(dataDir,'settings.json'));this.forms=new SettingsStore(path.join(dataDir,'pet-form.json'));this.experience=new SettingsStore(path.join(dataDir,'experience-preferences.json'));this.audio=new SettingsStore(path.join(dataDir,'audio-preferences.json'));this.updatePreferences=new SettingsStore(path.join(dataDir,'update-preferences.json'));this.startedAt=Date.now();this.updateChild=null;this.releaseCheckPromise=null;this.children=new Set();this.task={phase:'idle',active:0};this.closed=false;this.lastWorkerProbe=0;this.workerFailures=0;this.lastCodexProbe=0;this.codexInstalledCache=false;this.lastRefreshQuota=null;this.lastAutoQuote=0;this.lastQuote=null;this.lastCompletion=0;this.errors=[];this.activityCache=new Map();
+  this.settings=new SettingsStore(path.join(dataDir,'settings.json'));this.forms=new SettingsStore(path.join(dataDir,'pet-form.json'));this.experience=new SettingsStore(path.join(dataDir,'experience-preferences.json'));this.audio=new SettingsStore(path.join(dataDir,'audio-preferences.json'));this.updatePreferences=new SettingsStore(path.join(dataDir,'update-preferences.json'));this.startedAt=Date.now();this.updateChild=null;this.releaseCheckPromise=null;this.children=new Set();this.detachedChildren=new Set();this.task={phase:'idle',active:0};this.closed=false;this.lastWorkerProbe=0;this.workerFailures=0;this.lastCodexProbe=0;this.codexInstalledCache=false;this.lastRefreshQuota=null;this.lastAutoQuote=0;this.lastQuote=null;this.lastCompletion=0;this.errors=[];this.activityCache=new Map();
   if(!this.testOnly&&this.settings.canSave&&this.settings.value.followHost!==false){try{this.settings.update({followHost:false});}catch{}}
  }
  codexInstalled(force=false){
@@ -152,12 +152,16 @@ class ProductHost {
   this.codexInstalledCache=Boolean(cli);
   if(!cli)return {ok:false,errorCode:'ENOENT',errorMessage:i18n.t(this.resolvedLanguage(),'codex.noCli')};
   try{
+   // Interactive `codex login` must outlive pet restarts so the user can finish OAuth in browser/terminal.
    const child=this.spawnNode(cli,['login'],{windowsHide:false,detached:true,stdio:'ignore'});
-   child.on('error',()=>{});
+   this.detachedChildren.add(child);
+   const cleanup=()=>this.detachedChildren.delete(child);
+   child.once('exit',cleanup);
+   child.on('error',cleanup);
    child.unref();
    return {ok:true,started:true};
   }catch{return {ok:false,errorCode:'CODEX_LOGIN_FAILED',errorMessage:i18n.t(this.resolvedLanguage(),'codex.loginFailed')};}
  }
- async close(){this.closed=true;this.activity?.stop();this.completion?.stop();for(const child of this.children){try{child.kill();}catch{}}this.children.clear();}
+ async close(){this.closed=true;this.activity?.stop();this.completion?.stop();for(const child of this.children){try{child.kill();}catch{}}this.children.clear();if(this.detachedChildren.size>0){this.note('CODEX_LOGIN_DETACHED');this.detachedChildren.clear();}}
 }
 module.exports={ProductHost,publicQuota,readJson,resolveCodexCli};

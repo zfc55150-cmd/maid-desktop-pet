@@ -9,10 +9,21 @@ import shutil
 import subprocess
 import zipfile
 
-from importlib.machinery import SourceFileLoader
+from importlib.util import module_from_spec, spec_from_file_location
 
 ROOT = Path(__file__).resolve().parents[1]
-base_builder = SourceFileLoader("portable_builder", str(ROOT / "scripts/build-deepseek-portable-reminder.py")).load_module()
+
+
+def _load_script_module(name: str, path: Path):
+    spec = spec_from_file_location(name, str(path))
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load module {name} from {path}")
+    module = module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+base_builder = _load_script_module("portable_builder", ROOT / "scripts/build-deepseek-portable-reminder.py")
 HELPER = "node_modules/dsh-pet/runtime/electron-helper/"
 RESTRICTED_ASSETS = {
     HELPER + "deepseek-bust.png",
@@ -21,16 +32,23 @@ RESTRICTED_ASSETS = {
     HELPER + "deepseek-bust-NOTICE.txt",
 }
 RESTRICTED_FOLD = {item.casefold() for item in RESTRICTED_ASSETS}
-REMINDER_JS_RE = re.compile(r"require\(\s*['\"]\./release-reminder\.js['\"]\s*\)")
+REMINDER_JS_RE = re.compile(r"require\(\s*['\"]\./release-reminder(?:\.js)?['\"]\s*\)")
 REMINDER_CJS_RE = re.compile(r"require\(\s*['\"]\./release-reminder\.cjs['\"]\s*\)")
+COMMENT_RE = re.compile(r"//[^\r\n]*|/\*[\s\S]*?\*/")
+DSH_HOME_SNIPPET = b"if (process.env.DSH_HOME) app.setPath('userData', require('node:path').join(process.env.DSH_HOME, 'electron-profile'));"
+
+
+def _strip_js_comments(text: str) -> str:
+    return COMMENT_RE.sub("", text)
 
 
 def wire_reminder(main_bytes: bytes, base_entries: dict, changes: dict) -> tuple[bytes, dict, dict, str]:
     """Ensure exactly one release reminder hook is wired and clean stale .cjs copies when .js is active."""
     main_text = main_bytes.decode("utf-8")
+    code_text = _strip_js_comments(main_text)
     updated_base = dict(base_entries)
     updated_changes = dict(changes)
-    if not base_builder.REMINDER_START_RE.search(main_text):
+    if not base_builder.REMINDER_START_RE.search(code_text):
         updated_changes[HELPER + "release-notice.cjs"] = (
             ROOT / "integrations/gpt-niang/product-electron/services/release-notice.cjs"
         ).read_bytes()
@@ -41,7 +59,7 @@ def wire_reminder(main_bytes: bytes, base_entries: dict, changes: dict) -> tuple
         main_bytes = main_bytes + separator + base_builder.BOOT.encode("utf-8")
         return main_bytes, updated_base, updated_changes, "cjs"
 
-    if REMINDER_JS_RE.search(main_text) and not REMINDER_CJS_RE.search(main_text):
+    if REMINDER_JS_RE.search(code_text) and not REMINDER_CJS_RE.search(code_text):
         stale_cjs = {(HELPER + "release-notice.cjs").casefold(), (HELPER + "release-reminder.cjs").casefold()}
         updated_base = {rel: info for rel, info in updated_base.items() if rel.casefold() not in stale_cjs}
         return main_bytes, updated_base, updated_changes, "js"
@@ -86,8 +104,15 @@ def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir:
     pkg = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
     if deployment.get("version") != pkg.get("version"):
         raise ValueError("deployment.json and package.json version mismatch")
+    if not re.fullmatch(r"\d+\.\d+\.\d+-release-notice\.\d+", str(deployment.get("version", ""))):
+        raise ValueError("Invalid maintenanceVersion format in deployment.json")
     if (formal or release_name) and pkg.get("releaseTag") != tag:
         raise ValueError("package.json releaseTag does not match release tag")
+    if release_name and not formal and run_prechecks:
+        dirty = subprocess.run(["git", "status", "--porcelain", "--untracked-files=normal"],
+                               cwd=ROOT, capture_output=True, text=True)
+        if dirty.returncode == 0 and dirty.stdout.strip():
+            raise ValueError("RELEASE_NAME_REQUIRES_CLEAN_TREE")
 
     archive_stem = f"DeepSeekActionPet-{tag}-win-x64" if (formal or release_name) else f"DeepSeekActionPet-candidate-{tag}-win-x64"
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -128,9 +153,11 @@ def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir:
                 raise ValueError("Expected unique app.setName anchor in main.js")
             main_bytes = main_bytes.replace(
                 anchor,
-                anchor + b"\nif (process.env.DSH_HOME) app.setPath('userData', require('node:path').join(process.env.DSH_HOME, 'electron-profile'));",
+                anchor + b"\n" + DSH_HOME_SNIPPET,
                 1,
             )
+        if DSH_HOME_SNIPPET not in main_bytes:
+            raise ValueError("DSH_HOME userData snippet missing from portable main.js")
         changes[HELPER + "main.js"] = main_bytes
 
         readme = source.read(entries["PORTABLE-README.md"]).decode("utf-8")
@@ -166,14 +193,28 @@ def build_formal_release(base_zip: Path, base_sha256: str, tag: str, output_dir:
                         HELPER + f"release-reminder.{reminder_ext}",
                         HELPER + f"release-notice.{reminder_ext}",
                     }
-                    if (result.testzip() is not None
-                            or set(actual) != expected_files
-                            or not set(changes).issubset(set(actual))
-                            or not required_reminder.issubset(set(actual))
-                            or any(rel.casefold() in RESTRICTED_FOLD for rel in actual)
-                            or len(base_builder.REMINDER_START_RE.findall(actual_main)) != 1
-                            or any(result.read(actual[rel]) != data for rel, data in changes.items())):
-                        raise ValueError("Output DeepSeek release archive verification failed")
+                    bad_member = result.testzip()
+                    if bad_member is not None:
+                        raise ValueError(f"Output DeepSeek release archive failed CRC check: {bad_member}")
+                    if set(actual) != expected_files:
+                        diff = sorted(set(actual) ^ expected_files)
+                        raise ValueError(f"Output DeepSeek release archive entries mismatch: {diff}")
+                    if not set(changes).issubset(set(actual)):
+                        missing = sorted(set(changes) - set(actual))
+                        raise ValueError(f"Output DeepSeek release archive missing staged changes: {missing}")
+                    if not required_reminder.issubset(set(actual)):
+                        missing_rem = sorted(required_reminder - set(actual))
+                        raise ValueError(f"Output DeepSeek release archive missing required reminder files: {missing_rem}")
+                    if any(rel.casefold() in RESTRICTED_FOLD for rel in actual):
+                        raise ValueError("Output DeepSeek release archive contains restricted assets")
+                    wiring_count = len(base_builder.REMINDER_START_RE.findall(_strip_js_comments(actual_main)))
+                    if wiring_count != 1:
+                        raise ValueError(f"Output DeepSeek release archive reminder wiring count={wiring_count}, expected 1")
+                    if DSH_HOME_SNIPPET.decode("utf-8") not in actual_main:
+                        raise ValueError("Output DeepSeek release archive main.js missing DSH_HOME snippet")
+                    for rel, data in changes.items():
+                        if result.read(actual[rel]) != data:
+                            raise ValueError(f"Output DeepSeek release archive content mismatch for {rel}")
             except BaseException:
                 stream.close()
                 target.unlink(missing_ok=True)

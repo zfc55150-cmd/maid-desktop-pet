@@ -2,12 +2,17 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 from urllib.request import Request, urlopen
 
 def fetch(url):
-    request=Request(url,headers={'User-Agent':'DeepSeekPet-release-verification','Accept':'application/vnd.github+json'})
-    with urlopen(request,timeout=45) as response:
+    headers = {'User-Agent': 'DeepSeekPet-release-verification', 'Accept': 'application/vnd.github+json'}
+    token = os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN')
+    if token:
+        headers['Authorization'] = f'Bearer {token}'
+    request = Request(url, headers=headers)
+    with urlopen(request, timeout=45) as response:
         return json.load(response)
 
 ROOT=Path(__file__).resolve().parent.parent
@@ -28,10 +33,14 @@ def build_expected_from_portable_dir(portable_dir: Path) -> dict:
     raw_sums = sums_file.read_bytes()
     if raw_sums.startswith(b'\xef\xbb\xbf'):
         raise ValueError('SHA256SUMS.txt must not contain UTF-8 BOM')
+    try:
+        sums_text = raw_sums.decode('ascii')
+    except UnicodeDecodeError as exc:
+        raise ValueError('SHA256SUMS.txt must be pure ASCII') from exc
     expected = {
         'SHA256SUMS.txt': {'size': len(raw_sums), 'digest': 'sha256:' + hashlib.sha256(raw_sums).hexdigest()}
     }
-    for line in raw_sums.decode('ascii').splitlines():
+    for line in sums_text.splitlines():
         line = line.strip()
         if not line:
             continue
@@ -47,6 +56,8 @@ def build_expected_from_portable_dir(portable_dir: Path) -> dict:
         if actual_hex != digest_hex:
             raise ValueError(f'Local SHA256SUMS.txt mismatch for {name}')
         expected[name] = {'size': len(data), 'digest': 'sha256:' + actual_hex}
+    if len(expected) < 2 or not any(name.lower().endswith('.zip') for name in expected if name != 'SHA256SUMS.txt'):
+        raise ValueError('SHA256SUMS.txt must list at least one release .zip archive')
     return expected
 
 

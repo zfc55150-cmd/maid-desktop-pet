@@ -1,6 +1,11 @@
 'use strict';
 (async()=>{
- if(!window.desktop||typeof window.desktop.config!=='function')return;
+ if(!window.desktop||typeof window.desktop.config!=='function'){
+  console.error('[gpt-niang] desktop preload bridge missing');
+  window.desktop?.status?.({ok:false,error:'RENDERER_BRIDGE_MISSING'});
+  document.title='桌宠初始化失败';
+  return;
+ }
  const config=await window.desktop.config();if(!config.safeMode){try{LabPerformanceCatalog.configure(config.animation);}catch{window.desktop.status({ok:false,error:'RENDERER_MANIFEST_FAILED'});}}
  const stage=document.querySelector('main'),figure=document.querySelector('.figure'),staticImage=document.getElementById('static');
  const guard=new LabFrameGuard.FrameGuard(document.getElementById('guard')),player=new LabVideoPlayer.Player([...document.querySelectorAll('video')],name=>config.clips[name].url,{guard,idleClip:'frontidle'});
@@ -28,7 +33,7 @@
  let dragPrev=null,dragResetTimer=null;
  function clearDragTilt(){clearTimeout(dragResetTimer);dragResetTimer=null;dragPrev=null;figure.style.transform='';}
  function updateDragTilt(e){if(!pointer.held||e.pointerId!==pointer.pointerId)return;const now=performance.now(),x=Number.isFinite(e.screenX)?e.screenX:e.clientX,y=Number.isFinite(e.screenY)?e.screenY:e.clientY;if(dragPrev){const dt=Math.max(8,now-dragPrev.at),vx=(x-dragPrev.x)/dt,vy=(y-dragPrev.y)/dt,speed=Math.hypot(vx,vy);if(speed>.08){const deg=Math.max(-6,Math.min(6,vx*2.8)),stretch=Math.min(.024,speed*.007);figure.style.transform=`rotate(${deg.toFixed(2)}deg) scale(${(1-stretch*.35).toFixed(3)},${(1+stretch).toFixed(3)})`;clearTimeout(dragResetTimer);dragResetTimer=setTimeout(()=>{figure.style.transform='';},110);}}dragPrev={x,y,at:now};}
- const pointer=new LabPointerSession.PointerSession({stage,send:data=>window.desktop.input(data),presentation:()=>shown,press:()=>{clearDragTilt();player.retain();stage.classList.add('held');stage.style.cursor='url("'+product.cursors.grabbing+'") 16 16,grabbing';sound('press');},release:(cancel,e)=>{clearDragTilt();clickPoint=!cancel&&e?{x:e.clientX/stage.clientWidth,y:e.clientY/stage.clientHeight}:null;player.freeze();if(cancel)stopSound();else sound('release');},reset:reason=>{clearDragTilt();if(reason==='main')stopSound();stage.style.cursor='url("'+product.cursors.grab+'") 16 16,grab';stage.classList.remove('held');}});
+ const pointer=new LabPointerSession.PointerSession({stage,send:data=>window.desktop.input(data),presentation:()=>shown,press:()=>{clearDragTilt();player.retain();stage.classList.add('held');stage.style.cursor='url("'+product.cursors.grabbing+'") 16 16,grabbing';sound('press');},release:(cancel,e)=>{clearDragTilt();clickPoint=!cancel&&e?{x:e.clientX/stage.clientWidth,y:e.clientY/stage.clientHeight}:null;player.freeze();if(cancel)stopSound();else sound('release');window.desktop.status({input:pointer.status()});},reset:reason=>{clearDragTilt();if(reason==='main')stopSound();stage.style.cursor='url("'+product.cursors.grab+'") 16 16,grab';stage.classList.remove('held');}});
  async function action(command){
   if(!command||!Number.isSafeInteger(command.requestId)||command.requestId<=(current?.requestId??0)||command.gesture!==null&&command.gesture<pointer.gesture||command.resetThroughGesture!==undefined&&command.resetThroughGesture<pointer.gesture)return;
   if(command.name==='takeoff'&&(!pointer.held||command.gesture!==pointer.gesture||product.display.mode==='static'))return;

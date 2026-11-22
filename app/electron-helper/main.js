@@ -196,8 +196,10 @@ if (process.platform === 'win32') {
 // 那是 Windows 的行为，macOS 上不成立。原因与实测数据见该文件头，本文件不再复述。
 //
 // 取值时机是个麻烦：switch 必须在 app ready 之前设，而那时 screen 模块还不可用。
-// 所以首次启动 spawn 一个自己的探测子进程（DSH_PET_DPI_PROBE=1，只打印 scaleFactor 就退出，
-// ~0.5s）并把结果落盘；之后每次启动直接读缓存，零开销。
+// 为彻底避免启动瞬间同步 spawn 阻塞主线程（最长可达 5s），模块顶层只读取已有缓存文件；
+// 首次启动或缓存丢失时本次会话不追加 force-device-scale-factor（維持逐屏 DIP 行为），
+// 待 app.whenReady() 后直接读取 screen.getPrimaryDisplay().scaleFactor 落盘缓存供下次启动启用线性化；
+// 已启用线性化的会话则在启动 1s 后及显示器变更 1s 后异步拉起探测子进程（DSH_PET_DPI_PROBE=1）动态校准。
 
 /** 主屏缩放缓存文件（userData 在 ready 前即可用） */
 function dpiCacheFile() {
@@ -240,16 +242,19 @@ function probePrimaryScaleAsync() {
         encoding: 'utf8',
         windowsHide: true,
       },
-      (err, stdout) => {
+      (err, stdout, stderr) => {
         const v = parseProbeOutput(stdout);
         if (v > 0) {
           writeCachedPrimaryScale(v);
           return resolve(v);
         }
         if (err) {
+          const status = err.status ?? err.code ?? 'unknown';
+          const errText = String(stderr || err.stderr || '').trim().slice(0, 300);
           console.error(
             '[dsh-pet-desktop-helper] async dpi probe failed:',
-            String(err && err.message ? err.message : err).split('\n')[0],
+            String(err && err.message ? err.message : err).split('\n')[0] +
+              ` (status=${status}${errText ? ' stderr=' + errText : ''})`,
           );
         }
         resolve(0);
@@ -749,6 +754,7 @@ app.whenReady().then(async () => {
     return;
   }
   if (LINEARIZE_ENABLED && FORCED_SCALE === 0) {
+    // 首次启动或缓存丢失：force-device-scale-factor 已无法在 ready 后追加，故本次会话维持逐屏 DIP，仅落盘缓存供下次启动启用线性化。
     const detected = Number(screen.getPrimaryDisplay()?.scaleFactor);
     if (Number.isFinite(detected) && detected > 0) {
       PRIMARY_SCALE = detected;
@@ -1055,7 +1061,6 @@ app.whenReady().then(async () => {
   };
   /** 显示器事件会连发（一次改动能来好几条），去抖后只重算一次 */
   const scheduleDisplays = () => {
-    refreshWorkAreas();
     if (displaysTimer) clearTimeout(displaysTimer);
     displaysTimer = setTimeout(() => {
       displaysTimer = null;

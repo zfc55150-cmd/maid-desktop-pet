@@ -1,5 +1,10 @@
 'use strict';
 
+const path = require('node:path');
+const { pathToFileURL } = require('node:url');
+
+const HELPER_DIR_URL = pathToFileURL(__dirname).href.replace(/\/+$/, '').toLowerCase();
+
 function parseByteRange(rangeHeader, fileSize) {
   const size = Number(fileSize);
   if (!Number.isFinite(size) || size < 0) {
@@ -59,7 +64,14 @@ function readOrigin(request) {
 
 function isAllowedOrigin(origin) {
   if (!origin || origin === 'null') return true;
-  return origin.startsWith('file://') || origin.startsWith('dsh-pet-bridge://');
+  const raw = String(origin).trim();
+  const lower = raw.toLowerCase();
+  if (lower.startsWith('dsh-pet-bridge://')) return true;
+  if (lower === 'file://' || lower === 'file:///') return true;
+  if (lower.startsWith('file://')) {
+    return lower.startsWith(HELPER_DIR_URL + '/') || lower === HELPER_DIR_URL;
+  }
+  return false;
 }
 
 function corsHeaders(request, contentType) {

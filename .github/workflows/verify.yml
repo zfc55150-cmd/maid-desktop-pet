@@ -55,7 +55,7 @@ jobs:
       - name: Check animated .gitignore does not hide new source files
         shell: pwsh
         run: |
-          $ignored = git -c core.quotePath=false ls-files --others --ignored --exclude-standard integrations/gpt-niang/animated | Where-Object { $_ -match '\.(cjs|mjs|js|ts|cs|ps1|py|cmd|bat|json|md)$' -or $_ -match '/$' }
+          $ignored = git -c core.quotePath=false ls-files --others --ignored --exclude-standard --directory integrations/gpt-niang/animated | Where-Object { $_ -match '\.(cjs|mjs|js|ts|cs|ps1|psm1|psd1|py|cmd|bat|sh|json|md|html|css|txt|yml|yaml)$' -or $_ -match '/$' }
           if ($ignored) {
             Write-Error ("Ignored source/doc files or directories found under animated/:`n" + ($ignored -join "`n"))
             exit 1

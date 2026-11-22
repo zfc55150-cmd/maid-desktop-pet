@@ -64,7 +64,7 @@ if($LASTEXITCODE -ne 0){throw 'Independent host is active or unknown; shared run
 & (Join-Path $appRoot 'node.exe') (Join-Path $appRoot 'launcher.mjs') --stop
 if($LASTEXITCODE -ne 0){throw 'Existing launcher could not stop the pet; no code was replaced'}
 for($i=0;$i -lt 60;$i++){
- $active=@(Get-Process | Where-Object {$_.Path -like ($appRoot+'\*')})
+ $active=@(Get-Process -ErrorAction SilentlyContinue | Where-Object {try{$_.Path -like ($appRoot+'\*')}catch{$false}})
  if(!$active.Count){break};Start-Sleep -Milliseconds 100
 }
 if($active.Count){throw 'Pet processes did not exit; no code was replaced'}
@@ -106,7 +106,7 @@ try {
  # Roll back only files from the reviewed deployment manifest.
  try{& (Join-Path $appRoot 'node.exe') (Join-Path $appRoot 'launcher.mjs') --stop}catch{}
  for($i=0;$i -lt 60;$i++){
-  $rollbackActive=@(Get-Process | Where-Object {$_.Path -like ($appRoot+'\*')})
+  $rollbackActive=@(Get-Process -ErrorAction SilentlyContinue | Where-Object {try{$_.Path -like ($appRoot+'\*')}catch{$false}})
   if(!$rollbackActive.Count){break};Start-Sleep -Milliseconds 100
  }
  if($rollbackActive.Count){throw 'Processes remain active; rollback was not attempted. Reviewed backups retained'}

@@ -1,21 +1,33 @@
 """Tests for portable release builder asset exclusion and single reminder injection."""
 import hashlib
-from importlib.machinery import SourceFileLoader
+from importlib.util import module_from_spec, spec_from_file_location
 import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-release_builder = SourceFileLoader(
+
+
+def load_script_module(name: str, path: Path):
+    spec = spec_from_file_location(name, str(path))
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load {name} from {path}")
+    module = module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+release_builder = load_script_module(
     "build_deepseek_portable_release",
-    str(ROOT / "scripts/build-deepseek-portable-release.py"),
-).load_module()
-reminder_builder = SourceFileLoader(
+    ROOT / "scripts/build-deepseek-portable-release.py",
+)
+reminder_builder = load_script_module(
     "build_deepseek_portable_reminder",
-    str(ROOT / "scripts/build-deepseek-portable-reminder.py"),
-).load_module()
+    ROOT / "scripts/build-deepseek-portable-reminder.py",
+)
 
 
 def make_base_zip(zip_path: Path, stem: str, extra_entries: dict[str, bytes], main_js: bytes) -> str:
@@ -110,7 +122,8 @@ class PortableReleaseBuilderTests(unittest.TestCase):
         nl_main = b"app.setName('dsh-pet-electron-helper');\n"
         out_main_nl, _, _, ext_nl = release_builder.wire_reminder(nl_main, {}, {})
         self.assertEqual(ext_nl, "cjs")
-        self.assertTrue(out_main_nl.startswith(nl_main + reminder_builder.BOOT.encode("utf-8")[:16]))
+        self.assertEqual(out_main_nl, nl_main + reminder_builder.BOOT.encode("utf-8"))
+        self.assertEqual(len(reminder_builder.REMINDER_START_RE.findall(out_main_nl.decode("utf-8"))), 1)
 
         # Branch 2: main.js already requiring .js removes stale .cjs from base_entries
         js_main = b"const r = require('./release-reminder.js');\n"
@@ -126,6 +139,18 @@ class PortableReleaseBuilderTests(unittest.TestCase):
         self.assertNotIn(helper + "release-reminder.cjs", out_base2)
         self.assertIn(helper + "other.js", out_base2)
         self.assertEqual(out_changes2, {})
+
+        # Branch 2c: comment mentioning .cjs with real .js require still classifies as "js" and strips stale .cjs
+        comment_cjs_main = b"// see require('./release-reminder.cjs') for portable fallback\nconst r = require('./release-reminder.js');\n"
+        _, out_base2c, _, ext2c = release_builder.wire_reminder(comment_cjs_main, base_with_stale, {})
+        self.assertEqual(ext2c, "js")
+        self.assertNotIn(helper + "release-reminder.cjs", out_base2c)
+
+        # Branch 2d: extensionless require('./release-reminder') classifies as "js" matching Node CJS resolution
+        extless_main = b"const r = require('./release-reminder');\n"
+        _, out_base2d, _, ext2d = release_builder.wire_reminder(extless_main, base_with_stale, {})
+        self.assertEqual(ext2d, "js")
+        self.assertNotIn(helper + "release-reminder.cjs", out_base2d)
 
         # Branch 2b: main.js requiring .cjs (even with comment mentioning .js) preserves .cjs
         cjs_main = b"// replaces release-reminder.js\nconst r = require('./release-reminder.cjs');\n"
@@ -161,10 +186,10 @@ class PortableReleaseBuilderTests(unittest.TestCase):
         self.assertEqual(first, second)
 
     def test_write_sha256sums_emits_no_bom(self):
-        sums_writer = SourceFileLoader(
+        sums_writer = load_script_module(
             "write_sha256sums",
-            str(ROOT / "scripts/write-sha256sums.py"),
-        ).load_module()
+            ROOT / "scripts/write-sha256sums.py",
+        )
         sample = self.dir / "sample.zip"
         sample.write_bytes(b"portable-zip-bytes")
         sums_path = self.dir / "SHA256SUMS.txt"
@@ -174,15 +199,15 @@ class PortableReleaseBuilderTests(unittest.TestCase):
         text = raw.decode("ascii")
         self.assertIn("  sample.zip\n", text)
 
-    def test_verify_github_release_portable_dir_checks_sums_and_rejects_bom(self):
-        sums_writer = SourceFileLoader(
+    def test_verify_github_release_portable_dir_checks_sums_and_rejects_bom_empty_or_non_ascii(self):
+        sums_writer = load_script_module(
             "write_sha256sums",
-            str(ROOT / "scripts/write-sha256sums.py"),
-        ).load_module()
-        verifier = SourceFileLoader(
+            ROOT / "scripts/write-sha256sums.py",
+        )
+        verifier = load_script_module(
             "verify_github_release",
-            str(ROOT / "scripts/verify-github-release.py"),
-        ).load_module()
+            ROOT / "scripts/verify-github-release.py",
+        )
         asset = self.dir / "DeepSeekActionPet-v1.0.7-win-x64.zip"
         asset.write_bytes(b"zip-payload")
         sums_path = self.dir / "SHA256SUMS.txt"
@@ -193,6 +218,57 @@ class PortableReleaseBuilderTests(unittest.TestCase):
         sums_path.write_bytes(b"\xef\xbb\xbf" + sums_path.read_bytes())
         with self.assertRaises(ValueError):
             verifier.build_expected_from_portable_dir(self.dir)
+        sums_path.write_bytes(b"\n")
+        with self.assertRaises(ValueError):
+            verifier.build_expected_from_portable_dir(self.dir)
+        sums_path.write_bytes(("0" * 64 + "  非ASCII.zip\n").encode("utf-8"))
+        with self.assertRaises(ValueError):
+            verifier.build_expected_from_portable_dir(self.dir)
+
+    def test_run_prechecks_invokes_sync_shared_and_verify_and_e2e_boot_injection(self):
+        stem = "DeepSeekActionPet-v1.0.5-win-x64"
+        base_zip = self.dir / f"{stem}.zip"
+        base_sha = make_base_zip(
+            base_zip,
+            stem,
+            extra_entries={},
+            main_js=b"app.setName('dsh-pet-electron-helper');\n",
+        )
+        real_deployment = json.loads((ROOT / "deployment.json").read_text(encoding="utf-8"))
+        no_main_deployment = {
+            **real_deployment,
+            "files": [item for item in real_deployment["files"] if item["source"] != "app/electron-helper/main.js"],
+        }
+        orig_read_text = Path.read_text
+
+        def patched_read_text(path_obj, *args, **kwargs):
+            if path_obj == ROOT / "deployment.json":
+                return json.dumps(no_main_deployment)
+            return orig_read_text(path_obj, *args, **kwargs)
+
+        with mock.patch.object(release_builder.subprocess, "run") as mock_run, \
+             mock.patch.object(Path, "read_text", autospec=True, side_effect=patched_read_text):
+            archive = release_builder.build_formal_release(
+                base_zip, base_sha, "v1.0.7", self.dir / "out-e2e-boot", formal=False, run_prechecks=True
+            )
+            self.assertEqual(mock_run.call_count, 2)
+            first_cmd = mock_run.call_args_list[0].args[0]
+            second_cmd = mock_run.call_args_list[1].args[0]
+            self.assertTrue(str(first_cmd[1]).endswith("sync-shared.cjs"))
+            self.assertTrue(str(second_cmd[1]).endswith("verify.cjs"))
+            self.assertEqual(mock_run.call_args_list[0].kwargs.get("cwd"), ROOT)
+            self.assertTrue(mock_run.call_args_list[0].kwargs.get("check"))
+            self.assertEqual(mock_run.call_args_list[1].kwargs.get("cwd"), ROOT)
+            self.assertTrue(mock_run.call_args_list[1].kwargs.get("check"))
+
+        with zipfile.ZipFile(archive) as zf:
+            prefix = archive.stem + "/"
+            names = set(zf.namelist())
+            self.assertIn(prefix + release_builder.HELPER + "release-reminder.cjs", names)
+            self.assertIn(prefix + release_builder.HELPER + "release-notice.cjs", names)
+            main_text = zf.read(prefix + release_builder.HELPER + "main.js").decode("utf-8")
+            self.assertEqual(len(reminder_builder.REMINDER_START_RE.findall(main_text)), 1)
+            self.assertIn("if (process.env.DSH_HOME) app.setPath('userData'", main_text)
 
 
 if __name__ == "__main__":

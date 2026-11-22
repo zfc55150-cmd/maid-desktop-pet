@@ -96,3 +96,26 @@ test('ChatConfigStore reports tooLarge message instead of corrupt when file exce
   const store = new ChatConfigStore({ dir: fakeDir, fsImpl: fakeFs, getLang: () => 'ja' });
   assert.throws(() => store.read(), /8 MB/);
 });
+
+test('sprite.js getLang normalizes ja-JP documentElement.lang and startThrow clamps speed to MAX_THROW_SPEED', () => {
+  const spriteSrc = fs.readFileSync(path.join(__dirname, '../app/electron-helper/sprite.js'), 'utf8');
+  const getLangStart = spriteSrc.indexOf('getLang() {');
+  const getLangEnd = spriteSrc.indexOf('renderTip() {', getLangStart);
+  assert.ok(getLangStart > 0 && getLangEnd > getLangStart);
+  const vm = require('node:vm');
+  const fnCode = 'function ' + spriteSrc.slice(getLangStart, getLangEnd);
+  const runGetLang = (docLang, cfgLang) => {
+    const ctx = {
+      document: { documentElement: { lang: docLang } },
+      CONFIG: { lang: cfgLang },
+      String,
+    };
+    vm.createContext(ctx);
+    vm.runInContext(fnCode, ctx);
+    return ctx.getLang.call({ inlineChat: null });
+  };
+  assert.equal(runGetLang('ja-JP', 'zh-CN'), 'ja');
+  assert.equal(runGetLang('JA_jp', 'zh-CN'), 'ja');
+  assert.equal(runGetLang('zh-TW', 'ja'), 'zh-CN');
+  assert.match(spriteSrc, /const cap = S\.MAX_THROW_SPEED \|\| 3600;/);
+});

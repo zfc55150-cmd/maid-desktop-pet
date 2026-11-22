@@ -23,10 +23,13 @@ function resolvePackageRoot(argv = process.argv, appDir = __dirname) {
   if (explicit && explicit.slice(7).trim()) {
     return {root: path.resolve(explicit.slice(7).trim()), source: 'explicit', fallback};
   }
-  for (let i = 1; i < args.length; i++) {
-    const arg = args[i].trim();
-    if (!arg || arg.startsWith('-') || isRuntimeOrEntry(arg, appDir)) continue;
-    return {root: path.resolve(arg), source: 'positional', fallback};
+  const allowPositional = process.env.GPTNIANG_ALLOW_POSITIONAL_ROOT !== '0';
+  if (allowPositional) {
+    for (let i = 1; i < args.length; i++) {
+      const arg = args[i].trim();
+      if (!arg || arg.startsWith('-') || isRuntimeOrEntry(arg, appDir)) continue;
+      return {root: path.resolve(arg), source: 'positional', fallback};
+    }
   }
   return {root: fallback, source: 'default', fallback};
 }

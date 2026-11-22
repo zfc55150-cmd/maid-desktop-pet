@@ -9,7 +9,8 @@ const {
   markHealthy,
   resetAttempts,
   saveLastGoodManifest,
-  loadLastGoodManifest
+  loadLastGoodManifest,
+  cleanStaleTempFiles
 } = require('./app/startup-guard.cjs');
 
 test('startup-guard triggers safe mode after 3 failures within window and resets on healthy or version change', t => {
@@ -58,7 +59,7 @@ test('last-good manifest saves once per content hash and validates version and c
   assert.equal(loadLastGoodManifest(file, { version: '0.8.40-electron', clips: {} }), null);
 });
 
-test('main.cjs records startup attempts before ProductHost init and isolates saveLastGoodManifest errors', () => {
+test('main.cjs records startup attempts before ProductHost init, isolates saveLastGoodManifest errors, and cleans stale temp files', () => {
   const src = fs.readFileSync(path.join(__dirname, 'app/main.cjs'), 'utf8');
   const recordIdx = src.indexOf('startupGuard.recordAttempt(');
   const hostIdx = src.indexOf('new ProductHost(');
@@ -69,4 +70,48 @@ test('main.cjs records startup attempts before ProductHost init and isolates sav
   assert.ok(configureIdx > 0 && catchIdx > configureIdx && saveIdx > catchIdx, 'saveLastGoodManifest must be outside catalog.configure try block');
   assert.match(src, /LAST_GOOD_SAVE_FAILED/);
   assert.match(src, /pauseForSafeMode/);
+  assert.match(src, /RENDERER_INIT_TIMEOUT/);
+  assert.match(src, /SUPERVISOR_PAUSE_WRITE_FAILED/);
+
+  // Behavioral check: cleanStaleTempFiles removes orphaned atomic .tmp files while preserving active JSON files
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'gpt-clean-tmp-'));
+  try {
+    fs.writeFileSync(path.join(dir, 'startup-attempts.json.1234.abcd-1234.tmp'), 'orphan');
+    fs.writeFileSync(path.join(dir, 'runtime.json.tmp'), 'orphan');
+    fs.writeFileSync(path.join(dir, 'settings.json'), '{"ok":true}');
+    assert.equal(cleanStaleTempFiles(dir), 2);
+    assert.equal(fs.existsSync(path.join(dir, 'startup-attempts.json.1234.abcd-1234.tmp')), false);
+    assert.equal(fs.existsSync(path.join(dir, 'runtime.json.tmp')), false);
+    assert.equal(fs.existsSync(path.join(dir, 'settings.json')), true);
+
+    // Behavioral check: saveLastGoodManifest failure is isolated when catalog.configure succeeds
+    const vm = require('node:vm');
+    const errors = [];
+    let safeMode = null;
+    const block = src.slice(src.indexOf('if(guard.safeMode){'), src.indexOf('touch=new TouchResponses('));
+    const ctx = {
+      guard: { safeMode: false, failures: 0 },
+      smoke: false,
+      animation: { states: { frontidle: { frames: 1 } } },
+      scenes: { clips: { frontidle: {} } },
+      lastGoodFile: path.join(dir, 'last-good.json'),
+      catalog: { revision: '0.8.41-electron', configure() {}, reset() { throw new Error('should not reset'); } },
+      startupGuard: {
+        loadLastGoodManifest: () => null,
+        saveLastGoodManifest: () => { throw new Error('ENOSPC'); }
+      },
+      error: code => errors.push(code),
+      appendCrashLog: () => {},
+      Date,
+      String,
+      get safeMode() { return safeMode; },
+      set safeMode(v) { safeMode = v; }
+    };
+    vm.createContext(ctx);
+    vm.runInContext(block, ctx);
+    assert.equal(safeMode, null);
+    assert.deepEqual(errors, ['LAST_GOOD_SAVE_FAILED:ENOSPC']);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
 });

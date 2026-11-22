@@ -106,6 +106,26 @@ function loadLastGoodManifest(file, { version, clips }) {
   return stored.manifest;
 }
 
+/**
+ * Clean orphaned atomic write temp files left by interrupted previous sessions.
+ */
+function cleanStaleTempFiles(dir) {
+  if (!dir || typeof dir !== 'string') return 0;
+  let removed = 0;
+  try {
+    for (const name of fs.readdirSync(dir)) {
+      if (/^(?:startup-attempts|manifest-last-good|presence|diagnostics|test-diagnostics|settings|pet-form|experience-preferences|audio-preferences|update-preferences|quotes|characters|color-triggers)\.json\.\d+\.[a-f0-9-]+\.tmp$/i.test(name) ||
+          name === 'runtime.json.tmp') {
+        try {
+          fs.rmSync(path.join(dir, name), { force: true });
+          removed++;
+        } catch {}
+      }
+    }
+  } catch {}
+  return removed;
+}
+
 module.exports = {
   DEFAULT_WINDOW_MS,
   DEFAULT_MAX_FAILURES,
@@ -113,5 +133,6 @@ module.exports = {
   markHealthy,
   resetAttempts,
   saveLastGoodManifest,
-  loadLastGoodManifest
+  loadLastGoodManifest,
+  cleanStaleTempFiles
 };

@@ -18,6 +18,6 @@ function verify(root,{allowLegacy=false}={}){
  if(!Number.isInteger(m.clips)||!Number.isInteger(m.frames)||Object.keys(scenes.clips).length!==m.clips||frames!==m.frames)throw Error('MEDIA_COUNT');
  const compat=path.resolve(cfg.compatRoot),active=path.join(compat,'active-version.json');let legacyRemaining=null;
  if(fs.existsSync(active)&&path.resolve(compat,'versions',m.version)===root){const a=read(active);if(a.version!==m.version||a.mainSha256!==sha(path.join(root,'app/main.cjs'))||a.manifestSha256!==sha(path.join(root,'package-manifest.json')))throw Error('ACTIVATION_HASH');const receipt=read(path.join(compat,'electron-deployment.json'));for(const row of receipt.rootFiles)if(sha(path.join(compat,row.path))!==row.sha256)throw Error('COMPAT_HASH:'+row.path);legacyRemaining=receipt.retired.filter(row=>fs.existsSync(path.join(compat,row.path))).length;if(legacyRemaining&&!allowLegacy)throw Error('LEGACY_FILES_REMAIN:'+legacyRemaining);}
- return {ok:true,version:m.version,releaseTag,files:m.files.length,bytes,clips:m.clips,frames,legacyRemaining,screenPresentationVerified:false};
+ return {ok:true,version:m.version,releaseTag,files:m.files.length,bytes,clips:m.clips,frames,legacyRemaining,screenPresentationVerified:false,screenPresentationVerifiedNote:'offscreen smoke only; real display presentation not verified automatically'};
 }
 module.exports={verify};if(require.main===module){try{console.log(JSON.stringify(verify(process.argv[2],{allowLegacy:process.argv.includes('--allow-legacy')})));}catch(e){console.error(e.message);process.exitCode=1;}}

@@ -87,6 +87,12 @@ const STARTED_KEY = '__dshReleaseReminderStarted';
 
 /**
  * Resolve the installed/portable local release tag without falling back to a hardcoded tag.
+ *
+ * Contract:
+ * 1. Portable archives include a build-generated `release-tag.json` next to `release-reminder.js`.
+ * 2. Installed distributions (`deployment.json` layout) intentionally omit `release-tag.json`
+ *    and resolve their authoritative tag from `app/electron-helper/package.json` (`releaseTag`),
+ *    which `scripts/verify.cjs` (`strictMetadata`) enforces to match root `package.json`.
  */
 function resolveLocalTag(helperDir = __dirname) {
   for (const [relativePath, field] of [

@@ -4,6 +4,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const { pathToFileURL } = require('node:url');
 const { parseByteRange, corsHeaders, isAllowedOrigin, readOrigin } = require('../app/electron-helper/bridge-media.js');
 
 test('parseByteRange handles full, partial, suffix, and unsatisfiable ranges', () => {
@@ -52,10 +53,14 @@ test('corsHeaders restricts Access-Control-Allow-Origin to local/null origins', 
   assert.equal(readOrigin({ headers: { Origin: ' https://evil.example ' } }), 'https://evil.example');
   assert.equal(isAllowedOrigin('https://evil.example'), false);
   assert.equal(isAllowedOrigin('file://'), true);
+  const helperIndexUrl = pathToFileURL(path.resolve(__dirname, '../app/electron-helper/index.html')).href;
+  assert.equal(isAllowedOrigin(helperIndexUrl), true);
+  assert.equal(isAllowedOrigin('file:///C:/unrelated-outside-dir/evil.html'), false);
 });
 
-test('electron-helper main.js enforces bridge origin 403, async DPI probe, cached workAreas, and safe windows init', () => {
-  const mainSrc = fs.readFileSync(path.join(__dirname, '../app/electron-helper/main.js'), 'utf8');
+test('electron-helper main.js enforces bridge origin 403, async DPI probe, cached workAreas, and safe windows init', async () => {
+  const mainPath = path.join(__dirname, '../app/electron-helper/main.js');
+  const mainSrc = fs.readFileSync(mainPath, 'utf8');
   assert.equal(mainSrc.includes('execFileSync'), false, 'startup must not synchronously spawn DPI probe');
   assert.equal(mainSrc.includes("typeof windows === 'undefined'"), false, 'avoid TDZ dead guard on const windows');
   const winDecl = mainSrc.indexOf('const windows = new Map()');
@@ -64,4 +69,43 @@ test('electron-helper main.js enforces bridge origin 403, async DPI probe, cache
   assert.match(mainSrc, /status:\s*403/);
   assert.match(mainSrc, /sanitizeBounds\(bounds,\s*cachedWorkAreas/);
   assert.match(mainSrc, /release reminder disabled: unable to resolve local release tag/);
+
+  // Behavioral invocation of handleBridgeRequest extracted from main.js
+  const fnStart = mainSrc.indexOf('async function handleBridgeRequest(request)');
+  const fnEnd = mainSrc.indexOf('let chatControlsRef = null;', fnStart);
+  assert.ok(fnStart > 0 && fnEnd > fnStart);
+  const vm = require('node:vm');
+  const ctx = {
+    URL,
+    Response,
+    readOrigin,
+    isAllowedOrigin,
+    corsHeaders,
+    bridgeCallbackUrl: 'http://127.0.0.1:9999/respond',
+    bridgeRequest: async () => ({ status: 200, body: 'ok', contentType: 'text/plain' }),
+  };
+  vm.createContext(ctx);
+  vm.runInContext(mainSrc.slice(fnStart, fnEnd), ctx);
+
+  const forbiddenRes = await ctx.handleBridgeRequest({
+    url: 'dsh-pet-bridge://dsh-pet/dsh-pet-7340/config',
+    method: 'GET',
+    headers: { origin: 'https://evil.example' },
+  });
+  assert.equal(forbiddenRes.status, 403);
+  assert.equal(await forbiddenRes.text(), 'dsh-pet: forbidden origin');
+
+  const outsideFileRes = await ctx.handleBridgeRequest({
+    url: 'dsh-pet-bridge://dsh-pet/dsh-pet-7340/config',
+    method: 'GET',
+    headers: { origin: 'file:///C:/outside/evil.html' },
+  });
+  assert.equal(outsideFileRes.status, 403);
+
+  const allowedRes = await ctx.handleBridgeRequest({
+    url: 'dsh-pet-bridge://dsh-pet/dsh-pet-7340/config',
+    method: 'GET',
+    headers: { origin: 'file://' },
+  });
+  assert.equal(allowedRes.status, 200);
 });

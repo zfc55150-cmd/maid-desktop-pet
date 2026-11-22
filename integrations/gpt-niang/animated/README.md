@@ -26,6 +26,8 @@
 
 本轮沿用原版 PNG 帧路径，保留新增返程及当前定制；Electron 视频替换候选已撤回。见[清晰度复核与原版续接](../../../docs/GPT娘清晰度复核与原版续接-20261101.md)。下方命令中只读正式校验仍可运行，但预期会报告上述漂移，不能把其误读为当前安装损坏。
 
+> **114 张 PNG 帧与 `frost-glass-cheek.png` 说明（R2-L13 / R4-P6）**：`deployment.json` 中登记的 114 张 `assets/dragon-animation/motion-v1/*.png` 图集帧属于历史 WPF 阶段（`0.7.3-continuity`）本地视频抽帧产物，为避免二进制大体积膨胀未直接入 Git 仓库（`verify-installed.cjs` 现已区分 `codeFailures` 与 `mediaFailures` / `MEDIA_MISSING`）。自 `0.8.0-electron` 起正式版已全面切换为 59 段 WebM 视频 + 384×384 位掩码（`hit-masks.json`），不再消费上述 PNG 序列；半身形态若包内未含 `assets/pet-forms/frost-glass-cheek.png`，`app/main.cjs` 的 `imageMask()` 会自动安全回落至包内 `assets/gpt-dragon-niang-bust.png` 或 `assets/frontidle.png`。
+
 右键 → 设置 → 陪伴与任务：查看匿名任务状态、安静一会儿、暂停观察、清理自产状态、可选待机节奏及顺姿态点播。新选项默认保持原有行为。
 
 - [本轮改动、使用与回退](HANDOFF-CONTINUITY-20261028.md)

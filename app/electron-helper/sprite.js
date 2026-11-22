@@ -997,12 +997,20 @@ class PetSprite {
   startThrow(px, py, vx, vy) {
     this.stopDragFollow();
     this.stopMove();
+    const cap = S.MAX_THROW_SPEED || 3600;
+    let cvx = Number.isFinite(vx) ? vx : 0;
+    let cvy = Number.isFinite(vy) ? vy : 0;
+    const sp = Math.hypot(cvx, cvy);
+    if (sp > cap) {
+      cvx *= cap / sp;
+      cvy *= cap / sp;
+    }
     // 边界 = 显示器工作区**并集**：空洞是墙（宠物再也飞不进不可见区域），屏缝不是墙（跨屏弹跳照旧）
     // confineToScreen 开启时改为锁定**松手这一刻所在的那块屏**：屏缝同样当墙，只在目标屏内弹。
     // 锁定屏在抛掷开始时定下、飞行途中不重取；relayout 改了屏数时由 throwStepRegion 退回不锁定。
     const lockScreen = this.confineToScreen ? S.screenOfBox(this.throwSpaceOf(), px, py) : -1;
     const token = ++this.throwToken;
-    let state = { x: px, y: py, vx, vy };
+    let state = { x: px, y: py, vx: cvx, vy: cvy };
     let last = performance.now();
     const sp0 = this.throwSpaceOf();
     const curScreen0 = S.screenOfBox(sp0, px, py);
@@ -1484,7 +1492,8 @@ class PetSprite {
       (typeof document !== 'undefined' && document.documentElement?.lang) ||
       (typeof CONFIG !== 'undefined' ? CONFIG.lang : '') ||
       'zh-CN';
-    return lang === 'ja' ? 'ja' : 'zh-CN';
+    const norm = String(lang || '').trim().toLowerCase().replace(/_/g, '-');
+    return norm === 'ja' || norm.startsWith('ja-') ? 'ja' : 'zh-CN';
   }
 
   renderTip() {

@@ -33,10 +33,18 @@ function verifyInstalled({manifest,baseline=null,installedRoot=null,agentRoot=nu
  const roots={app:path.resolve(installedRoot||manifest.targetRoot),agent:path.resolve(agentRoot||manifest.stableAgent.targetRoot)};
  const failures=[];
  for(const [scope,files] of [['app',app],['agent',agent]])for(const entry of files.values()){
-  try{if(hash(child(roots[scope],entry.target))!==entry.sha256)failures.push({scope,target:entry.target,code:'HASH_MISMATCH'});}
-  catch(error){failures.push({scope,target:entry.target,code:error.code==='ENOENT'?'FILE_MISSING':error.message==='VERIFY_LINKED_PATH'?'LINKED_PATH':'FILE_UNREADABLE'});}
+  const isMedia=/\.(?:png|webm|mp3|wav|ttf|cur)$/i.test(entry.target);
+  const category=isMedia?'media':'code';
+  try{if(hash(child(roots[scope],entry.target))!==entry.sha256)failures.push({scope,target:entry.target,category,code:isMedia?'MEDIA_HASH_MISMATCH':'HASH_MISMATCH'});}
+  catch(error){
+   const baseCode=error.code==='ENOENT'?'FILE_MISSING':error.message==='VERIFY_LINKED_PATH'?'LINKED_PATH':'FILE_UNREADABLE';
+   const code=isMedia&&baseCode==='FILE_MISSING'?'MEDIA_MISSING':baseCode;
+   failures.push({scope,target:entry.target,category,code});
+  }
  }
- return {ok:failures.length===0,checkedAt:new Date().toISOString(),version:manifest.version,upstreamVersion:manifest.upstreamVersion??baseline?.upstreamVersion,customFiles:custom.size,hostFiles:host.size,uniqueApplicationFiles:app.size,stableFiles:agent.size,failures,paidApi:false,restartsPet:false,copiesMaterial:false};
+ const codeFailures=failures.filter(f=>f.category==='code').length;
+ const mediaFailures=failures.filter(f=>f.category==='media').length;
+ return {ok:failures.length===0,checkedAt:new Date().toISOString(),version:manifest.version,upstreamVersion:manifest.upstreamVersion??baseline?.upstreamVersion,customFiles:custom.size,hostFiles:host.size,uniqueApplicationFiles:app.size,stableFiles:agent.size,codeFailures,mediaFailures,failures,paidApi:false,restartsPet:false,copiesMaterial:false};
 }
 function main(args){
  const options={manifest:path.join(__dirname,'deployment.json')};
