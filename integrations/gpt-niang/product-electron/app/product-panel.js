@@ -90,8 +90,8 @@
   for(const button of document.querySelectorAll('[data-character-id]'))button.textContent=button.dataset.characterId===next.prefs.characterId?tr('panel.characters.inUse'):tr('panel.characters.use');
   for(const label of document.querySelectorAll('[data-default-character]'))label.textContent=tr('panel.characters.defaultName');
   const u=next.update||{};
-  el('release-version').textContent=tr('panel.update.releaseVersion',{tag:u.releaseTag||'v1.0.8'});
-  el('core-version').textContent=tr('panel.update.coreVersion',{version:u.appVersion||next.version||'0.8.41-electron'});
+  el('release-version').textContent=tr('panel.update.releaseVersion',{tag:u.releaseTag||'v1.0.9'});
+  el('core-version').textContent=tr('panel.update.coreVersion',{version:u.appVersion||next.version||'0.8.42-electron'});
   el('update-automatic').checked=u.automatic!==false;
   const updateFallback={
    checking:tr('panel.update.checking'),

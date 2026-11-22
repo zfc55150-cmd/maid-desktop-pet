@@ -23,7 +23,7 @@ def default_release_tag():
     if pkg_file.is_file():
         tag=json.loads(pkg_file.read_text(encoding='utf-8')).get('releaseTag')
         if tag:return str(tag)
-    return 'v1.0.8'
+    return 'v1.0.9'
 
 
 def build_expected_from_portable_dir(portable_dir: Path) -> dict:
