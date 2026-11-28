@@ -45,9 +45,23 @@ public static class GptWidgetSupervisorNative {
 '@
 }
 
-function Test-WidgetSupervisorPause($Pause,$Hosts){
+function Get-WidgetSystemBootUtc {
+  try { return (Get-CimInstance Win32_OperatingSystem -ErrorAction Stop).LastBootUpTime.ToUniversalTime() }
+  catch { return $null }
+}
+
+function Test-WidgetSupervisorPause($Pause,$Hosts,$BootUtc=$null){
   if(!$Pause){return $false}
-  if($Pause.desktop){return $true}
+  if($Pause.desktop){
+    if($Pause.safeMode){return $true}
+    if($BootUtc -and $Pause.at){
+      try{
+        $pausedAtUtc=[DateTimeOffset]::Parse([string]$Pause.at).UtcDateTime
+        if($pausedAtUtc -lt $BootUtc){return $false}
+      }catch{}
+    }
+    return $true
+  }
   foreach($item in @($Hosts)){
     if([long]$Pause.host-gt 0 -and [long]$item.handle-eq [long]$Pause.host){
       if([int]$Pause.hostPid-gt 0 -and [int]$item.pid-ne [int]$Pause.hostPid){continue}
@@ -141,6 +155,7 @@ $lastVisibleHostKey=''
 $pendingGui=$null
 $supervisorProcess=Get-Process -Id $PID
 try{$processStartedAt=$supervisorProcess.StartTime.ToUniversalTime().ToString('o')}finally{$supervisorProcess.Dispose()}
+$bootUtc=Get-WidgetSystemBootUtc
 try{
   while($true){
     if((Test-Path -LiteralPath (Join-Path $info.DataDir 'supervisor-disabled.flag')) -or (Test-Path -LiteralPath (Join-Path $info.DataDir 'supervisor-stop.flag'))){break}
@@ -149,7 +164,7 @@ try{
       $settings=$null;try{$settings=Get-Content -LiteralPath (Join-Path $info.DataDir 'settings.json') -Raw -Encoding UTF8|ConvertFrom-Json}catch{}
       $desktop=$settings -and $null-ne $settings.followHost -and !$settings.followHost
       $pause=$null;try{$pause=Get-Content -LiteralPath $pauseFile -Raw -Encoding UTF8|ConvertFrom-Json}catch{}
-      $paused=Test-WidgetSupervisorPause $pause $hosts
+      $paused=Test-WidgetSupervisorPause $pause $hosts $bootUtc
       if($pause -and !$paused){Remove-Item -LiteralPath $pauseFile -ErrorAction SilentlyContinue}
       $visible=@($hosts|Where-Object{$_.visible})
       $visibleHostKey=(@($visible|Sort-Object handle|ForEach-Object{'{0}:{1}:{2}'-f $_.handle,$_.pid,$_.started}) -join '|')

@@ -1,7 +1,7 @@
 {
-  "version": "1.2.3-release-notice.5",
+  "version": "1.2.3-release-notice.6",
   "base": "dsh-pet@0.3.7",
-  "previousRef": "v1.0.8",
+  "previousRef": "v1.0.9",
   "files": [
     {
       "source": "app/launcher.mjs",
@@ -37,7 +37,7 @@
       "source": "app/electron-helper/bridge-media.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/bridge-media.js",
       "sha256": "9ae16617225829085112fcaeaaae98dcf326368a29b05be236ea4b94a2efd811",
-      "previousSha256": "ce0f5358d1b9a74cd0a12156835138b61393f2988b96aab43b9393b29b13311e"
+      "previousSha256": "9ae16617225829085112fcaeaaae98dcf326368a29b05be236ea4b94a2efd811"
     },
     {
       "source": "app/electron-helper/chat-config-store.js",
@@ -107,7 +107,7 @@
       "source": "app/electron-helper/index.html",
       "target": "node_modules/dsh-pet/runtime/electron-helper/index.html",
       "sha256": "e01d1f76b60271a71d342b17320b2dc3018a5c20765de24443a2d00b83e677a3",
-      "previousSha256": "b16ddabd5b3c256ca374185b6f294efd056238b6c3da9360d88cef1ba6e76ca7"
+      "previousSha256": "e01d1f76b60271a71d342b17320b2dc3018a5c20765de24443a2d00b83e677a3"
     },
     {
       "source": "app/electron-helper/local-control.js",
@@ -118,14 +118,14 @@
     {
       "source": "app/electron-helper/main.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/main.js",
-      "sha256": "c3b529d4fa37108923fa0f15f698db9d95a4f38ea8980fa46099781483a1a0f0",
-      "previousSha256": "e1d78be3107479e571360e69acde3f54e9580ca89574e7d1b898593307d384ef"
+      "sha256": "291bf48478aadb54010c01f01cea80a66ce44f7e62d2730bc36af871dc6e24fb",
+      "previousSha256": "c3b529d4fa37108923fa0f15f698db9d95a4f38ea8980fa46099781483a1a0f0"
     },
     {
       "source": "app/electron-helper/package.json",
       "target": "node_modules/dsh-pet/runtime/electron-helper/package.json",
-      "sha256": "c338cbd8607887967876e5649531bef91ff0d553ad043c3781038470ad179d47",
-      "previousSha256": "660163e90d1c05de831a638c17ccd4f94d459e0f1fd5a0bf41cc1876a480cc8a"
+      "sha256": "e28eea6469bd773f5a8cec7788e87c69e08d7ce4131b01e76577716d03048e8e",
+      "previousSha256": "c338cbd8607887967876e5649531bef91ff0d553ad043c3781038470ad179d47"
     },
     {
       "source": "app/electron-helper/pet-appearance-store.js",
@@ -239,7 +239,7 @@
       "source": "app/electron-helper/release-reminder.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/release-reminder.js",
       "sha256": "ca8741d5259916d8b8ab9aed52b00aeaf7424d85da50a57591473195db21f3d9",
-      "previousSha256": "c96ef609662fefd21903664b3b9c49f5def50ff9066502167baf8dbc70eec4e6"
+      "previousSha256": "ca8741d5259916d8b8ab9aed52b00aeaf7424d85da50a57591473195db21f3d9"
     },
     {
       "source": "app/electron-helper/renderer.js",
@@ -257,7 +257,7 @@
       "source": "app/electron-helper/simple-chat-main.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/simple-chat-main.js",
       "sha256": "2bfdc19e0b6494ee703c56db39c929850b82adf11932fd39892bc1d610d97ca0",
-      "previousSha256": "b901bfa4b56be2dc0b35beec5243aabd6d20a83c2ddeddf2624c9457051021cf"
+      "previousSha256": "2bfdc19e0b6494ee703c56db39c929850b82adf11932fd39892bc1d610d97ca0"
     },
     {
       "source": "app/electron-helper/simple-chat-preload.js",
@@ -299,12 +299,12 @@
       "source": "app/electron-helper/sprite.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/sprite.js",
       "sha256": "f46db0cfbe2b3aba7a4450563cd44493503939e9149faf82a857027d5474824a",
-      "previousSha256": "7ea37cc8a0ab07dcd089e6c3c76966163083a4a438a19b217a2ab7df89d61d67"
+      "previousSha256": "f46db0cfbe2b3aba7a4450563cd44493503939e9149faf82a857027d5474824a"
     },
     {
       "source": "app/electron-helper/topmost-watchdog.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/topmost-watchdog.js",
-      "sha256": "fd481963a3f3395a184fbe9df3f89bb3da4aadeb38872686068ca6203d9228c9",
+      "sha256": "21df9656eefb79406415de7d1c3eb311a203f4530cd9ea37c9174fa3dad9bf42",
       "previousSha256": "fd481963a3f3395a184fbe9df3f89bb3da4aadeb38872686068ca6203d9228c9"
     },
     {

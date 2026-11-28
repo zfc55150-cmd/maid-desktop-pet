@@ -11,6 +11,7 @@ function shouldReassertTopmost(state) {
 function raiseOnInteraction(win, wasBusy, busy) {
   if (!busy || wasBusy || !win || win.isDestroyed() || !win.isVisible()) return false;
   if (!win.isAlwaysOnTop()) win.setAlwaysOnTop(true, 'screen-saver');
+  if (typeof win.setSkipTaskbar === 'function') win.setSkipTaskbar(true);
   win.moveTop();
   return true;
 }

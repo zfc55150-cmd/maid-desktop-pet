@@ -20,3 +20,18 @@ test('a new interaction raises its own pet once and a later interaction can reve
   assert.equal(raiseOnInteraction({...ds,isDestroyed:()=>true},false,true),false);
   assert.equal(raiseOnInteraction({...ds,isVisible:()=>false},false,true),false);
 });
+test('raiseOnInteraction re-asserts skipTaskbar when available and main.js guards Windows taskbar state',()=>{
+  const fs=require('node:fs'),path=require('node:path');
+  let skipped=false;
+  const win={isDestroyed:()=>false,isVisible:()=>true,isAlwaysOnTop:()=>true,setSkipTaskbar:v=>{skipped=v;},moveTop:()=>{}};
+  assert.equal(raiseOnInteraction(win,false,true),true);
+  assert.equal(skipped,true);
+
+  const mainSource=fs.readFileSync(path.resolve(__dirname,'../app/electron-helper/main.js'),'utf8');
+  assert.match(mainSource,/if\s*\(\s*process\.platform\s*!==\s*['"]win32['"]\s*\)\s*\{\s*win\.setVisibleOnAllWorkspaces\(/);
+  assert.match(mainSource,/function\s+ensureSkipTaskbar\s*\(/);
+  assert.match(mainSource,/win\.on\(\s*['"]show['"]\s*,\s*\(\)\s*=>\s*ensureSkipTaskbar\(win\)\)/);
+  assert.match(mainSource,/win\.on\(\s*['"]focus['"]\s*,\s*\(\)\s*=>\s*ensureSkipTaskbar\(win\)\)/);
+  assert.match(mainSource,/powerMonitor\.on\(\s*ev\b/);
+  assert.match(mainSource,/['"]resume['"]\s*,\s*['"]unlock-screen['"]/);
+});

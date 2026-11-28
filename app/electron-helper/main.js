@@ -45,7 +45,7 @@ try {
   );
   process.exit(3);
 }
-const { app, BrowserWindow, ipcMain, screen, shell, protocol } = electronApi;
+const { app, BrowserWindow, ipcMain, screen, shell, protocol, powerMonitor } = electronApi;
 const path = require('node:path');
 const localControl = require('./local-control');
 const { execFile } = require('node:child_process');
@@ -81,13 +81,23 @@ const DPI_MARK = 'dsh-pet-primary-scale:';
 /** 窗口表：petId -> BrowserWindow */
 const windows = new Map();
 
+function ensureSkipTaskbar(win) {
+  if (!win || win.isDestroyed()) return;
+  if (typeof win.setSkipTaskbar === 'function') {
+    win.setSkipTaskbar(true);
+  }
+}
+
 if (!DPI_PROBE && process.env.DSH_PET_SMOKE !== '1') {
   if (!app.requestSingleInstanceLock()) {
     app.exit(0);
   } else {
     app.on('second-instance', () => {
       for (const win of windows.values()) {
-        if (!win.isDestroyed()) win.showInactive();
+        if (!win.isDestroyed()) {
+          win.showInactive();
+          ensureSkipTaskbar(win);
+        }
       }
     });
   }
@@ -466,7 +476,12 @@ function createPetWindows(initialLang = 'zh-CN') {
     win.webContents.on('will-navigate', event => event.preventDefault());
     win.webContents.on('will-attach-webview', event => event.preventDefault());
     win.setAlwaysOnTop(true, 'screen-saver');
-    win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+    ensureSkipTaskbar(win);
+    win.on('show', () => ensureSkipTaskbar(win));
+    win.on('focus', () => ensureSkipTaskbar(win));
+    if (process.platform !== 'win32') {
+      win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+    }
     // 窗口被其他窗口（另一只宠物）完全遮挡时，Chromium 默认会暂停本窗口渲染，
     // 导致大宠物移动盖过小宠物时小宠物显示为"消失"。关闭后台节流，让被遮挡
     // 窗口持续渲染，移开遮挡后立刻恢复显示。
@@ -483,14 +498,20 @@ function createPetWindows(initialLang = 'zh-CN') {
     // 默认整窗点击穿透（renderer 在光标进/出身体命中区时经 IPC 翻转可交互）；
     // forward:true 保证穿透期间 mousemove 仍转发进渲染端做命中判定。
     setWindowIgnore(win, true);
-    win.once('ready-to-show', () => win.showInactive());
+    win.once('ready-to-show', () => {
+      win.showInactive();
+      ensureSkipTaskbar(win);
+    });
     // [#55 兜底显示] paintWhenInitiallyHidden:false 时渲染器可能不产出首帧，ready-to-show 便永不触发
     // （Electron 文档原文：ready-to-show "will never fire if you use paintWhenInitiallyHidden: false"），
     // 而 show() 只挂在它上面 → 窗口永远隐藏（进程活着、宠物逻辑照跑，桌面上什么都没有）。
     // 页面加载完成后强制兜底一次；zoomFactor 的设置在更早注册的 did-finish-load 里，顺序不受影响。
     win.webContents.once('did-finish-load', () => {
       setTimeout(() => {
-        if (!win.isDestroyed() && !win.isVisible()) win.showInactive();
+        if (!win.isDestroyed() && !win.isVisible()) {
+          win.showInactive();
+          ensureSkipTaskbar(win);
+        }
       }, 400);
     });
     // [#55 兜底交互] 上面的翻转链路只有「Electron forward 鼠标钩子 → 渲染端命中判定」一个入口，
@@ -529,6 +550,7 @@ function createPetWindows(initialLang = 'zh-CN') {
       if (!due) return;
       lastTopmostAssertMs = nowMs;
       win.setAlwaysOnTop(true, 'screen-saver');
+      ensureSkipTaskbar(win);
     }, TOPMOST_WATCHDOG_TICK_MS);
     win.on('closed', () => {
       clearInterval(pointerTimer);
@@ -829,6 +851,21 @@ app.whenReady().then(async () => {
     ]);
   }
   createPetWindows(chatControls.getLanguage());
+  if (powerMonitor && typeof powerMonitor.on === 'function') {
+    const reapplyWindowsOnWake = () => {
+      for (const win of windows.values()) {
+        if (win.isDestroyed()) continue;
+        ensureSkipTaskbar(win);
+        if (win.isVisible()) win.setAlwaysOnTop(true, 'screen-saver');
+      }
+    };
+    for (const ev of ['resume', 'unlock-screen']) {
+      powerMonitor.on(ev, () => {
+        reapplyWindowsOnWake();
+        setTimeout(reapplyWindowsOnWake, 1000).unref?.();
+      });
+    }
+  }
 
   // 宠物窗口跟随：renderer 逐帧上报窗口内容区位置/尺寸
   const trustedPet = event => event.senderFrame && event.senderFrame === event.sender.mainFrame &&
@@ -1050,7 +1087,10 @@ app.whenReady().then(async () => {
     const geo = deskGeometry();
     lastRequestedBounds.clear(); // 坐标系变了，去重缓存作废，下一帧必须真的重设一次
     for (const win of windows.values()) {
-      if (!win.isDestroyed()) win.webContents.send('pet:displays', geo);
+      if (!win.isDestroyed()) {
+        win.webContents.send('pet:displays', geo);
+        ensureSkipTaskbar(win);
+      }
     }
     console.error('[dsh-pet-desktop-helper] displays changed: ' + JSON.stringify(geo));
     // 主屏缩放可能一起变了（它决定宠物的尺寸补偿）。线性化生效期间 screen API 只报被强制的值，
