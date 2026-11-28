@@ -157,5 +157,5 @@
   return actionQuotes[clip]||null;
  };
  const airborne=f=>f?.clip===takeoff.clip&&Number.isInteger(f.frame)&&f.frame>=takeoff.airborneFrame&&f.visible===true;
- return {configure,reset,plan,route,idlePose,needsLanding,isShowcase,actionQuote,airborne,takeoff,geometry,revision:'0.8.43-electron',setLanguage,getActions,getSelectable,isSelectable:name=>selectableClip(aliases[name]||name.replace(/^clip:/,'')),get actions(){return actions();},get selectable(){return getSelectable(currentLanguage);},get automatic(){return automatic();}};
+ return {configure,reset,plan,route,idlePose,needsLanding,isShowcase,actionQuote,airborne,takeoff,geometry,revision:'0.8.44-electron',setLanguage,getActions,getSelectable,isSelectable:name=>selectableClip(aliases[name]||name.replace(/^clip:/,'')),get actions(){return actions();},get selectable(){return getSelectable(currentLanguage);},get automatic(){return automatic();}};
 });

@@ -1,7 +1,7 @@
 {
-  "version": "1.2.3-release-notice.6",
+  "version": "1.2.3-release-notice.7",
   "base": "dsh-pet@0.3.7",
-  "previousRef": "v1.0.9",
+  "previousRef": "v1.0.10",
   "files": [
     {
       "source": "app/launcher.mjs",
@@ -119,13 +119,13 @@
       "source": "app/electron-helper/main.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/main.js",
       "sha256": "291bf48478aadb54010c01f01cea80a66ce44f7e62d2730bc36af871dc6e24fb",
-      "previousSha256": "c3b529d4fa37108923fa0f15f698db9d95a4f38ea8980fa46099781483a1a0f0"
+      "previousSha256": "291bf48478aadb54010c01f01cea80a66ce44f7e62d2730bc36af871dc6e24fb"
     },
     {
       "source": "app/electron-helper/package.json",
       "target": "node_modules/dsh-pet/runtime/electron-helper/package.json",
-      "sha256": "e28eea6469bd773f5a8cec7788e87c69e08d7ce4131b01e76577716d03048e8e",
-      "previousSha256": "c338cbd8607887967876e5649531bef91ff0d553ad043c3781038470ad179d47"
+      "sha256": "4aaa3bbebd2af92a66013cb84ca22b637d132c3e3d168fe6616dd12f52cba138",
+      "previousSha256": "e28eea6469bd773f5a8cec7788e87c69e08d7ce4131b01e76577716d03048e8e"
     },
     {
       "source": "app/electron-helper/pet-appearance-store.js",
@@ -305,7 +305,7 @@
       "source": "app/electron-helper/topmost-watchdog.js",
       "target": "node_modules/dsh-pet/runtime/electron-helper/topmost-watchdog.js",
       "sha256": "21df9656eefb79406415de7d1c3eb311a203f4530cd9ea37c9174fa3dad9bf42",
-      "previousSha256": "fd481963a3f3395a184fbe9df3f89bb3da4aadeb38872686068ca6203d9228c9"
+      "previousSha256": "21df9656eefb79406415de7d1c3eb311a203f4530cd9ea37c9174fa3dad9bf42"
     },
     {
       "source": "app/electron-helper/voice-log.js",

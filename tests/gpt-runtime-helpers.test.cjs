@@ -97,3 +97,30 @@ test('T2: close records step timings, flushes writers, and arms a 10 s fallback 
   assert.deepEqual([...stats.closeTimings.map(s => s.step)], ['windows', 'product', 'flush']);
   assert(flushed.includes('product-close') && flushed.includes('diag-flush') && flushed.includes('native-release'));
 });
+
+test('N1/N2: readNativeWindowHandle handles 8-byte, 4-byte, short, destroyed, and throwing handles safely', () => {
+  const b8 = Buffer.alloc(8);
+  b8.writeBigUInt64LE(0x0000000102030405n, 0);
+  assert.equal(helpers.readNativeWindowHandle({getNativeWindowHandle: () => b8}), 0x0000000102030405);
+
+  const b4 = Buffer.alloc(4);
+  b4.writeUInt32LE(0x04a00007, 0);
+  assert.equal(helpers.readNativeWindowHandle({getNativeWindowHandle: () => b4}), 0x04a00007);
+
+  const u4 = new Uint8Array(b4.buffer, b4.byteOffset, b4.byteLength);
+  assert.equal(helpers.readNativeWindowHandle({getNativeWindowHandle: () => u4}), 0x04a00007);
+
+  assert.equal(helpers.readNativeWindowHandle({getNativeWindowHandle: () => Buffer.alloc(0)}), 0);
+  assert.equal(helpers.readNativeWindowHandle({getNativeWindowHandle: () => Buffer.alloc(2)}), 0);
+  assert.equal(helpers.readNativeWindowHandle({isDestroyed: () => true, getNativeWindowHandle: () => b8}), 0);
+  assert.equal(helpers.readNativeWindowHandle(null), 0);
+  assert.equal(helpers.readNativeWindowHandle(undefined), 0);
+  assert.equal(helpers.readNativeWindowHandle({getNativeWindowHandle: () => { throw new Error('boom'); }}), 0);
+});
+
+test('N1/N2: app/main.cjs uses runtimeHelpers.readNativeWindowHandle instead of raw readBigUInt64LE', () => {
+  const main = fs.readFileSync(path.join(appDir, 'main.cjs'), 'utf8');
+  assert.equal(main.includes('getNativeWindowHandle().readBigUInt64LE'), false);
+  const matches = main.match(/runtimeHelpers\.readNativeWindowHandle\(win\)/g) || [];
+  assert(matches.length >= 2, `expected at least 2 callsites, got ${matches.length}`);
+});

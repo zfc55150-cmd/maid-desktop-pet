@@ -1,10 +1,10 @@
 {
   "acceptedForIntegrationTrial": true,
   "userVisualAcceptance": false,
-  "sourceVideoSha256": "41c6eae456601be2632755415839e8e72495fa05d0ffe3fc639ee9c7e37df3f3",
-  "videoSha256": "c60dc8be5b0aad09cef62daa7dcf724988a9f18a5a1df3cf9da2200699001064",
+  "sourceVideoSha256": "813de59d3ffb3acad18164db7128c90954e4df32f84782071395049d5c4fd8eb",
+  "videoSha256": "f379128272af6be0988319096e7387e7ce4ad7ec3099f0a2393dabf0b07aa720",
   "reviewer": "Codex primary",
   "authorization": "User explicitly requested local deployment when no major issues remain, accepting minor visual differences to conserve quota (2026-11-04).",
-  "evidence": "v5 actual MP4 full mouth sheets reviewed, former f49/f50 smile flash absent; exact alpha mask and endpoint checks passed.",
-  "remaining": "Minor faint lip lines and action tempo remain for user practical acceptance. No unreviewed ear reaction or pose bridges included."
+  "evidence": "v6 real closed-mouth transfer from un-repaired Frame 0 onto 51/150 open frames (preserving 99 closed frames untouched); decoded WebM Δluma min=37.0, median=44.0, max_pink18=0, edge_alpha_max=0.",
+  "remaining": "Pending user live visual check in desktop build."
 }

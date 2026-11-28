@@ -1,7 +1,7 @@
 {
   "name": "blue-whale-maid-maintenance",
-  "version": "1.2.3-release-notice.6",
-  "releaseTag": "v1.0.10",
+  "version": "1.2.3-release-notice.7",
+  "releaseTag": "v1.0.11",
   "private": true,
   "description": "Reviewed local customization for dsh-pet 0.3.7",
   "scripts": {

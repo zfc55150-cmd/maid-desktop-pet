@@ -10,10 +10,10 @@
   "menuGroup": "日常陪伴",
   "entryPose": "C",
   "exitPose": "C",
-  "sourceVideoSha256": "d88a5c5172d6a7b080d7403e7827d79391c34107bda5b3a9fe72be708a711ee4",
+  "sourceVideoSha256": "563ae1d201756966411f50b48925ccd20002167304d9ba5167d664f410ec5e08",
   "videoFile": "csmallweightsettle.webm",
   "maskFile": "csmallweightsettle.bin",
-  "videoSha256": "f22281988926473e98bda4825d39e3c13ad9184a11edb9d542e0add680e06e8e",
-  "maskSha256": "526241c3295f4075b40f7f19da63de21f980e485e505f7a2735235223dc53044",
+  "videoSha256": "0d8d2faf98dab7057c91e47ca517416395140fecbb1f8d8dbf123299623c9fd4",
+  "maskSha256": "d10ae1280cad997eeca563ba80e2b3097f74dc62d080fefa94e0953751f804fb",
   "maskBytes": 2764800
 }

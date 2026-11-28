@@ -81,4 +81,19 @@ function ensureTestStateSeed(dataDir, now = Date.now()) {
   return created;
 }
 
-module.exports = {resolvePackageRoot, loadProductConfig, createFakeQuotaSeed, ensureTestStateSeed};
+function readNativeWindowHandle(target) {
+  if (!target || typeof target.getNativeWindowHandle !== 'function') return 0;
+  if (typeof target.isDestroyed === 'function' && target.isDestroyed()) return 0;
+  try {
+    const raw = target.getNativeWindowHandle();
+    if (!raw || !ArrayBuffer.isView(raw)) return 0;
+    const buf = Buffer.isBuffer(raw) ? raw : Buffer.from(raw.buffer, raw.byteOffset, raw.byteLength);
+    if (buf.length >= 8) return Number(buf.readBigUInt64LE(0));
+    if (buf.length >= 4) return buf.readUInt32LE(0);
+    return 0;
+  } catch {
+    return 0;
+  }
+}
+
+module.exports = {resolvePackageRoot, loadProductConfig, createFakeQuotaSeed, ensureTestStateSeed, readNativeWindowHandle};

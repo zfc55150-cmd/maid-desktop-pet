@@ -7,9 +7,9 @@
 > 💡 **詳しい日本語マニュアル・FAQ・ライセンス説明は 👉 [README.ja.md（日本語ガイド）](README.ja.md) をご覧ください。**
 > 両マスコットは **日本語 / 簡体字中国語の自動判定＆手動切り替え** に対応しており、日本語版 Windows 環境では初回起動時から自動的に **日本語 UI・日本語セリフ** で動作します（右クリック「設定」からいつでも言語を切り替え可能）。
 
-1. **ステップ 1：ダウンロード** — [Release v1.0.10 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.10) から ZIP をダウンロード（Electron・Node.js 同梱、インストール不要）：
-   - 🐉 **GPT娘（ツンデレ竜娘）**：[GPTNiang-v0.8.43-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.10/GPTNiang-v0.8.43-electron-win-x64.zip)（59種のアニメ、クリック反応＆日本語セリフ、Codex 残量パネル）
-   - 🐋 **DeepSeek娘（クジラメイド）**：[DeepSeekActionPet-v1.0.10-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.10/DeepSeekActionPet-v1.0.10-win-x64.zip)（106種のアニメ、日本語 AI チャット＆自動長期記憶）
+1. **ステップ 1：ダウンロード** — [Release v1.0.11 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.11) から ZIP をダウンロード（Electron・Node.js 同梱、インストール不要）：
+   - 🐉 **GPT娘（ツンデレ竜娘）**：[GPTNiang-v0.8.44-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.11/GPTNiang-v0.8.44-electron-win-x64.zip)（59種のアニメ、クリック反応＆日本語セリフ、Codex 残量パネル）
+   - 🐋 **DeepSeek娘（クジラメイド）**：[DeepSeekActionPet-v1.0.11-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.11/DeepSeekActionPet-v1.0.11-win-x64.zip)（106種のアニメ、日本語 AI チャット＆自動長期記憶）
 2. **ステップ 2：すべて解凍（展開）** — `C:\Program Files` 以外の**書き込み権限がある任意のフォルダ**（例：`D:\Pets\GPTNiang` やデスクトップ）に **すべて展開** してください（ZIP 内で直接実行しないでください）。
 3. **ステップ 3：起動・停止（文字化け防止の英数字 `.cmd` 推奨）**：
    - **GPT娘**：起動 `Start-GPT-Niang.cmd` ／ 停止 `Stop-GPT-Niang.cmd`
@@ -19,16 +19,16 @@
 
 # 🚀 新手 3 步快速下载与启动指南 / Quick start (3 steps)
 
-**便携版**可在 [Release v1.0.10](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.10) 下载，包内自带 Electron 与 Node.js。两款桌宠现已支持**中/日双语自动识别与切换**（自动适配系统语言，亦可随时在设置面板手动切换并保存）。两款包内的角色与动画素材均仅限非商业署名分享（`CC BY-NC-SA 4.0`，详见各包根目录 `ANIMATION-LICENSE.md`），且已完成包内 `state/` 隔离与双副本独立停止修复。详见[素材补证与双宠同步记录](docs/GPT娘素材补证与双宠同步-20261117.md)。
+**便携版**可在 [Release v1.0.11](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.11) 下载，包内自带 Electron 与 Node.js。两款桌宠现已支持**中/日双语自动识别与切换**（自动适配系统语言，亦可随时在设置面板手动切换并保存）。两款包内的角色与动画素材均仅限非商业署名分享（`CC BY-NC-SA 4.0`，详见各包根目录 `ANIMATION-LICENSE.md`），且已完成包内 `state/` 隔离与双副本独立停止修复。详见[素材补证与双宠同步记录](docs/GPT娘素材补证与双宠同步-20261117.md)。
 
 ## 第 1 步：下载 / Download
 
-打开 [Release v1.0.10 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.10)，选择需要的桌宠：
+打开 [Release v1.0.11 → Assets](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/tag/v1.0.11)，选择需要的桌宠：
 
 | 附件 | 桌宠 | 大小 | 内容 |
 |---|---|---|---|
-| [GPTNiang-v0.8.43-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.10/GPTNiang-v0.8.43-electron-win-x64.zip) | **GPT娘** | 429.2 MiB | `0.8.43-electron`：中/日双语自动切换、59 段动画、10,948 帧，修复重启自启旧暂停阻塞与唤醒任务栏图标隐藏加固 |
-| [DeepSeekActionPet-v1.0.10-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.10/DeepSeekActionPet-v1.0.10-win-x64.zip) | **DeepSeek娘** | 229.2 MiB | 中/日双语自动切换（含日语女仆人设与长期记忆）、106 段透明动画，修复 Windows 休眠/唤醒与显示变化后任务栏残留 `dsh-pet` Electron 图标 |
+| [GPTNiang-v0.8.44-electron-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.11/GPTNiang-v0.8.44-electron-win-x64.zip) | **GPT娘** | 424.7 MiB | `0.8.44-electron`：中/日双语自动切换、59 段动画、10,948 帧，修复 4 条正面待机微动作偶发嘴巴消失、跨平台窗口句柄越界闪退与便携半身兜底/拖拽看门狗竞态 |
+| [DeepSeekActionPet-v1.0.11-win-x64.zip](https://github.com/zfc55150-cmd/maid-desktop-pet/releases/download/v1.0.11/DeepSeekActionPet-v1.0.11-win-x64.zip) | **DeepSeek娘** | 229.2 MiB | 中/日双语自动切换（含日语女仆人设与长期记忆）、106 段透明动画，同步 `v1.0.11` 发布基线与更新提醒 |
 
 两个包可同时下载运行；下载后可用同页 `SHA256SUMS.txt` 校验文件完整性。
 
@@ -51,7 +51,7 @@
 
 每个包内均附中/日双语 `PORTABLE-README.md`：完整使用说明、隔离机制、故障排查与隐私声明。
 
-维护入口：[仓库同步、推送前检查与便携版发布](docs/仓库同步与便携版发布.md)。当前正式版（v1.0.10）及后续版本双宠均带轻量版本提醒与中/日双语切换；若仍在使用早期 v1.0.1 DeepSeek 娘，需先手动替换为新版本便携包。
+维护入口：[仓库同步、推送前检查与便携版发布](docs/仓库同步与便携版发布.md)。当前正式版（v1.0.11）及后续版本双宠均带轻量版本提醒与中/日双语切换；若仍在使用早期 v1.0.1 DeepSeek 娘，需先手动替换为新版本便携包。
 
 ## 常见问题 / FAQ
 
@@ -71,7 +71,7 @@ cd /d "你的解压目录"
 node\node.exe app\package-doctor.cjs "%CD%"
 ```
 
-期望输出：`{"ok":true,"version":"0.8.43-electron","releaseTag":"v1.0.10","files":285,"clips":59,"frames":10948,...}`
+期望输出：`{"ok":true,"version":"0.8.44-electron","releaseTag":"v1.0.11","files":285,"clips":59,"frames":10948,...}`
 
 ## 隐私保证 / Privacy guarantee
 
@@ -86,7 +86,9 @@ node\node.exe app\package-doctor.cjs "%CD%"
 
 # 📜 版本记录 / Version log
 
-2026-11-28 当前正式版（v1.0.10）：GPT 娘 **0.8.43-electron** + DeepSeek 娘 **1.2.3-release-notice.6**，修复 GPT 娘重启后因上次普通用户退出残留 `supervisor-pause.json` 导致开机自启长期暂停的问题（仅保留安全模式崩溃保护跨重启暂停），并修复 DeepSeek 娘（`dsh-pet`）与 GPT 娘在 Windows 下因调用 macOS/Linux 专用的 `setVisibleOnAllWorkspaces` 及休眠/锁屏唤醒、显示切换后未重新声明 `setSkipTaskbar(true)` 导致任务栏出现多余 Electron 图标的问题。[仓库同步与便携版发布](docs/仓库同步与便携版发布.md)。
+2026-11-28 当前正式版（v1.0.11）：GPT 娘 **0.8.44-electron** + DeepSeek 娘 **1.2.3-release-notice.7**，修复 GPT 娘 4 条正面待机微动作（`cbrushfringe` / `chandsrest` / `csmallweightsettle` / `cnoticeuser`）在桌面端偶发嘴巴消失的问题（基于原始第 0 帧真实闭口迁移与桌面调色重出），修复 Linux/短句柄平台下 `readBigUInt64LE()` 越界导致的悬停闪退与 `stop.flag`/控制通道截断（新增 `readNativeWindowHandle`），并修复便携版半身切换兜底、图库列表缓存与无原生左键状态下的长按看门狗竞态（通过全部 285 项便携版冒烟测试）。[仓库同步与便携版发布](docs/仓库同步与便携版发布.md)。
+
+2026-11-28 历史正式版（v1.0.10）：GPT 娘 **0.8.43-electron** + DeepSeek 娘 **1.2.3-release-notice.6**，修复 GPT 娘重启后因上次普通用户退出残留 `supervisor-pause.json` 导致开机自启长期暂停的问题（仅保留安全模式崩溃保护跨重启暂停），并修复 DeepSeek 娘（`dsh-pet`）与 GPT 娘在 Windows 下因调用 macOS/Linux 专用的 `setVisibleOnAllWorkspaces` 及休眠/锁屏唤醒、显示切换后未重新声明 `setSkipTaskbar(true)` 导致任务栏出现多余 Electron 图标的问题。[仓库同步与便携版发布](docs/仓库同步与便携版发布.md)。
 
 2026-11-22 历史正式版（v1.0.9）：GPT 娘 **0.8.42-electron** + DeepSeek 娘 **1.2.3-release-notice.5**，完成第四轮审计全部中危与重点遗留加固（`previousRef` 对齐直接前驱正式版本 `v1.0.8` 与 `build-manifest.cjs` 联动、`verify.cjs` 兼容便携包单行 `DSH_HOME` 注入及生成文件校验、GPT 渲染桥接缺失上报与 10 秒初始化看门狗、`supervisor-pause` 恢复指引与独立写盘隔离、掩码缺失包围盒降级与孤儿 `.tmp` 清理、DeepSeek 抛掷初速硬限幅、同目录 `file://` 源站校验与 CSP 收紧、`build-deepseek-portable-release.py` 注释剥离与细粒度终验报错、`scripts/README.md` 脚本归档索引）。[仓库同步与便携版发布](docs/仓库同步与便携版发布.md)。
 

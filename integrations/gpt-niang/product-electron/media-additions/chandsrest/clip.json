@@ -10,10 +10,10 @@
   "menuGroup": "日常陪伴",
   "entryPose": "C",
   "exitPose": "C",
-  "sourceVideoSha256": "294a8748dbf2a15fd371d55b1ba754228412dfd419e3644a4b7578a7335a1545",
+  "sourceVideoSha256": "86e54627c67bd483212c182036960c47b6681d611cd56f580b1746f1753e3bf9",
   "videoFile": "chandsrest.webm",
   "maskFile": "chandsrest.bin",
-  "videoSha256": "b069ae72d122f8eb8db6c9e530b0a3b9a03dae895c07185992573c99b8d227a9",
-  "maskSha256": "ac8e9b99f3f9235e717275bf173f73380192ba461236e679e8e4e22ab0d97735",
+  "videoSha256": "32edb8db6ebd273b9a02ca371e7dc7c54213b7e693e144c44f4a397bfcca3fb2",
+  "maskSha256": "e450be1a6ba2fb56199983e1c85986d216e76b8f7378a764f81e4e9527ebe78a",
   "maskBytes": 2764800
 }
